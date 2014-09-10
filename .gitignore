@@ -66,3 +66,7 @@ vagrant/ertp-environments/*
 scripts/bin/*
 ier-frontend
 ier-jobs/dwp-files
+
+# Project-specific
+appengine-generated/
+modules/
