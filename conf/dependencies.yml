@@ -1,0 +1,6 @@
+# Application dependencies
+
+require:
+    - play
+    - play -> gae 1.6.0
+    - play -> siena 2.0.7

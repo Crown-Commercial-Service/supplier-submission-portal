@@ -1,0 +1,10 @@
+#{extends 'main.html' /}
+#{set title:'Home' /}
+
+Attach document
+
+#{form @submitDocuments(), enctype:'multipart/form-data'}
+    <input type="text" name="title" />
+    <input type="file" id="doc" name="doc" />
+    <input type="submit" value="Send it..." />
+#{/}

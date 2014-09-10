@@ -1,0 +1,74 @@
+fieldset.form label {
+    display: inline-block;
+    text-align: left;
+    width: 9.0em;
+}
+
+
+footer .footer-categories ul {
+    font-family: "nta",Arial,sans-serif;
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 1.25;
+    list-style: none outside none;
+    text-transform: none;
+}
+#footer .footer-categories ul li {
+    clear: left;
+    display: block;
+    float: left;
+    margin: 0 0 15px;
+}
+
+#footer .footer-categories .footer-about-gcloud {
+    float: left;
+    margin-right: 3%;
+    width: 30%;
+}
+
+#footer .footer-categories .footer-customer-zone {
+    float: left;
+    margin-right: 3%;
+    width: 30%;
+}
+
+#footer .footer-categories .footer-suppliers-zone {
+    float: left;
+    width: 34%;
+}
+
+article table {
+    margin: 1em 0 2em;
+    width: 100%;
+}
+article table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    margin: 1em -1em 2em;
+    width: 105.95%;
+}
+
+article th {
+    background-color: #DEE0E2;
+    border: 1px solid #BFC1C3;
+    color: #0B0C0C;
+    font-weight: 700;
+    line-height: 1.25em;
+    text-align: left;
+}
+article th, article td {
+    font-family: "nta",Arial,sans-serif;
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 1.25;
+    padding: 0.7em 0.5em 0.7em 1em;
+    text-transform: none;
+    vertical-align: top;
+}
+article td {
+    background: none repeat scroll 0 0 #F8F8F8;
+    border: 1px dotted #BFC1C3;
+}
+
+
+
