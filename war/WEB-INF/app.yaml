@@ -1,0 +1,10 @@
+application: ssp-spike-test
+version: 1
+runtime: java
+
+handlers:
+- url: /*
+  login: admin
+
+- url: /products
+  login: admin

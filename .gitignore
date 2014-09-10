@@ -70,3 +70,4 @@ ier-jobs/dwp-files
 # Project-specific
 appengine-generated/
 modules/
+precompiled/
