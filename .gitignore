@@ -71,3 +71,5 @@ ier-jobs/dwp-files
 appengine-generated/
 modules/
 precompiled/
+test-result/
+
