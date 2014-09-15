@@ -4,13 +4,14 @@
 
 # Home page
 GET     /                                       Dashboard.home
-GET     /product/{id}                           Product.summaryPage
-GET     /product/{id}/{page}                    Product.editPage
-GET     /products                               Application.listProducts
-GET     /insert                                 Application.captureProduct
-POST    /insert                                 Application.submitProduct
-GET     /documents                              Application.captureDocuments
-POST    /documents                              Application.submitDocuments
+
+GET     /service/{id}                           Service.summaryPage
+GET     /service/{id}/{page}                    Service.editPage
+GET     /addservice                             Service.newService
+POST    /addservice                             Service.createListing
+
+GET     /documents                              Documents.captureDocuments
+POST    /documents                              Documents.submitDocuments
 
 # Ignore favicon requests
 # GET     /favicon.ico                            404
