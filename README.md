@@ -22,7 +22,7 @@ Pull in the required modules (you should only need to do this once, or when depe
 Start her up!
 `~/workspace/supplier-submission-portal$ play run`
 
-Then point a browser to http://localhost:9000/ to see where we're at.
+Then point a browser to [http://localhost:9000/](http://localhost:9000/) to see where we're at.
 
 If you want to use the IntelliJ Idea IDE then do the following before importing the project (other import methods don't seem to work as nicely as this one); there are also similar commands for other popular IDEs:
 
@@ -41,7 +41,7 @@ To pick a selection of tests to run:
 
 `~/workspace/supplier-submission-portal$ play test`
 
-Then point a browser to http://localhost:9000/@tests to pick the tests to run.
+Then point a browser to [http://localhost:9000/@tests](http://localhost:9000/@tests) to pick the tests to run.
 
 Play Documentation
 ------------------
