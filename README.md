@@ -42,3 +42,8 @@ To pick a selection of tests to run:
 `~/workspace/supplier-submission-portal$ play test`
 
 Then point a browser to http://localhost:9000/@tests to pick the tests to run.
+
+Play Documentation
+------------------
+
+Documentation for Play 1.2.4 is here: https://www.playframework.com/documentation/1.2.4/home
