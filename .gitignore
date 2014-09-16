@@ -73,3 +73,9 @@ modules/
 precompiled/
 test-result/
 dist/
+
+# Front end specific. All of these things are generated at runtime with Grunt
+node_modules
+bower_components
+govuk_modules
+public

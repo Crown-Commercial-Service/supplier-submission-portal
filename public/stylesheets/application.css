@@ -3176,7 +3176,8 @@ header h1 {
         line-height: 1.25; } }
 
 #questions-container fieldset {
-  margin: 0 0 20px 0; }
+  margin: 0 0 20px 0;
+  padding: 0; }
 #questions-container legend {
   font-family: "nta", Arial, sans-serif;
   font-size: 24px;
@@ -3184,7 +3185,7 @@ header h1 {
   font-weight: 400;
   text-transform: none;
   font-weight: bold;
-  margin-bottom: 20px; }
+  margin: 0 0 15px 0; }
   @media (max-width: 640px) {
     #questions-container legend {
       font-size: 18px;
@@ -3218,7 +3219,7 @@ header h1 {
   font-weight: 400;
   text-transform: none;
   padding-top: 3px;
-  margin: 20px 0 30px 0;
+  margin: 25px 0 30px 0;
   clear: both; }
   #questions-container input[type=submit]:visited {
     background-color: #00823b; }
@@ -3359,9 +3360,8 @@ header h1 {
   #questions-container table .hint {
     margin: 0; }
 #questions-container .hint {
-  margin: -20px 0 25px 0;
-  font-weight: normal;
-  color: #6f777b; }
+  margin: -15px 0 15px 0;
+  font-weight: normal; }
 #questions-container .explanation {
   clear: both;
   margin: -5px 0 25px 0;
@@ -3442,6 +3442,24 @@ header h1 {
   display: none; }
   #questions-container section:first-child {
     display: block; }
+#questions-container .wordCount {
+  height: 0;
+  width: 66%;
+  text-align: right;
+  overflow: visible;
+  font-family: "nta", Arial, sans-serif;
+  font-size: 19px;
+  line-height: 1.31579;
+  font-weight: 400;
+  text-transform: none;
+  line-height: 1;
+  margin: 5px 0 20px 0;
+  padding: 0;
+  color: #6f777b; }
+  @media (max-width: 640px) {
+    #questions-container .wordCount {
+      font-size: 16px;
+      line-height: 1.25; } }
 
 .serviceSummary ul {
   margin: 0 0 40px 0;
@@ -3468,7 +3486,9 @@ header h1 {
     border-bottom: 1px solid #dee0e2; }
   .serviceSummary li span {
     float: right;
-    text-align: right; }
+    padding-left: 20px; }
+    .serviceSummary li span.toTheRight {
+      text-align: right; }
 .serviceSummary h2 {
   font-family: "nta", Arial, sans-serif;
   font-size: 24px;
@@ -3484,6 +3504,8 @@ header h1 {
     .serviceSummary h2 {
       font-size: 18px;
       line-height: 1.2; } }
+.serviceSummary .hint {
+  margin: -5px 0 15px 0; }
 
 h2 {
   margin-bottom: 30px; }
@@ -3501,3 +3523,11 @@ h2 {
 
 #inner-wrapper {
   margin: 0 0 60px 0; }
+
+.assuranceQuestion {
+  clear: both;
+  margin: 0;
+  padding: 10px 0 10px 0; }
+
+.hint {
+  color: #6f777b; }
