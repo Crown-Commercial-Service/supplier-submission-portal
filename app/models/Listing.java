@@ -1,5 +1,6 @@
 package models;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import siena.*;
@@ -7,7 +8,6 @@ import siena.embed.Embedded;
 import uk.gov.gds.dm.ServiceSubmissionJourneyFlows;
 
 import static siena.Json.*;
-
 
 @Table("listing")
 public class Listing extends Model {
@@ -47,14 +47,30 @@ public class Listing extends Model {
         this.supplierId = supplierId;
         this.lot = lot;
         pageSequence = ServiceSubmissionJourneyFlows.getFlow(lot);
+        int size = pageSequence.size();
+        completedPages = new ArrayList<Page>(size);
+        for (int i=0; i< size; i++) {
+            completedPages.add(Page.emptyPage());
+        }
+        System.out.println("Created Completed: " + completedPages);
     }
 
-//    public static List<Listing> all() {
-//        return Model.all(Listing.class).fetch();
-//    }
+    public String nextPage(String currentPage) {
+        int index = pageSequence.indexOf(currentPage);
+        if (index == pageSequence.size()-1) {
+            // End of questions
+            return "finished";
+        } else {
+            return pageSequence.get(index+1);
+        }
+    }
 
     public static List<Listing> allBySupplierId(String supplierId) {
         return Model.all(Listing.class).filter("supplierId", supplierId).fetch();
+    }
+
+    public static Listing getByListingId(Long listingId) {
+        return Listing.getByKey(Listing.class, listingId);
     }
 
     @Override
@@ -68,4 +84,5 @@ public class Listing extends Model {
                 ", pageSequence='" + pageSequence + "'" +
                 '}';
     }
+
 }

@@ -5,10 +5,10 @@ import java.util.List;
 
 public class ServiceSubmissionJourneyFlows {
     
-    private final static List<String> saasFlow = Arrays.asList("1a", "2");
-    private final static List<String> iaasFlow = Arrays.asList("1b", "2");
-    private final static List<String> paasFlow = Arrays.asList("1c", "2");
-    private final static List<String> scsFlow = Arrays.asList("1d", "2");
+    private final static List<String> saasFlow = Arrays.asList("start", "1a", "2");
+    private final static List<String> iaasFlow = Arrays.asList("start", "1b", "2");
+    private final static List<String> paasFlow = Arrays.asList("start", "1c", "2");
+    private final static List<String> scsFlow = Arrays.asList("start", "1d", "2");
     
     public static List<String> getFlow(String lot) throws IllegalArgumentException {
         if (lot.equals("SaaS")) {

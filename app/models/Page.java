@@ -1,15 +1,15 @@
-package models;
+package models; 
 
 import siena.*;
 import siena.embed.Embedded;
+import siena.embed.EmbeddedMap;
 
-import java.util.List;
+import java.util.HashMap;
 import java.util.Map;
 
-
-@Table("page")
+@EmbeddedMap
 public class Page extends Model {
-    
+
     // For GAE :
     // 1. @Id annotated field corresponding to the primary key must be Long type
     // 2. @Id annotated field corresponding to the primary key must be called "id"
@@ -19,25 +19,30 @@ public class Page extends Model {
     @Column("pageNumber")
     @NotNull
     public String pageNumber;
-    
+
     @Column("listingId")
     @NotNull
-    public String listingId;
+    public Long listingId;
 
     @Embedded
     public Map<String,String> responses;
-    
-    public Page(String listingId, String pageNumber) {
+
+    public Page(Long listingId, String pageNumber) {
         this.listingId = listingId;
         this.pageNumber = pageNumber;
+        responses = new HashMap<String,String>();
     }
 
-    public static List<Page> allByListingId(String listingId) {
-        return Model.all(Page.class).filter("listingId", listingId).fetch();
+    private Page() {
+
+    }
+    
+    public static Page emptyPage() {
+        return new Page();
     }
 
     // TODO: Method(s) to store responses into the responses object
-    
+
     @Override
     public String toString() {
         return "Page{" +

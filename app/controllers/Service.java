@@ -32,9 +32,14 @@ public class Service extends Controller {
         }
 
         // TODO: Get supplier ID for logged in user
-        Listing l = new Listing(DevUtils.randomSupplierId(), params.get("lot"));
-        l.insert();
+        Listing listing = new Listing(DevUtils.randomSupplierId(), params.get("lot"));
+        listing.insert();
         // TODO: Get next page using page sequence saved in Listing object
-        redirect("/");
+        redirect(String.format("/page/%s/%s", listing.nextPage("start"), listing.id));
+    }
+    
+    public static void submissionComplete(String listingId) {
+        // TODO: Add flash message to say "All questions complete"
+        redirect(String.format("/service/%s", listingId));
     }
 }
