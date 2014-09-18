@@ -1,0 +1,8 @@
+<form name="form" ng-submit="save(todo)">
+	<label for="form-name">Name</label>
+	<input id="form-name" type="text" placeholder="Name" ng-model="todo.name" required />
+	<select multiple ui-select2="{width: 'copy'}">
+		<option ng-repeat="tag in todo.tags" valuer="{{$index}}">{{tag.name}}</option>
+	</select>
+	<input class="btn btn-primary" type="submit" placeholder="Submit" ng-disabled="form.$invalid" />
+</form>

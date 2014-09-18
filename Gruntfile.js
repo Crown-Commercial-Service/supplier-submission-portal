@@ -87,7 +87,7 @@ module.exports = function(grunt){
     copy: {
 
       govuk_frontend_toolkit: {
-        cwd: 'node_modules/govuk_frontend_toolkit/govuk_frontend_toolkit/',
+        cwd: 'node_modules/govuk_frontend_toolkit/',
         src: '**',
         dest: 'govuk_modules/govuk_frontend_toolkit/',
         expand: true
@@ -192,5 +192,11 @@ module.exports = function(grunt){
     'dev',
     'watch'
   ]);
+
+  grunt.registerTask('run', [ // `run` seems to be hard coded into the play-grunt plugin
+    'default'
+  ]);
+
+
 
 };

@@ -1,0 +1,7 @@
+.*
+!.gitignore
+
+*.iml
+*.pyc
+/dist/
+/lib/
