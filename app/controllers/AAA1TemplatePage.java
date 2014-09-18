@@ -18,12 +18,12 @@ public class AAA1TemplatePage extends Controller {
         Listing listing = Listing.getByListingId(listingId);
         
         // TODO: Validate all fields on this page requiring validation
-        
+
         if(validation.hasErrors()) {
             for(play.data.validation.Error error : validation.errors()) {
-                System.out.println(error.message());
+                System.out.println("Validation error: " + error.message());
             }
-            flash.error("Validation failed", validation.errors());
+            flash.error("Validation failed: %s", validation.errors());
             redirect(String.format("/page/%s/%s", PAGE_ID, listing.id));
         }
         

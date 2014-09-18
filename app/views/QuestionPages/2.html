@@ -1,0 +1,26 @@
+#{extends 'layout.html' /}
+#{set title:'Adding a new service - Page x of y' /}
+
+<p>
+    <a href="index.html">Home</a>
+</p>
+<div class="page-header group">
+    <h1 class="heading-48">G-Cloud 6 submissions</h1>
+</div>
+<form id="questions-container" action="${request.getBase()}${request.url}" method="POST">
+    <section style="display: block;"><p class="page-count page-${pageNum}">Page ${pageNum} of ${pageTotal}</p>
+        <h2>Question section header</h2>
+        <fieldset>
+            <legend>Question 1 text</legend>
+            <p class="hint">Question 1 hint</p>
+            <input type="text" name="p2_q1" class="validate-notBlank" data-validate-notblank-message="ERROR" value="${oldValues?.get("p2_q1")}">
+            </fieldset>
+        <fieldset>
+            <legend>Question 2 text</legend>
+            <p class="hint">Question 2 hint.</p>
+            <textarea name="p2_q2" class="validate-notBlank" data-max-length-in-words="50" aria-controls="wordcount">${oldValues?.get("p2_q2")}</textarea>
+            <p class="wordCount" role="status" aria-live="assertive" aria-relevant="text" id="wordcount">50 words remaining</p>
+        </fieldset>
+        <input type="submit" value="Save and continue"><p class="goBackAPage"><a href="#">Go back to previous page</a></p><p class="returnToDashboard"><a href="/">Return to dashboard</a></p></section>
+
+</form>

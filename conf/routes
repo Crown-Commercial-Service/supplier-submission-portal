@@ -19,6 +19,9 @@ POST    /documents                              Documents.submitDocuments
 # Map static resources from the /app/public folder to the /public path
 GET     /public/                                staticDir:public
 
+# Summary page when finished
+GET     /page/finished/{id}                     Service.summaryPage
+
 # Service submission question pages
 GET     /page/{pageId}/{listingId}              QuestionPageDisplay.showPage
 
@@ -26,6 +29,7 @@ POST    /page/1a/{listingId}                    Page1a.savePage
 POST    /page/1b/{listingId}                    Page1b.savePage
 POST    /page/1c/{listingId}                    Page1c.savePage
 POST    /page/1d/{listingId}                    Page1d.savePage
+POST    /page/2/{listingId}                     Page2.savePage
 
 # Show summary page for service once all questions are complete
 GET     /page/finished/{listingId}              Service.submissionComplete

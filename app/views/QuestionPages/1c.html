@@ -10,7 +10,7 @@
 <div class="page-header group">
     <h1 class="heading-48">G-Cloud 6 submissions</h1>
 </div>
-        
+
 <form id="questions-container" action="${request.getBase()}${request.url}" method="POST">
 
     <section style="display: block;"><p class="page-count page-${pageNum}">Page ${pageNum} of ${pageTotal}</p>
@@ -24,7 +24,19 @@
                 <input type="checkbox" name="p1c_q1" value="box2val" #{if oldValues?.get("p1c_q1")?.contains("box2val")} checked #{/if}>
                 Box 2 value text
             </label>
+            <label class="chunk">
+                <input type="checkbox" name="p1c_q1" value="box3val" #{if oldValues?.get("p1c_q1")?.contains("box3val")} checked #{/if}>
+                Box 3 value text
+            </label>
+            <label class="chunk">
+                <input type="checkbox" name="p1c_q1" value="box4val" #{if oldValues?.get("p1c_q1")?.contains("box4val")} checked #{/if}>
+                Box 4 value text
+            </label>
+            <label class="chunk">
+                <input type="checkbox" name="p1c_q1" value="box5val" #{if oldValues?.get("p1c_q1")?.contains("box5val")} checked #{/if}>
+                Box 5 value text
+            </label>
         </fieldset>
-    <input type="submit" value="Save and continue"><p class="goBackAPage"><a href="#">Go back to previous page</a></p><p class="returnToDashboard"><a href="/">Return to dashboard</a></p></section>
+        <input type="submit" value="Save and continue"><p class="goBackAPage"><a href="#">Go back to previous page</a></p><p class="returnToDashboard"><a href="/">Return to dashboard</a></p></section>
 
 </form>
