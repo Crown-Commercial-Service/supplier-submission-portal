@@ -76,7 +76,7 @@
 <!--end global-cookie-message-->
 
 
-<header role="banner" id="global-header" class="with-proposition">
+<header role="banner" id="global-header"#{header_class /}>
     <div class="header-wrapper">
         <div class="header-global">
             <div class="header-logo">
@@ -85,20 +85,7 @@
                 </a>
             </div>
         </div>
-        <div class="header-proposition">
-            <div class="content">
-                <a href="#proposition-links" class="js-header-toggle menu">Menu</a>
-                <nav id="proposition-menu">
-                    <a href="/" id="proposition-name">Digital Marketplace <span class="alpha-tag">Live</span></a>
-                    <ul id="proposition-links">
-                        <li><a href="https://digitalmarketplace.service.gov.uk/digitalmarketplace/">Home</a></li>
-                        <li><a href="#">Dashboard</a></li>
-                        <li><a href="#">Log out</a></li>
-                        <li><a href="/ssp_dashboard">G-Cloud 6 Submissions</a></li>
-                    </ul>
-                </nav>
-            </div>
-        </div>
+        #{proposition_header /}
     </div>
 </header>
 <!--end header-->
