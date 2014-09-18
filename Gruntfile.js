@@ -87,9 +87,16 @@ module.exports = function(grunt){
     copy: {
 
       govuk_frontend_toolkit: {
-        cwd: 'node_modules/govuk_frontend_toolkit/',
+        cwd: 'node_modules/govuk_frontend_toolkit/govuk_frontend_toolkit',
         src: '**',
         dest: 'govuk_modules/govuk_frontend_toolkit/',
+        expand: true
+      },
+
+      govuk_template: {
+        cwd: 'node_modules/govuk_template_mustache/assets/',
+        src: '**',
+        dest: 'govuk_modules/govuk_template/',
         expand: true
       },
 
@@ -101,9 +108,30 @@ module.exports = function(grunt){
       },
 
       toolkit_js: {
-        cwd: 'node_modules/govuk_frontend_toolkit/javascripts/govuk/',
+        cwd: 'node_modules/govuk_frontend_toolkit/govuk_frontend_toolkit/javascripts/govuk/',
         src: 'selection-buttons.js',
         dest: 'public/javascripts/',
+        expand: true
+      },
+
+      template_js: {
+        cwd: 'node_modules/govuk_template_mustache/assets/javascripts/',
+        src: '**',
+        dest: 'public/javascripts/',
+        expand: true
+      },
+
+      toolkit_images: {
+        cwd: 'node_modules/govuk_frontend_toolkit/images/',
+        src: '**',
+        dest: 'public/images/',
+        expand: true
+      },
+
+      template_images: {
+        cwd: 'node_modules/govuk_template_mustache/assets/images/',
+        src: '**',
+        dest: 'public/images/',
         expand: true
       }
     },
