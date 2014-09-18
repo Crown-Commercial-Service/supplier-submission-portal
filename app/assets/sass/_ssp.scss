@@ -1,0 +1,425 @@
+.sspDashboard {
+
+  h2 {
+    margin-top: 40px;
+  }
+
+  .page-header + h2 {
+    margin-top: 0;
+  }
+
+}
+
+.summary {
+
+  li {
+
+    @include core-19;
+    list-style: none;
+    display: block;
+    margin: 0 0 10px -35px;
+    background: $highlight-colour;
+    padding: 5px;
+    border: 1px solid $grey-3;
+    max-width: 66%;
+    position: relative;
+    z-index: 10;
+
+    &:hover {
+      background: white;
+    }
+
+    &.noBorder {
+      border: none;
+      background: none;
+      padding-left: 0;
+    }
+
+    &.fadeAbove {
+      box-shadow: 0 -10px 40px 20px #fff;
+      z-index: 11;
+    }
+
+    span {
+      float: right;
+      text-align: right;
+    }
+
+  }
+
+}
+
+.toTheRight {
+
+  width: 100%;
+  position: relative;
+  left: 100%;
+  top: -1.25em;
+  margin-bottom: -1.25em;
+  box-sizing: border-box;
+  padding-left: 0;
+  display: block;
+
+  h2 & {
+    @include core-19;
+    font-weight: normal;
+    text-align: right;
+    top: -25px;
+  }
+
+}
+
+#questions-container {
+
+  fieldset {
+    margin: 0 0 20px 0;
+    padding: 0;
+  }
+
+  legend {
+    @include core-24;
+    font-weight: bold;
+    margin: 0 0 15px 0;
+  }
+
+  input{
+
+    &[type=submit] {
+      @include button;
+      display: block;
+      width: auto;
+      padding: 0 20px 0 20px;
+      @include core-24;
+      padding-top: 3px;
+      margin: 25px 0 30px 0;
+      clear: both;
+    }
+
+    &[type=text] {
+      width: 66%;
+      display: block;
+    }
+
+    &.percentage {
+      display: inline-block;
+      width: 6em;
+      text-align: right;
+      padding-right: 5px;
+    }
+
+    &.price {
+      display: inline-block;
+      width: 4em;
+      @include core-19;
+    }
+
+  }
+
+  select {
+    font-size: 19px;
+    width: 95%;
+  }
+
+  textarea {
+    width: 66%;
+    height: 10em;
+    border: 1px solid $border-colour;
+    box-sizing: border-box;
+    @include core-19;
+    padding: 5px;
+  }
+
+  label {
+
+    @include core-19;
+
+    &.chunk {
+
+      display: block;
+      float: left;
+      clear: left;
+      list-style: none;
+      cursor: pointer;
+      padding: 10px 15px 10px 10px;
+      margin: 0 15px 15px 0;
+      background: #dee0e2;
+      border: 1px solid #dee0e2;
+
+      &.optionSelected {
+        background: white;
+        border: 1px solid #0b0c0c;
+      }
+
+      &.optionFocused {
+        outline: 3px solid $yellow;
+      }
+
+      input {
+        margin: 0 5px;
+      }
+
+    }
+
+    &.boolean {
+      display: inline-block;
+      float: none;
+    }
+
+    &.confirm {
+      display: block;
+      max-width: 66%;
+      box-sizing: border-box;
+    }
+
+    &.unit {
+      display: inline-block;
+      @include core-19;
+      padding-left: 5px;
+      padding-right: 5px;
+    }
+
+  }
+
+  table {
+
+    border: none;
+
+    td, th {
+      padding: 0;
+      text-align: left;
+      vertical-align: middle;
+      padding-bottom: 15px;
+    }
+
+    label {
+
+    }
+
+    .hint {
+      margin: 0;
+    }
+
+  }
+
+  .hint {
+    margin: -15px 0 15px 0;
+    font-weight: normal;
+  }
+
+  .explanation {
+    clear: both;
+    margin: -5px 0 25px 0;
+    max-width: 66%;
+  }
+
+  .goBackAPage {
+    margin: 10px 0 10px 0px;
+  }
+
+  .returnToDashboard {
+    margin: 10px 0 10px 0px;
+    display: block;
+  }
+
+  .repeatable {
+
+    list-style-type: none;
+
+    .listRemove {
+      @include core-19;
+      margin: -52px 0 20px 644px;
+      display: block;
+    }
+
+    .js-enabled & {
+
+      display: none;
+
+      &:nth-of-type(1) {
+
+        .listRemove {
+          display: none;
+        }
+
+      }
+
+      &:nth-of-type(1),
+      &:nth-of-type(2) {
+        display: block;
+      }
+
+    }
+
+  }
+
+  tr {
+
+    &.repeatable {
+
+      .js-enabled & {
+
+        &:nth-of-type(1),
+        &:nth-of-type(2) {
+          display: table-row;
+        }
+
+      }
+
+      .listRemove {
+        margin: 0;
+      }
+
+    }
+
+  }
+
+  td {
+
+    width: auto;
+    vertical-align: middle;
+
+    input[type=text] {
+      width: 100%;
+      margin-bottom: 0;
+    }
+
+    input.price {
+      width: 4em;
+    }
+
+    p {
+      display: inline-block;
+      @include core-19;
+      text-align: center;
+    }
+
+  }
+
+  span.numeral {
+    float: left;
+    @include core-19;
+    width: 1.6em;
+    margin: 13px -1.6em 0 0;
+    position: relative;
+    left: 10px;
+    color: $grey-2;
+    font-weight: bold;
+    pointer-events: none;
+  }
+
+  input.numeral {
+    padding-left: 35px;
+  }
+
+  ol {
+    margin: 0;
+    padding: 0;
+  }
+
+  section { // This is one 'page' of questions
+
+    display: none;
+
+    &:first-child {
+      display: block;
+    }
+
+  }
+
+  .wordCount {
+    height: 0;
+    width: 66%;
+    text-align: right;
+    overflow: visible;
+    @include core-19;
+    line-height: 1;
+    margin: 5px 0 20px 0;
+    padding: 0;
+    color: $secondary-text-colour;
+  }
+
+}
+
+.serviceSummary {
+
+  ul {
+    margin: 0 0 40px 0;
+    padding: 0;
+  }
+
+  li {
+
+    @include core-19;
+    list-style: none;
+    display: block;
+    margin: 0 0 0 0;
+    padding: 10px 50% 10px 0;
+    border-top: 1px solid $grey-3;
+    position: relative;
+    z-index: 10;
+    overflow: hidden;
+
+    &:last-child {
+      border-bottom: 1px solid $grey-3;
+    }
+
+    span {
+
+      float: right;
+      padding-left: 20px;
+
+      &.toTheRight {
+        text-align: right;
+      }
+
+    }
+
+  }
+
+  h2 {
+    @include core-24;
+    font-weight: bold;
+    position: relative;
+    padding: 10px 50% 10px 0;
+    margin: 0;
+    box-sizing: border-box;
+  }
+
+  .hint {
+    margin: -5px 0 15px 0;
+  }
+
+
+}
+
+h2 {
+  margin-bottom: 30px;
+}
+
+.validation-message {
+  display: none;
+}
+
+.page-count {
+  color: $grey-1;
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.page-count.page-1 {
+  visibility: hidden;
+}
+
+#inner-wrapper {
+  margin: 0 0 60px 0;
+}
+
+.assuranceQuestion {
+  clear: both;
+  margin: 0;
+  padding: 10px 0 10px 0
+}
+
+.hint {
+  color: $secondary-text-colour;
+}

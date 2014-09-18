@@ -1,0 +1,6 @@
+<h1>{{ todo.name }}</h1>
+<form name="form" ng-submit="save(todo)">
+	<label>Name</label>
+	<input placeholder="Name" type="text" ng-model="todo.name" required />
+	<input ng-disabled="form.$invalid" placeholder="Submit" type="submit" name="submit"/>
+</form>

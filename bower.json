@@ -1,0 +1,16 @@
+{
+  "name": "Digital-Marketplace-SSP-Prototype",
+  "version": "0.0.1",
+  "dependencies": {
+    "jquery": "1.11.0",
+    "mustache": "latest"
+  },
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "components",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

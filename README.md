@@ -19,6 +19,10 @@ Pull in the required modules (you should only need to do this once, or when depe
 
 `~/workspace/supplier-submission-portal$ play dependencies`
 
+Install the Node modules required for the front end and generate the static assets:
+
+`npm install -g grunt-cli && npm install && grunt dev`
+
 Start her up!
 `~/workspace/supplier-submission-portal$ play run`
 
@@ -29,6 +33,8 @@ If you want to use the IntelliJ Idea IDE then do the following before importing 
 `~/workspace/supplier-submission-portal$ play idealize`
 
 Then in Idea open "ssp-spike.ipr" (check the filename as there may be other IntelliJ files in the project that don't import as nicely).
+
+
 
 Useful Play Commands
 --------------------
