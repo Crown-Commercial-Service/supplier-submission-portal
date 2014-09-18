@@ -1,5 +1,5 @@
-#{extends 'main.html' /}
-#{set title:'Page 1a Title | Digital Marketplace Service Submission' /}
+#{extends 'layout.html' /}
+#{set title:'Page 1c Title | Digital Marketplace Service Submission' /}
 
 
 <p>
@@ -17,11 +17,11 @@
         <h2>Question section header</h2>
         <fieldset><legend>Question text</legend><p class="hint">Question hint</p>
             <label class="chunk">
-                <input type="checkbox" name="p1a_q1" value="box1val" #{if oldValues?.get("p1a_q1")?.contains("box1val")} checked #{/if}>
+                <input type="checkbox" name="p1c_q1" value="box1val" #{if oldValues?.get("p1c_q1")?.contains("box1val")} checked #{/if}>
                 Box 1 value text
             </label>
             <label class="chunk">
-                <input type="checkbox" name="p1a_q1" value="box2val" #{if oldValues?.get("p1a_q1")?.contains("box2val")} checked #{/if}>
+                <input type="checkbox" name="p1c_q1" value="box2val" #{if oldValues?.get("p1c_q1")?.contains("box2val")} checked #{/if}>
                 Box 2 value text
             </label>
         </fieldset>

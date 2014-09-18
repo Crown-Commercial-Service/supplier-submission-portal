@@ -4,27 +4,16 @@ import models.Listing;
 import models.Page;
 import play.mvc.Controller;
 
+import java.util.Arrays;
+
 // Not a real Controller - just a template that can serve as a skeleton for page controllers 
 
 public class AAA1TemplatePage extends Controller {
 
     private static final String PAGE_ID = "CURRENT_PAGE_ID";
-    
-    // TODO: This method might be the same for all pages, in which case move it to a 'QuestionPage' superclass and extend that
-    public static void showPage(Long listingId) {
-        Listing listing = Listing.getByListingId(listingId);
-        int index = listing.pageSequence.indexOf(PAGE_ID);
-        renderArgs.put("pageNum", Integer.toString(index+1));
-        renderArgs.put("pageTotal", Integer.toString(listing.pageSequence.size()));
-        Page page = listing.completedPages.get(index);
-        if (page!= null) {
-            renderArgs.put("oldValues", page.responses);
-        }
-        render();
-    }
 
-    // TODO: This method might be the same for all classes except for validation, in which case move to 'QuestionPage' superclass and just have validator method in extended class
-    public static void savePage(Long listingId) {
+    // TODO: This method will be very similar for all pages except for field-specific validation methods - how to factor out?
+    public static void savePage(Long listingId /* question responses passed in e.g. String[] p1a_q1 */) {
 
         Listing listing = Listing.getByListingId(listingId);
         
@@ -40,7 +29,11 @@ public class AAA1TemplatePage extends Controller {
         
         int index = listing.pageSequence.indexOf(PAGE_ID);
         //TODO: Save the form data as a Page into the correct page index
-        
+        Page page = new Page(listingId, PAGE_ID);
+        // page.responses.put("p1a_q1", Arrays.asList(p1a_q1).toString());
+        // ...etc. for all questions on page
+        listing.completedPages.add(index, page);
+        listing.update();
         redirect(String.format("/page/%s/%s", listing.nextPage(PAGE_ID), listing.id));
     }
 }
