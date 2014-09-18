@@ -1,0 +1,13 @@
+.phase-banner {
+  @include phase-banner(alpha);
+}
+
+.outer-wrapper,
+#outer-wrapper {
+  @include outer-block;
+}
+
+.inner-wrapper,
+#inner-wrapper {
+  @include inner-block;
+}
