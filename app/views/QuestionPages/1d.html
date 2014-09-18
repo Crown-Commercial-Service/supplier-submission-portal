@@ -1,0 +1,30 @@
+#{extends 'main.html' /}
+#{set title:'Page 1d Title | Digital Marketplace Service Submission' /}
+
+
+<p>
+    <a href="/">Home</a>
+    <br />
+    ${listing?.name}
+</p>
+<div class="page-header group">
+    <h1 class="heading-48">G-Cloud 6 submissions</h1>
+</div>
+        
+<form id="questions-container" action="${request.getBase()}${request.url}" method="POST">
+
+    <section style="display: block;"><p class="page-count page-${pageNum}">Page ${pageNum} of ${pageTotal}</p>
+        <h2>Question section header</h2>
+        <fieldset><legend>Question text</legend><p class="hint">Question hint</p>
+            <label class="chunk">
+                <input type="checkbox" name="p1d_q1" value="box1val" #{if oldValues?.get("p1d_q1")?.contains("box1val")} checked #{/if}>
+                Box 1 value text
+            </label>
+            <label class="chunk">
+                <input type="checkbox" name="p1d_q1" value="box2val" #{if oldValues?.get("p1d_q1")?.contains("box2val")} checked #{/if}>
+                Box 2 value text
+            </label>
+        </fieldset>
+    <input type="submit" value="Save and continue"><p class="goBackAPage"><a href="#">Go back to previous page</a></p><p class="returnToDashboard"><a href="/">Return to dashboard</a></p></section>
+
+</form>

@@ -20,13 +20,11 @@ POST    /documents                              Documents.submitDocuments
 GET     /public/                                staticDir:public
 
 # Service submission question pages
-GET     /page/1a/{listingId}                    Page1a.showPage
+GET     /page/{pageId}/{listingId}              QuestionPageDisplay.showPage
+
 POST    /page/1a/{listingId}                    Page1a.savePage
-GET     /page/1b/{listingId}                    Page1b.showPage
 POST    /page/1b/{listingId}                    Page1b.savePage
-GET     /page/1c/{listingId}                    Page1c.showPage
 POST    /page/1c/{listingId}                    Page1c.savePage
-GET     /page/1d/{listingId}                    Page1d.showPage
 POST    /page/1d/{listingId}                    Page1d.savePage
 
 # Show summary page for service once all questions are complete
