@@ -11,9 +11,9 @@ http://downloads.typesafe.com/releases/play-1.2.4.zip
 
 Add the 'play' run script to your path in whatever manner you like (I created a symlink to it from /usr/local/bin and that works just fine. If you have other versions of play already installed then you can call the link 'play1' or whatever instead, to be sure you're firing up the right one.)
 
-```~/workspace$ git clone git@github.com:alphagov/supplier-submission-portal.git
+`~/workspace$ git clone git@github.com:alphagov/supplier-submission-portal.git`
 
-~/workspace$ cd supplier-submission-portal```
+`~/workspace$ cd supplier-submission-portal`
 
 Pull in the required modules (you should only need to do this once, or when dependencies are updated):
 
