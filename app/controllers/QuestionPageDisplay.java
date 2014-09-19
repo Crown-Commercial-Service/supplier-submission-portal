@@ -9,7 +9,15 @@ public class QuestionPageDisplay extends Controller {
     public static void showPage(String pageId, Long listingId) {
         //TODO: Get content from yml file and pass in to template
         Listing listing = Listing.getByListingId(listingId);
+
+        notFoundIfNull(listing);
+        // TODO: Check listing belongs to authenticated user
+        if(!listing.pageSequence.contains(pageId)){
+            notFound();
+        }
+
         int index = listing.pageSequence.indexOf(pageId);
+
         renderArgs.put("pageNum", Integer.toString(index+1));
         renderArgs.put("pageTotal", Integer.toString(listing.pageSequence.size()));
         Page page = listing.completedPages.get(index);
