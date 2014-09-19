@@ -9,33 +9,33 @@
 </div>
 <form id="questions-container" action="/addservice" method="POST"><section><h2>Service details</h2><fieldset><legend>What kind of service are you submitting?</legend><p class="hint">Select one option relevant to your service</p>
     <label class="chunk">
-    <input type="radio" name="lot" value="IaaS">
+    <input type="radio" name="lot" value="IaaS" id="r1">
     Infrastructure as a Service
     </label>
     <p class="explanation">
         Infrastructure is the hardware that makes software work. It’s the networks, hosting facilities and servers that platforms and software depend on. IaaS is infrastructure you can order and run entirely over the internet, without having to pay for your own hardware.
     </p>
     <label class="chunk">
-        <input type="radio" name="lot" value="SaaS">
+        <input type="radio" name="lot" value="SaaS" id="r2">
         Software as a Service
     </label>
     <p class="explanation">
         SaaS is an application or service that can be run over the internet or in the cloud. For example, web-based email services, customer relationship management (CRM) software and analytics tools.
     </p>
     <label class="chunk">
-        <input type="radio" name="lot" value="PaaS">
+        <input type="radio" name="lot" value="PaaS" id="r3">
         Platform as a Service
     </label>
     <p class="explanation">
         Platforms are just that: software platforms that provide a basis for building other services and applications. With PaaS, you can set up, order, pay for and manage platforms in the cloud.
     </p>
     <label class="chunk">
-        <input type="radio" name="lot" value="SCS">
+        <input type="radio" name="lot" value="SCS" id="r4">
         Specialist Cloud Services
     </label>
     <p class="explanation">
         Specialist Cloud Services support your transition to SaaS, PaaS and IaaS. For example, cloud strategy, data transfer between providers, or day-to-day support of cloud-based services.
     </p>
-</fieldset><input type="submit" value="Save and continue"><p class="returnToDashboard"><a href="/">Return to dashboard</a></p></section>
+</fieldset><input type="submit" value="Save and continue" id="submit"><p class="returnToDashboard"><a href="/">Return to dashboard</a></p></section>
 
 </form>

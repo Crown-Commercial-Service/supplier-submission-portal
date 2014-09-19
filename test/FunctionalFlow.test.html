@@ -1,0 +1,54 @@
+*{ You can use plain selenium command using the selenium tag }*
+
+#{selenium}
+        
+    // Open the home page, and check that no error occured
+    open('/')
+    assertNotTitle('Application error')
+    assertTitle('Service Submission | Digital Marketplace')
+    clickAndWait('new_service')
+
+    // Lot selection page
+    assertNotTitle('Application error')
+    assertTextPresent('Service details')
+    assertTitle('Add a new service')
+    clickAndWait('submit')
+
+    // Return to same page as no response to questions
+    assertNotTitle('Application error')
+    assertTextPresent('Service details')
+    assertTitle('Add a new service')
+        
+    // Click a radio button to select a lot
+    click('r2')
+    clickAndWait('submit')
+    
+    // First question page - check some boxes
+    assertTitle('Page 1b Title | Digital Marketplace Service Submission')
+    click(xpath=//input[@type='checkbox'][@value='box2val'])
+    click(xpath=//input[@type='checkbox'][@value='box4val'])
+    clickAndWait('submit')
+    
+    // Check selected values have been stored
+    goBackAndWait()
+    assertTitle('Page 1b Title | Digital Marketplace Service Submission')
+    assertElementNotPresent(xpath=//input[@type='checkbox'][@value='box1val'][@checked])
+    assertElementPresent(xpath=//input[@type='checkbox'][@value='box2val'][@checked])
+    assertElementNotPresent(xpath=//input[@type='checkbox'][@value='box3val'][@checked])
+    assertElementPresent(xpath=//input[@type='checkbox'][@value='box4val'][@checked])
+    clickAndWait('submit')
+    
+    // Second question page
+    type('p2_q1', 'Answer to question 1')
+    type('p2_q2', 'Answer to question 2')
+    clickAndWait('submit')
+
+    // Check selected values have been stored
+    goBackAndWait()
+    assertTextPresent('Question 1 hint')
+    verifyElementPresent(xpath=//input[@name='p2_q1'][@value='Answer to question 1'])
+    verifyText(xpath=//textarea[@name='p2_q2'], 'Answer to question 2')
+    clickAndWait('submit')
+        
+#{/selenium}
+
