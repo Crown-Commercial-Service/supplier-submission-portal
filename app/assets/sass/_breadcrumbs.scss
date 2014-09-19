@@ -13,7 +13,7 @@
 
     li {
 
-      background-image: url(/public/images/breadcrumb-separator.png);
+      background-image: url(../images/breadcrumb-separator.png);
       background-position: 100% 50%;
       background-repeat: no-repeat;
       float: left;
@@ -22,7 +22,7 @@
       margin-right: 10px;
       padding-right: 1em;
 
-      &:last-child{
+      &:last-child {
         background: none;
       }
 

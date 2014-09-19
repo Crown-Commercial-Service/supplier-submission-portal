@@ -33,7 +33,7 @@ module.exports = function(grunt){
           expand: true,
           cwd: "app/assets/sass",
           src: ["*.scss"],
-          dest: "public/stylesheets",
+          dest: "public/stylesheets/src",
           ext: ".css"
         }]
       },
@@ -72,9 +72,9 @@ module.exports = function(grunt){
     dataUri: {
       dist: {
         src: [
-          "public/stylesheets/application.css"
+          "public/stylesheets/src/application.css"
         ],
-        dest: "public/stylesheets/application.min.css", // To fix, work out how to get around [src cannot equal dest]
+        dest: "public/stylesheets/", // To fix, work out how to get around [src cannot equal dest]
         options: {
           target: ["public/images/**/*"],
           fixDirLevel: true,
@@ -179,7 +179,12 @@ module.exports = function(grunt){
     watch: {
       css: {
         files: ['app/assets/sass/**/*.scss'],
-        tasks: ['sass'],
+        tasks: ['sass', 'dataUri'],
+        options: { nospawn: true }
+      },
+      images: {
+        files: ['app/assets/images/**/*'],
+        tasks: ['imagemin', 'sass'],
         options: { nospawn: true }
       },
       js: {
@@ -212,7 +217,9 @@ module.exports = function(grunt){
     'copy',
     'bower',
     'replace',
+    'imagemin',
     'sass:dev',
+    'dataUri',
     'uglify:dev'
   ]);
 

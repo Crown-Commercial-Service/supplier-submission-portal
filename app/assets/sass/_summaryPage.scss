@@ -37,9 +37,23 @@
     }
 
     span {
+
       text-align: left;
       float: right;
       padding-left: 30px;
+
+      &.toTheRight {
+        text-align: right;
+      }
+
+      a {
+        display: inline;
+        position: static;
+        margin: 0;
+        top: 0;
+        left:0;
+      }
+
     }
 
   }
