@@ -29,6 +29,8 @@ public class Page2 extends Controller {
         page.responses.put("p2_q1", p2_q1);
         page.responses.put("p2_q2", p2_q2);
         listing.completedPages.add(index, page);
+        listing.title = p2_q1;
+        listing.description = p2_q2;
         listing.update();
         redirect(String.format("/page/%s/%s", listing.nextPage(PAGE_ID), listing.id));
     }
