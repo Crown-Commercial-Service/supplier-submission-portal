@@ -1,3 +1,0 @@
-self: grunt -> grunt 1.0
-require:
-    - play

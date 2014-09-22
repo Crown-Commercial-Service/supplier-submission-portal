@@ -7,8 +7,3 @@ require:
     - provided -> grunt 1.0.0
 
 repositories:
-    - provided:
-        type:       local
-        artifact:   "${application.path}/jar/play1-grunt/lib/play-grunt.jar"
-        contains:
-            - provided -> *
