@@ -1,9 +1,0 @@
-<ul class="nav nav-list nav-stacked">
-	<li ng-repeat="todo in todos">
-		<a class="pull-right close" href="" ng-click="remove(todo)">&times;</a>
-		<div class="pull-right">
-			<span class="label" ng-repeat="tag in todo.tags">{{ tag.name }}</span>
-		</div>
-		<a ng-href="/todo/{{ todo.id }}/edit">{{ todo.name }}</a>
-	</li>
-</ul>

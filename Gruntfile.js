@@ -221,10 +221,4 @@ module.exports = function(grunt){
     'watch'
   ]);
 
-  grunt.registerTask('run', [ // `run` seems to be hard coded into the play-grunt plugin
-    'default'
-  ]);
-
-
-
 };
