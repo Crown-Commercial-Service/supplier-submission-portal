@@ -21,7 +21,7 @@ Pull in the required modules (you should only need to do this once, or when depe
 
 Install the Node modules required for the front end and generate the static assets:
 
-`npm install -g grunt-cli && npm install && grunt dev`
+`npm install && node run_grunt.js dev`
 
 Start her up!
 `~/workspace/supplier-submission-portal$ play run`
