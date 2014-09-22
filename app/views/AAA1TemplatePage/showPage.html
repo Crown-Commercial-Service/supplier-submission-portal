@@ -1,11 +1,13 @@
 #{extends 'layout.html' /}
 #{set title:'Adding a new service - Page ${pageNum} of ${pageTotal}' /}
 
-<p>
-    <a href="index.html">Home</a>
-</p>
-<div class="page-header group">
-    <h1 class="heading-48">G-Cloud 6 submissions</h1>
+<div id="global-breadcrumb">
+  <nav>
+    <ol>
+      <li><a href="/">Your G-Cloud 6 submissions</a></li>
+      <li></li>
+    </ol>
+  </nav>
 </div>
 <form id="questions-container" action="${request.getBase()}${request.url}" method="POST">
 

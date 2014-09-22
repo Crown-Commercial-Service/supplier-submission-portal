@@ -1,55 +1,70 @@
 #{extends 'layout.html' /}
 #{set title:'Service Submission | Digital Marketplace' /}
 
-<p>
-    <a href="/">Home</a>
-</p>
-<div class="page-header group">
-    <h1 class="heading-48">G-Cloud 6 submissions</h1>
+<div id="global-breadcrumb">
+  <nav>
+    <ol>
+      <li>Your G-Cloud 6 submissions</li>
+    </ol>
+  </nav>
 </div>
 
 <div class="serviceSummary">
-    <h2>
-        Company Name Ltd. [${supplierId}]
-        <a href="#" class="toTheRight">Change</a>
-    </h2>
-    <ul>
-        <li>
-            Contact name: A.N. Other
-        </li>
-        <li>
-            DUNS number: 12-234-5678
-        </li>
-    </ul>
+  <h2>
+    Company Name Ltd. [${supplierId}]
+    <a href="#" class="toTheRight">Change</a>
+  </h2>
+  <ul>
+    <li>
+      Contact name: A.N. Other
+    </li>
+    <li>
+      DUNS number: 12-234-5678
+    </li>
+  </ul>
 </div>
 <div class="serviceSummary">
-    <h2>
-        Services in progress
-        <a href="/addservice" class="toTheRight" id="new_service">Add a new service</a>
-    </h2>
-    
-    <ul>
-        #{ifnot listings}
-        <p>
-            No listings Found
-        </p>
-        #{/ifnot}
-        #{else}
+  <h2>
+      Draft services
+      <a href="/addservice" class="toTheRight">Add a new service</a>
+  </h2>
 
-        <ul>
-            #{list listings, as:'listing'}
-            <li style="border-bottom:0">
-                <a href="/service/${listing.id}" id="edit_${listing.id}">
-                %{
-                    if (listing.title != null)
-                       serviceName = listing.title;
-                    else serviceName = listing.id;
-                }%
-                ${serviceName}
-                </a> - ${listing.description}
-            </li>
-            #{/list}
-        </ul>
-        #{/else}
-    </ul>
+  #{ifnot listings}
+  <p class="hint">
+      You haven't added any services yet
+  </p>
+  #{/ifnot}
+  #{else}
+
+  <ul>
+    #{list listings, as:'listing'}
+    <li>
+      %{
+          if (listing.title != null)
+             serviceName = listing.title;
+          else serviceName = listing.id;
+      }%
+      ${serviceName}
+      <span class="toTheRight">
+        X of X steps complete&ensp;<a href="/service/${listing.id}">Continue</a>
+        ${listing.description}
+      </span>
+    </li>
+    #{/list}
+  </ul>
+  #{/else}
+</div>
+<div class="serviceSummary">
+  <h2>
+    Services that are ready to be submitted
+  </h2>
+  <p class="hint">
+    On 1 January 2015 these services will be submitted to G-Cloud 6,
+    unless you withdraw them
+  </p>
+  <p class="hint">
+    You haven't marked any services as ready for submission yet
+  </p>
+  <ul>
+  </ul>
 </div>

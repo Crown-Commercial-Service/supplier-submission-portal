@@ -1,0 +1,43 @@
+#global-breadcrumb {
+
+  padding: 0.75em 0;
+  margin: 0;
+  overflow: hidden;
+
+  nav {
+
+    ol {
+      margin: 0;
+      padding: 0;
+    }
+
+    li {
+
+      background-image: url(../images/breadcrumb-separator.png);
+      background-position: 100% 50%;
+      background-repeat: no-repeat;
+      float: left;
+      list-style: none;
+      margin-left: 0;
+      margin-right: 10px;
+      padding-right: 1em;
+
+      &:last-child {
+        background: none;
+      }
+
+    }
+
+    a {
+
+      color: $text-colour;
+
+      &:hover {
+        color: $link-hover-colour;
+      }
+
+    }
+
+  }
+
+}

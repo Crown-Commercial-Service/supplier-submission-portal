@@ -1,0 +1,39 @@
+#questions-container {
+
+  fieldset {
+    margin: 0 0 20px 0;
+    padding: 0;
+  }
+
+  legend {
+    @include core-24;
+    font-weight: bold;
+    margin: 0 0 15px 0;
+    padding: 0;
+  }
+
+  section { // This is one 'page' of questions
+
+    display: none;
+
+    &:first-child {
+      display: block;
+    }
+
+  }
+
+}
+
+.validation-message {
+  display: none;
+}
+
+.page-count {
+  color: $grey-1;
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.page-count.page-1 {
+  visibility: hidden;
+}
