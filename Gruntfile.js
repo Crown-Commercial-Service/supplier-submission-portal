@@ -18,7 +18,7 @@ module.exports = function(grunt){
 
   grunt.initConfig({
 
-    // Builds Sass
+    // Builds SASS
     sass: {
       dev: {
         options: {
@@ -33,7 +33,7 @@ module.exports = function(grunt){
           expand: true,
           cwd: "app/assets/sass",
           src: ["*.scss"],
-          dest: "public/stylesheets/src",
+          dest: "public/stylesheets/.temp", // Put stylesheet in temp place for other tasks to work on
           ext: ".css"
         }]
       },
@@ -68,13 +68,13 @@ module.exports = function(grunt){
       }
     },
 
-    // Compress image assets and move them into public
+    // Make data URIs from images
     dataUri: {
       dist: {
         src: [
-          "public/stylesheets/src/application.css"
+          "public/stylesheets/.temp/application.css"
         ],
-        dest: "public/stylesheets/", // To fix, work out how to get around [src cannot equal dest]
+        dest: "public/stylesheets/",
         options: {
           target: ["public/images/**/*"],
           fixDirLevel: true,
@@ -175,7 +175,12 @@ module.exports = function(grunt){
       }
     },
 
-    // Watches styles and specs for changes
+    // Remove temporary CSS files
+    clean: {
+      tempCSS: ['public/stylesheets/.temp']
+    },
+
+    // Update whenever CSS/JS/Gruntfile is changed
     watch: {
       css: {
         files: ['app/assets/sass/**/*.scss'],
@@ -210,7 +215,7 @@ module.exports = function(grunt){
 
   });
 
-// Automatically loads any grunt-* tasks in your package.json
+  // Automatically loads any grunt-* tasks in your package.json
   require("load-grunt-tasks")(grunt);
 
   grunt.registerTask('dev', [
