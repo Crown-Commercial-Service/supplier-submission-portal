@@ -1,6 +1,6 @@
 .wordCount {
+
   height: 0;
-  width: 66%;
   text-align: right;
   overflow: visible;
   @include core-19;
@@ -8,4 +8,9 @@
   margin: 5px 0 20px 0;
   padding: 0;
   color: $secondary-text-colour;
+
+  @include media(desktop) {
+    width: 66%;
+  }
+
 }

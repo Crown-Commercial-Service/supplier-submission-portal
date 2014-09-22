@@ -10,14 +10,19 @@ input{
   }
 
   &[type=text] {
-    font-family: "nta",Arial,sans-serif;
-    width: 66%;
+
+    width: 100%;
     display: block;
     @include core-19;
     height: 50px;
     border: 1px solid #bfc1c3;
     margin: 0 0 15px 0;
     @include box-sizing(border-box);
+
+    @include media(desktop){
+      width: 66%;
+    }
+
   }
 
   &.percentage {
@@ -41,12 +46,18 @@ select {
 }
 
 textarea {
-  width: 66%;
+
+  width: 100%;
   height: 10em;
   border: 1px solid $border-colour;
   box-sizing: border-box;
   @include core-19;
   padding: 5px;
+
+  @include media(desktop){
+    width: 66%;
+  }
+
 }
 
 label {
@@ -92,9 +103,14 @@ label {
   }
 
   &.confirm {
+
     display: block;
-    max-width: 66%;
     box-sizing: border-box;
+
+    @include media(desktop){
+      width: 66%;
+    }
+
   }
 
   &.unit {
@@ -114,9 +130,14 @@ label {
 }
 
 .explanation {
+
   clear: both;
   margin: -5px 0 25px 0;
-  max-width: 66%;
+
+  @include media(desktop){
+    width: 66%;
+  }
+
 }
 
 .hint {

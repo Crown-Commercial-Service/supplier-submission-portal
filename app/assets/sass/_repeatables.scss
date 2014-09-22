@@ -43,10 +43,16 @@ ol {
     }
 
     .listRemove {
+
       @include core-19;
-      margin: -52px 0 25px 66%;
+      margin: 0 0 10px 0;
       padding: 0 0 0 15px;
       display: block;
+
+      @include media(desktop){
+        margin: -52px 0 25px 66%;
+      }
+
     }
 
   }

@@ -1,0 +1,9 @@
+.outer-wrapper,
+#outer-wrapper {
+  @include outer-block;
+}
+
+.inner-wrapper,
+#inner-wrapper {
+  @include inner-block;
+}

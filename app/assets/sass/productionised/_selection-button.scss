@@ -1,0 +1,48 @@
+.selection-button {
+
+  // By default, block labels stack vertically
+  display: block;
+  float: none;
+  clear: left;
+  position: relative;
+  background: $panel-colour;
+  border: 1px solid $panel-colour;
+  padding: (18px $gutter $gutter-half $gutter*1.5);
+  margin-top: 10px;
+  margin-bottom: 10px;
+  cursor: pointer;
+
+  input {
+    position: absolute;
+    top: 18px;
+    left: $gutter-half;
+    cursor: pointer;
+  }
+
+  // Change border on hover
+  &:hover {
+    border-color: $black;
+  }
+
+  // Add selected state
+  .js-enabled .selected {
+    background: $white;
+    border-color: $black;
+  }
+
+  // Add focus to block labels
+  .js-enabled label.focused & {
+    outline: 3px solid $yellow;
+  }
+
+  // Remove focus from radio/checkboxes
+  .js-enabled .focused & input:focus {
+    outline: none;
+  }
+
+  &-boolean {
+    clear: none;
+    margin-right: $gutter-half;
+  }
+
+}
