@@ -1,0 +1,58 @@
+ol {
+
+  margin: 0;
+  padding: 0;
+
+  li.repeatable {
+
+    list-style-type: none;
+
+    .js-enabled & {
+
+      display: none;
+
+      &:nth-of-type(1) {
+
+        .listRemove {
+          display: none;
+        }
+
+      }
+
+      &:nth-of-type(1),
+      &:nth-of-type(2) {
+        display: block;
+      }
+
+    }
+
+    span.numeral {
+      float: left;
+      @include core-19;
+      width: 1.6em;
+      margin: 13px -1.6em 0 0;
+      position: relative;
+      left: 10px;
+      color: $grey-2;
+      font-weight: bold;
+      pointer-events: none;
+    }
+
+    input.numeral {
+      padding-left: 35px;
+    }
+
+    .listRemove {
+      @include core-19;
+      margin: -52px 0 25px 66%;
+      padding: 0 0 0 15px;
+      display: block;
+    }
+
+  }
+
+}
+
+.listAdd {
+  @include core-19;
+}

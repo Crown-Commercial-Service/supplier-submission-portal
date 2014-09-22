@@ -20,24 +20,19 @@
     "grunt-contrib-copy": "0.5.0",
     "grunt-contrib-sass": "0.7.3",
     "grunt-contrib-watch": "0.5.3",
-    "grunt-nodemon": "0.x",
-    "grunt-sass": "~0.10.0",
+    "grunt-sass": "~0.14.0",
     "grunt-text-replace": "~0.3.10",
     "hogan.js": "3.0.2",
     "js-beautify": "1.5.1",
     "js-yaml": "3.2.1",
     "minimist": "0.0.8",
-    "node-sass": "0.x",
-    "readdir": "0.0.6"
-  },
-  "scripts": {
-    "postinstall": "./node_modules/bower/bin/bower install"
-  },
-  "devDependencies": {
+    "readdir": "0.0.6",
     "grunt-contrib-imagemin": "^0.8.1",
     "grunt-contrib-uglify": "^0.5.1",
     "grunt-data-uri": "^0.2.0",
-    "grunt-spell": "^0.2.1",
     "load-grunt-tasks": "^0.6.0"
+  },
+  "scripts": {
+    "postinstall": "./node_modules/bower/bin/bower install"
   }
 }

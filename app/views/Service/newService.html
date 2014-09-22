@@ -1,13 +1,19 @@
 #{extends 'layout.html' /}
 #{set title:'Add a new service' /}
 
-<p>
-    <a href="/">Home</a>
-</p>
-<div class="page-header group">
-    <h1 class="heading-48">G-Cloud 6 submissions</h1>
+<div id="global-breadcrumb">
+  <nav>
+    <ol>
+      <li><a href="/">Your G-Cloud 6 submissions</a></li>
+      <li>New submission</li>
+    </ol>
+  </nav>
 </div>
-<form id="questions-container" action="/addservice" method="POST"><section><h2>Service details</h2><fieldset><legend>What kind of service are you submitting?</legend><p class="hint">Select one option relevant to your service</p>
+<form id="questions-container" action="/addservice" method="POST">
+  <section>
+    <p class="page-count">Page 1</p>
+    <h1>Service details</h1>
+    <fieldset><legend>What kind of service are you submitting?</legend><p class="hint">Select one option relevant to your service</p>
     <label class="chunk">
     <input type="radio" name="lot" value="IaaS" id="r1">
     Infrastructure as a Service
@@ -36,6 +42,13 @@
     <p class="explanation">
         Specialist Cloud Services support your transition to SaaS, PaaS and IaaS. For example, cloud strategy, data transfer between providers, or day-to-day support of cloud-based services.
     </p>
+<<<<<<< HEAD
 </fieldset><input type="submit" value="Save and continue" id="submit"><p class="returnToDashboard"><a href="/">Return to dashboard</a></p></section>
 
+=======
+  </fieldset>
+  <input type="submit" value="Save and continue">
+  <p class="returnToDashboard"><a href="/">Return to dashboard</a></p>
+</section>
+>>>>>>> bb0d1c5... Migrate latest changes from the prototype
 </form>

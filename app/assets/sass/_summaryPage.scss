@@ -1,0 +1,83 @@
+.serviceSummary {
+
+  ul {
+    margin: 0 0 40px 0;
+    padding: 0;
+  }
+
+  li, h2 {
+
+    span, a {
+      width: 100%;
+      position: relative;
+      left: 100%;
+      top: -1.25em;
+      margin-bottom: -1.25em;
+      box-sizing: border-box;
+      padding-left: 0;
+      display: block;
+    }
+
+  }
+
+  li {
+
+    @include core-19;
+    list-style: none;
+    display: block;
+    margin: 0 0 0 0;
+    padding: 10px 50% 10px 0;
+    border-top: 1px solid $grey-3;
+    position: relative;
+    z-index: 10;
+    overflow: hidden;
+
+    &:last-child {
+      border-bottom: 1px solid $grey-3;
+    }
+
+    span {
+
+      text-align: left;
+      float: right;
+      padding-left: 30px;
+
+      &.toTheRight {
+        text-align: right;
+      }
+
+      a {
+        display: inline;
+        position: static;
+        margin: 0;
+        top: 0;
+        left:0;
+      }
+
+    }
+
+  }
+
+  h2 {
+
+    @include core-24;
+    font-weight: bold;
+    position: relative;
+    padding: 10px 50% 10px 0;
+    margin: 0;
+    box-sizing: border-box;
+
+    a {
+      @include core-19;
+      font-weight: normal;
+      text-align: right;
+      top: -25px;
+    }
+
+  }
+
+  p.hint {
+    margin-top: 0;
+  }
+
+}
