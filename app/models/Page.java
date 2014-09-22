@@ -18,7 +18,7 @@ public class Page extends Model {
 
     @Column("pageNumber")
     @NotNull
-    public String pageNumber;
+    public Long pageNumber;
 
     @Column("listingId")
     @NotNull
@@ -27,7 +27,7 @@ public class Page extends Model {
     @Embedded
     public Map<String,String> responses;
 
-    public Page(Long listingId, String pageNumber) {
+    public Page(Long listingId, Long pageNumber) {
         this.listingId = listingId;
         this.pageNumber = pageNumber;
         responses = new HashMap<String,String>();

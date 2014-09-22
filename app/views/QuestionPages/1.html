@@ -14,7 +14,7 @@
 <form id="questions-container" action="${request.getBase()}${request.url}" method="POST">
 
     <section style="display: block;"><p class="page-count page-${pageNum}">Page ${pageNum} of ${pageTotal}</p>
-        <h2>Question section header</h2>
+        <h2>${sectiontitle}</h2>
         <fieldset><legend>Question text</legend><p class="hint">Question hint</p>
             <label class="chunk">
                 <input type="checkbox" name="p1a_q1" value="box1val" #{if oldValues?.get("p1a_q1")?.contains("box1val")} checked #{/if}>

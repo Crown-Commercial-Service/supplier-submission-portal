@@ -38,7 +38,7 @@ public class Listing extends Model {
     public String description;
 
     @Embedded
-    public List<String> pageSequence;
+    public List<Long> pageSequence;
     
     @Embedded
     public List<Page> completedPages;
@@ -55,14 +55,18 @@ public class Listing extends Model {
         System.out.println("Created Completed: " + completedPages);
     }
 
-    public String nextPage(String currentPage) {
-        int index = pageSequence.indexOf(currentPage);
-        if (index == pageSequence.size()-1) {
-            // End of questions
-            return "finished";
-        } else {
-            return pageSequence.get(index+1);
+    public String nextPageUrl(Long currentPage, Long listingId) {
+        Long nextPage = nextPage(currentPage);
+        if (nextPage < 0) {
+            return String.format("/page/finished/%d", listingId);
         }
+        else {
+            return String.format("/page/%d/%d", nextPage, listingId);
+        }
+    }
+
+    public Long firstPage() {
+        return pageSequence.get(0);
     }
 
     public static List<Listing> allBySupplierId(String supplierId) {
@@ -85,4 +89,14 @@ public class Listing extends Model {
                 '}';
     }
 
+    private Long nextPage(Long currentPage) {
+        int index = pageSequence.indexOf(currentPage);
+        if (index == pageSequence.size()-1) {
+            // End of questions
+            return -1l;
+        } else {
+            return pageSequence.get(index+1);
+        }
+    }
+    
 }

@@ -10,7 +10,7 @@ import java.util.Arrays;
 
 public class AAA1TemplatePage extends Controller {
 
-    private static final String PAGE_ID = "CURRENT_PAGE_ID";
+    private static final Long PAGE_ID = -1l;
 
     // TODO: This method will be very similar for all pages except for field-specific validation methods - how to factor out?
     public static void savePage(Long listingId /* question responses passed in e.g. String[] p1a_q1 */) {
@@ -24,7 +24,7 @@ public class AAA1TemplatePage extends Controller {
                 System.out.println("Validation error: " + error.message());
             }
             flash.error("Validation failed: %s", validation.errors());
-            redirect(String.format("/page/%s/%s", PAGE_ID, listing.id));
+            redirect(String.format("/page/%d/%d", PAGE_ID, listing.id));
         }
         
         int index = listing.pageSequence.indexOf(PAGE_ID);
@@ -34,6 +34,6 @@ public class AAA1TemplatePage extends Controller {
         // ...etc. for all questions on page
         listing.completedPages.add(index, page);
         listing.update();
-        redirect(String.format("/page/%s/%s", listing.nextPage(PAGE_ID), listing.id));
+        redirect(listing.nextPageUrl(PAGE_ID, listing.id));
     }
 }

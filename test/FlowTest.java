@@ -21,12 +21,12 @@ public class FlowTest extends FunctionalTest {
     }
 
     private void checkCorrectPagesCanBeAccessedForFlow(String flowType, Long listingId) {
-        for (String pageId : ServiceSubmissionJourneyFlows.getFlow(flowType)){
-            testThatPageWorks(String.format("/page/%s/%d", pageId, listingId));
+        for (Long pageId : ServiceSubmissionJourneyFlows.getFlow(flowType)){
+            testThatPageWorks(String.format("/page/%d/%d", pageId, listingId));
         }
 
-        for (String pageId : pagesNotInFlow(flowType)){
-            testThatPageNotInFlowDoesNotWork(String.format("/page/%s/%d", pageId, listingId));
+        for (Long pageId : pagesNotInFlow(flowType)){
+            testThatPageNotInFlowDoesNotWork(String.format("/page/%d/%d", pageId, listingId));
         }
     }
     
@@ -42,8 +42,8 @@ public class FlowTest extends FunctionalTest {
         assertIsNotFound(response);
     }
     
-    private Set<String> pagesNotInFlow(String flow) {
-        Set<String> notInFlow = new HashSet<String>();
+    private Set<Long> pagesNotInFlow(String flow) {
+        Set<Long> notInFlow = new HashSet<Long>();
         notInFlow.addAll(ServiceSubmissionJourneyFlows.getFlow("SaaS"));
         notInFlow.addAll(ServiceSubmissionJourneyFlows.getFlow("PaaS"));
         notInFlow.addAll(ServiceSubmissionJourneyFlows.getFlow("SCS"));

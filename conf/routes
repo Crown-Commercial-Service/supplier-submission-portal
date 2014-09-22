@@ -25,11 +25,13 @@ GET     /page/finished/{id}                     Service.summaryPage
 # Service submission question pages
 GET     /page/{pageId}/{listingId}              QuestionPageDisplay.showPage
 
-POST    /page/1a/{listingId}                    Page1a.savePage
-POST    /page/1b/{listingId}                    Page1b.savePage
-POST    /page/1c/{listingId}                    Page1c.savePage
-POST    /page/1d/{listingId}                    Page1d.savePage
+POST    /page/1/{listingId}                     Page1.savePage
 POST    /page/2/{listingId}                     Page2.savePage
+POST    /page/3/{listingId}                     Page3.savePage
+POST    /page/4/{listingId}                     Page4.savePage
 
 # Show summary page for service once all questions are complete
 GET     /page/finished/{listingId}              Service.submissionComplete
+
+#Load question page content
+GET     /fixtures                               Fixtures.loadQuestionPages
