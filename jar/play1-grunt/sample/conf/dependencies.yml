@@ -1,5 +1,0 @@
-# Application dependencies
-
-require:
-    - play
-    - play -> grunt 1.0
