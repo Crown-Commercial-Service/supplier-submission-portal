@@ -35,11 +35,11 @@ public class Service extends Controller {
         Listing listing = new Listing(DevUtils.randomSupplierId(), params.get("lot"));
         listing.insert();
         // TODO: Get next page using page sequence saved in Listing object
-        redirect(String.format("/page/%s/%s", listing.nextPage("start"), listing.id));
+        redirect(String.format("/page/%d/%d", listing.firstPage(), listing.id));
     }
     
     public static void submissionComplete(String listingId) {
         // TODO: Add flash message to say "All questions complete"
-        redirect(String.format("/service/%s", listingId));
+        redirect(String.format("/service/%d", listingId));
     }
 }

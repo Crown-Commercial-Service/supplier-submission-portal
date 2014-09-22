@@ -1,5 +1,6 @@
 #{extends 'layout.html' /}
-#{set title:'Adding a new service - Page x of y' /}
+#{set title:'Page 1b Title | Digital Marketplace Service Submission' /}
+
 
 <div id="global-breadcrumb">
   <nav>
@@ -9,20 +10,102 @@
     </ol>
   </nav>
 </div>
+        
 <form id="questions-container" action="${request.getBase()}${request.url}" method="POST">
+
     <section style="display: block;"><p class="page-count page-${pageNum}">Page ${pageNum} of ${pageTotal}</p>
-        <h1>Question section header</h1>
-        <fieldset>
-            <legend>Question 1 text</legend>
-            <p class="hint">Question 1 hint</p>
-            <input type="text" name="p2_q1" class="validate-notBlank" data-validate-notblank-message="ERROR" value="${oldValues?.get("p2_q1")}">
-            </fieldset>
-        <fieldset>
-            <legend>Question 2 text</legend>
-            <p class="hint">Question 2 hint.</p>
-            <textarea name="p2_q2" class="validate-notBlank" data-max-length-in-words="50" aria-controls="wordcount">${oldValues?.get("p2_q2")}</textarea>
-            <p class="wordCount" role="status" aria-live="assertive" aria-relevant="text" id="wordcount">50 words remaining</p>
+        <h2>Question section header</h2>
+        <fieldset><legend>Question text</legend><p class="hint">Question hint</p>
+            <label class="chunk">
+                <input type="checkbox" name="p2_q1" value="box1val" #{if oldValues?.get("p2_q1")?.contains("box1val")} checked #{/if}>
+                Box 1 value text
+            </label>
+            <label class="chunk">
+                <input type="checkbox" name="p2_q1" value="box2val" #{if oldValues?.get("p2_q1")?.contains("box2val")} checked #{/if}>
+                Box 2 value text
+            </label>
+            <label class="chunk">
+                <input type="checkbox" name="p2_q1" value="box3val" #{if oldValues?.get("p2_q1")?.contains("box3val")} checked #{/if}>
+                Box 3 value text
+            </label>
+            <label class="chunk">
+                <input type="checkbox" name="p2_q1" value="box4val" #{if oldValues?.get("p2_q1")?.contains("box4val")} checked #{/if}>
+                Box 4 value text
+            </label>
+            <label class="chunk">
+                <input type="checkbox" name="p2_q1" value="box5val" #{if oldValues?.get("p2_q1")?.contains("box5val")} checked #{/if}>
+                Box 5 value text
+            </label>
+            <label class="chunk">
+                <input type="checkbox" name="p2_q1" value="box6val" #{if oldValues?.get("p2_q1")?.contains("box6val")} checked #{/if}>
+                Box 6 value text
+            </label>
+            <label class="chunk">
+                <input type="checkbox" name="p2_q1" value="box7val" #{if oldValues?.get("p2_q1")?.contains("box7val")} checked #{/if}>
+                Box 7 value text
+            </label>
+            <label class="chunk">
+                <input type="checkbox" name="p2_q1" value="box8val" #{if oldValues?.get("p2_q1")?.contains("box8val")} checked #{/if}>
+                Box 8 value text
+            </label>
+            <label class="chunk">
+                <input type="checkbox" name="p2_q1" value="box9val" #{if oldValues?.get("p2_q1")?.contains("box9val")} checked #{/if}>
+                Box 9 value text
+            </label>
+            <label class="chunk">
+                <input type="checkbox" name="p2_q1" value="box10val" #{if oldValues?.get("p2_q1")?.contains("box10val")} checked #{/if}>
+                Box 10 value text
+            </label>
+            <label class="chunk">
+                <input type="checkbox" name="p2_q1" value="box11val" #{if oldValues?.get("p2_q1")?.contains("box11val")} checked #{/if}>
+                Box 11 value text
+            </label>
+            <label class="chunk">
+                <input type="checkbox" name="p2_q1" value="box12val" #{if oldValues?.get("p2_q1")?.contains("box12val")} checked #{/if}>
+                Box 12 value text
+            </label>
+            <label class="chunk">
+                <input type="checkbox" name="p2_q1" value="box13val" #{if oldValues?.get("p2_q1")?.contains("box13val")} checked #{/if}>
+                Box 13 value text
+            </label>
+            <label class="chunk">
+                <input type="checkbox" name="p2_q1" value="box14val" #{if oldValues?.get("p2_q1")?.contains("box14val")} checked #{/if}>
+                Box 14 value text
+            </label>
+            <label class="chunk">
+                <input type="checkbox" name="p2_q1" value="box15val" #{if oldValues?.get("p2_q1")?.contains("box15val")} checked #{/if}>
+                Box 15 value text
+            </label>
+            <label class="chunk">
+                <input type="checkbox" name="p2_q1" value="box16val" #{if oldValues?.get("p2_q1")?.contains("box16val")} checked #{/if}>
+                Box 16 value text
+            </label>
+            <label class="chunk">
+                <input type="checkbox" name="p2_q1" value="box17val" #{if oldValues?.get("p2_q1")?.contains("box17val")} checked #{/if}>
+                Box 17 value text
+            </label>
+            <label class="chunk">
+                <input type="checkbox" name="p2_q1" value="box18val" #{if oldValues?.get("p2_q1")?.contains("box18val")} checked #{/if}>
+                Box 18 value text
+            </label>
+            <label class="chunk">
+                <input type="checkbox" name="p2_q1" value="box19val" #{if oldValues?.get("p2_q1")?.contains("box19val")} checked #{/if}>
+                Box 19 value text
+            </label>
+            <label class="chunk">
+                <input type="checkbox" name="p2_q1" value="box20val" #{if oldValues?.get("p2_q1")?.contains("box20val")} checked #{/if}>
+                Box 20 value text
+            </label>
+            <label class="chunk">
+                <input type="checkbox" name="p2_q1" value="box21val" #{if oldValues?.get("p2_q1")?.contains("box21val")} checked #{/if}>
+                Box 21 value text
+            </label>
+            <label class="chunk">
+                <input type="checkbox" name="p2_q1" value="box22val" #{if oldValues?.get("p2_q1")?.contains("box22val")} checked #{/if}>
+                Box 22 value text
+            </label>
+
         </fieldset>
-        <input type="submit" value="Save and continue" id="submit"><p class="goBackAPage"><a href="#">Go back to previous page</a></p><p class="returnToDashboard"><a href="/">Return to dashboard</a></p></section>
+    <input type="submit" value="Save and continue" id="submit"><p class="goBackAPage"><a href="#">Go back to previous page</a></p><p class="returnToDashboard"><a href="/">Return to dashboard</a></p></section>
 
 </form>
