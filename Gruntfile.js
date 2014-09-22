@@ -228,6 +228,16 @@ module.exports = function(grunt){
     'uglify:dev'
   ]);
 
+  grunt.registerTask('production', [
+    'copy',
+    'bower',
+    'replace',
+    'imagemin',
+    'sass:production',
+    'dataUri',
+    'uglify:production'
+  ]);
+
   grunt.registerTask('default', [
     'dev',
     'watch'
