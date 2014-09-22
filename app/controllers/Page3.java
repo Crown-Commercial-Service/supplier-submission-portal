@@ -11,11 +11,11 @@ public class Page3 extends Controller {
 
     private static final Long PAGE_ID = 3l;
 
-    public static void savePage(Long listingId, String[] p1c_q1) {
+    public static void savePage(Long listingId, String[] p3_q1) {
         
         Listing listing = Listing.getByListingId(listingId);
         // Validate all fields on this page requiring validation
-        validation.required(p1c_q1).message("Please choose at least one answer.");
+        validation.required(p3_q1).message("Please choose at least one answer.");
         
         if(validation.hasErrors()) {
             flash.error("Validation failed: %s", validation.errors());
@@ -25,7 +25,7 @@ public class Page3 extends Controller {
         // Save the form data as a Page into the correct page index
         int index = listing.pageSequence.indexOf(PAGE_ID);
         Page page = new Page(listingId, PAGE_ID);
-        page.responses.put("p1c_q1", Arrays.asList(p1c_q1).toString());
+        page.responses.put("p3_q1", Arrays.asList(p3_q1).toString());
         listing.completedPages.add(index, page);
         listing.update();
         redirect(listing.nextPageUrl(PAGE_ID, listing.id));

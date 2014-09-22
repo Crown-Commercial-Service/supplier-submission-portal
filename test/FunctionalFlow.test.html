@@ -39,15 +39,15 @@
     clickAndWait('submit')
     
     // Second question page
-    type('p2_q1', 'Answer to question 1')
-    type('p2_q2', 'Answer to question 2')
+    type('p4_q1', 'Answer to question 1')
+    type('p4_q2', 'Answer to question 2')
     clickAndWait('submit')
 
     // Check selected values have been stored
     goBackAndWait()
     assertTextPresent('Question 1 hint')
-    verifyElementPresent(xpath=//input[@name='p2_q1'][@value='Answer to question 1'])
-    verifyText(xpath=//textarea[@name='p2_q2'], 'Answer to question 2')
+    verifyElementPresent(xpath=//input[@name='p4_q1'][@value='Answer to question 1'])
+    verifyText(xpath=//textarea[@name='p4_q2'], 'Answer to question 2')
     clickAndWait('submit')
         
 #{/selenium}

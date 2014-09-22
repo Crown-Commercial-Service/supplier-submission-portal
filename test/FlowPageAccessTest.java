@@ -7,7 +7,7 @@ import uk.gov.gds.dm.ServiceSubmissionJourneyFlows;
 import java.util.HashSet;
 import java.util.Set;
 
-public class FlowTest extends FunctionalTest {
+public class FlowPageAccessTest extends FunctionalTest {
 
     private final static String[] flows = {"IaaS", "SaaS", "PaaS", "SCS"};
     
