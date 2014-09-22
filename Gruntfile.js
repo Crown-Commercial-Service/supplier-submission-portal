@@ -177,7 +177,8 @@ module.exports = function(grunt){
 
     // Remove temporary CSS files
     clean: {
-      tempCSS: ['public/stylesheets/.temp']
+      tempCSS: ['public/stylesheets/.temp'],
+      production: ['node_modules/*', 'govuk_modules/*', 'bower_components/*']
     },
 
     // Update whenever CSS/JS/Gruntfile is changed
@@ -225,7 +226,8 @@ module.exports = function(grunt){
     'imagemin',
     'sass:dev',
     'dataUri',
-    'uglify:dev'
+    'uglify:dev',
+    'clean:tempCSS'
   ]);
 
   grunt.registerTask('production', [
@@ -235,7 +237,8 @@ module.exports = function(grunt){
     'imagemin',
     'sass:production',
     'dataUri',
-    'uglify:production'
+    'uglify:production',
+    'clean'
   ]);
 
   grunt.registerTask('default', [
