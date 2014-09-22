@@ -184,12 +184,12 @@ module.exports = function(grunt){
     watch: {
       css: {
         files: ['app/assets/sass/**/*.scss'],
-        tasks: ['sass', 'dataUri'],
+        tasks: ['sass:dev', 'dataUri'],
         options: { nospawn: true }
       },
       images: {
         files: ['app/assets/images/**/*'],
-        tasks: ['imagemin', 'sass'],
+        tasks: ['imagemin', 'sass:dev', 'dataUri'],
         options: { nospawn: true }
       },
       js: {
