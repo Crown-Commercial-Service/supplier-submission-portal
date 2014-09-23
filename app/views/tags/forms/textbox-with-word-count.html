@@ -1,0 +1,10 @@
+<div class="word-count">
+  <label for='${_name}' class='question-heading'>${_label}</label>
+  <textarea
+    class='text-box text-box-large' name="${_name}" id="${_name}"
+    data-max-length-in-words="${_max_words}"
+  >${_value}</textarea>
+  <p class="word-count-counter">
+    ${_max_words} words remaining
+  </p>
+</div>

@@ -1,11 +1,13 @@
 .question {
 
+  margin: 15px 0 0 0;
+
   &-heading {
 
-    @include core-24;
+    display: block;
+    @include heading-24;
     font-weight: bold;
-    margin: 0 0 15px 0;
-    padding: 0;
+    margin: 0 0 10px 0;
 
     &-with-hint {
       margin-bottom: 0;
@@ -15,7 +17,7 @@
 
   &-hint {
     @include copy-19;
-    margin: 0 0 10px 0;
+    margin: 0 0 5px 0;
     color: $secondary-text-colour;
   }
 
