@@ -1,0 +1,3 @@
+<datastore-index kind="Page" ancestor="false" source="manual">
+    <property name="__key__" direction="desc"/>
+</datastore-index>

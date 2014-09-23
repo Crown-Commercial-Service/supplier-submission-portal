@@ -52,7 +52,6 @@ public class Listing extends Model {
         for (int i=0; i< size; i++) {
             completedPages.add(Page.emptyPage());
         }
-        System.out.println("Created Completed: " + completedPages);
     }
 
     public String nextPageUrl(Long currentPage, Long listingId) {
