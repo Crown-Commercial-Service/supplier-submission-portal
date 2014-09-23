@@ -14,11 +14,15 @@ public class Fixtures extends Controller {
     }
     
     private static void loadQuestionPages() {
-        SienaFixtures.delete(QuestionPage.class);
-        Model.all(QuestionPage.class).delete();
-        SienaFixtures.loadModels("../content/digital-marketplace-ssp-content/question-page-content/service-type-IaaS.yml");
-        for (QuestionPage qp : Model.all(QuestionPage.class).fetch()) {
-            System.out.println(qp);
+        try {
+            SienaFixtures.delete(QuestionPage.class);
+            Model.all(QuestionPage.class).delete();
+            SienaFixtures.loadModels("../content/digital-marketplace-ssp-content/question-page-content/service-type-IaaS.yml");
+            for (QuestionPage qp : Model.all(QuestionPage.class).fetch()) {
+                System.out.println(qp);
+            }
+        } catch (Exception ex) {
+            // 
         }
         redirect("/");
     }
