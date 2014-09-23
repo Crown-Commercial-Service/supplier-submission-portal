@@ -1,0 +1,12 @@
+.button {
+
+  &-save {
+    @include button;
+    @include core-24;
+  }
+
+  &-secondary {
+    @include button($grey-3);
+  }
+
+}

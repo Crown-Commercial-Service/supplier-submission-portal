@@ -1,0 +1,20 @@
+.word-count {
+
+  margin: 0 0 20px 0;
+
+  &-counter {
+
+    text-align: right;
+    @include core-19;
+    line-height: 1;
+    margin: 5px 0 0 0;
+    padding: 0;
+    color: $secondary-text-colour;
+
+    @include media(desktop){
+      width: 66%;
+    }
+
+  }
+
+}
