@@ -35,3 +35,6 @@ GET     /page/finished/{listingId}              Service.submissionComplete
 
 #Load question page content
 GET     /fixtures                               Fixtures.loadQuestionPages
+
+#Styleguide
+GET     /styleguide                             Styleguide.home

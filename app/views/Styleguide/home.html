@@ -1,0 +1,30 @@
+#{extends 'layout.html' /}
+#{set title:'Page 1a Title | Digital Marketplace Service Submission' /}
+
+<div id="global-breadcrumb">
+  <nav>
+    <ol>
+      <li><a href="/">Your G-Cloud 6 submissions</a></li>
+    </ol>
+  </nav>
+</div>
+
+<form id="questions-container" action="${request.getBase()}${request.url}" method="POST">
+  <p class="page-count page-${pageNum}">Page ${pageNum} of ${pageTotal}</p>
+      <h1 class='page-heading'>Page heading</h1>
+      <fieldset>
+        <legend class="question-heading">Question text</legend>
+        <p class="hint">Question hint</p>
+        #{forms/selection-button-radio /}
+        #{forms/selection-button-checkbox /}
+        #{forms/selection-button-boolean /}
+        #{forms/textbox /}
+        #{forms/textbox-large /}
+        #{forms/textbox-price /}
+        #{forms/textbox-percentage /}
+        #{forms/textbox-input-list-item /}
+      </fieldset>
+  <input type="submit" value="Save and continue">
+  <p class="goBackAPage"><a href="#">Go back to previous page</a></p>
+  <p class="returnToDashboard"><a href="/">Return to dashboard</a></p>
+</form>
