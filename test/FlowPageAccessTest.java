@@ -11,6 +11,11 @@ public class FlowPageAccessTest extends FunctionalTest {
 
     private final static String[] flows = {"IaaS", "SaaS", "PaaS", "SCS"};
     
+    @Before
+    public void loadFixtures() {
+        Http.Response response = GET("/fixtures");
+    }
+    
     @Test
     public void checkCorrectPagesCanBeAccessedForAllFlows() {
         for (String flow : flows) {

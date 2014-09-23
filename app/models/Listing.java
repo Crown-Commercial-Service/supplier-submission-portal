@@ -82,7 +82,7 @@ public class Listing extends Model {
     public void addResponsePage(Page page, Long pageId) {
         int index = pageSequence.indexOf(pageId);
         Page p = completedPages.get(index);
-        if (p != null) {
+        if (p.id != 0) {
             p.delete();
             completedPages.remove(index);
         }
