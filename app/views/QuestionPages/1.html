@@ -14,14 +14,14 @@
 
     <section style="display: block;"><p class="page-count page-${pageNum}">Page ${pageNum} of ${pageTotal}</p>
         <h1>${sectiontitle}</h1>
-        <fieldset><legend>${content.q1text}</legend><p class="hint">${content.q1hint}</p>
+        <fieldset><legend>${content?.q1text}</legend><p class="hint">${content?.q1hint}</p>
             <label class="chunk">
-                <input type="checkbox" name="p1_q1" value="${content.q1val1}" #{if oldValues?.get("p1_q1")?.contains(content.q1val1)} checked #{/if}>
-                ${content.q1val1label}
+                <input type="checkbox" name="p1_q1" value="${content.q1val1}" #{if oldValues?.get("p1_q1")?.contains(content?.q1val1)} checked #{/if}>
+                ${content?.q1val1label}
             </label>
             <label class="chunk">
-                <input type="checkbox" name="p1_q1" value="${content.q1val2}" #{if oldValues?.get("p1_q1")?.contains(content.q1val2)} checked #{/if}>
-                ${content.q1val2label}
+                <input type="checkbox" name="p1_q1" value="${content?.q1val2}" #{if oldValues?.get("p1_q1")?.contains(content?.q1val2)} checked #{/if}>
+                ${content?.q1val2label}
             </label>
         </fieldset>
     <input type="submit" value="Save and continue"><p class="goBackAPage"><a href="#">Go back to previous page</a></p><p class="returnToDashboard"><a href="/">Return to dashboard</a></p></section>
