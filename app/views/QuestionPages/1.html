@@ -16,7 +16,7 @@
         <h1>${sectiontitle}</h1>
         <fieldset><legend>${content?.q1text}</legend><p class="hint">${content?.q1hint}</p>
             <label class="chunk">
-                <input type="checkbox" name="p1_q1" value="${content.q1val1}" #{if oldValues?.get("p1_q1")?.contains(content?.q1val1)} checked #{/if}>
+                <input type="checkbox" name="p1_q1" value="${content?.q1val1}" #{if oldValues?.get("p1_q1")?.contains(content?.q1val1)} checked #{/if}>
                 ${content?.q1val1label}
             </label>
             <label class="chunk">
