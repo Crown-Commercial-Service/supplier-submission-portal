@@ -1,5 +1,6 @@
 // BASE STYLESHEET FOR IE 7 COMPILER
 $is-ie: true;
 $ie-version: 7;
+$ignore-for-ie: true;
 
 @import "application.scss";

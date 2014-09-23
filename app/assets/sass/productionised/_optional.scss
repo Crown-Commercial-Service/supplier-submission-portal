@@ -1,0 +1,32 @@
+.optional {
+
+  &-content-1 {
+
+  }
+
+  &-content-2 {
+
+  }
+
+  &-question {
+
+    .js-enabled & {
+
+      display: none;
+
+      &-displayed-by-default {
+        display: block;
+      }
+
+    }
+
+    &-heading {
+      @include core-19;
+      clear: both;
+      margin: 0;
+      padding: 10px 0 10px 0;
+    }
+
+  }
+
+}

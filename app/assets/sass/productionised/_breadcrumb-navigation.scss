@@ -1,0 +1,34 @@
+.breadcrumb-navigation {
+
+  padding: 15px 0;
+  margin: 0;
+  overflow: hidden;
+
+  &-item {
+
+    background-image: url(../images/breadcrumb-separator.png);
+    background-position: 100% 50%;
+    background-repeat: no-repeat;
+    float: left;
+    list-style: none;
+    margin-left: 0;
+    margin-right: 10px;
+    padding-right: 1em;
+
+    &:last-child {
+      background: none;
+    }
+
+  }
+
+  &-link {
+
+    color: $text-colour;
+
+    &:hover {
+      color: $link-hover-colour;
+    }
+
+  }
+
+}
