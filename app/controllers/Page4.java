@@ -21,14 +21,13 @@ public class Page4 extends Controller {
         }
         
         // Save the form data as a Page into the correct page index
-        int index = listing.pageSequence.indexOf(PAGE_ID);
         Page page = new Page(listingId, PAGE_ID);
         page.responses.put("p4_q1", p4_q1);
         page.responses.put("p4_q2", p4_q2);
-        listing.completedPages.add(index, page);
+        page.insert();
         listing.title = p4_q1;
         listing.description = p4_q2;
-        listing.update();
+        listing.addResponsePage(page, PAGE_ID);
         redirect(listing.nextPageUrl(PAGE_ID, listing.id));
     }
 }

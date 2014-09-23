@@ -34,4 +34,4 @@ POST    /page/4/{listingId}                     Page4.savePage
 GET     /page/finished/{listingId}              Service.submissionComplete
 
 #Load question page content
-GET     /fixtures                               Fixtures.loadQuestionPages
+GET     /fixtures                               Fixtures.initialise

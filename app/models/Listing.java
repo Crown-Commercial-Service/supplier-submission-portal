@@ -69,6 +69,31 @@ public class Listing extends Model {
         return pageSequence.get(0);
     }
 
+    public int completedPageCount() {
+        int completed = 0;
+        for (Page p : completedPages) {
+            if (p.pageNumber != 0) {
+                completed++;
+            }
+        }
+        return completed;
+    }
+
+    public void addResponsePage(Page page, Long pageId) {
+        int index = pageSequence.indexOf(pageId);
+        Page p = completedPages.get(index);
+        if (p != null) {
+            p.delete();
+            completedPages.remove(index);
+        }
+        completedPages.add(index, page);
+        update();
+    }
+    
+    public boolean isFullyCompleted() {
+        return pageSequence.size() == completedPageCount();
+    }
+    
     public static List<Listing> allBySupplierId(String supplierId) {
         return Model.all(Listing.class).filter("supplierId", supplierId).fetch();
     }
@@ -98,5 +123,5 @@ public class Listing extends Model {
             return pageSequence.get(index+1);
         }
     }
-    
+
 }

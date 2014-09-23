@@ -32,6 +32,7 @@ public class AAA1TemplatePage extends Controller {
         Page page = new Page(listingId, PAGE_ID);
         // page.responses.put("p1a_q1", Arrays.asList(p1a_q1).toString());
         // ...etc. for all questions on page
+        page.insert();
         listing.completedPages.add(index, page);
         listing.update();
         redirect(listing.nextPageUrl(PAGE_ID, listing.id));

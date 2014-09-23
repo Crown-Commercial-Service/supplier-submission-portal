@@ -26,7 +26,7 @@ public class QuestionPageDisplay extends Controller {
             renderArgs.put("sectiontitle", qp.title);
             renderArgs.put("content", qp.content);
         } else {
-            System.out.println("CONTENT IS NULL");
+            System.out.println(String.format("Content for page %s NULL", pageId));
         }
         renderArgs.put("pageNum", Integer.toString(index+1));
         renderArgs.put("pageTotal", Integer.toString(listing.pageSequence.size()));

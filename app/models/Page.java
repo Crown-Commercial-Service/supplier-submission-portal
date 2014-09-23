@@ -10,10 +10,23 @@ import java.util.Map;
 @EmbeddedMap
 public class Page extends Model {
 
+    private static long autoIncrementId = 12345;
+    
+    private static long nextId() {
+        return autoIncrementId++;
+    }
+    
+    public static void initialiseAutoIncrementId() {
+        Page pageWithHighestId =  Model.all(Page.class).order("-id").get();
+        if (pageWithHighestId != null) {
+            autoIncrementId = pageWithHighestId.id + 1;
+        }
+    }
+    
     // For GAE :
     // 1. @Id annotated field corresponding to the primary key must be Long type
     // 2. @Id annotated field corresponding to the primary key must be called "id"
-    @Id(Generator.AUTO_INCREMENT)
+    @Id(Generator.NONE)
     public Long id;
 
     @Column("pageNumber")
@@ -28,6 +41,7 @@ public class Page extends Model {
     public Map<String,String> responses;
 
     public Page(Long listingId, Long pageNumber) {
+        this.id = nextId();
         this.listingId = listingId;
         this.pageNumber = pageNumber;
         responses = new HashMap<String,String>();
