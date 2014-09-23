@@ -17,7 +17,7 @@ public class Fixtures extends Controller {
         try {
             SienaFixtures.delete(QuestionPage.class);
             Model.all(QuestionPage.class).delete();
-            SienaFixtures.loadModels("../content/digital-marketplace-ssp-content/question-page-content/service-type-IaaS.yml");
+            SienaFixtures.loadModels("digital-marketplace-ssp-content/question-page-content/service-type-IaaS.yml");
             for (QuestionPage qp : Model.all(QuestionPage.class).fetch()) {
                 System.out.println(qp);
             }
