@@ -1,3 +1,3 @@
-[submodule "digital-marketplace-ssp-content"]
+[submodule "content/digital-marketplace-ssp-content"]
 	path = conf/digital-marketplace-ssp-content
 	url = git@github.com:alphagov/digital-marketplace-ssp-content.git
