@@ -28,36 +28,18 @@
     <p class='question-hint'>
       Question hint
     </p>
-    #{forms/selection-button-checkbox
-      name: 'p3_q1',
-      label: ${content.q1val1label},
-      value: ${content.q1val1},
-      checked: oldValues?.get("p3_q1")?.contains(box1val)
-    /}
-    #{forms/selection-button-checkbox
-      name: 'p3_q1',
-      label: ${content.q1val2label},
-      value: ${content.q1val2},
-      checked: oldValues?.get("p3_q1")?.contains(box2val)
-    /}
-    #{forms/selection-button-checkbox
-      name: 'p3_q1',
-      label: ${content.q1val3label},
-      value: ${content.q1val3},
-      checked: oldValues?.get("p3_q1")?.contains(box3val)
-    /}
-    #{forms/selection-button-checkbox
-      name: 'p3_q1',
-      label: ${content.q1val4label},
-      value: ${content.q1val4},
-      checked: oldValues?.get("p3_q1")?.contains(box4val)
-    /}
-    #{forms/selection-button-checkbox
-      name: 'p3_q1',
-      label: ${content.q1val5label},
-      value: ${content.q1val5},
-      checked: oldValues?.get("p3_q1")?.contains(box5val)
-    /}
+    %{
+      for (index in 1..5) {
+    }%
+      #{forms/selection-button-checkbox
+        name: 'p3_q1',
+        label: 'Option ' + index,
+        value: 'val' + index,
+        checked: false
+      /}
+    %{
+      }
+    }%
   </fieldset>
   <input type='submit' value='Save and continue'><p class='goBackAPage'><a href='#'>Go back to previous page</a></p><p class='returnToDashboard'><a href='/'>Return to dashboard</a></p></section>
 

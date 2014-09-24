@@ -39,9 +39,9 @@
   #{/ifnot}
   #{else}
 
-  <ul>
+  <ul class='summary-item-answer-list'>
     #{list listings, as:'listing'}
-    <li>
+    <li class='summary-item-answer'>
       %{
         if (listing.title != null)
            serviceName = listing.title;

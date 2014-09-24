@@ -1,5 +1,8 @@
 <div class="word-count">
   <label for='${_name}' class='question-heading'>${_label}</label>
+  #{forms/hint
+    hint: _hint
+  /}
   <textarea
     class='text-box text-box-large' name="${_name}" id="${_name}"
     data-max-length-in-words="${_max_words}"

@@ -27,114 +27,18 @@
     <p class='question-hint'>
       Question hint
     </p>
-    #{forms/selection-button-checkbox
-      name: 'p2_q1',
-      label: ${content.q1val1label},
-      value: ${content.q1val1},
-      checked: oldValues?.get("p2_q1")?.contains(box1val)
-    /}
-    #{forms/selection-button-checkbox
-      name: 'p2_q1',
-      label: ${content.q1val2label},
-      value: ${content.q1val2},
-      checked: oldValues?.get("p2_q1")?.contains(box2val)
-    /}
-    #{forms/selection-button-checkbox
-      name: 'p2_q1',
-      label: ${content.q1val3label},
-      value: ${content.q1val3},
-      checked: oldValues?.get("p2_q1")?.contains(box3val)
-    /}
-    #{forms/selection-button-checkbox
-      name: 'p2_q1',
-      label: ${content.q1val4label},
-      value: ${content.q1val4},
-      checked: oldValues?.get("p2_q1")?.contains(box4val)
-    /}
-    #{forms/selection-button-checkbox
-      name: 'p2_q1',
-      label: ${content.q1val5label},
-      value: ${content.q1val5},
-      checked: oldValues?.get("p2_q1")?.contains(box5val)
-    /}
-    #{forms/selection-button-checkbox
-      name: 'p2_q1',
-      label: ${content.q1val6label},
-      value: ${content.q1val6},
-      checked: oldValues?.get("p2_q1")?.contains(box6val)
-    /}
-    #{forms/selection-button-checkbox
-      name: 'p2_q1',
-      label: ${content.q1val7label},
-      value: ${content.q1val7},
-      checked: oldValues?.get("p2_q1")?.contains(box7val)
-    /}
-    #{forms/selection-button-checkbox
-      name: 'p2_q1',
-      label: ${content.q1val8label},
-      value: ${content.q1val8},
-      checked: oldValues?.get("p2_q1")?.contains(box8val)
-    /}
-    #{forms/selection-button-checkbox
-      name: 'p2_q1',
-      label: ${content.q1val9label},
-      value: ${content.q1val9},
-      checked: oldValues?.get("p2_q1")?.contains(box9val)
-    /}
-    #{forms/selection-button-checkbox
-      name: 'p2_q1',
-      label: ${content.q1val10label},
-      value: ${content.q1val10},
-      checked: oldValues?.get("p2_q1")?.contains(box10val)
-    /}
-    #{forms/selection-button-checkbox
-      name: 'p2_q1',
-      label: ${content.q1val11label},
-      value: ${content.q1val11},
-      checked: oldValues?.get("p2_q1")?.contains(box11val)
-    /}
-    #{forms/selection-button-checkbox
-      name: 'p2_q1',
-      label: ${content.q1val12label},
-      value: ${content.q1val12},
-      checked: oldValues?.get("p2_q1")?.contains(box12val)
-    /}
-    #{forms/selection-button-checkbox
-      name: 'p2_q1',
-      label: ${content.q1val13label},
-      value: ${content.q1val13},
-      checked: oldValues?.get("p2_q1")?.contains(box13val)
-    /}
-    #{forms/selection-button-checkbox
-      name: 'p2_q1',
-      label: ${content.q1val14label},
-      value: ${content.q1val14},
-      checked: oldValues?.get("p2_q1")?.contains(box14val)
-    /}
-    #{forms/selection-button-checkbox
-      name: 'p2_q1',
-      label: ${content.q1val15label},
-      value: ${content.q1val15},
-      checked: oldValues?.get("p2_q1")?.contains(box15val)
-    /}
-    #{forms/selection-button-checkbox
-      name: 'p2_q1',
-      label: ${content.q1val16label},
-      value: ${content.q1val16},
-      checked: oldValues?.get("p2_q1")?.contains(box16val)
-    /}
-    #{forms/selection-button-checkbox
-      name: 'p2_q1',
-      label: ${content.q1val17label},
-      value: ${content.q1val17},
-      checked: oldValues?.get("p2_q1")?.contains(box17val)
-    /}
-    #{forms/selection-button-checkbox
-      name: 'p2_q1',
-      label: ${content.q1val18label},
-      value: ${content.q1val18},
-      checked: oldValues?.get("p2_q1")?.contains(box18val)
-    /}
+    %{
+      for (index in 1..18) {
+    }%
+      #{forms/selection-button-checkbox
+        name: 'p2_q1',
+        label: 'Option ' + index,
+        value: 'val' + index,
+        checked: false
+      /}
+    %{
+      }
+    }%
   </fieldset>
   <div class='page-footer'>
     <input type='submit' value='Save and continue' id='submit' class='page-footer-item button button-save' />
