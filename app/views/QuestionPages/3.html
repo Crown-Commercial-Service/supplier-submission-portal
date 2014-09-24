@@ -2,41 +2,63 @@
 #{set title:'Page 1c Title | Digital Marketplace Service Submission' /}
 
 
-<div id="global-breadcrumb">
+<div class='breadcrumb-navigation'>
   <nav>
     <ol>
-      <li><a href="/">Your G-Cloud 6 submissions</a></li>
-      <li>New PaaS submission</li>
+      <li class='breadcrumb-navigation-item'>
+        <a href="/" class='breadcrumb-link'>Your G-Cloud 6 submissions</a>
+      </li>
+      <li class='breadcrumb-navigation-item'>New SCS submission</li>
     </ol>
   </nav>
 </div>
 
-<form id="questions-container" action="${request.getBase()}${request.url}" method="POST">
+<form action='${request.getBase()}${request.url}' method='POST'>
 
-    <section style="display: block;"><p class="page-count page-${pageNum}">Page ${pageNum} of ${pageTotal}</p>
-        <h1>Question section header</h1>
-        <fieldset><legend>Question text</legend><p class="hint">Question hint</p>
-            <label class="chunk">
-                <input type="checkbox" name="p3_q1" value="box1val" #{if oldValues?.get("p3_q1")?.contains("box1val")} checked #{/if}>
-                Box 1 value text
-            </label>
-            <label class="chunk">
-                <input type="checkbox" name="p3_q1" value="box2val" #{if oldValues?.get("p3_q1")?.contains("box2val")} checked #{/if}>
-                Box 2 value text
-            </label>
-            <label class="chunk">
-                <input type="checkbox" name="p3_q1" value="box3val" #{if oldValues?.get("p3_q1")?.contains("box3val")} checked #{/if}>
-                Box 3 value text
-            </label>
-            <label class="chunk">
-                <input type="checkbox" name="p3_q1" value="box4val" #{if oldValues?.get("p3_q1")?.contains("box4val")} checked #{/if}>
-                Box 4 value text
-            </label>
-            <label class="chunk">
-                <input type="checkbox" name="p3_q1" value="box5val" #{if oldValues?.get("p3_q1")?.contains("box5val")} checked #{/if}>
-                Box 5 value text
-            </label>
-        </fieldset>
-        <input type="submit" value="Save and continue"><p class="goBackAPage"><a href="#">Go back to previous page</a></p><p class="returnToDashboard"><a href="/">Return to dashboard</a></p></section>
+  <p class='position page-${pageNum}'>
+    Page ${pageNum} of ${pageTotal}
+  </p>
+  <h1 class='page-heading'>
+    Question section header
+  </h1>
+  <fieldset>
+    <legend class='question-heading'>
+      Question text
+    </legend>
+    <p class='question-hint'>
+      Question hint
+    </p>
+    #{forms/selection-button-checkbox
+      name: 'p3_q1',
+      label: ${content.q1val1label},
+      value: ${content.q1val1},
+      checked: oldValues?.get("p3_q1")?.contains(box1val)
+    /}
+    #{forms/selection-button-checkbox
+      name: 'p3_q1',
+      label: ${content.q1val2label},
+      value: ${content.q1val2},
+      checked: oldValues?.get("p3_q1")?.contains(box2val)
+    /}
+    #{forms/selection-button-checkbox
+      name: 'p3_q1',
+      label: ${content.q1val3label},
+      value: ${content.q1val3},
+      checked: oldValues?.get("p3_q1")?.contains(box3val)
+    /}
+    #{forms/selection-button-checkbox
+      name: 'p3_q1',
+      label: ${content.q1val4label},
+      value: ${content.q1val4},
+      checked: oldValues?.get("p3_q1")?.contains(box4val)
+    /}
+    #{forms/selection-button-checkbox
+      name: 'p3_q1',
+      label: ${content.q1val5label},
+      value: ${content.q1val5},
+      checked: oldValues?.get("p3_q1")?.contains(box5val)
+    /}
+  </fieldset>
+  <input type='submit' value='Save and continue'><p class='goBackAPage'><a href='#'>Go back to previous page</a></p><p class='returnToDashboard'><a href='/'>Return to dashboard</a></p></section>
 
 </form>

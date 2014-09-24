@@ -1,2 +1,11 @@
 <label for='${_name}' class='question-heading'>${_label}</label>
+%{
+  if (_hint) {
+}%
+<p class="question-hint">
+  ${_hint}
+</p>
+%{
+  }
+}%
 <input type='text' name='${_name}' id='${_name}' class='text-box' value='${_value}' />

@@ -2,3 +2,12 @@
   <input type='radio' name='${_name}' id='${_name}' />
   ${_label}
 </label>
+%{
+   if (_description) {
+}%
+<p class="question-description">
+  ${_description}
+</p>
+%{
+  }
+}%

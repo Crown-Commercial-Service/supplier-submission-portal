@@ -1,4 +1,8 @@
 <label class='selection-button'>
-  <input type='checkbox' name='${_name}' id='${_name}' />
+  <input
+    type='checkbox' name='${_name}' id='${_name}'
+    value='${_value}'
+    %{ if (_checked) { }% checked='checked' %{ }}%
+  />
   ${_label}
 </label>

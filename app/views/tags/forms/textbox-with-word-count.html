@@ -3,8 +3,12 @@
   <textarea
     class='text-box text-box-large' name="${_name}" id="${_name}"
     data-max-length-in-words="${_max_words}"
+    aria-controls='${_name}-word-count'
   >${_value}</textarea>
-  <p class="word-count-counter">
-    ${_max_words} words remaining
+  <p
+    class="word-count-counter" id="${_name}-word-count"
+    role='status' aria-live='assertive' aria-relevant='text'
+  >
+    ${_max_words} words maximum
   </p>
 </div>

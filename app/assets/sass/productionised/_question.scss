@@ -22,14 +22,9 @@
   }
 
   &-description {
-
     @include copy-19;
     margin: 0 0 25px 0;
-
-    @include media(desktop) {
-      width: 66%;
-    }
-
+    clear: left;
   }
 
 }
