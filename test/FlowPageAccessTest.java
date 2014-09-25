@@ -16,8 +16,7 @@ public class FlowPageAccessTest extends FunctionalTest {
         Http.Response response = GET("/fixtures");
         System.out.println("Loaded fixtures: " + response.status + " - " + response.toString());
     }
-    
-    @Ignore
+
     @Test
     public void checkCorrectPagesCanBeAccessedForAllFlows() {
         for (String flow : flows) {
