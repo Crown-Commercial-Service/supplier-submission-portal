@@ -1,5 +1,6 @@
 package controllers;
 
+import java.util.Arrays;
 import models.Listing;
 import models.Page;
 import play.mvc.Controller;
@@ -8,7 +9,7 @@ public class Page28 extends Controller {
 
     private static final Long PAGE_ID = 28l;
 
-    public static void savePage(Long listingId, String p28q1) {
+    public static void savePage(Long listingId, String[] p28q1) {
 
         Listing listing = Listing.getByListingId(listingId);
 
@@ -19,7 +20,7 @@ public class Page28 extends Controller {
         }
         
         Page page = new Page(listingId, PAGE_ID);
-        page.responses.put("p28q1", p28q1);
+        page.responses.put("p28q1", Arrays.asList(p28q1).toString());
         page.insert();
         listing.addResponsePage(page, PAGE_ID);
         redirect(listing.nextPageUrl(PAGE_ID, listing.id));

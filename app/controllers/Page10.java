@@ -1,5 +1,6 @@
 package controllers;
 
+import java.util.Arrays;
 import models.Listing;
 import models.Page;
 import play.mvc.Controller;
@@ -8,7 +9,7 @@ public class Page10 extends Controller {
 
     private static final Long PAGE_ID = 10l;
 
-    public static void savePage(Long listingId, String p10q1, String p10q2, String p10q3, String p10q4, String p10q5) {
+    public static void savePage(Long listingId, String[] p10q1, String p10q2, String p10q3, String p10q4, String p10q5) {
 
         Listing listing = Listing.getByListingId(listingId);
         
@@ -25,7 +26,7 @@ public class Page10 extends Controller {
 
         //Save the form data as a Page into the correct page index
         Page page = new Page(listingId, PAGE_ID);
-        page.responses.put("p10q1", p10q1);
+        page.responses.put("p10q1", Arrays.asList(p10q1).toString());
         page.responses.put("p10q2", p10q2);
         page.responses.put("p10q3", p10q3);
         page.responses.put("p10q4", p10q4);
