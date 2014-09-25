@@ -1,4 +1,7 @@
-<label class="file-upload-label">
-  <input type='file' name='${_name}' id='${_name}' class='file-upload' />
-  File 1
+<label class='question-heading %{ if (_hint) { }%question-heading-with-hint%{ } }%' for='${_name}'>
+  ${_label}
 </label>
+#{forms/hint
+  hint: _hint
+/}
+<input type='file' name='${_name}' id='${_name}' class='file-upload' />
