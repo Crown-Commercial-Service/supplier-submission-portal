@@ -31,10 +31,10 @@
       for (index in 1..18) {
     }%
       #{forms/selection-button-checkbox
-        name: 'p2_q1',
+        name: 'p2q1',
         label: 'Option ' + index,
-        value: 'val' + index,
-        checked: false
+        value: 'box' + index + 'val',
+        checked: oldValues?.get('p2q1')?.contains('box' + index + 'val')
       /}
     %{
       }
