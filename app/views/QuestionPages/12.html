@@ -1,0 +1,17 @@
+#{extends 'layout.html' /}
+#{set title: 'Adding a new service' /}
+
+#{breadcrumb-one-deep
+  tip: oldValues?.get('p4q1')
+/}
+
+<form action='${request.getBase()}${request.url}' method='POST'>
+  #{heading
+    current: pageNum,
+    total: pageTotal,
+    title: content.get('p12title')
+  /}
+  <fieldset>
+  </fieldset>
+  #{footer/}
+</form>
