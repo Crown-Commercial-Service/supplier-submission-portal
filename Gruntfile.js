@@ -104,23 +104,26 @@ module.exports = function(grunt){
 
       assets_js: {
         cwd: 'app/assets/javascripts/',
-        src: '**',
+        src: '**/*',
         dest: 'public/javascripts/',
-        expand: true
+        expand: true,
+        flatten: true
       },
 
       toolkit_js: {
         cwd: 'node_modules/govuk_frontend_toolkit/govuk_frontend_toolkit/javascripts/govuk/',
         src: 'selection-buttons.js',
         dest: 'public/javascripts/',
-        expand: true
+        expand: true,
+        flatten: true
       },
 
       template_js: {
         cwd: 'node_modules/govuk_template_mustache/assets/javascripts/',
         src: '**',
         dest: 'public/javascripts/',
-        expand: true
+        expand: true,
+        flatten: true
       },
 
       toolkit_images: {
@@ -160,7 +163,7 @@ module.exports = function(grunt){
           preserveComments: false
         },
         files: {
-          "public/assets/javascripts/application.js": JSModules
+          "public/javascripts/application.js": JSModules
         }
       }
     },
@@ -198,7 +201,7 @@ module.exports = function(grunt){
       },
       js: {
         files: ['app/assets/javascripts/**/*'],
-        tasks: ['copy:assets_js']
+        tasks: ['copy:assets_js', 'uglify:dev']
       },
       self: {
         files: ['Gruntfile.js'],
