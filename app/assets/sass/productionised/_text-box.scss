@@ -5,6 +5,7 @@
   display: block;
   height: 50px;
   margin: 0 0 15px 0;
+  padding: 5px;
   border: 1px solid $border-colour;
 
   @include media(desktop){
@@ -25,7 +26,6 @@
     &-label {
       display: inline-block;
       @include core-19;
-      padding: 0 5px;
     }
 
   }

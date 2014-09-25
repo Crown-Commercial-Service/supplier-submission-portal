@@ -19,7 +19,6 @@ public class QuestionPageDisplay extends Controller {
         }
 
         int index = listing.pageSequence.indexOf(pageId);
-        System.out.println("CONTENT PASSED TO VIEW: " + Fixtures.getContentProperties());
         renderArgs.put("content", Fixtures.getContentProperties());
         renderArgs.put("pageNum", Integer.toString(index+1));
         renderArgs.put("pageTotal", Integer.toString(listing.pageSequence.size()));

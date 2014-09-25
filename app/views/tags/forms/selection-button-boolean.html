@@ -1,8 +1,17 @@
+%{
+   if (_hint) {
+}%
+<p class="question-hint">
+  ${_hint}
+</p>
+%{
+  }
+}%
 <label class='selection-button selection-button-boolean'>
-  <input type='radio' name='option-1' id='option-1' />
+  <input type='radio' name='${_name}' id='${_name}-option-1' />
   Yes<span class='hidden'> I agree to the statement</span>
 </label>
 <label class='selection-button selection-button-boolean'>
-  <input type='radio' name='option-2' id='option-2' />
+  <input type='radio' name='${_name}' id='${_name}-option-2' />
   No<span class='hidden'> I don't agree to the statement</span>
 </label>

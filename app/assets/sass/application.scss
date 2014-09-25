@@ -4,28 +4,23 @@
 @import 'design-patterns/buttons';
 @import 'design-patterns/alpha-beta';
 
-// Old, crufty CSS, to be removed
-@import 'layout';
-@import 'breadcrumbs';
-@import 'wordCount';
-@import 'formElements';
-@import 'repeatables';
-@import 'summaryPage';
-@import 'other';
+// Reset
+@import 'productionised/_reset';
 
-
-// New, shiny CSS
-
+// Layout
 @import 'productionised/_wrappers';
 @import 'productionised/_phase-banner';
 
+// Page heading
 @import 'productionised/_breadcrumb-navigation';
 @import 'productionised/_position';
 @import 'productionised/_page-heading';
 @import 'productionised/_page-footer';
 
+// Question metadata
 @import 'productionised/_question';
 
+// Input interfaces
 @import 'productionised/_text-box';
 @import 'productionised/_word-count';
 @import 'productionised/_input-list';
@@ -34,4 +29,5 @@
 @import 'productionised/_file-upload';
 @import 'productionised/_optional';
 
+// Summary page
 @import 'productionised/_summary';

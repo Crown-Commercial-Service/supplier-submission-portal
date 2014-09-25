@@ -1,29 +1,52 @@
 #{extends 'layout.html' /}
 #{set title:'Page 1a Title | Digital Marketplace Service Submission' /}
 
-<div id="global-breadcrumb">
+<div class='breadcrumb-navigation'>
   <nav>
     <ol>
-      <li><a href="/">Your G-Cloud 6 submissions</a></li>
-      <li>New IaaS submission</li>
+      <li class='breadcrumb-navigation-item'>
+        <a href="/" class='breadcrumb-navigation-link'>Your G-Cloud 6 submissions</a>
+      </li>
+      <li class='breadcrumb-navigation-item'>New IaaS submission</li>
     </ol>
   </nav>
 </div>
 
-<form id="questions-container" action="${request.getBase()}${request.url}" method="POST">
-    <p>flash: ${flash}</p>
-    <section style="display: block;"><p class="page-count page-${pageNum}">Page ${pageNum} of ${pageTotal}</p>
-        <h1>${content?.get("p1title")}</h1>
-        <fieldset><legend>${content?.get("p1q1text")}</legend><p class="hint">${content.get("p1q1hint")}</p>
-            <label class="chunk">
-                <input type="checkbox" name="p1_q1" value="${content.get("p1q1q1val1")}" #{if oldValues?.get("p1_q1")?.contains(content.get("p1q1val1"))} checked #{/if}>
-                ${content.get("p1q1val1label")}
-            </label>
-            <label class="chunk">
-                <input type="checkbox" name="p1_q1" value="${content.get("p1q1val2")}" #{if oldValues?.get("p1_q1")?.contains(content.get("p1q1val2"))} checked #{/if}>
-                ${content.get("p1q1val2label")}
-            </label>
-        </fieldset>
-    <input type="submit" value="Save and continue"><p class="goBackAPage"><a href="#">Go back to previous page</a></p><p class="returnToDashboard"><a href="/">Return to dashboard</a></p></section>
+<form action="${request.getBase()}${request.url}" method="POST">
 
+  <p class="position position-page-${pageNum}">
+    Page ${pageNum} of ${pageTotal}
+  </p>
+  <h1 class="page-heading">
+    ${sectiontitle}
+  </h1>
+  <fieldset>
+    <legend class="question-title">
+      ${content.q1text}
+    </legend>
+    <p class="question-hint">
+      ${content.q1hint}
+    </p>
+    %{
+      for (index in 1..2) {
+    }%
+      #{forms/selection-button-checkbox
+        name: 'p1_q1',
+        label: 'Option ' + index,
+        value: 'val' + index,
+        checked: false
+      /}
+    %{
+      }
+    }%
+  </fieldset>
+  <div class="page-footer">
+    <input type="submit" value="Save and continue" class="page-footer-item button button-save" />
+    <p class="page-footer-item">
+      <a href="#">Go back to previous page</a>
+    </p>
+    <p class="page-footer-item">
+      <a href="/">Return to dashboard</a>
+    </p>
+  </div>
 </form>

@@ -1,58 +1,124 @@
 #{extends 'layout.html' /}
 #{set title:'Page 1a Title | Digital Marketplace Service Submission' /}
 
-<div id="global-breadcrumb">
+<div class="breadcrumb-navigation">
   <nav>
     <ol>
-      <li><a href="/">Your G-Cloud 6 submissions</a></li>
+      <li class="breadcrumb-navigation-item">
+        <a href="/" class="breadcrumb-navigation-link">Your G-Cloud 6 submissions</a>
+      </li>
+      <li class="breadcrumb-navigation-item">
+        Styleguide
+      </li>
     </ol>
   </nav>
 </div>
 
-<form id="questions-container" action="${request.getBase()}${request.url}" method="POST">
-  <p class="page-count page-${pageNum}">Page ${pageNum} of ${pageTotal}</p>
-      <h1 class='page-heading'>Page heading</h1>
-      <fieldset>
-        <legend class="question-heading">Question text</legend>
-        <p class="hint">Question hint</p>
-        #{forms/selection-button-radio /}
-        #{forms/selection-button-radio /}
-        #{forms/selection-button-radio /}
-        #{forms/selection-button-radio /}
-      </fieldset>
-      <fieldset>
-        <legend class="question-heading">Question text</legend>
-        <p class="hint">Question hint</p>
-        #{forms/selection-button-checkbox /}
-        #{forms/selection-button-checkbox /}
-        #{forms/selection-button-checkbox /}
-        #{forms/selection-button-checkbox /}
-      </fieldset>
-      <fieldset>
-        <legend class="question-heading">Question text</legend>
-        <p class="hint">Question hint</p>
-        #{forms/selection-button-boolean /}
-      </fieldset>
-      <fieldset>
-        <legend class="question-heading">Question text</legend>
-        #{forms/textbox /}
-        #{forms/textbox-large /}
-      </fieldset>
-      <fieldset>
-        <legend class="question-heading">Question text</legend>
-        #{forms/textbox-price /}
-      </fieldset>
-      <fieldset>
-        <legend class="question-heading">Question text</legend>
-        #{forms/textbox-percentage /}
-      </fieldset>
-      <fieldset>
-        <legend class="question-heading">Question text</legend>
-        #{forms/textbox-input-list-item /}
-        #{forms/textbox-input-list-item /}
-        #{forms/textbox-input-list-item /}
-      </fieldset>
-  <input type="submit" value="Save and continue">
-  <p class="goBackAPage"><a href="#">Go back to previous page</a></p>
-  <p class="returnToDashboard"><a href="/">Return to dashboard</a></p>
+<form action="${request.getBase()}${request.url}" method="post">
+  <p class="position position-page-${pageNum}">Page 1 of 37</p>
+  <h1 class='page-heading'>
+    Page heading
+  </h1>
+  <fieldset class="question">
+    <legend class="question-heading question-heading-with-hint">Question text</legend>
+    <p class="question-hint">Question hint</p>
+    #{forms/selection-button-radio
+      name: 'radio-station',
+      label: 'Radio One'
+    /}
+    #{forms/selection-button-radio
+      name: 'radio-station',
+      label: 'Radio Two'
+    /}
+    #{forms/selection-button-radio
+      name: 'radio-station',
+      label: 'Radio Three'
+    /}
+    #{forms/selection-button-radio
+      name: 'radio-station',
+      label: 'Radio Four'
+    /}
+  </fieldset>
+  <fieldset class="question">
+    <legend class="question-heading">Question text</legend>
+    #{forms/selection-button-checkbox
+      name: 'example-checkbox',
+      label: 'Check one'
+    /}
+    #{forms/selection-button-checkbox
+      name: 'example-checkbox',
+      label: 'Check two'
+    /}
+  </fieldset>
+  <fieldset class="question">
+    <legend class="question-heading question-heading-with-hint">Boolean with hint</legend>
+    #{forms/selection-button-boolean
+      name: 'example-boolean',
+      hint: 'Question hint'
+    /}
+  </fieldset>
+  <fieldset class="question">
+    <legend class="question-heading question-heading-with-hint">Boolean without hint</legend>
+    #{forms/selection-button-boolean
+      name: 'example-boolean-with-hint'
+    /}
+  </fieldset>
+  <fieldset class="question">
+    #{forms/textbox
+      name: 'one-liner',
+      label: 'Enter a few words here'
+    /}
+  </fieldset>
+  <fieldset class="question">
+    #{forms/textbox-large
+      name: 'multi-liner',
+      label: 'Enter lots of words here'
+    /}
+  </fieldset>
+  <fieldset class="question">
+    #{forms/textbox-with-word-count
+      name: 'w-word-count',
+      label: 'Enter a specific number of words here',
+      max_words: '99'
+    /}
+  </fieldset>
+  <fieldset class="question">
+    #{forms/textbox-price
+      name: 'price-is-right',
+      label: 'What is your price?',
+      hidden_label: 'your thing costs'
+    /}
+  </fieldset>
+  <fieldset class="question">
+    #{forms/textbox-percentage
+      name: 'hundred-and-ten',
+      label: 'How complete is this?'
+    /}
+  </fieldset>
+  <fieldset class="question">
+    <legend class="question-heading">Question text</legend>
+    <div class="input-list">
+      #{forms/textbox-input-list-item
+        name: 'example-list',
+        numbered: '1'
+      /}
+      #{forms/textbox-input-list-item
+        name: 'example-list',
+        numbered: '2'
+      /}
+      #{forms/textbox-input-list-item
+        name: 'example-list',
+        numbered: '3'
+      /}
+    </div>
+  </fieldset>
+  <div class="page-footer">
+    <input type="submit" value="Save and continue" class="button-save">
+    <p class="goBackAPage page-footer-link">
+      <a href="#">Go back to previous page</a>
+    </p>
+    <p class="returnToDashboard page-footer-link">
+      <a href="/">Return to dashboard</a>
+    </p>
+  </div>
 </form>

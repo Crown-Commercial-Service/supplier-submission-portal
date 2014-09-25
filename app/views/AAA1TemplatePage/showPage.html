@@ -1,14 +1,22 @@
 #{extends 'layout.html' /}
 #{set title:'Adding a new service - Page ${pageNum} of ${pageTotal}' /}
 
-<div id="global-breadcrumb">
+<div class='breadcrumb-navigation'>
   <nav>
     <ol>
-      <li><a href="/">Your G-Cloud 6 submissions</a></li>
-      <li></li>
+      <li class='breadcrumb-navigation-item'>
+        <a href='/' class='breadcrumb-link'>Your G-Cloud 6 submissions</a>
+      </li>
+      <li class='breadcrumb-navigation-item'>Where you are</li>
     </ol>
   </nav>
 </div>
-<form id="questions-container" action="${request.getBase()}${request.url}" method="POST">
 
+<form action='${request.getBase()}${request.url}' method='POST'>
+  <p class='position position-page-${pageNum}'>
+    Page ${pageNum} of ${pageTotal}
+  </p>
+  <h1 class='page-heading'>
+    Page title
+  </h1>
 </form>
