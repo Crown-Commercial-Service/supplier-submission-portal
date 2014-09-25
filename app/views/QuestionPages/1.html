@@ -21,20 +21,20 @@
     ${sectiontitle}
   </h1>
   <fieldset>
-    <legend class="question-title">
-      ${content.q1text}
+    <legend class="question-heading">
+      ${content.get('p1q1text')}
     </legend>
     <p class="question-hint">
-      ${content.q1hint}
+      ${content.get('p1q1hint')}
     </p>
     %{
       for (index in 1..2) {
     }%
       #{forms/selection-button-checkbox
         name: 'p1q1',
-        label: 'Option ' + index,
-        value: 'box' + index + 'val',
-        checked: oldValues?.get('p1q1')?.contains('box' + index + 'val')
+        label: content.get('p1q1val' + index + 'Label'),
+        value: content.get('p1q1val' + index),
+        checked: oldValues?.get('p1q1')?.contains(content.get('p1q1val' + index))
       /}
     %{
       }
