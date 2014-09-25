@@ -18,13 +18,10 @@ public class Page10 extends Controller {
         validation.required(p10q3).message("p10q3 : null");
         validation.required(p10q4).message("p10q4 : null");
         validation.required(p10q5).message("p10q5 : null");
-
         if(validation.hasErrors()) {
             flash.error("%s", validation.errors());
             redirect(String.format("/page/%d/%d", PAGE_ID, listing.id));
         }
-        
-        int index = listing.pageSequence.indexOf(PAGE_ID);
 
         //Save the form data as a Page into the correct page index
         Page page = new Page(listingId, PAGE_ID);
@@ -33,7 +30,6 @@ public class Page10 extends Controller {
         page.responses.put("p10q3", p10q3);
         page.responses.put("p10q4", p10q4);
         page.responses.put("p10q5", p10q5);
-
         page.insert();
         listing.addResponsePage(page, PAGE_ID);
         redirect(listing.nextPageUrl(PAGE_ID, listing.id));

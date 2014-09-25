@@ -13,7 +13,6 @@ public class Page32 extends Controller {
         Listing listing = Listing.getByListingId(listingId);
 
         validation.required(p32q1).message("p32q1:null");
-        
         if(validation.hasErrors()) {
             flash.error("%s", validation.errors());
             redirect(String.format("/page/%d/%d", PAGE_ID, listing.id));

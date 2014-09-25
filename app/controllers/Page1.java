@@ -14,9 +14,9 @@ public class Page1 extends Controller {
     public static void savePage(Long listingId, String[] p1q1) {
         
         Listing listing = Listing.getByListingId(listingId);
+        
         // Validate all fields on this page requiring validation
         validation.required(p1q1).message("p1q1 : null");
-        
         if(validation.hasErrors()) {
             flash.error("%s", validation.errors());
             redirect(String.format("/page/%d/%d", PAGE_ID, listing.id));

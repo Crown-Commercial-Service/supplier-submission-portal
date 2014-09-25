@@ -36,4 +36,12 @@ public class Page30 extends Controller {
         listing.addResponsePage(page, PAGE_ID);
         redirect(listing.nextPageUrl(PAGE_ID, listing.id));
     }
+
+    public static void savePage(Long listingId, String p30q1) {
+        savePage(listingId, p30q1, null, null, null, null);
+    }
+
+    public static void savePage(Long listingId, String p30q1, String p30q2, String p30q3, String p30q4) {
+        savePage(listingId, p30q1, p30q2, p30q3, p30q4, null);
+    }
 }

@@ -16,20 +16,16 @@ public class Page19 extends Controller {
         validation.required(p19q1).message("p19q1 : null");
         validation.required(p19q2).message("p19q2 : null");
         validation.required(p19q3).message("p19q3 : null");
-
         if(validation.hasErrors()) {
             flash.error("%s", validation.errors());
             redirect(String.format("/page/%d/%d", PAGE_ID, listing.id));
         }
-        
-        int index = listing.pageSequence.indexOf(PAGE_ID);
 
         // Save the form data as a Page into the correct page index
         Page page = new Page(listingId, PAGE_ID);
         page.responses.put("p19q1", p19q1);
         page.responses.put("p19q2", p19q2);
         page.responses.put("p19q3", p19q3);
-
         page.insert();
         listing.addResponsePage(page, PAGE_ID);
         redirect(listing.nextPageUrl(PAGE_ID, listing.id));

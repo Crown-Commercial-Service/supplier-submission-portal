@@ -11,6 +11,7 @@ public class Page34 extends Controller {
     public static void savePage(Long listingId, String p34q1) {
 
         Listing listing = Listing.getByListingId(listingId);
+        
         validation.required(p34q1).message("p34q1:null");
         if(validation.hasErrors()) {
             flash.error("%s", validation.errors());

@@ -29,10 +29,7 @@ public class Page24 extends Controller {
                 validation.required(p24q10).message("p24q10 : null");
             }
         }
-
         validation.required(p24q3).message("p24q3 : null");
-
-
         if(validation.hasErrors()) {
             flash.error("%s", validation.errors());
             redirect(String.format("/page/%d/%d", PAGE_ID, listing.id));
@@ -40,27 +37,27 @@ public class Page24 extends Controller {
 
         // Save the form data as a Page into the correct page index
         Page page = new Page(listingId, PAGE_ID);
-
-        if(!listing.lot.equals("SCS")) {
-            page.responses.put("p24q1", p24q1);
-            page.responses.put("p24q2", p24q2);
-            page.responses.put("p24q4", p24q4);
-            page.responses.put("p24q5", p24q5);
-            page.responses.put("p24q6", p24q6);
-            page.responses.put("p24q11", p24q11);
-
-            if(!listing.lot.equals("SaaS")) {
-                page.responses.put("p24q7", p24q7);
-                page.responses.put("p24q8", p24q8);
-                page.responses.put("p24q9", p24q9);
-                page.responses.put("p24q10", p24q10);
-            }
-        }
-
+        page.responses.put("p24q1", p24q1);
+        page.responses.put("p24q2", p24q2);
         page.responses.put("p24q3", p24q3);
-
+        page.responses.put("p24q4", p24q4);
+        page.responses.put("p24q5", p24q5);
+        page.responses.put("p24q6", p24q6);
+        page.responses.put("p24q7", p24q7);
+        page.responses.put("p24q8", p24q8);
+        page.responses.put("p24q9", p24q9);
+        page.responses.put("p24q10", p24q10);
+        page.responses.put("p24q11", p24q11);
         page.insert();
         listing.addResponsePage(page, PAGE_ID);
         redirect(listing.nextPageUrl(PAGE_ID, listing.id));
+    }
+
+    public static void savePage(Long listingId, String p24q3) {
+        savePage(listingId, null, null, p24q3, null, null, null, null, null, null, null, null);
+    }
+
+    public static void savePage(Long listingId, String p24q1, String p24q2, String p24q3, String p24q4, String p24q5, String p24q6, String p24q11) {
+        savePage(listingId, p24q1, p24q2, p24q3, p24q4, p24q5, p24q6, null, null, null, null, p24q11);
     }
 }

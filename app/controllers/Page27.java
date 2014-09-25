@@ -17,7 +17,7 @@ public class Page27 extends Controller {
         validation.required(p27q9).message("p27q9:null");
         if (!listing.lot.equals("SCS")) {
             if (!listing.lot.equals("SaaS")) {
-                // Q7 for IaaS, PaaS only
+                // Q1 for IaaS, PaaS only
                 validation.required(p27q1).message("p27q1:null");
             }
             // Rest are for all lots except SCS
@@ -55,5 +55,14 @@ public class Page27 extends Controller {
         page.insert();
         listing.addResponsePage(page, PAGE_ID);
         redirect(listing.nextPageUrl(PAGE_ID, listing.id));
+    }
+
+    public static void savePage(Long listingId, String p27q9) {
+        savePage(listingId, null, null, null, null, null, null, null, null, p27q9, null, null, null, null);
+    }
+
+    public static void savePage(Long listingId, String p27q2, String p27q3, String p27q4, String p27q5, String p27q6,
+                                String p27q7, String p27q8, String p27q9, String p27q10, String p27q11, String p27q12, String p27q13) {
+        savePage(listingId, null, p27q2, p27q3, p27q4, p27q5, p27q6, p27q7, p27q8, p27q9, p27q10, p27q11, p27q12, p27q13);
     }
 }

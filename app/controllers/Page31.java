@@ -34,4 +34,8 @@ public class Page31 extends Controller {
         listing.addResponsePage(page, PAGE_ID);
         redirect(listing.nextPageUrl(PAGE_ID, listing.id));
     }
+
+    public static void savePage(Long listingId, String p31q1, String p31q2, String p31q3, String p31q4) {
+        savePage(listingId, p31q1, p31q2, p31q3, p31q4, null);
+    }
 }

@@ -17,7 +17,6 @@ public class Page25 extends Controller {
         validation.required(p25q2).message("p25q2 : null");
         validation.required(p25q3).message("p25q3 : null");
         validation.required(p25q4).message("p25q4 : null");
-
         if(validation.hasErrors()) {
             flash.error("%s", validation.errors());
             redirect(String.format("/page/%d/%d", PAGE_ID, listing.id));
@@ -29,7 +28,6 @@ public class Page25 extends Controller {
         page.responses.put("p25q2", p25q2);
         page.responses.put("p25q3", p25q3);
         page.responses.put("p25q4", p25q4);
-
         page.insert();
         listing.addResponsePage(page, PAGE_ID);
         redirect(listing.nextPageUrl(PAGE_ID, listing.id));

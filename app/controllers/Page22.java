@@ -18,13 +18,10 @@ public class Page22 extends Controller {
         validation.required(p22q3).message("p22q3 : null");
         validation.required(p22q4).message("p22q4 : null");
         validation.required(p22q5).message("p22q5 : null");
-
         if(validation.hasErrors()) {
             flash.error("%s", validation.errors());
             redirect(String.format("/page/%d/%d", PAGE_ID, listing.id));
         }
-        
-        int index = listing.pageSequence.indexOf(PAGE_ID);
 
         // Save the form data as a Page into the correct page index
         Page page = new Page(listingId, PAGE_ID);
@@ -33,7 +30,6 @@ public class Page22 extends Controller {
         page.responses.put("p22q3", p22q3);
         page.responses.put("p22q4", p22q4);
         page.responses.put("p22q5", p22q5);
-
         page.insert();
         listing.addResponsePage(page, PAGE_ID);
         redirect(listing.nextPageUrl(PAGE_ID, listing.id));

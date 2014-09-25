@@ -18,7 +18,6 @@ public class Page33 extends Controller {
         }
         validation.required(p33q3).message("p33q3:null");
         validation.required(p33q4).message("p33q4:null");
-
         if(validation.hasErrors()) {
             flash.error("%s", validation.errors());
             redirect(String.format("/page/%d/%d", PAGE_ID, listing.id));
@@ -32,5 +31,9 @@ public class Page33 extends Controller {
         page.insert();
         listing.addResponsePage(page, PAGE_ID);
         redirect(listing.nextPageUrl(PAGE_ID, listing.id));
+    }
+
+    public static void savePage(Long listingId, String p33q3, String p33q4) {
+        savePage(listingId, null, null, p33q3, p33q4);
     }
 }

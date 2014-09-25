@@ -14,9 +14,9 @@ public class Page3 extends Controller {
     public static void savePage(Long listingId, String[] p3q1) {
         
         Listing listing = Listing.getByListingId(listingId);
+        
         // Validate all fields on this page requiring validation
         validation.required(p3q1).message("Please choose at least one answer.");
-        
         if(validation.hasErrors()) {
             flash.error("%s", validation.errors());
             redirect(String.format("/page/%d/%d", PAGE_ID, listing.id));
