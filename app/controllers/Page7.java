@@ -4,20 +4,23 @@ import models.Listing;
 import models.Page;
 import play.mvc.Controller;
 
-import java.util.Arrays;
+import java.io.File;
 
 // Not a real Controller - just a template that can serve as a skeleton for page controllers 
 
-public class AAA1TemplatePage extends Controller {
+public class Page7 extends Controller {
 
     private static final Long PAGE_ID = -1l;
 
-    // TODO: This method will be very similar for all pages except for field-specific validation methods - how to factor out?
-    public static void savePage(Long listingId /* question responses passed in e.g. String[] p1_q1 */) {
+
+    public static void savePage(Long listingId, String p7q1, String p7q2, File p7doc) {
 
         Listing listing = Listing.getByListingId(listingId);
         
-        // TODO: Validate all fields on this page requiring validation
+        //Validate all fields on this page requiring validation
+        validation.required(p7q1).message("p7q1 : null");
+        validation.required(p7q2).message("p7q2 : null");
+        //validation.required(p7doc).message("p7doc : null");
 
         if(validation.hasErrors()) {
             flash.error("%s", validation.errors());
@@ -25,9 +28,13 @@ public class AAA1TemplatePage extends Controller {
         }
         
         int index = listing.pageSequence.indexOf(PAGE_ID);
-        //TODO: Save the form data as a Page into the correct page index
+
+        //Save the form data as a Page into the correct page index
         Page page = new Page(listingId, PAGE_ID);
-        // page.responses.put("p1q1", Arrays.asList(p1_q1).toString());
+        page.responses.put("p7q1", p7q1);
+        page.responses.put("p7q2", p7q1);
+        // TODO: Document storage
+
         // ...etc. for all questions on page
         page.insert();
         listing.addResponsePage(page, PAGE_ID);

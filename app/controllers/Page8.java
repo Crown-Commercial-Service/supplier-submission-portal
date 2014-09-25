@@ -4,16 +4,14 @@ import models.Listing;
 import models.Page;
 import play.mvc.Controller;
 
-import java.util.Arrays;
-
 // Not a real Controller - just a template that can serve as a skeleton for page controllers 
 
-public class AAA1TemplatePage extends Controller {
+public class Page8 extends Controller {
 
     private static final Long PAGE_ID = -1l;
 
     // TODO: This method will be very similar for all pages except for field-specific validation methods - how to factor out?
-    public static void savePage(Long listingId /* question responses passed in e.g. String[] p1_q1 */) {
+    public static void savePage(Long listingId) {
 
         Listing listing = Listing.getByListingId(listingId);
         
@@ -27,7 +25,7 @@ public class AAA1TemplatePage extends Controller {
         int index = listing.pageSequence.indexOf(PAGE_ID);
         //TODO: Save the form data as a Page into the correct page index
         Page page = new Page(listingId, PAGE_ID);
-        // page.responses.put("p1q1", Arrays.asList(p1_q1).toString());
+        // page.responses.put("p1_q1", Arrays.asList(p1_q1).toString());
         // ...etc. for all questions on page
         page.insert();
         listing.addResponsePage(page, PAGE_ID);

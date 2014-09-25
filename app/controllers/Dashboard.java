@@ -10,6 +10,9 @@ import java.util.List;
 public class Dashboard extends Controller {
 
     public static void home() {
+        System.out.println("TESTing properties on homepage: " + Fixtures.getContentProperties());
+
+
         String supplierId = DevUtils.randomSupplierId();
         System.out.println(" SUPPLIER: " + supplierId + " - " + Listing.allBySupplierId(supplierId));
         List<Listing> listings = Listing.allBySupplierId(supplierId);
