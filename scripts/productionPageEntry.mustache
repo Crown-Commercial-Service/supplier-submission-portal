@@ -1,0 +1,13 @@
+p{{pageNumber}}title={{title}}
+{{#questions}}
+p{{pageNumber}}q{{questionNumber}}text={{text}}
+{{#hint}}
+p{{pageNumber}}q{{questionNumber}}hint={{hint}}
+{{/hint}}
+{{#fields}}
+{{#label}}
+p{{pageNumber}}q{{questionNumber}}val{{fieldNumber}}Label={{label}}
+{{/label}}
+p{{pageNumber}}q{{questionNumber}}val{{fieldNumber}}={{param}}
+{{/fields}}
+{{/questions}}

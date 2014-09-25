@@ -1,7 +1,7 @@
 *{ You can use plain selenium command using the selenium tag }*
 
 #{selenium}
-        
+
     // Open the home page, and check that no error occured
     open('/')
     assertNotTitle('Application error')
@@ -18,17 +18,17 @@
     assertNotTitle('Application error')
     assertTextPresent('Service details')
     assertTitle('Add a new service')
-        
+
     // Click a radio button to select a lot
-    click('r2')
+    click('lot-SaaS')
     clickAndWait('submit')
-    
+
     // First question page - check some boxes
     assertTitle('Page 1b Title | Digital Marketplace Service Submission')
     click(xpath=//input[@type='checkbox'][@value='box2val'])
     click(xpath=//input[@type='checkbox'][@value='box4val'])
     clickAndWait('submit')
-    
+
     // Check selected values have been stored
     goBackAndWait()
     assertTitle('Page 1b Title | Digital Marketplace Service Submission')
@@ -37,18 +37,17 @@
     assertElementNotPresent(xpath=//input[@type='checkbox'][@value='box3val'][@checked])
     assertElementPresent(xpath=//input[@type='checkbox'][@value='box4val'][@checked])
     clickAndWait('submit')
-    
+
     // Second question page
-    type('p4_q1', 'Answer to question 1')
-    type('p4_q2', 'Answer to question 2')
+    type('p4q1', 'Answer to question 1')
+    type('p4q2', 'Answer to question 2')
     clickAndWait('submit')
 
     // Check selected values have been stored
     goBackAndWait()
     assertTextPresent('Question 1 hint')
-    verifyElementPresent(xpath=//input[@name='p4_q1'][@value='Answer to question 1'])
-    verifyText(xpath=//textarea[@name='p4_q2'], 'Answer to question 2')
+    verifyElementPresent(xpath=//input[@name='p4q1'][@value='Answer to question 1'])
+    verifyText(xpath=//textarea[@name='p4q2'], 'Answer to question 2')
     clickAndWait('submit')
-        
-#{/selenium}
 
+#{/selenium}
