@@ -4,13 +4,12 @@ import models.Listing;
 import models.Page;
 import play.mvc.Controller;
 
-// Not a real Controller - just a template that can serve as a skeleton for page controllers 
+//TODO : Page needs completing
 
 public class Page8 extends Controller {
 
-    private static final Long PAGE_ID = -1l;
+    private static final Long PAGE_ID = 8l;
 
-    // TODO: This method will be very similar for all pages except for field-specific validation methods - how to factor out?
     public static void savePage(Long listingId) {
 
         Listing listing = Listing.getByListingId(listingId);
