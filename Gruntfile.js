@@ -1,6 +1,8 @@
 module.exports = function(grunt){
 
   var JSModules = [];
+  var combineJsonFile = __dirname + '/content.json';
+  var propertiesFile = __dirname + '/conf/content.properties';
 
   grunt.file.recurse(
     "./public/javascripts",
@@ -178,6 +180,7 @@ module.exports = function(grunt){
     // Remove temporary CSS files
     clean: {
       tempCSS: ['public/stylesheets/.temp'],
+      combine: [combineJsonFile],
       production: ['node_modules/*', 'govuk_modules/*', 'bower_components/*']
     },
 
@@ -218,6 +221,44 @@ module.exports = function(grunt){
 
   // Automatically loads any grunt-* tasks in your package.json
   require("load-grunt-tasks")(grunt);
+
+  grunt.registerTask(
+    'combine',
+    'Converts the YAML content in conf/digital-marketplace-ssp-content into content.json',
+    function () {
+      var script = require(__dirname + '/scripts/combineYAML.js'),
+          outputJsonFile = combineJsonFile,
+          inputFolder = __dirname + '/conf/digital-marketplace-ssp-content';
+
+      script.combine({
+        'outputJsonFile' : outputJsonFile,
+        'inputFolder' : inputFolder
+      });
+      grunt.log.writeln('Files in ' + inputFolder + ' combined to create ' + outputJsonFile);
+    }
+  );
+
+  grunt.registerTask(
+    'properties',
+    'Converts the content.json file into conf/content.properties',
+    function () {
+      var script = require(__dirname + '/scripts/properties.js'),
+          inputJsonFile = combineJsonFile,
+          outputPropertiesFile = propertiesFile;
+
+      script.properties({
+        'inputJsonFile' : inputJsonFile,
+        'outputPropertiesFile' : outputPropertiesFile
+      });
+      grunt.log.writeln(inputJsonFile + ' converted into ' + outputPropertiesFile);
+    }
+  );
+
+  grunt.registerTask('content', [
+    'combine',
+    'properties',
+    'clean:combine'
+  ]);
 
   grunt.registerTask('dev', [
     'copy',
