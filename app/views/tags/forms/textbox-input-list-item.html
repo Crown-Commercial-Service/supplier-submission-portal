@@ -1,2 +1,4 @@
-<label for='text-1' class='textbox-input-list-label'><span class='hidden'>Fieldset legend number </span>1</label>
-<input type='text' name='text-1' id='text-1' class='textbox' value='' />
+<label for='text-1' class='text-box-number-label'>
+  <span class='hidden'>Fieldset legend number </span>${_numbered}.
+</label>
+<input type='text' name='${_name}-item-${_numbered}' id='${_name}-item-${_numbered}' class='text-box' value='${_value}' />

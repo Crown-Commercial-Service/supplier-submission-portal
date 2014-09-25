@@ -3,6 +3,7 @@
   &-save {
     @include button;
     @include core-24;
+    display: block;
   }
 
   &-secondary {

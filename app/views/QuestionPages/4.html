@@ -1,26 +1,48 @@
 #{extends 'layout.html' /}
 #{set title:'Adding a new service' /}
 
-<p>
-    <a href="index.html">Home</a>
-</p>
-<div class="page-header group">
-    <h1 class="heading-48">G-Cloud 6 submissions</h1>
+<div class='breadcrumb-navigation'>
+  <nav>
+    <ol>
+      <li class='breadcrumb-navigation-item'>
+        <a href='/' class='breadcrumb-navigation-link'>Your G-Cloud 6 submissions</a>
+      </li>
+      <li class='breadcrumb-navigation-item'>
+        New submission
+      </li>
+    </ol>
+  </nav>
 </div>
-<form id="questions-container" action="${request.getBase()}${request.url}" method="POST">
-    <section style="display: block;"><p class="page-count page-${pageNum}">Page ${pageNum} of ${pageTotal}</p>
-        <h2>Question section header</h2>
-        <fieldset>
-            <legend>Question 1 text</legend>
-            <p class="hint">Question 1 hint</p>
-            <input type="text" name="p4_q1" class="validate-notBlank" data-validate-notblank-message="ERROR" value="${oldValues?.get("p4_q1")}">
-            </fieldset>
-        <fieldset>
-            <legend>Question 2 text</legend>
-            <p class="hint">Question 2 hint.</p>
-            <textarea name="p4_q2" class="validate-notBlank" data-max-length-in-words="50" aria-controls="wordcount">${oldValues?.get("p4_q2")}</textarea>
-            <p class="wordCount" role="status" aria-live="assertive" aria-relevant="text" id="wordcount">50 words remaining</p>
-        </fieldset>
-        <input type="submit" value="Save and continue" id="submit"><p class="goBackAPage"><a href="#">Go back to previous page</a></p><p class="returnToDashboard"><a href="/">Return to dashboard</a></p></section>
 
+<form action='${request.getBase()}${request.url}' method='POST'>
+  <p class='position position-page-${pageNum}'>
+    Page ${pageNum} of ${pageTotal}
+  </p>
+  <h1 class='page-heading'>
+    Question section header
+  </h1>
+  <fieldset>
+    #{forms/textbox
+      name: 'p4_q1',
+      label: 'Question 1 label',
+      'hint': 'Question 1 hint',
+      value: ''
+    /}
+    #{forms/textbox-with-word-count
+      name: 'p4_q2',
+      label: 'Question 2 label',
+      hint: 'Question 2 hint',
+      value: '',
+      max_words: 50
+    /}
+  </fieldset>
+  <div class='page-footer'>
+    <input type='submit' value='Save and continue' class='page-footer-item button button-save' />
+    <p class='page-footer-item'>
+      <a href='#'>Go back to previous page</a>
+    </p>
+    <p class='page-footer-item'>
+      <a href='/'>Return to dashboard</a>
+    </p>
+  </div>
 </form>

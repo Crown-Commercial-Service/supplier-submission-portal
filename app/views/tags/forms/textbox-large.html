@@ -1,2 +1,5 @@
-<label for='text-1' class='textbox-label'>Textbox 1</label>
-<textarea class='textbox textbox-large'></textarea>
+<label for='${_name}' class='question-heading'>Textbox 1</label>
+#{forms/hint
+  hint: _hint
+/}
+<textarea class='text-box text-box-large' name='${_name}' id='${_name}'>${_value}</textarea>

@@ -1,52 +1,57 @@
 #{extends 'layout.html' /}
 #{set title:'Service Submission | Digital Marketplace' /}
 
-<div id="global-breadcrumb">
+<div class='breadcrumb-navigation'>
   <nav>
     <ol>
-      <li>Your G-Cloud 6 submissions</li>
+      <li class='breadcrumb-navigation-item'>
+        Your G-Cloud 6 submissions
+      </li>
     </ol>
   </nav>
 </div>
 
-<div class="serviceSummary">
-  <h2>
+<div class='summary-item'>
+  <h2 class='summary-item-heading'>
     Company Name Ltd. [${supplierId}]
-    <a href="#" class="toTheRight">Change</a>
+    <a href='#' class='summary-item-change-link'>Change</a>
   </h2>
-  <ul>
-    <li>
+  <ul class='summary-item-answer-list'>
+    <li class='summary-item-answer'>
       Contact name: A.N. Other
     </li>
-    <li>
+    <li class='summary-item-answer'>
       DUNS number: 12-234-5678
     </li>
   </ul>
 </div>
-<div class="serviceSummary">
-  <h2>
-      Draft services
-      <a href="/addservice" class="toTheRight" id="new_service">Add a new service</a>
+
+<div class='summary-item'>
+  <h2 class='summary-item-heading'>
+    Draft services
+    <a href='/addservice' class='summary-item-change-link' id='new_service'>Add a new service</a>
   </h2>
 
   #{ifnot listings}
-  <p class="hint summary-item-answers summary-item-answers-answer">
-      You haven't added any services yet
+  <p class='question-hint summary-item-answer-list summary-item-answer'>
+    You haven't added any services yet
   </p>
   #{/ifnot}
   #{else}
 
-  <ul>
+  <ul class='summary-item-answer-list'>
     #{list listings, as:'listing'}
-    <li>
+    <li class='summary-item-answer'>
       %{
-          if (listing.title != null)
-             serviceName = listing.title;
-          else serviceName = listing.id;
+        if (listing.title != null)
+           serviceName = listing.title;
+        else serviceName = listing.id;
       }%
       ${serviceName}
-      <span class="toTheRight">
-        ${listing.completedPageCount()} of ${listing.pageSequence.size()} steps complete&ensp;<a href="/service/${listing.id}">Continue</a>
+      <span class='summary-item-change-link'>
+        ${listing.completedPageCount()}
+        of
+        ${listing.pageSequence.size} steps complete&ensp;<a href='/service/${listing.id}'>Continue</a>
         ${listing.description}
       </span>
     </li>
@@ -54,17 +59,15 @@
   </ul>
   #{/else}
 </div>
-<div class="serviceSummary">
-  <h2>
+<div class='summary-item'>
+  <h2 class='summary-item-heading'>
     Services that are ready to be submitted
   </h2>
-  <p class="hint">
+  <p class='question-hint'>
     On 1 January 2015 these services will be submitted to G-Cloud 6,
     unless you withdraw them
   </p>
-  <p class="hint summary-item-answers summary-item-answers-answer">
+  <p class='question-hint summary-item-answer-list summary-item-answer'>
     You haven't marked any services as ready for submission yet
   </p>
-  <ul>
-  </ul>
 </div>

@@ -1,2 +1,5 @@
-<label for='text-1' class='textbox-label'>Textbox 1</label>
-<input type='text' name='text-1' id='text-1' class='textbox' value='' />
+<label for='${_name}' class='question-heading'>${_label}</label>
+#{forms/hint
+  hint: _hint
+/}
+<input type='text' name='${_name}' id='${_name}' class='text-box' value='${_value}' />

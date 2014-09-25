@@ -1,4 +1,7 @@
-<label class='textbox-price-label'>
-  £<span class='hidden'> of label text</span>
-  <input type='text' name='text-1' id='text-1' class='textbox textbox-percentage' value='' />
+<label class='question-heading' for='${_name}'>
+  ${_label}
 </label>
+<label class='textbox-price-label' for='${_name}'>
+  £<span class='hidden'> ${_hidden_label}</span>
+</label>
+<input type='text' name='${_name}' id='${_name}' class='text-box text-box-percentage' value='${_value}' />
