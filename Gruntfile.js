@@ -11,12 +11,14 @@ module.exports = function(grunt){
       if (
         filename.match(/\.js/) &&
         !filename.match(/application\.js/) &&
+        !filename.match(/main\.js/) &&
         !filename.match(/\.min\.js/) &&
         !filename.match(/\.map/)
       ) JSModules.push(abspath);
 
     }
   );
+  JSModules.push("./public/javascripts/main.js");
 
   grunt.initConfig({
 

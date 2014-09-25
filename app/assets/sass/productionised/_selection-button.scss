@@ -23,25 +23,25 @@
     border-color: $black;
   }
 
-  // Add selected state
-  .js-enabled .selected {
-    background: $white;
-    border-color: $black;
-  }
+}
 
-  // Add focus to block labels
-  .js-enabled label.focused & {
-    outline: 3px solid $yellow;
-  }
+// Add selected state
+.selection-button-selected {
+  background: $white;
+  border-color: $black;
+}
+
+// Add focus to block labels
+.selection-button-focused {
+  outline: 3px solid $yellow;
 
   // Remove focus from radio/checkboxes
-  .js-enabled .focused & input:focus {
+  input:focus {
     outline: none;
   }
+}
 
-  &-boolean {
-    clear: none;
-    margin-right: $gutter-half;
-  }
-
+.selection-button-boolean {
+  clear: none;
+  margin-right: $gutter-half;
 }

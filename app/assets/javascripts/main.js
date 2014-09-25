@@ -5,6 +5,10 @@
 
   if (typeof GOVUK === 'undefined') { root.GOVUK = {}; }
 
-  /* code goes here */
+  var $buttons = $("label.selection-button input");
+  GOVUK.selectionButtons($buttons, {
+    "focusedClass" : "selection-button-focused",
+    "selectedClass" : "selection-button-selected"
+  });
 
 }).call(this);
