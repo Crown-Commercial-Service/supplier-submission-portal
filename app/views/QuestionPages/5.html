@@ -1,0 +1,53 @@
+#{extends 'layout.html' /}
+#{set title:'Adding a new service' /}
+
+#{breadcrumb-one-deep
+  tip: oldValues?.get('p4q1')
+/}
+
+<form action='${request.getBase()}${request.url}' method='POST'>
+  #{heading
+    current: pageNum,
+    total: pageTotal,
+    title: content.get('p5title')
+  /}
+  <fieldset class='input-list'>
+    <legend class='question-heading'>
+      ${content.get('p5q1text')}
+    </legend>
+    #{forms/hint
+      hint: content.get('p5q1hint')
+    /}
+    %{
+      for (index in 1..10) {
+    }%
+      #{forms/textbox-input-list-item
+        name: 'p5q1val' + index,
+        numbered: index,
+        value: oldValues?.get('p5q1val' + index)
+      /}
+    %{
+      }
+    }%
+  </fieldset>
+  <fieldset class='input-list'>
+    <legend class='question-heading'>
+      ${content.get('p5q2text')}
+    </legend>
+    #{forms/hint
+      hint: content.get('p5q2hint')
+    /}
+    %{
+      for (index in 1..10) {
+    }%
+      #{forms/textbox-input-list-item
+        name: 'p5q2val' + index,
+        numbered: index,
+        value: oldValues?.get('p5q2val' + index)
+      /}
+    %{
+      }
+    }%
+  </fieldset>
+  #{footer/}
+</form>

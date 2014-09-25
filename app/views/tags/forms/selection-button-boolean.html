@@ -1,17 +1,16 @@
-%{
-   if (_hint) {
-}%
-<p class="question-hint">
-  ${_hint}
-</p>
-%{
-  }
-}%
-<label class='selection-button selection-button-boolean'>
-  <input type='radio' name='${_name}' id='${_name}-option-1' />
-  Yes<span class='hidden'> I agree to the statement</span>
-</label>
-<label class='selection-button selection-button-boolean'>
-  <input type='radio' name='${_name}' id='${_name}-option-2' />
-  No<span class='hidden'> I don't agree to the statement</span>
-</label>
+<fieldset class='question'>
+  <legend class='question-heading %{ if (_hint) { }% question-heading-with-hint %{ } }%'>
+    ${_label}
+  </legend>
+  #{forms/hint
+    hint: _hint
+  /}
+  <label class='selection-button selection-button-boolean'>
+    <input type='radio' name='${_name}' id='${_name}-option-1' />
+    Yes<span class='hidden'> I agree to the statement</span>
+  </label>
+  <label class='selection-button selection-button-boolean'>
+    <input type='radio' name='${_name}' id='${_name}-option-2' />
+    No<span class='hidden'> I don't agree to the statement</span>
+  </label>
+</fieldset>
