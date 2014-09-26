@@ -2,7 +2,8 @@
 #{set title:'Page 1a Title | Digital Marketplace Service Submission' /}
 
 #{breadcrumb-one-deep
-  tip: 'New ' + lot + ' submission'
+  service_name: serviceName,
+  lot: lot
 /}
 
 <form action="${request.getBase()}${request.url}" method="POST">
