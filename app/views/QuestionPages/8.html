@@ -1,51 +1,63 @@
 #{extends 'layout.html' /}
 #{set title:'Adding a new service' /}
 
+%{
+  def page = 'p8'
+  def question = page + 'q1'
+}%
+
 #{breadcrumb-one-deep
   service_name: serviceName,
   lot: lot
 /}
 
 <form action='${request.getBase()}${request.url}' method='POST' enctype="multipart/form-data">
+
   #{heading
     current: pageNum,
     total: pageTotal,
     title: content.get('p8title')
   /}
+
   <fieldset>
     <h1 class='question-heading'>
       PRICING MATRIX HERE
     </h1>
   </fieldset>
+
   <fieldset>
     #{forms/selection-button-boolean
-      name: 'p8q1',
-      label: content.get('p8q1text')
+      name: question,
+      label: content.get(question + 'text')
     /}
   </fieldset>
+
   %{
     for (index in 2..5) {
   }%
     #{forms/selection-button-boolean
-      name: 'p8q' + index,
-      value: oldvalues?.get('p8q' + index),
-      label: content.get('p8q' + index + 'text'),
-      hint: content.get('p8q' + index + 'hint'),
+      name: page + 'q' + index,
+      value: oldvalues?.get(page + 'q' + index),
+      label: content.get(page + 'q' + index + 'text'),
+      hint: content.get(page + 'q' + index + 'hint'),
     /}
   %{
     }
   }%
-  <fieldset>
+
+  %{
+    for (index in 6..7) {
+      question = page + 'q' + index
+  }%
     #{forms/file-upload
-      name: 'p8q6',
-      label: content.get('p8q6text'),
-      hint: content.get('p8q6hint')
+      name: question,
+      label: content.get(question + 'text'),
+      hint: content.get(question + 'hint')
     /}
-    #{forms/file-upload
-      name: 'p8q7',
-      label: content.get('p8q7text'),
-      hint: content.get('p8q7hint')
-    /}
-  </fieldset>
+  %{
+    }
+  }%
+
   #{footer/}
+
 </form>
