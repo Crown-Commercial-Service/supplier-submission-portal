@@ -13,6 +13,17 @@
     title: content.get('p26title')
   /}
   <fieldset>
+    <legend class='question-heading'>
+      ${content.get('p26q1text')}
+    </legend>
+    <p class="question-hint">${content.get('p26q1hint')}</p>
+    #{forms/selection-button-boolean
+      name: 'p26q1',
+      label: content.get('p26q1valtext')
+    /}
+    #{forms/assurance
+      name: 'p26q1'
+    /}
   </fieldset>
   #{footer/}
 </form>

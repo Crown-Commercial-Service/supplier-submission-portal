@@ -13,6 +13,61 @@
     title: content.get('p23title')
   /}
   <fieldset>
+    <legend class='question-heading'>
+      ${content.get('p23q1text')}
+    </legend>
+    %{
+      for (index in 1..8) {
+    }%
+      #{forms/selection-button-radio
+        name: 'p23q1',
+        value: content.get('p23q1val' + index),
+        label: content.get('p23q1val' + index + 'Label')
+      /}
+    %{
+      }
+    }%
+    #{forms/assurance
+      name: 'p23q1'
+    /}
+  </fieldset>
+  <fieldset>
+    <legend class='question-heading'>
+      ${content.get('p23q2text')}
+    </legend>
+    %{
+      for (index in 1..8) {
+    }%
+      #{forms/selection-button-radio
+        name: 'p23q2',
+        value: content.get('p23q2val' + index),
+        label: content.get('p23q2val' + index + 'Label')
+      /}
+    %{
+      }
+    }%
+    #{forms/assurance
+      name: 'p23q2'
+    /}
+  </fieldset>
+  <fieldset>
+    <legend class='question-heading'>
+      ${content.get('p23q3text')}
+    </legend>
+    %{
+      for (index in 1..8) {
+    }%
+      #{forms/selection-button-radio
+        name: 'p23q3',
+        value: content.get('p23q3val' + index),
+        label: content.get('p23q3val' + index + 'Label')
+      /}
+    %{
+      }
+    }%
+    #{forms/assurance
+      name: 'p23q3'
+    /}
   </fieldset>
   #{footer/}
 </form>
