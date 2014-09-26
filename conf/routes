@@ -10,8 +10,10 @@ GET     /service/{id}/{page}                    Service.editPage
 GET     /addservice                             Service.newService
 POST    /addservice                             Service.createListing
 
-GET     /documents                              Documents.captureDocuments
-POST    /documents                              Documents.submitDocuments
+GET     /documents                              DocumentsController.captureDocuments
+POST    /documents                              DocumentsController.submitDocuments
+GET    /documents/view/{documentId}             DocumentsController.viewDocument
+GET     /documents/download                     staticDir:tmp/uploads
 
 # Ignore favicon requests
 # GET     /favicon.ico                            404

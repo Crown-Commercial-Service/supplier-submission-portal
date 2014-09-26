@@ -3,7 +3,9 @@ package controllers;
 import com.google.gson.Gson;
 import models.Listing;
 import models.Page;
+import play.i18n.Messages;
 import play.mvc.Controller;
+import uk.gov.gds.dm.DocumentUtils;
 
 import java.io.File;
 
@@ -26,6 +28,25 @@ public class Page8 extends Controller {
         if (!listing.lot.equals("SCS")) {
             validation.required(p8q4).message("p8q4:null");
             validation.required(p8q5).message("p8q5:null");
+        }
+
+        // Validate documents
+        if(p8q6 != null){
+            if(!DocumentUtils.validateDocumentFormat(p8q6)){
+                validation.addError("p8q6", Messages.getMessage("en", "validation.file.wrongFormat"));
+            }
+            if(!DocumentUtils.validateDocumentFileSize(p8q6)){
+                validation.addError("p8q6", Messages.getMessage("en", "validation.file.tooLarge"));
+            }
+        }
+
+        if(p8q7 != null){
+            if(!DocumentUtils.validateDocumentFormat(p8q7)){
+                validation.addError("p8q7", Messages.getMessage("en", "validation.file.wrongFormat"));
+            }
+            if(!DocumentUtils.validateDocumentFileSize(p8q7)){
+                validation.addError("p8q7", Messages.getMessage("en", "validation.file.tooLarge"));
+            }
         }
 
         if(validation.hasErrors()) {

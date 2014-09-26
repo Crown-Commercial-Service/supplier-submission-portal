@@ -25,7 +25,6 @@ public class Fixtures extends Controller {
             contentProperties.load(inputStream);
 
         } catch (Exception ex) {
-            //
             System.out.println("Something went wrong: \n" + ex.getMessage());
             notFound();
         }
