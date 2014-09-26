@@ -19,18 +19,18 @@ public class Page7 extends Controller {
         
         //Validate all fields on this page requiring validation
         if(!listing.lot.equals("SaaS")){
-            validation.required(p7q1).message("p7q1:null");
+        //    validation.required(p7q1).message("p7q1:null");
         }
-        validation.required(p7q2).message("p7q2:null");
+        //validation.required(p7q2).message("p7q2:null");
 
         // Validate document
-        validation.required(p7q3).message("p7q3: null");
+        //validation.required(p7q3).message("p7q3: null");
         if(p7q3 != null){
             if(!DocumentUtils.validateDocumentFormat(p7q3)){
-                validation.addError("p7q3", Messages.getMessage("en", "validation.file.wrongFormat"));
+                //validation.addError("p7q3", Messages.getMessage("en", "validation.file.wrongFormat"));
             }
             if(!DocumentUtils.validateDocumentFileSize(p7q3)){
-                validation.addError("p7q3", Messages.getMessage("en", "validation.file.tooLarge"));
+                //validation.addError("p7q3", Messages.getMessage("en", "validation.file.tooLarge"));
             }
         }
 
