@@ -17,7 +17,7 @@ public class Page6 extends Controller {
         Listing listing = Listing.getByListingId(listingId);
 
         // Validate document
-        validation.required(p6q1).message("p6q1: null");
+        //validation.required(p6q1).message("p6q1: null");
         if(p6q1 != null){
             if(!DocumentUtils.validateDocumentFormat(p6q1)){
                 validation.addError("pg6q1", Messages.getMessage("en", "validation.file.wrongFormat"));
