@@ -12,7 +12,17 @@
     total: pageTotal,
     title: content.get('p13title')
   /}
-  <fieldset>
-  </fieldset>
+  %{
+    for (index in 1..3) {
+  }%
+    #{forms/selection-button-boolean
+      name: 'p13q' + index,
+      value: oldvalues?.get('p13q' + index),
+      label: content.get('p13q' + index + 'text'),
+      hint: content.get('p13q' + index + 'hint')
+    /}
+  %{
+    }
+  }%
   #{footer/}
 </form>

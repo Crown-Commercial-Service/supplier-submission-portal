@@ -7,12 +7,33 @@
 /}
 
 <form action='${request.getBase()}${request.url}' method='POST'>
+
   #{heading
     current: pageNum,
     total: pageTotal,
     title: content.get('p14title')
   /}
-  <fieldset>
+
+  #{forms/selection-button-boolean
+    name: 'p14q1',
+    value: oldvalues?.get('p14q1'),
+    label: content.get('p14q1text'),
+    hint: content.get('p14q1hint')
+  /}
+
+  <fieldset class='question'>
+    %{
+      for (index in 2..3) {
+    }%
+      #{forms/textbox
+        name: 'p14q' + index,
+        value: oldvalues?.get('p14q' + index),
+        label: content.get('p14q' + index + 'text'),
+        hint: content.get('p14q' + index + 'hint')
+      /}
+    %{
+      }
+    }%
   </fieldset>
   #{footer/}
 </form>

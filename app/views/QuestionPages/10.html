@@ -12,7 +12,54 @@
     total: pageTotal,
     title: content.get('p10title')
   /}
-  <fieldset>
+  <fieldset class='question'>
+    #{question-heading
+      heading: content.get(question + 'text'),
+      hint: content.get(question + 'hint')
+    /}
+    %{
+      for (index in 1..5) {
+    }%
+      #{forms/selection-button-radio
+        name: 'p10q1',
+        value: content.get('p10q1val' + index),
+        label: content.get('p10q1val' + index + 'Label'),
+        checked: oldValues?.get('p10q1')?.contains(content.get('p10q1val' + index))
+      /}
+    %{
+      }
+    }%
   </fieldset>
+  #{forms/selection-button-boolean
+    name: 'p10q2',
+    value: oldvalues?.get('p10q2'),
+    label: content.get('p10q2text'),
+    hint: content.get('p10q2hint')
+  /}
+  <fieldset>
+    <div class='question'>
+      #{forms/textbox
+        name: 'p10q3',
+        value: oldvalues?.get('p10q3'),
+        label: content.get('p10q3text'),
+        hint: content.get('p10q3hint')
+      /}
+    </div>
+    <div class='question'>
+      #{forms/textbox-with-word-count
+        name: 'p10q4',
+        value: oldvalues?.get('p10q4'),
+        label: content.get('p10q4text'),
+        hint: content.get('p10q4hint'),
+        max_words: 20
+      /}
+    </div>
+  </fieldset>
+  #{forms/selection-button-boolean
+    name: 'p10q5',
+    value: oldvalues?.get('p10q5'),
+    label: content.get('p10q5text'),
+    hint: content.get('p10q5hint')
+  /}
   #{footer/}
 </form>
