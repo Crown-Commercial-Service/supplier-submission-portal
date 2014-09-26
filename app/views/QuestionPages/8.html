@@ -6,7 +6,7 @@
   lot: lot
 /}
 
-<form action='${request.getBase()}${request.url}' method='POST'>
+<form action='${request.getBase()}${request.url}' method='POST' enctype="multipart/form-data">
   #{heading
     current: pageNum,
     total: pageTotal,
