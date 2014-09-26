@@ -7,13 +7,13 @@
   position: relative;
   background: $panel-colour;
   border: 1px solid $panel-colour;
-  padding: (18px $gutter $gutter-half $gutter*1.5);
+  padding: 10px 15px 10px 45px;
   margin-bottom: 15px;
   cursor: pointer;
 
   input {
     position: absolute;
-    top: 18px;
+    top: 11px;
     left: $gutter-half;
     cursor: pointer;
   }

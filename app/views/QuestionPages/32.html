@@ -13,6 +13,25 @@
     title: content.get('p32title')
   /}
   <fieldset>
+    <legend class='question-heading'>
+      ${content.get('p32q1text')}
+    </legend>
+    <p class="question-hint">${content.get('p32q1hint')}</p>
+    %{
+      for (index in 1..8) {
+    }%
+      #{forms/selection-button-checkbox
+        name: 'p32q1',
+        value: content.get('p32q1val' + index),
+        label: content.get('p32q1val' + index + 'Label'),
+        checked: oldValues?.get('p32q1')?.contains(content.get('p32q1val' + index))
+      /}
+    %{
+      }
+    }%
+    #{forms/assurance
+      name: 'p32q1'
+    /}
   </fieldset>
   #{footer/}
 </form>

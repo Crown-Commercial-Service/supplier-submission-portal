@@ -13,6 +13,67 @@
     title: content.get('p25title')
   /}
   <fieldset>
+    #{question-heading
+      heading: content.get('p25q1text'),
+      hint: content.get('p25q1hint')
+    /}
+    %{
+      for (index in 1..4) {
+    }%
+      #{forms/selection-button-radio
+        name: 'p25q1',
+        value: content.get('p25q1val' + index),
+        label: content.get('p25q1val' + index + 'Label')
+      /}
+    %{
+      }
+    }%
+  </fieldset>
+  <fieldset>
+    #{question-heading
+      heading: content.get('p25q2text'),
+      hint: content.get('p25q2hint')
+    /}
+    %{
+      for (index in 1..4) {
+    }%
+      #{forms/selection-button-radio
+        name: 'p25q2',
+        value: content.get('p25q2val' + index),
+        label: content.get('p25q2val' + index + 'Label')
+      /}
+    %{
+      }
+    }%
+    #{forms/assurance
+      name: 'p25q1'
+    /}
+  </fieldset>
+  <fieldset>
+    #{question-heading
+      heading: content.get('p25q3text'),
+      hint: content.get('p25q3hint')
+    /}
+    #{forms/selection-button-boolean
+      name: 'p25q3',
+      label: content.get('p25q3valtext')
+    /}
+    #{forms/assurance
+      name: 'p25q3'
+    /}
+  </fieldset>
+  <fieldset>
+    #{question-heading
+      heading: content.get('p25q4text'),
+      hint: content.get('p25q4hint')
+    /}
+    #{forms/selection-button-boolean
+      name: 'p25q4',
+      label: content.get('p25q4valtext')
+    /}
+    #{forms/assurance
+      name: 'p25q4'
+    /}
   </fieldset>
   #{footer/}
 </form>
