@@ -11,7 +11,7 @@ public class Page7 extends Controller {
     private static final Long PAGE_ID = 7l;
 
 
-    public static void savePage(Long listingId, String p7q1, String p7q2, File p7doc) {
+    public static void savePage(Long listingId, String p7q1, String p7q2, File p7q3) {
 
         Listing listing = Listing.getByListingId(listingId);
         
@@ -39,7 +39,4 @@ public class Page7 extends Controller {
         redirect(listing.nextPageUrl(PAGE_ID, listing.id));
     }
 
-    public static void savePage(Long listingId, String p7q2, File p7doc) {
-        savePage(listingId, null, p7q2, p7doc);
-    }
 }
