@@ -1,0 +1,9 @@
+.assurance {
+  clear: both;
+  margin-top: 10px;
+
+  .question-heading {
+    @include core-19;
+    margin-bottom: 6px;
+  }
+}
