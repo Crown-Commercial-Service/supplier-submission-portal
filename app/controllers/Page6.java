@@ -15,7 +15,7 @@ public class Page6 extends Controller {
         Listing listing = Listing.getByListingId(listingId);
 
         // Validate all fields on this page requiring validation
-        //validation.required(p6doc).message("p6_q3 : null");
+        //validation.required(p6doc).message("p6_q3:null");
         
         // TODO: Validate documents
         

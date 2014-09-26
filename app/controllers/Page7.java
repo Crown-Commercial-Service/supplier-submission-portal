@@ -17,9 +17,9 @@ public class Page7 extends Controller {
         
         //Validate all fields on this page requiring validation
         if(!listing.lot.equals("SaaS")){
-            validation.required(p7q1).message("p7q1 : null");
+            validation.required(p7q1).message("p7q1:null");
         }
-        validation.required(p7q2).message("p7q2 : null");
+        validation.required(p7q2).message("p7q2:null");
         
         // TODO: Document validation
 

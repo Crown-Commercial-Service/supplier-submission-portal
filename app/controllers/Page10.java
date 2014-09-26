@@ -1,6 +1,6 @@
 package controllers;
 
-import java.util.Arrays;
+import com.google.gson.Gson;
 import models.Listing;
 import models.Page;
 import play.mvc.Controller;
@@ -14,19 +14,20 @@ public class Page10 extends Controller {
         Listing listing = Listing.getByListingId(listingId);
         
         //Validate all fields on this page requiring validation
-        validation.required(p10q1).message("p10q1 : null");
-        validation.required(p10q2).message("p10q2 : null");
-        validation.required(p10q3).message("p10q3 : null");
-        validation.required(p10q4).message("p10q4 : null");
-        validation.required(p10q5).message("p10q5 : null");
+        validation.required(p10q1).message("p10q1:null");
+        validation.required(p10q2).message("p10q2:null");
+        validation.required(p10q3).message("p10q3:null");
+        validation.required(p10q4).message("p10q4:null");
+        validation.required(p10q5).message("p10q5:null");
         if(validation.hasErrors()) {
             flash.error("%s", validation.errors());
             redirect(String.format("/page/%d/%d", PAGE_ID, listing.id));
         }
 
         //Save the form data as a Page into the correct page index
+        Gson gson = new Gson();
         Page page = new Page(listingId, PAGE_ID);
-        page.responses.put("p10q1", Arrays.asList(p10q1).toString());
+        page.responses.put("p10q1", gson.toJson(p10q1));
         page.responses.put("p10q2", p10q2);
         page.responses.put("p10q3", p10q3);
         page.responses.put("p10q4", p10q4);

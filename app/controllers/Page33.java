@@ -1,6 +1,6 @@
 package controllers;
 
-import java.util.Arrays;
+import com.google.gson.Gson;
 import models.Listing;
 import models.Page;
 import play.mvc.Controller;
@@ -23,11 +23,12 @@ public class Page33 extends Controller {
             flash.error("%s", validation.errors());
             redirect(String.format("/page/%d/%d", PAGE_ID, listing.id));
         }
-       
+
+        Gson gson = new Gson();
         Page page = new Page(listingId, PAGE_ID);
         page.responses.put("p33q1", p33q1);
         if (p33q2 != null) {
-            page.responses.put("p33q2", Arrays.asList(p33q2).toString());
+            page.responses.put("p33q2", gson.toJson(p33q2));
         }
         else {
             page.responses.put("p33q2", null);

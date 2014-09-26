@@ -1,11 +1,9 @@
 package controllers;
 
+import com.google.gson.Gson;
 import models.Listing;
 import models.Page;
 import play.mvc.Controller;
-
-import java.util.Arrays;
-
 
 public class Page2 extends Controller {
 
@@ -23,8 +21,9 @@ public class Page2 extends Controller {
         }
         
         // Save the form data as a Page into the correct page index
+        Gson gson = new Gson();
         Page page = new Page(listingId, PAGE_ID);
-        page.responses.put("p2q1", Arrays.asList(p2q1).toString());
+        page.responses.put("p2q1", gson.toJson(p2q1));
         page.insert();
         listing.addResponsePage(page, PAGE_ID);
         redirect(listing.nextPageUrl(PAGE_ID, listing.id));

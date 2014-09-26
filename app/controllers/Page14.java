@@ -13,9 +13,9 @@ public class Page14 extends Controller {
         Listing listing = Listing.getByListingId(listingId);
         
         // Validate all fields on this page requiring validation
-        validation.required(p14q1).message("p14q1 : null");
-        validation.required(p14q2).message("p14q2 : null");
-        validation.required(p14q3).message("p14q3 : null");
+        validation.required(p14q1).message("p14q1:null");
+        validation.required(p14q2).message("p14q2:null");
+        validation.required(p14q3).message("p14q3:null");
         if(validation.hasErrors()) {
             flash.error("%s", validation.errors());
             redirect(String.format("/page/%d/%d", PAGE_ID, listing.id));

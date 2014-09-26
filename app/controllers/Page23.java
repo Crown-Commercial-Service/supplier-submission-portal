@@ -13,10 +13,10 @@ public class Page23 extends Controller {
         Listing listing = Listing.getByListingId(listingId);
         
         // Validate all fields on this page requiring validation
-        validation.required(p23q1).message("p23q1 : null");
+        validation.required(p23q1).message("p23q1:null");
         if(!listing.lot.equals("SaaS")){
-            validation.required(p23q2).message("p23q2 : null");
-            validation.required(p23q3).message("p23q3 : null");
+            validation.required(p23q2).message("p23q2:null");
+            validation.required(p23q3).message("p23q3:null");
         }
         if(validation.hasErrors()) {
             flash.error("%s", validation.errors());

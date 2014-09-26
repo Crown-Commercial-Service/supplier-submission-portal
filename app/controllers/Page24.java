@@ -1,6 +1,6 @@
 package controllers;
 
-import java.util.Arrays;
+import com.google.gson.Gson;
 import models.Listing;
 import models.Page;
 import play.mvc.Controller;
@@ -16,35 +16,36 @@ public class Page24 extends Controller {
 
         // Validate all fields on this page requiring validation
         if (!listing.lot.equals("SCS")) {
-            validation.required(p24q1).message("p24q1 : null");
-            validation.required(p24q2).message("p24q2 : null");
-            validation.required(p24q4).message("p24q4 : null");
-            validation.required(p24q5).message("p24q5 : null");
-            validation.required(p24q6).message("p24q6 : null");
-            validation.required(p24q11).message("p24q11 : null");
+            validation.required(p24q1).message("p24q1:null");
+            validation.required(p24q2).message("p24q2:null");
+            validation.required(p24q4).message("p24q4:null");
+            validation.required(p24q5).message("p24q5:null");
+            validation.required(p24q6).message("p24q6:null");
+            validation.required(p24q11).message("p24q11:null");
 
             if (!listing.lot.equals("SaaS")) {
-                validation.required(p24q7).message("p24q7 : null");
-                validation.required(p24q8).message("p24q8 : null");
-                validation.required(p24q9).message("p24q9 : null");
-                validation.required(p24q10).message("p24q10 : null");
+                validation.required(p24q7).message("p24q7:null");
+                validation.required(p24q8).message("p24q8:null");
+                validation.required(p24q9).message("p24q9:null");
+                validation.required(p24q10).message("p24q10:null");
             }
         }
-        validation.required(p24q3).message("p24q3 : null");
+        validation.required(p24q3).message("p24q3:null");
         if (validation.hasErrors()) {
             flash.error("%s", validation.errors());
             redirect(String.format("/page/%d/%d", PAGE_ID, listing.id));
         }
 
         // Save the form data as a Page into the correct page index
+        Gson gson = new Gson();
         Page page = new Page(listingId, PAGE_ID);
         if (p24q1 != null) {
-            page.responses.put("p24q1", Arrays.asList(p24q1).toString());
+            page.responses.put("p24q1", gson.toJson(p24q1));
         }
         else {page.responses.put("p24q1", null);
         }
         if (p24q2 != null) {
-            page.responses.put("p24q2", Arrays.asList(p24q2).toString());
+            page.responses.put("p24q2", gson.toJson(p24q2));
         }
         else {page.responses.put("p24q2", null);
         }

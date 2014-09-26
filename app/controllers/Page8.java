@@ -1,5 +1,6 @@
 package controllers;
 
+import com.google.gson.Gson;
 import models.Listing;
 import models.Page;
 import play.mvc.Controller;
@@ -15,13 +16,13 @@ public class Page8 extends Controller {
         if(p8q1 != null) {
             // TODO: Validate arrays
         }
-        validation.required(p8q2).message("p8q2 : null");
-        validation.required(p8q3).message("p8q3 : null");
-        validation.required(p8q6).message("p8q6 : null");
-        validation.required(p8q7).message("p8q7 : null");
+        validation.required(p8q2).message("p8q2:null");
+        validation.required(p8q3).message("p8q3:null");
+        validation.required(p8q6).message("p8q6:null");
+        validation.required(p8q7).message("p8q7:null");
         if (!listing.lot.equals("SCS")) {
-            validation.required(p8q4).message("p8q4 : null");
-            validation.required(p8q5).message("p8q5 : null");
+            validation.required(p8q4).message("p8q4:null");
+            validation.required(p8q5).message("p8q5:null");
         }
 
         if(validation.hasErrors()) {
@@ -29,8 +30,9 @@ public class Page8 extends Controller {
             redirect(String.format("/page/%d/%d", PAGE_ID, listing.id));
         }
 
+        Gson gson = new Gson();
         Page page = new Page(listingId, PAGE_ID);
-        page.responses.put("p8q1", p8q1.toString());  // TODO: Save Arrays properly
+        page.responses.put("p8q1", gson.toJson(p8q1));
         page.responses.put("p8q2", p8q2);
         page.responses.put("p8q3", p8q3);
         page.responses.put("p8q4", p8q4);
