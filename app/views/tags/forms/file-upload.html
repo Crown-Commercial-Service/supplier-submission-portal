@@ -1,7 +1,9 @@
-<label class='question-heading %{ if (_hint) { }%question-heading-with-hint%{ } }%' for='${_name}'>
-  ${_label}
-</label>
-#{forms/hint
-  hint: _hint
-/}
-<input type='file' name='${_name}' id='${_name}' class='file-upload' />
+<fieldset>
+  <label class='question-heading %{ if (_hint) { }%question-heading-with-hint%{ } }%' for='${_name}'>
+    ${_label}
+  </label>
+  #{forms/hint
+    hint: _hint
+  /}
+  <input type='file' name='${_name}' id='${_name}' class='file-upload' />
+</fieldset>

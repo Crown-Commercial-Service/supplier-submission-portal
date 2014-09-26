@@ -1,6 +1,11 @@
 #{extends 'layout.html' /}
 #{set title:'Adding a new service' /}
 
+%{
+  def page = 'p7'
+  def question = page + 'q1'
+}%
+
 #{breadcrumb-one-deep
   service_name: serviceName,
   lot: lot
@@ -14,16 +19,17 @@
   /}
   <fieldset>
     #{forms/selection-button-boolean
-      name: 'p7q1',
-      label: content.get('p7q1text')
+      name: question,
+      label: content.get(question + 'text')
     /}
   </fieldset>
   <fieldset>
-    <legend class='question-heading'>
-      ${content.get('p7q2text')}
-    </legend>
-    #{forms/hint
-      hint: content.get('p7q1hint')
+    %{
+      question = page + 'q2'
+    }%
+    #{question-heading
+      heading: content.get(question + 'text'),
+      hint: content.get(question + 'hint')
     /}
     %{
       for (index in 1..5) {
@@ -38,9 +44,12 @@
     }%
   </fieldset>
   <fieldset>
+    %{
+      question = page + 'q2'
+    }%
     #{forms/file-upload
-      name: 'p7q3',
-      label: content.get('p7q3text')
+      name: question,
+      label: content.get(question + 'text')
     /}
   </fieldset>
   #{footer/}

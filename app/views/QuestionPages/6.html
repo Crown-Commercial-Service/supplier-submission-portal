@@ -1,10 +1,15 @@
 #{extends 'layout.html' /}
 #{set title:'Adding a new service' /}
 
+%{
+  def question = 'p6q1'
+}%
+
 #{breadcrumb-one-deep
   service_name: serviceName,
   lot: lot
 /}
+
 
 <form action='${request.getBase()}${request.url}' method='POST'>
   #{heading
@@ -12,16 +17,13 @@
     total: pageTotal,
     title: content.get('p6title')
   /}
-  <fieldset>
-    <legend class='question-heading'>
-      ${content.get('p6q1text')}
-    </legend>
-    #{forms/hint
-      hint: content.get('p6q1hint')
-    /}
-    #{forms/file-upload
-      name: content.get('p6q1val1'),
-    /}
-  </fieldset>
+
+  #{forms/file-upload
+    name: question,
+    label: content.get(question + 'text'),
+    hint: content.get(question + 'hint')
+  /}
+
   #{footer/}
+
 </form>
