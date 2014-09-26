@@ -1,8 +1,10 @@
+%{ if (_label) { }%
 <fieldset class='question'>
-  <legend class='question-heading %{ if (_hint) { }% question-heading-with-hint %{ } }%'>
-    ${_label}
-  </legend>
-  #{forms/hint
+%{ } else { }%
+<fieldset>
+%{ } }%
+  #{question-heading
+    heading: _label,
     hint: _hint
   /}
   <label class='selection-button selection-button-boolean'>

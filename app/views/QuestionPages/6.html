@@ -10,8 +10,9 @@
   lot: lot
 /}
 
+<h3>${flash}</h3>
 
-<form action='${request.getBase()}${request.url}' method='POST'>
+<form action='${request.getBase()}${request.url}' method='POST' enctype="multipart/form-data">
   #{heading
     current: pageNum,
     total: pageTotal,

@@ -1,6 +1,8 @@
-<legend class='question-heading %{ if (_hint) { }% question-heading-with-hint %{ } }%'>
-  ${_heading}
-</legend>
+%{ if (_heading) { }%
+  <legend class='question-heading %{ if (_hint) { }% question-heading-with-hint %{ } }%'>
+    ${_heading}
+  </legend>
+%{ } }%
 #{forms/hint
   hint: _hint
 /}

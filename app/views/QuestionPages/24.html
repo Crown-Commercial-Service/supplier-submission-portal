@@ -13,6 +13,78 @@
     title: content.get('p24title')
   /}
   <fieldset>
+    <legend class='question-heading'>
+      ${content.get('p24q1text')}
+    </legend>
+    <p class="question-hint">${content.get('p24q1hint')}</p>
+    %{
+      for (index in 1..5) {
+    }%
+      #{forms/selection-button-checkbox
+        name: 'p24q1',
+        value: content.get('p24q1val' + index),
+        label: content.get('p24q1val' + index + 'Label'),
+        checked: oldValues?.get('p24q1')?.contains(content.get('p24q1val' + index))
+      /}
+    %{
+      }
+    }%
+    #{forms/assurance
+      name: 'p24q1'
+    /}
+  </fieldset>
+  <fieldset>
+    <legend class='question-heading'>
+      ${content.get('p24q2text')}
+    </legend>
+    <p class="question-hint">${content.get('p24q2hint')}</p>
+    %{
+      for (index in 1..4) {
+    }%
+      #{forms/selection-button-checkbox
+        name: 'p24q2',
+        value: content.get('p24q2val' + index),
+        label: content.get('p24q2val' + index + 'Label'),
+        checked: oldValues?.get('p24q2')?.contains(content.get('p24q2val' + index))
+      /}
+    %{
+      }
+    }%
+    #{forms/assurance
+      name: 'p24q2'
+    /}
+  </fieldset>
+  <fieldset>
+    <legend class='question-heading'>
+      ${content.get('p24q3text')}
+    </legend>
+    %{
+      for (index in 1..4) {
+    }%
+      #{forms/selection-button-radio
+        name: 'p24q3',
+        value: content.get('p24q3val' + index),
+        label: content.get('p24q3val' + index + 'Label')
+      /}
+    %{
+      }
+    }%
+    #{forms/assurance
+      name: 'p24q3'
+    /}
+  </fieldset>
+  <fieldset>
+    <legend class='question-heading'>
+      ${content.get('p24q4text')}
+    </legend>
+    <p class="question-hint">${content.get('p24q4hint')}</p>
+    #{forms/selection-button-boolean
+      name: 'p24q4',
+      label: content.get('p24q4valtext')
+    /}
+    #{forms/assurance
+      name: 'p24q4'
+    /}
   </fieldset>
   #{footer/}
 </form>

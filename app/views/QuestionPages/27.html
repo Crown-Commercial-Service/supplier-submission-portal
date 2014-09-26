@@ -13,6 +13,30 @@
     title: content.get('p27title')
   /}
   <fieldset>
+    <legend class='question-heading'>
+      ${content.get('p27q1text')}
+    </legend>
+    <p class="question-hint">${content.get('p27q1hint')}</p>
+    #{forms/selection-button-boolean
+      name: 'p27q1',
+      label: content.get('p27q1valtext')
+    /}
+    #{forms/assurance
+      name: 'p27q1'
+    /}
+  </fieldset>
+  <fieldset>
+    <legend class='question-heading'>
+      ${content.get('p27q2text')}
+    </legend>
+    <p class="question-hint">${content.get('p27q2hint')}</p>
+    #{forms/selection-button-boolean
+      name: 'p27q2',
+      label: content.get('p27q2valtext')
+    /}
+    #{forms/assurance
+      name: 'p27q2'
+    /}
   </fieldset>
   #{footer/}
 </form>

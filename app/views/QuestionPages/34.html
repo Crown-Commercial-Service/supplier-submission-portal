@@ -13,6 +13,24 @@
     title: content.get('p34title')
   /}
   <fieldset>
+    <legend class='question-heading'>
+      ${content.get('p34q1text')}
+    </legend>
+    <p class="question-hint">${content.get('p34q1hint')}</p>
+    %{
+      for (index in 1..5) {
+    }%
+      #{forms/selection-button-radio
+        name: 'p34q1',
+        value: content.get('p34q1val' + index),
+        label: content.get('p34q1val' + index + 'Label')
+      /}
+    %{
+      }
+    }%
+    #{forms/assurance
+      name: 'p34q1'
+    /}
   </fieldset>
   #{footer/}
 </form>
