@@ -2,7 +2,8 @@
 #{set title:'Adding a new service' /}
 
 #{breadcrumb-one-deep
-  tip: oldValues?.get('p4q1')
+  service_name: serviceName,
+  lot: lot
 /}
 
 <form action='${request.getBase()}${request.url}' method='POST'>

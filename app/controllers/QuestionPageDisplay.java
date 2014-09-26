@@ -27,6 +27,7 @@ public class QuestionPageDisplay extends Controller {
         if (page!= null) {
             renderArgs.put("oldValues", page.responses);
         }
+        renderArgs.put("serviceName", listing.title);
         renderTemplate(String.format("QuestionPages/%d.html", pageId));
     }
 }
