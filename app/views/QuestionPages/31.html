@@ -13,10 +13,10 @@
     title: content.get('p31title')
   /}
   <fieldset>
-    <legend class='question-heading'>
-      ${content.get('p31q1text')}
-    </legend>
-    <p class="question-hint">${content.get('p31q1hint')}</p>
+    #{question-heading
+      heading: content.get('p31q1text'),
+      hint: content.get('p31q1hint')
+    /}
     #{forms/selection-button-boolean
       name: 'p31q1',
       label: content.get('p31q1valtext')
@@ -26,10 +26,10 @@
     /}
   </fieldset>
   <fieldset>
-    <legend class='question-heading'>
-      ${content.get('p31q2text')}
-    </legend>
-    <p class="question-hint">${content.get('p31q2hint')}</p>
+    #{question-heading
+      heading: content.get('p31q2text'),
+      hint: content.get('p31q2hint')
+    /}
     #{forms/selection-button-boolean
       name: 'p31q2',
       label: content.get('p31q2valtext')
