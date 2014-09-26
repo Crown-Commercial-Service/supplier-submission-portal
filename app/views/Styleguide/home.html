@@ -57,12 +57,11 @@
       hint: 'Question hint'
     /}
   </fieldset>
-  <fieldset class="question">
-    <legend class="question-heading question-heading-with-hint">Boolean without hint</legend>
-    #{forms/selection-button-boolean
-      name: 'example-boolean-with-hint'
-    /}
-  </fieldset>
+  #{forms/selection-button-boolean
+    name: 'example-boolean-with-hint',
+    label: 'Boolean without hint',
+    hint: ''
+  /}
   <fieldset class="question">
     #{forms/textbox
       name: 'one-liner',

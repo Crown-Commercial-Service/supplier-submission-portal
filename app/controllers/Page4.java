@@ -11,10 +11,10 @@ public class Page4 extends Controller {
     public static void savePage(Long listingId, String p4q1, String p4q2) {
         
         Listing listing = Listing.getByListingId(listingId);
+        
         // Validate all fields on this page requiring validation
         validation.required(p4q1).message("Please enter something.");
         validation.required(p4q2).message("Please enter something else.");
-        
         if(validation.hasErrors()) {
             flash.error("%s", validation.errors());
             redirect(String.format("/page/%d/%d", PAGE_ID, listing.id));

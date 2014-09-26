@@ -1,0 +1,47 @@
+#{extends 'layout.html' /}
+#{set title:'Adding a new service' /}
+
+#{breadcrumb-one-deep
+  service_name: serviceName,
+  lot: lot
+/}
+
+<form action='${request.getBase()}${request.url}' method='POST' enctype="multipart/form-data">
+  #{heading
+    current: pageNum,
+    total: pageTotal,
+    title: content.get('p7title')
+  /}
+  <fieldset>
+    #{forms/selection-button-boolean
+      name: 'p7q1',
+      label: content.get('p7q1text')
+    /}
+  </fieldset>
+  <fieldset>
+    <legend class='question-heading'>
+      ${content.get('p7q2text')}
+    </legend>
+    #{forms/hint
+      hint: content.get('p7q1hint')
+    /}
+    %{
+      for (index in 1..5) {
+    }%
+      #{forms/selection-button-radio
+        name: 'p7q2',
+        value: content.get('p7q2val' + index),
+        label: content.get('p7q2val' + index + 'Label')
+      /}
+    %{
+      }
+    }%
+  </fieldset>
+  <fieldset>
+    #{forms/file-upload
+      name: 'p7q3',
+      label: content.get('p7q3text')
+    /}
+  </fieldset>
+  #{footer/}
+</form>

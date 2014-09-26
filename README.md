@@ -53,3 +53,15 @@ Play Documentation
 ------------------
 
 Documentation for Play 1.2.4 is here: https://www.playframework.com/documentation/1.2.4/home
+
+Getting the content
+-------------------
+A grunt task called `content` builds `conf/content.properties` file from the YAML files in `conf/digital-marketplace-ssp-content`.
+
+When the task is run `conf/content.properties` is stored as an artefact ignored by Git.
+
+This can be done for development by running the following:
+
+`node run_grunt.js content`
+
+Note: the task uses new NPM modules so you'll have to run `npm install` before running it.

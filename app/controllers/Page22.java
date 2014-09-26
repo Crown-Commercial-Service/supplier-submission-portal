@@ -4,29 +4,32 @@ import models.Listing;
 import models.Page;
 import play.mvc.Controller;
 
-// Not a real Controller - just a template that can serve as a skeleton for page controllers 
-
 public class Page22 extends Controller {
 
-    private static final Long PAGE_ID = -1l;
+    private static final Long PAGE_ID = 22l;
 
-    // TODO: This method will be very similar for all pages except for field-specific validation methods - how to factor out?
-    public static void savePage(Long listingId /* question responses passed in e.g. String[] p1_q1 */) {
+    public static void savePage(Long listingId, String p22q1, String p22q2, String p22q3, String p22q4, String p22q5) {
 
         Listing listing = Listing.getByListingId(listingId);
         
         // TODO: Validate all fields on this page requiring validation
-
+//        validation.required(p22q1).message("p22q1:null");
+//        validation.required(p22q2).message("p22q2:null");
+//        validation.required(p22q3).message("p22q3:null");
+//        validation.required(p22q4).message("p22q4:null");
+//        validation.required(p22q5).message("p22q5:null");
         if(validation.hasErrors()) {
             flash.error("%s", validation.errors());
             redirect(String.format("/page/%d/%d", PAGE_ID, listing.id));
         }
-        
-        int index = listing.pageSequence.indexOf(PAGE_ID);
-        //TODO: Save the form data as a Page into the correct page index
+
+        // Save the form data as a Page into the correct page index
         Page page = new Page(listingId, PAGE_ID);
-        // page.responses.put("p1_q1", Arrays.asList(p1_q1).toString());
-        // ...etc. for all questions on page
+        page.responses.put("p22q1", p22q1);
+        page.responses.put("p22q2", p22q2);
+        page.responses.put("p22q3", p22q3);
+        page.responses.put("p22q4", p22q4);
+        page.responses.put("p22q5", p22q5);
         page.insert();
         listing.addResponsePage(page, PAGE_ID);
         redirect(listing.nextPageUrl(PAGE_ID, listing.id));

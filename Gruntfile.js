@@ -1,7 +1,10 @@
 module.exports = function(grunt){
 
   var JSModules = [];
+  var combineJsonFile = __dirname + '/content.json';
+  var propertiesFile = __dirname + '/conf/content.properties';
 
+  JSModules.push("./public/javascripts/jquery.js");
   grunt.file.recurse(
     "./public/javascripts",
     function(abspath, rootdir, subdir, filename) {
@@ -9,12 +12,15 @@ module.exports = function(grunt){
       if (
         filename.match(/\.js/) &&
         !filename.match(/application\.js/) &&
+        !filename.match(/jquery\.js/) &&
+        !filename.match(/main\.js/) &&
         !filename.match(/\.min\.js/) &&
         !filename.match(/\.map/)
       ) JSModules.push(abspath);
 
     }
   );
+  JSModules.push("./public/javascripts/main.js");
 
   grunt.initConfig({
 
@@ -102,23 +108,26 @@ module.exports = function(grunt){
 
       assets_js: {
         cwd: 'app/assets/javascripts/',
-        src: '**',
+        src: '**/*',
         dest: 'public/javascripts/',
-        expand: true
+        expand: true,
+        flatten: true
       },
 
       toolkit_js: {
         cwd: 'node_modules/govuk_frontend_toolkit/govuk_frontend_toolkit/javascripts/govuk/',
         src: 'selection-buttons.js',
         dest: 'public/javascripts/',
-        expand: true
+        expand: true,
+        flatten: true
       },
 
       template_js: {
         cwd: 'node_modules/govuk_template_mustache/assets/javascripts/',
         src: '**',
         dest: 'public/javascripts/',
-        expand: true
+        expand: true,
+        flatten: true
       },
 
       toolkit_images: {
@@ -158,7 +167,7 @@ module.exports = function(grunt){
           preserveComments: false
         },
         files: {
-          "public/assets/javascripts/application.js": JSModules
+          "public/javascripts/application.js": JSModules
         }
       }
     },
@@ -178,6 +187,7 @@ module.exports = function(grunt){
     // Remove temporary CSS files
     clean: {
       tempCSS: ['public/stylesheets/.temp'],
+      combine: [combineJsonFile],
       production: ['node_modules/*', 'govuk_modules/*', 'bower_components/*']
     },
 
@@ -195,7 +205,7 @@ module.exports = function(grunt){
       },
       js: {
         files: ['app/assets/javascripts/**/*'],
-        tasks: ['copy:assets_js']
+        tasks: ['copy:assets_js', 'uglify:dev']
       },
       self: {
         files: ['Gruntfile.js'],
@@ -218,6 +228,44 @@ module.exports = function(grunt){
 
   // Automatically loads any grunt-* tasks in your package.json
   require("load-grunt-tasks")(grunt);
+
+  grunt.registerTask(
+    'combine',
+    'Converts the YAML content in conf/digital-marketplace-ssp-content into content.json',
+    function () {
+      var script = require(__dirname + '/scripts/combineYAML.js'),
+          outputJsonFile = combineJsonFile,
+          inputFolder = __dirname + '/conf/digital-marketplace-ssp-content';
+
+      script.combine({
+        'outputJsonFile' : outputJsonFile,
+        'inputFolder' : inputFolder
+      });
+      grunt.log.writeln('Files in ' + inputFolder + ' combined to create ' + outputJsonFile);
+    }
+  );
+
+  grunt.registerTask(
+    'properties',
+    'Converts the content.json file into conf/content.properties',
+    function () {
+      var script = require(__dirname + '/scripts/properties.js'),
+          inputJsonFile = combineJsonFile,
+          outputPropertiesFile = propertiesFile;
+
+      script.properties({
+        'inputJsonFile' : inputJsonFile,
+        'outputPropertiesFile' : outputPropertiesFile
+      });
+      grunt.log.writeln(inputJsonFile + ' converted into ' + outputPropertiesFile);
+    }
+  );
+
+  grunt.registerTask('content', [
+    'combine',
+    'properties',
+    'clean:combine'
+  ]);
 
   grunt.registerTask('dev', [
     'copy',

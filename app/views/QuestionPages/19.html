@@ -1,0 +1,78 @@
+#{extends 'layout.html' /}
+#{set title: 'Adding a new service' /}
+
+%{
+  def page = 'p19'
+  def question = ''
+}%
+
+#{breadcrumb-one-deep
+  service_name: serviceName,
+  lot: lot
+/}
+
+<form action='${request.getBase()}${request.url}' method='POST'>
+
+  #{heading
+    current: pageNum,
+    total: pageTotal,
+    title: content.get(page + 'title')
+  /}
+
+  <fieldset class='question'>
+    %{
+      question = page + 'q1'
+    }%
+    #{question-heading
+      heading: content.get(question + 'text'),
+      hint: content.get(question + 'hint')
+    /}
+    %{
+      for (index in 1..5) {
+    }%
+      #{forms/selection-button-checkbox
+        name: question,
+        value: content.get(question + 'val' + index),
+        label: content.get(question + 'val' + index + 'Label'),
+        checked: oldValues?.get(question)?.contains(content.get(question + 'val' + index))
+      /}
+    %{
+      }
+    }%
+  </fieldset>
+
+  %{
+    question = page + 'q2'
+  }%
+  #{forms/selection-button-boolean
+    name: question,
+    value: oldvalues?.get(question),
+    label: content.get(question + 'text'),
+    hint: content.get(question + 'hint')
+  /}
+
+  <fieldset class='question'>
+    %{
+      question = page + 'q3'
+    }%
+    #{question-heading
+      heading: content.get(question + 'text'),
+      hint: content.get(question + 'hint')
+    /}
+    %{
+      for (index in 1..4) {
+    }%
+      #{forms/selection-button-checkbox
+        name: question,
+        value: content.get(question + 'val' + index),
+        label: content.get(question + 'val' + index + 'Label'),
+        checked: oldValues?.get(question)?.contains(content.get(question + 'val' + index))
+      /}
+    %{
+      }
+    }%
+  </fieldset>
+
+  #{footer/}
+
+</form>

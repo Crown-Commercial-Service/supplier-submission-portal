@@ -1,0 +1,74 @@
+#{extends 'layout.html' /}
+#{set title: 'Adding a new service' /}
+
+%{
+  def page = 'p22'
+  def question = ''
+}%
+
+#{breadcrumb-one-deep
+  service_name: serviceName,
+  lot: lot
+/}
+
+<form action='${request.getBase()}${request.url}' method='POST'>
+
+  #{heading
+    current: pageNum,
+    total: pageTotal,
+    title: content.get('p22title')
+  /}
+
+  %{
+    for (index in 1..2) {
+      question = page + 'q' + index
+  }%
+    #{forms/selection-button-boolean
+      name: question,
+      value: oldvalues?.get(question),
+      label: content.get(question + 'text'),
+      hint: content.get(question + 'hint')
+    /}
+  %{
+    }
+  }%
+
+  <fieldset class='question'>
+    %{
+      question = page + 'q3'
+    }%
+    #{question-heading
+      heading: content.get(question + 'text'),
+      hint: content.get(question + 'hint')
+    /}
+    %{
+      for (index in 1..8) {
+    }%
+      #{forms/selection-button-radio
+        name: question,
+        value: content.get(question + 'val' + index),
+        label: content.get(question + 'val' + index + 'Label'),
+        checked: oldValues?.get(question)?.contains(content.get(question + 'val' + index))
+      /}
+    %{
+      }
+    }%
+  </fieldset>
+
+  %{
+    for (index in 4..5) {
+      question = page + 'q' + index
+  }%
+    #{forms/selection-button-boolean
+      name: question,
+      value: oldvalues?.get(question),
+      label: content.get(question + 'text'),
+      hint: content.get(question + 'hint')
+    /}
+  %{
+    }
+  }%
+
+  #{footer/}
+
+</form>

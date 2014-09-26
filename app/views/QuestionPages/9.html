@@ -1,0 +1,26 @@
+#{extends 'layout.html' /}
+#{set title: 'Adding a new service' /}
+
+#{breadcrumb-one-deep
+  service_name: serviceName,
+  lot: lot
+/}
+
+<form action='${request.getBase()}${request.url}' method='POST'>
+
+  #{heading
+    current: pageNum,
+    total: pageTotal,
+    title: content.get('p9title')
+  /}
+
+  #{forms/selection-button-boolean
+    name: 'p9q1',
+    value: oldvalues?.get('p9q1'),
+    label: content.get('p9q1text'),
+    hint: content.get('p9q1hint')
+  /}
+
+  #{footer/}
+
+</form>

@@ -21,7 +21,7 @@ public class Fixtures extends Controller {
     private static void loadQuestionPages() {
         try {
             contentProperties = new Properties();
-            InputStream inputStream = Play.classloader.getResourceAsStream("digital-marketplace-ssp-content/content.properties");
+            InputStream inputStream = Play.classloader.getResourceAsStream("content.properties");
             contentProperties.load(inputStream);
 
         } catch (Exception ex) {

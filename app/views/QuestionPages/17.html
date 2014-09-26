@@ -1,0 +1,35 @@
+#{extends 'layout.html' /}
+#{set title: 'Adding a new service' /}
+
+#{breadcrumb-one-deep
+  service_name: serviceName,
+  lot: lot
+/}
+
+<form action='${request.getBase()}${request.url}' method='POST'>
+
+  #{heading
+    current: pageNum,
+    total: pageTotal,
+    title: content.get('p17title')
+  /}
+
+  #{forms/selection-button-boolean
+    name: 'p17q1',
+    value: oldvalues?.get('p17q1'),
+    label: content.get('p17q1text'),
+    hint: content.get('p17q1hint')
+  /}
+
+  <fieldset class='question'>
+    #{forms/textbox
+      name: 'p17q2',
+      value: oldvalues?.get('p17q2'),
+      label: content.get('p17q2text'),
+      hint: content.get('p17q2hint')
+    /}
+  </fieldset>
+
+  #{footer/}
+
+</form>

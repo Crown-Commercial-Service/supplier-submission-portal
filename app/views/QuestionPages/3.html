@@ -1,53 +1,36 @@
 #{extends 'layout.html' /}
 #{set title:'Page 1c Title | Digital Marketplace Service Submission' /}
 
-
-<div class='breadcrumb-navigation'>
-  <nav>
-    <ol>
-      <li class='breadcrumb-navigation-item'>
-        <a href="/" class='breadcrumb-link'>Your G-Cloud 6 submissions</a>
-      </li>
-      <li class='breadcrumb-navigation-item'>New SCS submission</li>
-    </ol>
-  </nav>
-</div>
+#{breadcrumb-one-deep
+  service_name: serviceName,
+  lot: lot
+/}
 
 <form action='${request.getBase()}${request.url}' method='POST'>
-
-  <p class='position page-${pageNum}'>
-    Page ${pageNum} of ${pageTotal}
-  </p>
-  <h1 class='page-heading'>
-    Question section header
-  </h1>
+  #{heading
+    current: pageNum,
+    total: pageTotal,
+    title: content.get('p3title')
+  /}
   <fieldset>
     <legend class='question-heading'>
-      Question text
+      ${content.get('p3q1text')}
     </legend>
-    <p class='question-hint'>
-      Question hint
-    </p>
+    #{forms/hint
+      hint: content.get('p3q1hint')
+    /}
     %{
       for (index in 1..5) {
     }%
       #{forms/selection-button-checkbox
         name: 'p3q1',
-        label: 'Option ' + index,
-        value: 'box' + index + 'val',
-        checked: oldValues?.get('p3q1')?.contains('box' + index + 'val')
+        label: content.get('p3q1val' + index + 'Label'),
+        value: content.get('p3q1val' + index),
+        checked: oldValues?.get('p3q1')?.contains(content.get('p3q1val' + index))
       /}
     %{
       }
     }%
   </fieldset>
-  <div class='page-footer'>
-    <input type='submit' value='Save and continue' class='page-footer-item button button-save' />
-    <p class='page-footer-item'>
-      <a href='#'>Go back to previous page</a>
-    </p>
-    <p class='returnToDashboard'>
-      <a href='/'>Return to dashboard</a>
-    </p>
-  </div>
+  #{footer/}
 </form>
