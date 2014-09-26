@@ -1,6 +1,11 @@
 #{extends 'layout.html' /}
 #{set title: 'Adding a new service' /}
 
+%{
+  def page = 'p21'
+  def question = ''
+}%
+
 #{breadcrumb-one-deep
   service_name: serviceName,
   lot: lot
@@ -10,9 +15,17 @@
   #{heading
     current: pageNum,
     total: pageTotal,
-    title: content.get('p21title')
+    title: content.get(page + 'title')
   /}
-  <fieldset>
+  <fieldset class='question input-list'>
+    %{
+      question = page + 'q1'
+    }%
+    #{forms/textbox
+      name: question + 'val' + index,
+      label: question + 'text',
+      value: oldValues?.get(question)
+    /}
   </fieldset>
   #{footer/}
 </form>

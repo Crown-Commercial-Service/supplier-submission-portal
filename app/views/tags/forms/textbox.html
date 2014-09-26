@@ -1,4 +1,6 @@
-<label for='${_name}' class='question-heading'>${_label}</label>
+<label for='${_name}' class='question-heading %{ if (_hint) { }% question-heading-with-hint %{ } }%'>
+  ${_label}
+</label>
 #{forms/hint
   hint: _hint
 /}
