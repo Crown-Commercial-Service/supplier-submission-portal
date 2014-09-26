@@ -4,6 +4,7 @@ module.exports = function(grunt){
   var combineJsonFile = __dirname + '/content.json';
   var propertiesFile = __dirname + '/conf/content.properties';
 
+  JSModules.push("./public/javascripts/jquery.js");
   grunt.file.recurse(
     "./public/javascripts",
     function(abspath, rootdir, subdir, filename) {
@@ -11,6 +12,7 @@ module.exports = function(grunt){
       if (
         filename.match(/\.js/) &&
         !filename.match(/application\.js/) &&
+        !filename.match(/jquery\.js/) &&
         !filename.match(/main\.js/) &&
         !filename.match(/\.min\.js/) &&
         !filename.match(/\.map/)
