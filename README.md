@@ -25,6 +25,11 @@ Install the Node modules required for the front end and generate the static asse
 
 Getting the content
 -------------------
+
+You need to pull in the submodule that contains the content:
+
+`git submodule update --init --recursive`
+
 A grunt task called `content` builds `conf/content.properties` file from the YAML files in `conf/digital-marketplace-ssp-content`.
 
 When the task is run `conf/content.properties` is stored as an artefact ignored by Git.
