@@ -11,13 +11,14 @@ public class Page31 extends Controller {
     public static void savePage(Long listingId, String p31q1, String p31q2, String p31q3, String p31q4, String p31q5) {
 
         Listing listing = Listing.getByListingId(listingId);
-
-        validation.required(p31q1).message("p31q1:null");
-        validation.required(p31q2).message("p31q2:null");
-        validation.required(p31q3).message("p31q3:null");
-        validation.required(p31q4).message("p31q4:null");
+        
+        // TODO: Validate all fields on this page requiring validation
+//        validation.required(p31q1).message("p31q1:null");
+//        validation.required(p31q2).message("p31q2:null");
+//        validation.required(p31q3).message("p31q3:null");
+//        validation.required(p31q4).message("p31q4:null");
         if (!listing.lot.equals("SaaS")) {
-            validation.required(p31q5).message("p31q5:null");
+//            validation.required(p31q5).message("p31q5:null");
         }
         if(validation.hasErrors()) {
             flash.error("%s", validation.errors());
@@ -35,7 +36,4 @@ public class Page31 extends Controller {
         redirect(listing.nextPageUrl(PAGE_ID, listing.id));
     }
 
-    public static void savePage(Long listingId, String p31q1, String p31q2, String p31q3, String p31q4) {
-        savePage(listingId, p31q1, p31q2, p31q3, p31q4, null);
-    }
 }

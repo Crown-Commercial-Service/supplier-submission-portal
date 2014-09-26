@@ -11,14 +11,15 @@ public class Page30 extends Controller {
     public static void savePage(Long listingId, String p30q1, String p30q2, String p30q3, String p30q4, String p30q5) {
 
         Listing listing = Listing.getByListingId(listingId);
-
-        validation.required(p30q1).message("p30q1:null");
+        
+        // TODO: Validate all fields on this page requiring validation
+//        validation.required(p30q1).message("p30q1:null");
         if (!listing.lot.equals("SCS")) {
-            validation.required(p30q2).message("p30q2:null");
-            validation.required(p30q3).message("p30q3:null");
-            validation.required(p30q4).message("p30q4:null");
+//            validation.required(p30q2).message("p30q2:null");
+//            validation.required(p30q3).message("p30q3:null");
+//            validation.required(p30q4).message("p30q4:null");
             if (!listing.lot.equals("SaaS")) {
-                validation.required(p30q5).message("p30q5:null");
+//                validation.required(p30q5).message("p30q5:null");
             }
         }
         if(validation.hasErrors()) {
@@ -37,11 +38,4 @@ public class Page30 extends Controller {
         redirect(listing.nextPageUrl(PAGE_ID, listing.id));
     }
 
-    public static void savePage(Long listingId, String p30q1) {
-        savePage(listingId, p30q1, null, null, null, null);
-    }
-
-    public static void savePage(Long listingId, String p30q1, String p30q2, String p30q3, String p30q4) {
-        savePage(listingId, p30q1, p30q2, p30q3, p30q4, null);
-    }
 }

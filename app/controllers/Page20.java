@@ -11,8 +11,8 @@ public class Page20 extends Controller {
 
         Listing listing = Listing.getByListingId(listingId);
         
-        // Validate all fields on this page requiring validation
-        validation.required(p20q1).message("p20q1:null");
+        // TODO: Validate all fields on this page requiring validation
+//        validation.required(p20q1).message("p20q1:null");
         if(validation.hasErrors()) {
             flash.error("%s", validation.errors());
             redirect(String.format("/page/%d/%d", PAGE_ID, listing.id));

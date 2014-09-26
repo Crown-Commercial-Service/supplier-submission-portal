@@ -12,9 +12,9 @@ public class Page11 extends Controller {
 
         Listing listing = Listing.getByListingId(listingId);
         
-        // Validate all fields on this page requiring validation
-        validation.required(p11q1).message("p11q1:null");
-        validation.required(p11q2).message("p11q2:null");
+        // TODO: Validate all fields on this page requiring validation
+//        validation.required(p11q1).message("p11q1:null");
+//        validation.required(p11q2).message("p11q2:null");
         if(validation.hasErrors()) {
             flash.error("%s", validation.errors());
             redirect(String.format("/page/%d/%d", PAGE_ID, listing.id));
