@@ -11,10 +11,11 @@ public class Page29 extends Controller {
     public static void savePage(Long listingId, String p29q1, String p29q2, String p29q3) {
 
         Listing listing = Listing.getByListingId(listingId);
-
-        validation.required(p29q1).message("p29q1:null");
-        validation.required(p29q2).message("p29q2:null");
-        validation.required(p29q3).message("p29q3:null");
+        
+        // TODO: Validate all fields on this page requiring validation
+//        validation.required(p29q1).message("p29q1:null");
+//        validation.required(p29q2).message("p29q2:null");
+//        validation.required(p29q3).message("p29q3:null");
         if(validation.hasErrors()) {
             flash.error("%s", validation.errors());
             redirect(String.format("/page/%d/%d", PAGE_ID, listing.id));

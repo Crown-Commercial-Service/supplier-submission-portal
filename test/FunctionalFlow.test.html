@@ -2,6 +2,9 @@
 
 #{selenium}
 
+    // Load the content
+    open('/fixtures')
+        
     // Open the home page, and check that no error occured
     open('/')
     assertNotTitle('Application error')

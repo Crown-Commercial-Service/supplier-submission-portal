@@ -11,12 +11,13 @@ public class Page36 extends Controller {
     public static void savePage(Long listingId, String p36q1, String p36q2, String p36q3) {
 
         Listing listing = Listing.getByListingId(listingId);
-        
-        validation.required(p36q1).message("p36q1:null");
+
+        // TODO: Validate all fields on this page requiring validation
+//        validation.required(p36q1).message("p36q1:null");
         if (!listing.lot.equals("SaaS")) {
-            validation.required(p36q2).message("p36q2:null");
+//            validation.required(p36q2).message("p36q2:null");
         }
-        validation.required(p36q3).message("p36q2:null");
+//        validation.required(p36q3).message("p36q2:null");
         if(validation.hasErrors()) {
             flash.error("%s", validation.errors());
             redirect(String.format("/page/%d/%d", PAGE_ID, listing.id));
@@ -31,7 +32,4 @@ public class Page36 extends Controller {
         redirect(listing.nextPageUrl(PAGE_ID, listing.id));
     }
 
-    public static void savePage(Long listingId, String p36q1, String p36q3) {
-        savePage(listingId, p36q1, null, p36q3);
-    }
 }

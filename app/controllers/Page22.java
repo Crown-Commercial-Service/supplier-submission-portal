@@ -12,12 +12,12 @@ public class Page22 extends Controller {
 
         Listing listing = Listing.getByListingId(listingId);
         
-        // Validate all fields on this page requiring validation
-        validation.required(p22q1).message("p22q1:null");
-        validation.required(p22q2).message("p22q2:null");
-        validation.required(p22q3).message("p22q3:null");
-        validation.required(p22q4).message("p22q4:null");
-        validation.required(p22q5).message("p22q5:null");
+        // TODO: Validate all fields on this page requiring validation
+//        validation.required(p22q1).message("p22q1:null");
+//        validation.required(p22q2).message("p22q2:null");
+//        validation.required(p22q3).message("p22q3:null");
+//        validation.required(p22q4).message("p22q4:null");
+//        validation.required(p22q5).message("p22q5:null");
         if(validation.hasErrors()) {
             flash.error("%s", validation.errors());
             redirect(String.format("/page/%d/%d", PAGE_ID, listing.id));
