@@ -1,4 +1,4 @@
-<label class='selection-button'>
+<label class='selection-button%{ if (_description) { }% selection-button-with-description%{ } }%'>
   <input
     type='radio' name='${_name}' id='${_name}-${_value}' value='${_value}'
     %{ if (_checked) { }% checked='checked' %{ }}%

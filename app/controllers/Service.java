@@ -6,7 +6,7 @@ import play.data.validation.Error;
 import uk.gov.gds.dm.DevUtils;
 
 public class Service extends Controller {
-    
+
     public static void editPage(String id, Integer page) {
         render(id, page);
     }
@@ -14,11 +14,12 @@ public class Service extends Controller {
     public static void summaryPage(String id) {
         render(id);
     }
-    
+
     public static void newService() {
+        renderArgs.put("content", Fixtures.getContentProperties());
         render();
     }
-    
+
     public static void createListing(String lot) {
         validation.required(lot);
         validation.match(lot, "SaaS|IaaS|PaaS|SCS");
@@ -37,7 +38,7 @@ public class Service extends Controller {
         // TODO: Get next page using page sequence saved in Listing object
         redirect(String.format("/page/%d/%d", listing.firstPage(), listing.id));
     }
-    
+
     public static void submissionComplete(String listingId) {
         // TODO: Add flash message to say "All questions complete"
         redirect(String.format("/service/%d", listingId));
