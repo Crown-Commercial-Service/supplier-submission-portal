@@ -1,4 +1,11 @@
 .page-heading {
+
   @include heading-48;
   font-weight: bold;
+  margin-bottom: 15px;
+
+  @include media(desktop) {
+    padding-top: 2px;
+  }
+
 }
