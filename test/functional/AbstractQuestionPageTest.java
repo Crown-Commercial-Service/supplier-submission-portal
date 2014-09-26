@@ -1,5 +1,6 @@
 package functional;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import play.mvc.Http;
 import play.test.FunctionalTest;
@@ -9,6 +10,7 @@ import play.test.FunctionalTest;
  */
 public class AbstractQuestionPageTest  extends FunctionalTest {
 
+    @Ignore
     @Test
     public void testReadCookieAndRedirectToDM() {
         Http.Response response = GET("/");
