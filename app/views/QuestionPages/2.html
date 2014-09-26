@@ -1,6 +1,11 @@
 #{extends 'layout.html' /}
 #{set title:'Page 1b Title | Digital Marketplace Service Submission' /}
 
+%{
+  def page = 'p2'
+  def question = ''
+}%
+
 #{breadcrumb-one-deep
   service_name: serviceName,
   lot: lot
@@ -13,20 +18,21 @@
     title: content.get('p2title')
   /}
   <fieldset>
-    <legend class='question-heading'>
-      Question text
-    </legend>
-    #{forms/hint
-      hint: content.get('p2q1hint')
+    %{
+      question = page + 'q1'
+    }%
+    #{question-heading
+      heading: content.get(question + 'text'),
+      hint: content.get(question + 'hint')
     /}
     %{
       for (index in 1..18) {
     }%
       #{forms/selection-button-checkbox
-        name: 'p2q1',
-        label: content.get('p2q1val' + index + 'Label'),
-        value: content.get('p2q1val' + index),
-        checked: oldValues?.get('p2q1')?.contains(content.get('p2q1val' + index))
+        name: question,
+        label: content.get(question + 'val' + index + 'Label'),
+        value: content.get(question + 'val' + index),
+        checked: oldValues?.get(question)?.contains(content.get(question + 'val' + index))
       /}
     %{
       }

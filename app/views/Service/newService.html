@@ -19,12 +19,10 @@
     Service details
   </h1>
   <fieldset>
-    <legend class='question-heading'>
-      What kind of service are you submitting?
-    </legend>
-    <p class='question-hint'>
-      Select one option relevant to your service
-    </p>
+    #{question-heading
+      heading: 'What kind of service are you submitting?',
+      hint: 'Select one option relevant to your service'
+    /}
     #{forms/selection-button-radio
       name: 'lot',
       label: 'Infrastructure as a Service',
