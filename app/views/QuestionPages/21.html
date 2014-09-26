@@ -22,7 +22,7 @@
       question = page + 'q1'
     }%
     #{forms/textbox
-      name: question + 'val' + index,
+      name: content.get(question + 'val1'),
       label: question + 'text',
       value: oldValues?.get(question)
     /}
