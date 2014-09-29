@@ -1,6 +1,12 @@
 #{extends 'layout.html' /}
 #{set title: 'Adding a new service' /}
 
+%{
+  def page = 'p36'
+  def question = ''
+  def questionIsRelevantToSelectedLot = false
+}%
+
 #{breadcrumb-one-deep
   service_name: serviceName,
   lot: lot
@@ -12,51 +18,71 @@
     total: pageTotal,
     title: content.get('p36title')
   /}
-  <fieldset>
-    #{question-heading
-      heading: content.get('p36q1text'),
-      hint: content.get('p36q1hint')
-    /}
-    %{
-      for (index in 1..3) {
-    }%
-      #{forms/selection-button-radio
-        name: 'p36q1',
-        value: content.get('p36q1val' + index),
-        label: content.get('p36q1val' + index + 'Label')
+  %{
+    question = page + 'q1'
+    questionIsRelevantToSelectedLot = content.get(question + 'lots').contains(lot)
+    if (questionIsRelevantToSelectedLot) {
+  }%
+    <fieldset class='question'>
+      #{question-heading
+        heading: content.get(question + 'text'),
+        hint: content.get(question + 'hint')
       /}
-    %{
-      }
-    }%
-    #{forms/assurance
-      name: 'p36q1'
-    /}
-  </fieldset>
-  <fieldset>
+      %{
+        for (index in 1..3) {
+      }%
+        #{forms/selection-button-radio
+          name: question,
+          value: content.get(question + 'val' + index),
+          label: content.get(question + 'val' + index + 'Label')
+        /}
+      %{
+        }
+      }%
+      #{forms/assurance
+        name: question
+      /}
+    </fieldset>
+  %{
+    }
+
+    question = page + 'q2'
+    questionIsRelevantToSelectedLot = content.get(question + 'lots').contains(lot)
+    if (questionIsRelevantToSelectedLot) {
+  }%
+    <fieldset class='question'>
+      #{question-heading
+        heading: content.get(question + 'text'),
+        hint: content.get(question + 'hint')
+      /}
+      #{forms/selection-button-boolean
+        name: question
+      /}
+      #{forms/assurance
+        name: question
+      /}
+    </fieldset>
+  %{
+    }
+
+    question = page + 'q3'
+    questionIsRelevantToSelectedLot = content.get(question + 'lots').contains(lot)
+    if (questionIsRelevantToSelectedLot) {
+  }%
+  <fieldset class='question'>
     #{question-heading
-      heading: content.get('p36q2text'),
-      hint: content.get('p36q2hint')
+      heading: content.get(question + 'text'),
+      hint: content.get(question + 'hint')
     /}
     #{forms/selection-button-boolean
-      name: 'p36q2',
-      label: content.get('p36q2valtext')
+      name: question
     /}
     #{forms/assurance
-      name: 'p1q2'
+      name: question
     /}
   </fieldset>
-  <fieldset>
-    #{question-heading
-      heading: content.get('p36q3text'),
-      hint: content.get('p36q3hint')
-    /}
-    #{forms/selection-button-boolean
-      name: 'p36q3',
-      label: content.get('p36q3valtext')
-    /}
-    #{forms/assurance
-      name: 'p1q3'
-    /}
-  </fieldset>
+  %{
+    }
+  }%
   #{footer/}
 </form>

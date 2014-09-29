@@ -1,6 +1,12 @@
 #{extends 'layout.html' /}
 #{set title: 'Adding a new service' /}
 
+%{
+  def page = 'p27'
+  def question = ''
+  def questionIsRelevantToSelectedLot = false
+}%
+
 #{breadcrumb-one-deep
   service_name: serviceName,
   lot: lot
@@ -10,33 +16,49 @@
   #{heading
     current: pageNum,
     total: pageTotal,
-    title: content.get('p27title')
+    title: content.get(page + 'title')
   /}
+  %{
+    question = page + 'q1'
+    questionIsRelevantToSelectedLot = content.get(question + 'lots').contains(lot)
+    if (questionIsRelevantToSelectedLot) {
+  }%
   <fieldset>
     #{question-heading
       heading: content.get('p27q1text'),
       hint: content.get('p27q1hint')
     /}
-    #{forms/selection-button-boolean
-      name: 'p27q1',
-      label: content.get('p27q1valtext')
-    /}
-    #{forms/assurance
-      name: 'p27q1'
-    /}
-  </fieldset>
+  
+      #{forms/selection-button-boolean
+        name: question,
+        label: content.get(question + 'text')
+      /}
+      #{forms/assurance
+        name: question
+      /}
+    </fieldset>
+  %{
+    }
+
+    question = page + 'q2'
+    questionIsRelevantToSelectedLot = content.get(question + 'lots').contains(lot)
+    if (questionIsRelevantToSelectedLot) {
+  }%
   <fieldset>
     #{question-heading
       heading: content.get('p27q2text'),
       hint: content.get('p27q2hint')
     /}
     #{forms/selection-button-boolean
-      name: 'p27q2',
-      label: content.get('p27q2valtext')
-    /}
-    #{forms/assurance
-      name: 'p27q2'
-    /}
-  </fieldset>
+        name: question,
+        label: content.get(question + 'text')
+      /}
+      #{forms/assurance
+        name: question
+      /}
+    </fieldset>
+  %{
+    }
+  }%
   #{footer/}
 </form>

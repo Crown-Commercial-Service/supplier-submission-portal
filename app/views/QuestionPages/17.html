@@ -1,6 +1,12 @@
 #{extends 'layout.html' /}
 #{set title: 'Adding a new service' /}
 
+%{
+  def page = 'p17'
+  def question = ''
+  def questionIsRelevantToSelectedLot = false
+}%
+
 #{breadcrumb-one-deep
   service_name: serviceName,
   lot: lot
@@ -14,21 +20,37 @@
     title: content.get('p17title')
   /}
 
-  #{forms/selection-button-boolean
-    name: 'p17q1',
-    value: oldvalues?.get('p17q1'),
-    label: content.get('p17q1text'),
-    hint: content.get('p17q1hint')
-  /}
+  %{
+    question = page + 'q1'
+    questionIsRelevantToSelectedLot = content.get(question + 'lots').contains(lot)
+    if (questionIsRelevantToSelectedLot) {
+  }%
+    #{forms/selection-button-boolean
+      name: question,
+      value: oldvalues?.get(question),
+      label: content.get(question + 'text'),
+      hint: content.get(question + 'hint')
+    /}
+  %{
+    }
+  }%
 
+  %{
+    question = page + 'q2'
+    questionIsRelevantToSelectedLot = content.get(question + 'lots').contains(lot)
+    if (questionIsRelevantToSelectedLot) {
+  }%
   <fieldset class='question'>
     #{forms/textbox
-      name: 'p17q2',
-      value: oldvalues?.get('p17q2'),
-      label: content.get('p17q2text'),
-      hint: content.get('p17q2hint')
+      name: question,
+      value: oldvalues?.get(question),
+      label: content.get(question + 'text'),
+      hint: content.get(question + 'hint')
     /}
   </fieldset>
+  %{
+    }
+  }%
 
   #{footer/}
 

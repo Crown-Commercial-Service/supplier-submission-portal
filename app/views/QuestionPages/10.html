@@ -1,6 +1,12 @@
 #{extends 'layout.html' /}
 #{set title: 'Adding a new service' /}
 
+%{
+  def page = 'p10'
+  def question = ''
+  def questionIsRelevantToSelectedLot = false
+}%
+
 #{breadcrumb-one-deep
   service_name: serviceName,
   lot: lot
@@ -10,8 +16,13 @@
   #{heading
     current: pageNum,
     total: pageTotal,
-    title: content.get('p10title')
+    title: content.get(page + 'title')
   /}
+  %{
+    question = page + 'q1'
+    questionIsRelevantToSelectedLot = content.get(question + 'lots').contains(lot)
+    if (questionIsRelevantToSelectedLot) {
+  }%
   <fieldset class='question'>
     #{question-heading
       heading: content.get(question + 'text'),
@@ -21,45 +32,83 @@
       for (index in 1..5) {
     }%
       #{forms/selection-button-radio
-        name: 'p10q1',
-        value: content.get('p10q1val' + index),
-        label: content.get('p10q1val' + index + 'Label'),
-        checked: oldValues?.get('p10q1')?.contains(content.get('p10q1val' + index))
+        name: question,
+        value: content.get(question + 'val' + index),
+        label: content.get(question + 'val' + index + 'Label'),
+        checked: oldValues?.get(question)?.contains(content.get(question + 'val' + index))
       /}
     %{
       }
     }%
   </fieldset>
-  #{forms/selection-button-boolean
-    name: 'p10q2',
-    value: oldvalues?.get('p10q2'),
-    label: content.get('p10q2text'),
-    hint: content.get('p10q2hint')
-  /}
+  %{
+    }
+  }%
+
+  %{
+    question = page + 'q2'
+    questionIsRelevantToSelectedLot = content.get(question + 'lots').contains(lot)
+    if (questionIsRelevantToSelectedLot) {
+  }%
+    #{forms/selection-button-boolean
+      name: question,
+      value: oldvalues?.get(question),
+      label: content.get(question + 'text'),
+      hint: content.get(question + 'hint')
+    /}
+  %{
+    }
+  }%
+
   <fieldset>
+  %{
+    question = page + 'q3'
+    questionIsRelevantToSelectedLot = content.get(question + 'lots').contains(lot)
+    if (questionIsRelevantToSelectedLot) {
+  }%
     <div class='question'>
       #{forms/textbox
-        name: 'p10q3',
-        value: oldvalues?.get('p10q3'),
-        label: content.get('p10q3text'),
-        hint: content.get('p10q3hint')
+        name: question,
+        value: oldvalues?.get(question),
+        label: content.get(question + 'text'),
+        hint: content.get(question + 'hint')
       /}
     </div>
+  %{
+    }
+  }%
+  %{
+    question = page + 'q4'
+    questionIsRelevantToSelectedLot = content.get(question + 'lots').contains(lot)
+    if (questionIsRelevantToSelectedLot) {
+  }%
     <div class='question'>
       #{forms/textbox-with-word-count
-        name: 'p10q4',
-        value: oldvalues?.get('p10q4'),
-        label: content.get('p10q4text'),
-        hint: content.get('p10q4hint'),
+        name: question,
+        value: oldvalues?.get(question),
+        label: content.get(question + 'text'),
+        hint: content.get(question + 'hint'),
         max_words: 20
       /}
     </div>
+  %{
+    }
+  }%
   </fieldset>
-  #{forms/selection-button-boolean
-    name: 'p10q5',
-    value: oldvalues?.get('p10q5'),
-    label: content.get('p10q5text'),
-    hint: content.get('p10q5hint')
-  /}
+
+  %{
+    question = page + 'q5'
+    questionIsRelevantToSelectedLot = content.get(question + 'lots').contains(lot)
+    if (questionIsRelevantToSelectedLot) {
+  }%
+    #{forms/selection-button-boolean
+      name: question,
+      value: oldvalues?.get(question),
+      label: content.get(question + 'text'),
+      hint: content.get(question + 'hint')
+    /}
+  %{
+    }
+  }%
   #{footer/}
 </form>

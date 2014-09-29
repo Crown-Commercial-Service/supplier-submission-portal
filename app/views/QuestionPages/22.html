@@ -4,6 +4,7 @@
 %{
   def page = 'p22'
   def question = ''
+  def questionIsRelevantToSelectedLot = false
 }%
 
 #{breadcrumb-one-deep
@@ -22,6 +23,8 @@
   %{
     for (index in 1..2) {
       question = page + 'q' + index
+      questionIsRelevantToSelectedLot = content.get(question + 'lots').contains(lot)
+      if (questionIsRelevantToSelectedLot) {
   }%
     #{forms/selection-button-boolean
       name: question,
@@ -29,35 +32,44 @@
       label: content.get(question + 'text'),
       hint: content.get(question + 'hint')
     /}
+  %{
+      }
+    }
+  }%
+
+
+  %{
+    question = page + 'q3'
+    questionIsRelevantToSelectedLot = content.get(question + 'lots').contains(lot)
+    if (questionIsRelevantToSelectedLot) {
+  }%
+    <fieldset class='question'>
+      #{question-heading
+        heading: content.get(question + 'text'),
+        hint: content.get(question + 'hint')
+      /}
+      %{
+        for (index in 1..8) {
+      }%
+        #{forms/selection-button-radio
+          name: question,
+          value: content.get(question + 'val' + index),
+          label: content.get(question + 'val' + index + 'Label'),
+          checked: oldValues?.get(question)?.contains(content.get(question + 'val' + index))
+        /}
+      %{
+        }
+      }%
+    </fieldset>
   %{
     }
   }%
 
-  <fieldset class='question'>
-    %{
-      question = page + 'q3'
-    }%
-    #{question-heading
-      heading: content.get(question + 'text'),
-      hint: content.get(question + 'hint')
-    /}
-    %{
-      for (index in 1..8) {
-    }%
-      #{forms/selection-button-radio
-        name: question,
-        value: content.get(question + 'val' + index),
-        label: content.get(question + 'val' + index + 'Label'),
-        checked: oldValues?.get(question)?.contains(content.get(question + 'val' + index))
-      /}
-    %{
-      }
-    }%
-  </fieldset>
-
   %{
     for (index in 4..5) {
       question = page + 'q' + index
+      questionIsRelevantToSelectedLot = content.get(question + 'lots').contains(lot)
+      if (questionIsRelevantToSelectedLot) {
   }%
     #{forms/selection-button-boolean
       name: question,
@@ -66,6 +78,7 @@
       hint: content.get(question + 'hint')
     /}
   %{
+      }
     }
   }%
 
