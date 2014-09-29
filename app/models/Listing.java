@@ -78,6 +78,10 @@ public class Listing extends Model {
         return completed;
     }
 
+    public int getPageSequenceSize(){
+        return pageSequence.size();
+    }
+
     public void addResponsePage(Page page, Long pageId) {
         int index = pageSequence.indexOf(pageId);
         Page p = completedPages.get(index);
