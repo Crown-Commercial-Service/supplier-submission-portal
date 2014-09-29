@@ -22,9 +22,7 @@ public class Page8 extends Controller {
         }
         validation.required(p8q2).message("p8q2:null");
         validation.required(p8q3).message("p8q3:null");
-        // Files not required here?
-        //validation.required(p8q6).message("p8q6:null");
-        //validation.required(p8q7).message("p8q7:null");
+
         if (!listing.lot.equals("SCS")) {
             validation.required(p8q4).message("p8q4:null");
             validation.required(p8q5).message("p8q5:null");
