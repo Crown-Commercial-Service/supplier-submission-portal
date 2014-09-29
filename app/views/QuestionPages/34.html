@@ -13,10 +13,10 @@
     title: content.get('p34title')
   /}
   <fieldset>
-    <legend class='question-heading'>
-      ${content.get('p34q1text')}
-    </legend>
-    <p class="question-hint">${content.get('p34q1hint')}</p>
+    #{question-heading
+      heading: content.get('p34q1text'),
+      hint: content.get('p34q1hint')
+    /}
     %{
       for (index in 1..5) {
     }%

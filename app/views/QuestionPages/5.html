@@ -13,10 +13,8 @@
     title: content.get('p5title')
   /}
   <fieldset class='input-list'>
-    <legend class='question-heading'>
-      ${content.get('p5q1text')}
-    </legend>
-    #{forms/hint
+    #{question-heading
+      heading: content.get('p5q1text'),
       hint: content.get('p5q1hint')
     /}
     %{
@@ -32,10 +30,8 @@
     }%
   </fieldset>
   <fieldset class='input-list'>
-    <legend class='question-heading'>
-      ${content.get('p5q2text')}
-    </legend>
-    #{forms/hint
+    #{question-heading
+      heading: content.get('p5q2text'),
       hint: content.get('p5q2hint')
     /}
     %{
