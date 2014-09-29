@@ -4,23 +4,31 @@ module.exports = function(grunt){
   var combineJsonFile = __dirname + '/content.json';
   var propertiesFile = __dirname + '/conf/content.properties';
 
-  JSModules.push("./public/javascripts/jquery.js");
-  grunt.file.recurse(
-    "./public/javascripts",
-    function(abspath, rootdir, subdir, filename) {
+  grunt.registerTask(
+    'findJS',
+    'Make an array of all JS files that can be used by other tasks',
+    function () {
 
-      if (
-        filename.match(/\.js/) &&
-        !filename.match(/application\.js/) &&
-        !filename.match(/jquery\.js/) &&
-        !filename.match(/main\.js/) &&
-        !filename.match(/\.min\.js/) &&
-        !filename.match(/\.map/)
-      ) JSModules.push(abspath);
+      JSModules.push("public/javascripts/jquery.js");
+      grunt.file.recurse(
+        "public/javascripts",
+        function(abspath, rootdir, subdir, filename) {
+
+          if (
+            filename.match(/\.js/) &&
+            !filename.match(/application\.js/) &&
+            !filename.match(/jquery\.js/) &&
+            !filename.match(/main\.js/) &&
+            !filename.match(/\.min\.js/) &&
+            !filename.match(/\.map/)
+          ) JSModules.push(abspath);
+
+        }
+      );
+      JSModules.push("public/javascripts/main.js");
 
     }
   );
-  JSModules.push("./public/javascripts/main.js");
 
   grunt.initConfig({
 
@@ -106,6 +114,13 @@ module.exports = function(grunt){
         expand: true
       },
 
+      template_css: {
+        cwd: 'node_modules/govuk_template_mustache/assets/stylesheets/',
+        src: '**',
+        dest: 'public/stylesheets/',
+        expand: true
+      },
+
       assets_js: {
         cwd: 'app/assets/javascripts/',
         src: '**/*',
@@ -142,7 +157,15 @@ module.exports = function(grunt){
         src: '**',
         dest: 'public/images/',
         expand: true
+      },
+
+      asset_images: {
+        cwd: 'app/assets/images/',
+        src: '**',
+        dest: 'public/images/',
+        expand: true
       }
+
     },
 
     uglify: {
@@ -268,23 +291,25 @@ module.exports = function(grunt){
   ]);
 
   grunt.registerTask('dev', [
-    'copy',
     'bower',
+    'copy',
     'replace',
     'imagemin',
     'sass:dev',
     'dataUri',
+    'findJS',
     'uglify:dev',
     'clean:tempCSS'
   ]);
 
   grunt.registerTask('production', [
-    'copy',
     'bower',
+    'copy',
     'replace',
     'imagemin',
     'sass:production',
     'dataUri',
+    'findJS',
     'uglify:production',
     'clean'
   ]);
