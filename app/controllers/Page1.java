@@ -33,7 +33,6 @@ public class Page1 extends Controller {
                 String key = entry.getKey();
                 String value = entry.getValue().get(0).message();
 
-
                 flash.put(key, value);
             }
 
