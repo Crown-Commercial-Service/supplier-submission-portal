@@ -13,20 +13,20 @@
     title: content.get('p33title')
   /}
   <fieldset>
-    <legend class='question-heading'>
-      ${content.get('p33q1text')}
-    </legend>
-    <p class="question-hint">${content.get('p33q1hint')}</p>
+    #{question-heading
+      heading: content.get('p33q1text'),
+      hint: content.get('p33q1hint')
+    /}
     #{forms/selection-button-boolean
       name: 'p33q1',
       label: content.get('p33q1valtext')
     /}
   </fieldset>
   <fieldset>
-    <legend class='question-heading'>
-      ${content.get('p33q1text')}
-    </legend>
-    <p class="question-hint">${content.get('p33q2hint')}</p>
+    #{question-heading
+      heading: content.get('p33q1text'),
+      hint: content.get('p33q1hint')
+    /}
     %{
       for (index in 1..4) {
     }%
@@ -40,10 +40,10 @@
     }%
   </fieldset>
   <fieldset>
-    <legend class='question-heading'>
-      ${content.get('p33q3text')}
-    </legend>
-    <p class="question-hint">${content.get('p33q3hint')}</p>
+    #{question-heading
+      heading: content.get('p33q3text'),
+      hint: content.get('p33q3hint')
+    /}
     #{forms/selection-button-boolean
       name: 'p33q3',
       label: content.get('p33q3valtext')
@@ -53,10 +53,10 @@
     /}
   </fieldset>
   <fieldset>
-    <legend class='question-heading'>
-      ${content.get('p33q4text')}
-    </legend>
-    <p class="question-hint">${content.get('p33q4hint')}</p>
+    #{question-heading
+      heading: content.get('p33q4text'),
+      hint: content.get('p33q4hint')
+    /}
     #{forms/selection-button-boolean
       name: 'p33q4',
       label: content.get('p33q4valtext')

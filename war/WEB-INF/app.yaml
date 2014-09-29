@@ -1,5 +1,5 @@
 application: ssp-preview
-version: 1
+version: 1-0-1
 runtime: java
 
 handlers:

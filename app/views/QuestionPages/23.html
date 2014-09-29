@@ -13,9 +13,10 @@
     title: content.get('p23title')
   /}
   <fieldset>
-    <legend class='question-heading'>
-      ${content.get('p23q1text')}
-    </legend>
+    #{question-heading
+      heading: content.get('p23q1text'),
+      hint: content.get('p23q1hint')
+    /}
     %{
       for (index in 1..8) {
     }%
@@ -32,9 +33,10 @@
     /}
   </fieldset>
   <fieldset>
-    <legend class='question-heading'>
-      ${content.get('p23q2text')}
-    </legend>
+    #{question-heading
+      heading: content.get('p23q2text'),
+      hint: content.get('p23q2hint')
+    /}
     %{
       for (index in 1..8) {
     }%
@@ -51,9 +53,10 @@
     /}
   </fieldset>
   <fieldset>
-    <legend class='question-heading'>
-      ${content.get('p23q3text')}
-    </legend>
+    #{question-heading
+      heading: content.get('p23q3text'),
+      hint: content.get('p23q3hint')
+    /}
     %{
       for (index in 1..8) {
     }%

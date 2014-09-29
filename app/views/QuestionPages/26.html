@@ -13,10 +13,10 @@
     title: content.get('p26title')
   /}
   <fieldset>
-    <legend class='question-heading'>
-      ${content.get('p26q1text')}
-    </legend>
-    <p class="question-hint">${content.get('p26q1hint')}</p>
+    #{question-heading
+      heading: content.get('p26q1text'),
+      hint: content.get('p26q1hint')
+    /}
     #{forms/selection-button-boolean
       name: 'p26q1',
       label: content.get('p26q1valtext')

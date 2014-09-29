@@ -13,10 +13,10 @@
     title: content.get('p24title')
   /}
   <fieldset>
-    <legend class='question-heading'>
-      ${content.get('p24q1text')}
-    </legend>
-    <p class="question-hint">${content.get('p24q1hint')}</p>
+    #{question-heading
+      heading: content.get('p24q1text'),
+      hint: content.get('p24q1hint')
+    /}
     %{
       for (index in 1..5) {
     }%
@@ -34,10 +34,10 @@
     /}
   </fieldset>
   <fieldset>
-    <legend class='question-heading'>
-      ${content.get('p24q2text')}
-    </legend>
-    <p class="question-hint">${content.get('p24q2hint')}</p>
+    #{question-heading
+      heading: content.get('p24q2text'),
+      hint: content.get('p24q2hint')
+    /}
     %{
       for (index in 1..4) {
     }%
@@ -55,9 +55,10 @@
     /}
   </fieldset>
   <fieldset>
-    <legend class='question-heading'>
-      ${content.get('p24q3text')}
-    </legend>
+    #{question-heading
+      heading: content.get('p24q3text'),
+      hint: content.get('p24q3hint')
+    /}
     %{
       for (index in 1..4) {
     }%
@@ -74,10 +75,10 @@
     /}
   </fieldset>
   <fieldset>
-    <legend class='question-heading'>
-      ${content.get('p24q4text')}
-    </legend>
-    <p class="question-hint">${content.get('p24q4hint')}</p>
+    #{question-heading
+      heading: content.get('p24q4text'),
+      hint: content.get('p24q4hint')
+    /}
     #{forms/selection-button-boolean
       name: 'p24q4',
       label: content.get('p24q4valtext')

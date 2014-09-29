@@ -13,10 +13,10 @@
     title: content.get('p29title')
   /}
   <fieldset>
-    <legend class='question-heading'>
-      ${content.get('p29q1text')}
-    </legend>
-    <p class="question-hint">${content.get('p29q1hint')}</p>
+    #{question-heading
+      heading: content.get('p29q1text'),
+      hint: content.get('p29q1hint')
+    /}
     #{forms/selection-button-boolean
       name: 'p29q1',
       label: content.get('p29q1valtext')
@@ -26,10 +26,10 @@
     /}
   </fieldset>
   <fieldset>
-    <legend class='question-heading'>
-      ${content.get('p29q2text')}
-    </legend>
-    <p class="question-hint">${content.get('p29q2hint')}</p>
+    #{question-heading
+      heading: content.get('p29q2text'),
+      hint: content.get('p29q2hint')
+    /}
     #{forms/selection-button-boolean
       name: 'p29q2',
       label: content.get('p29q2valtext')
@@ -39,10 +39,10 @@
     /}
   </fieldset>
   <fieldset>
-    <legend class='question-heading'>
-      ${content.get('p29q3text')}
-    </legend>
-    <p class="question-hint">${content.get('p29q3hint')}</p>
+    #{question-heading
+      heading: content.get('p29q3text'),
+      hint: content.get('p29q3hint')
+    /}
     #{forms/selection-button-boolean
       name: 'p29q3',
       label: content.get('p29q3valtext')
