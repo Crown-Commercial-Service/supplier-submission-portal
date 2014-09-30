@@ -245,6 +245,19 @@ module.exports = function(grunt){
           stripAffix: true
         }
       }
+    },
+
+    jasmine: {
+      javascripts: {
+        src: [
+          'node_modules/jquery-browser/lib/jquery.js',
+          'public/javascripts/**/*.js'
+        ],
+        options: {
+          specs: 'scripts/test/unit/*Spec.js',
+          helpers: 'scripts/test/unit/*Helper.js'
+        }
+      }
     }
 
   });
@@ -317,6 +330,10 @@ module.exports = function(grunt){
   grunt.registerTask('default', [
     'dev',
     'watch'
+  ]);
+
+  grunt.registerTask('test', [
+    'jasmine'
   ]);
 
 };
