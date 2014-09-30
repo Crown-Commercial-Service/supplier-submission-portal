@@ -1,5 +1,25 @@
 .validation {
 
+  &-masthead {
+
+    border: 3px solid $red;
+    padding: 15px 20px 30px 20px;
+    margin-bottom: 30px;
+
+    &-heading {
+      @include heading-24;
+      font-weight: bold;
+      margin-bottom: 15px;
+    }
+
+    &-link,
+    &-link:link,
+    &-link:visited {
+      color: $red;
+    }
+
+  }
+
   &-wrapper {
     border-left: 3px solid $red;
     padding: 0 0 1px 20px;
