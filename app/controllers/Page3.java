@@ -3,7 +3,12 @@ package controllers;
 import com.google.gson.Gson;
 import models.Listing;
 import models.Page;
+import play.data.validation.*;
+import play.data.validation.Error;
 import play.mvc.Controller;
+
+import java.util.List;
+import java.util.Map;
 
 public class Page3 extends Controller {
 
@@ -16,7 +21,14 @@ public class Page3 extends Controller {
         // Validate all fields on this page requiring validation
         validation.required(p3q1).message("Please choose at least one answer.");
         if(validation.hasErrors()) {
-            flash.error("%s", validation.errors());
+            //flash.error("%s", validation.errors());
+
+            for(Map.Entry<String, List<Error>> entry : validation.errorsMap().entrySet()) {
+                String key = entry.getKey();
+                String value = entry.getValue().get(0).message();
+
+                flash.put(key, value);
+            }
             redirect(String.format("/page/%d/%d", PAGE_ID, listing.id));
         }
         

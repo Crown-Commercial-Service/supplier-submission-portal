@@ -4,7 +4,13 @@ import com.google.gson.Gson;
 import models.Listing;
 import models.Page;
 
+import play.data.validation.*;
+import play.data.validation.Error;
 import play.mvc.Controller;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 public class Page1 extends Controller {
@@ -12,13 +18,24 @@ public class Page1 extends Controller {
     private static final Long PAGE_ID = 1l;
 
     public static void savePage(Long listingId, String[] p1q1) {
-        
+
         Listing listing = Listing.getByListingId(listingId);
-        
+
         // Validate all fields on this page requiring validation
-        validation.required(p1q1).message("p1q1:null");
+        validation.required(p1q1).key("p1q1").message("null");
+        validation.required(p1q1).key("p1q2").message("null");
+
+
         if(validation.hasErrors()) {
-            flash.error("%s", validation.errors());
+            //flash.error("%s", validation.errorsMap());
+
+            for(Map.Entry<String, List<Error>> entry : validation.errorsMap().entrySet()) {
+                String key = entry.getKey();
+                String value = entry.getValue().get(0).message();
+
+                flash.put(key, value);
+            }
+
             redirect(String.format("/page/%d/%d", PAGE_ID, listing.id));
         }
 
