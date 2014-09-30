@@ -42,7 +42,8 @@
   <fieldset>
     #{question-heading
       heading: content.get(question + 'text'),
-      hint: content.get(question + 'hint')
+      hint: content.get(question + 'hint'),
+      error: content.get(question + flash.get(question))
     /}
     %{
       for (index in 1..5) {

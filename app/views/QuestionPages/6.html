@@ -22,7 +22,8 @@
   #{forms/file-upload
     name: question,
     label: content.get(question + 'text'),
-    hint: content.get(question + 'hint')
+    hint: content.get(question + 'hint'),
+      error: content.get(question + flash.get(question))
   /}
 
   #{footer/}
