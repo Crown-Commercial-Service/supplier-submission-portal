@@ -5,9 +5,12 @@ import com.google.gson.Gson;
 import models.Listing;
 import models.Page;
 import play.mvc.Controller;
+import play.data.validation.*;
+import play.data.validation.Error;
 
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.List;
 
 public class Page5 extends Controller {
 
@@ -33,10 +36,18 @@ public class Page5 extends Controller {
             }
         }
         // Validate all fields on this page requiring validation
-        validation.isTrue(q1.size() > 0).message("p5q1:null");
-        validation.isTrue(q2.size() > 0).message("p5q2:null");
+        validation.isTrue("p5q1", q1.size() > 0).message("validation.required");
+        validation.isTrue("p5q2", q2.size() > 0).message("validation.required");
         if(validation.hasErrors()) {
-            flash.error("%s", validation.errors());
+            //flash.error("%s", validation.errors());
+
+            for(Map.Entry<String, List<Error>> entry : validation.errorsMap().entrySet()) {
+                String key = entry.getKey();
+                String value = entry.getValue().get(0).message();
+
+                flash.put(key, value);
+            }
+            System.out.println(flash);
             redirect(String.format("/page/%d/%d", PAGE_ID, listing.id));
         }
 

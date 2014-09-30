@@ -27,7 +27,8 @@
   <fieldset>
     #{forms/selection-button-boolean
       name: question,
-      label: content.get(question + 'text')
+      label: content.get(question + 'text'),
+      error: content.get(question + flash.get(question))
     /}
   </fieldset>
   %{
@@ -56,6 +57,9 @@
     %{
       }
     }%
+    #{question-footer
+      error: content.get(question + flash.get(question))
+    /}
   </fieldset>
   %{
     }
@@ -67,7 +71,8 @@
   <fieldset>
     #{forms/file-upload
       name: question,
-      label: content.get(question + 'text')
+      label: content.get(question + 'text'),
+      error: content.get(question + flash.get(question))
     /}
   </fieldset>
   %{

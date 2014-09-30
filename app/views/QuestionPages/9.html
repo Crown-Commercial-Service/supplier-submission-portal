@@ -1,6 +1,11 @@
 #{extends 'layout.html' /}
 #{set title: 'Adding a new service' /}
 
+%{
+  def page = 'p9'
+  def question = ''
+}%
+
 #{breadcrumb-one-deep
   service_name: serviceName,
   lot: lot
@@ -14,11 +19,16 @@
     title: content.get('p9title')
   /}
 
+  %{
+    question = page + 'q1'
+  }%
+
   #{forms/selection-button-boolean
     name: 'p9q1',
     value: oldvalues?.get('p9q1'),
     label: content.get('p9q1text'),
-    hint: content.get('p9q1hint')
+    hint: content.get('p9q1hint'),
+    error: content.get(question + flash.get(question))
   /}
 
   #{footer/}

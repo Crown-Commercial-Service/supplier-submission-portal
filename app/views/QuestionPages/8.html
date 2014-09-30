@@ -26,23 +26,13 @@
     if (questionIsRelevantToSelectedLot) {
   }%
   <fieldset>
-    <h1 class='question-heading'>
-      PRICING MATRIX HERE
-    </h1>
-  </fieldset>
-  %{
-    }
-  }%
-
-  %{
-    question = page + 'q2'
-    questionIsRelevantToSelectedLot = content.get(question + 'lots').contains(lot)
-    if (questionIsRelevantToSelectedLot) {
-  }%
-  <fieldset>
-    #{forms/selection-button-boolean
-      name: question,
-      label: content.get(question + 'text')
+    #{question-heading
+      heading: content.get(question + 'text'),
+      hint: content.get(question + 'hint'),
+      error: content.get(question + flash.get(question))
+    /}
+    #{question-footer
+      error: content.get(question + flash.get(question))
     /}
   </fieldset>
   %{
@@ -59,7 +49,8 @@
       name: question,
       value: oldvalues?.get(question),
       label: content.get(question + 'text'),
-      hint: content.get(question + 'hint')
+      hint: content.get(question + 'hint'),
+      error: content.get(question + flash.get(question))
     /}
   %{
       }

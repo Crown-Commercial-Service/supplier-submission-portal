@@ -24,8 +24,9 @@
   }%
   <fieldset class='input-list'>
     #{question-heading
-      heading: content.get('p5q1text'),
-      hint: content.get('p5q1hint')
+      heading: content.get(question + 'text'),
+      hint: content.get(question + 'hint'),
+      error: content.get(question + flash.get(question))
     /}
     %{
       for (index in 1..10) {
@@ -38,6 +39,9 @@
     %{
       }
     }%
+    #{question-footer
+      error: content.get(question + flash.get(question))
+    /}
   </fieldset>
   %{
     }
@@ -49,7 +53,8 @@
   <fieldset class='input-list'>
     #{question-heading
       heading: content.get(question + 'text'),
-      hint: content.get(question + 'hint')
+      hint: content.get(question + 'hint'),
+      error: content.get(question + flash.get(question))
     /}
     %{
       for (index in 1..10) {
@@ -62,6 +67,9 @@
     %{
       }
     }%
+    #{question-footer
+      error: content.get(question + flash.get(question))
+    /}
   </fieldset>
   %{
     }

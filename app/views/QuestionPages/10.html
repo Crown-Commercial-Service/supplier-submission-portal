@@ -41,6 +41,9 @@
     %{
       }
     }%
+    #{question-footer
+      error: content.get(question + flash.get(question))
+    /}
   </fieldset>
   %{
     }
@@ -55,7 +58,8 @@
       name: question,
       value: oldvalues?.get(question),
       label: content.get(question + 'text'),
-      hint: content.get(question + 'hint')
+      hint: content.get(question + 'hint'),
+      error: content.get(question + flash.get(question))
     /}
   %{
     }
@@ -72,7 +76,8 @@
         name: question,
         value: oldvalues?.get(question),
         label: content.get(question + 'text'),
-        hint: content.get(question + 'hint')
+        hint: content.get(question + 'hint'),
+        error: content.get(question + flash.get(question))
       /}
     </div>
   %{
@@ -89,7 +94,8 @@
         value: oldvalues?.get(question),
         label: content.get(question + 'text'),
         hint: content.get(question + 'hint'),
-        max_words: 20
+        max_words: 20,
+        error: content.get(question + flash.get(question))
       /}
     </div>
   %{
@@ -106,7 +112,8 @@
       name: question,
       value: oldvalues?.get(question),
       label: content.get(question + 'text'),
-      hint: content.get(question + 'hint')
+      hint: content.get(question + 'hint'),
+      error: content.get(question + flash.get(question))
     /}
   %{
     }

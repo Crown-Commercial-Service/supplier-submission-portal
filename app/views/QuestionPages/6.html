@@ -10,8 +10,6 @@
   lot: lot
 /}
 
-<h3>${flash}</h3>
-
 <form action='${request.getBase()}${request.url}' method='POST' enctype="multipart/form-data">
   #{heading
     current: pageNum,
@@ -23,7 +21,7 @@
     name: question,
     label: content.get(question + 'text'),
     hint: content.get(question + 'hint'),
-      error: content.get(question + flash.get(question))
+    error: content.get(question + flash.get(question))
   /}
 
   #{footer/}

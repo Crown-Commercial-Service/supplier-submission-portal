@@ -1,5 +1,10 @@
+#{question-validation-wrapper-open
+  error: _error
+/}
 <div class="word-count">
-  <label for='${_name}' class='question-heading'>${_label}</label>
+  <label for='${_name}' class='question-heading %{ if (_hint) { }% question-heading-with-hint %{ } }%'>
+    ${_label}
+  </label>
   #{forms/hint
     hint: _hint
   /}
@@ -18,3 +23,6 @@
     ${_max_words} words maximum
   </p>
 </div>
+#{question-footer
+  error: _error
+/}

@@ -1,24 +1,39 @@
 #{extends 'layout.html' /}
 #{set title: 'Adding a new service' /}
 
+%{
+  def page = 'p12'
+  def question = ''
+  def questionIsRelevantToSelectedLot = false
+}%
+
 #{breadcrumb-one-deep
   service_name: serviceName,
   lot: lot
 /}
 
 <form action='${request.getBase()}${request.url}' method='POST'>
+
   #{heading
     current: pageNum,
     total: pageTotal,
-    title: content.get('p12title')
+    title: content.get(page + 'title')
   /}
+
+  %{
+    question = page + 'q1'
+  }%
+
   <fieldset class='question'>
   #{forms/selection-button-boolean
     name: 'p12q1',
-    value: oldvalues?.get('p12q1'),
-    label: content.get('p12q1text'),
-    hint: content.get('p12q1hint')
+    value: oldvalues?.get(question),
+    label: content.get(question + 'text'),
+    hint: content.get(question + 'hint'),
+    error: content.get(question + flash.get(question))
   /}
   </fieldset>
+
   #{footer/}
+
 </form>

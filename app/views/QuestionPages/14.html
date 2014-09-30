@@ -30,7 +30,8 @@
       name: 'p14q1',
       value: oldvalues?.get('p14q1'),
       label: content.get('p14q1text'),
-      hint: content.get('p14q1hint')
+      hint: content.get('p14q1hint'),
+      error: content.get(question + flash.get(question))
     /}
 
   %{
@@ -50,7 +51,8 @@
           name: 'p14q' + index,
           value: oldvalues?.get('p14q' + index),
           label: content.get('p14q' + index + 'text'),
-          hint: content.get('p14q' + index + 'hint')
+          hint: content.get('p14q' + index + 'hint'),
+          error: content.get(question + flash.get(question))
         /}
       %{
         }

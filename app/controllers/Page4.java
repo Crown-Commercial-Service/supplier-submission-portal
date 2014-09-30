@@ -29,6 +29,7 @@ public class Page4 extends Controller {
 
                 flash.put(key, value);
             }
+            System.out.println(flash);
             redirect(String.format("/page/%d/%d", PAGE_ID, listing.id));
         }
 
