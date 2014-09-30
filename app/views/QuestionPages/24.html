@@ -1,6 +1,12 @@
 #{extends 'layout.html' /}
 #{set title: 'Adding a new service' /}
 
+%{
+  def page = 'p24'
+  def question = ''
+  def questionIsRelevantToSelectedLot = false
+}%
+
 #{breadcrumb-one-deep
   service_name: serviceName,
   lot: lot
@@ -10,82 +16,113 @@
   #{heading
     current: pageNum,
     total: pageTotal,
-    title: content.get('p24title')
+    title: content.get(page + 'title')
   /}
+  %{
+    question = page + 'q1'
+    questionIsRelevantToSelectedLot = content.get(question + 'lots').contains(lot)
+    if (questionIsRelevantToSelectedLot) {
+  }%
   <fieldset>
     #{question-heading
       heading: content.get('p24q1text'),
       hint: content.get('p24q1hint')
     /}
-    %{
-      for (index in 1..5) {
-    }%
-      #{forms/selection-button-checkbox
-        name: 'p24q1',
-        value: content.get('p24q1val' + index),
-        label: content.get('p24q1val' + index + 'Label'),
-        checked: oldValues?.get('p24q1')?.contains(content.get('p24q1val' + index))
+
+      %{
+        for (index in 1..5) {
+      }%
+        #{forms/selection-button-checkbox
+          name: question,
+          value: content.get(question + 'val' + index),
+          label: content.get(question + 'val' + index + 'Label'),
+          checked: oldValues?.get(question)?.contains(content.get(question + 'val' + index))
+        /}
+      %{
+        }
+      }%
+      #{forms/assurance
+        name: question
       /}
-    %{
-      }
-    }%
-    #{forms/assurance
-      name: 'p24q1'
-    /}
-  </fieldset>
-  <fieldset>
+    </fieldset>
+  %{
+    }
+
+    question = page + 'q2'
+    questionIsRelevantToSelectedLot = content.get(question + 'lots').contains(lot)
+    if (questionIsRelevantToSelectedLot) {
+  }%
+    <fieldset>
     #{question-heading
       heading: content.get('p24q2text'),
       hint: content.get('p24q2hint')
     /}
     %{
-      for (index in 1..4) {
-    }%
-      #{forms/selection-button-checkbox
-        name: 'p24q2',
-        value: content.get('p24q2val' + index),
-        label: content.get('p24q2val' + index + 'Label'),
-        checked: oldValues?.get('p24q2')?.contains(content.get('p24q2val' + index))
+        for (index in 1..4) {
+      }%
+        #{forms/selection-button-checkbox
+          name: question,
+          value: content.get(question + 'val' + index),
+          label: content.get(question + 'val' + index + 'Label'),
+          checked: oldValues?.get(question)?.contains(content.get(question + 'val' + index))
+        /}
+      %{
+        }
+      }%
+      #{forms/assurance
+        name: question
       /}
-    %{
-      }
-    }%
-    #{forms/assurance
-      name: 'p24q2'
-    /}
-  </fieldset>
-  <fieldset>
+    </fieldset>
+  %{
+    }
+
+    question = page + 'q3'
+    questionIsRelevantToSelectedLot = content.get(question + 'lots').contains(lot)
+    if (questionIsRelevantToSelectedLot) {
+  }%
+    <fieldset>
     #{question-heading
       heading: content.get('p24q3text'),
       hint: content.get('p24q3hint')
     /}
     %{
-      for (index in 1..4) {
-    }%
-      #{forms/selection-button-radio
-        name: 'p24q3',
-        value: content.get('p24q3val' + index),
-        label: content.get('p24q3val' + index + 'Label')
+        for (index in 1..4) {
+      }%
+        #{forms/selection-button-radio
+          name: question,
+          value: content.get(question + 'val' + index),
+          label: content.get(question + 'val' + index + 'Label')
+        /}
+      %{
+        }
+      }%
+      #{forms/assurance
+        name: question
       /}
-    %{
-      }
-    }%
-    #{forms/assurance
-      name: 'p24q3'
-    /}
-  </fieldset>
+    </fieldset>
+  %{
+    }
+
+    question = page + 'q4'
+    questionIsRelevantToSelectedLot = content.get(question + 'lots').contains(lot)
+    if (questionIsRelevantToSelectedLot) {
+  }%
   <fieldset>
     #{question-heading
       heading: content.get('p24q4text'),
       hint: content.get('p24q4hint')
     /}
     #{forms/selection-button-boolean
-      name: 'p24q4',
-      label: content.get('p24q4valtext')
+      name: question,
+      label: content.get(question + 'text'),
+      hint: content.get(question + 'hint')
     /}
     #{forms/assurance
-      name: 'p24q4'
+      name: question
     /}
   </fieldset>
+  %{
+    }
+  }%
   #{footer/}
 </form>

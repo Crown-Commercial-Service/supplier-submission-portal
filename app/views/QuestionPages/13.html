@@ -1,6 +1,12 @@
 #{extends 'layout.html' /}
 #{set title: 'Adding a new service' /}
 
+%{
+  def page = 'p13'
+  def question = ''
+  def questionIsRelevantToSelectedLot = false
+}%
+
 #{breadcrumb-one-deep
   service_name: serviceName,
   lot: lot
@@ -10,17 +16,25 @@
   #{heading
     current: pageNum,
     total: pageTotal,
-    title: content.get('p13title')
+    title: content.get(page + 'title')
   /}
   %{
     for (index in 1..3) {
   }%
-    #{forms/selection-button-boolean
-      name: 'p13q' + index,
-      value: oldvalues?.get('p13q' + index),
-      label: content.get('p13q' + index + 'text'),
-      hint: content.get('p13q' + index + 'hint')
-    /}
+    %{
+      question = page + 'q' + index
+      questionIsRelevantToSelectedLot = content.get(question + 'lots').contains(lot)
+      if (questionIsRelevantToSelectedLot) {
+    }%
+      #{forms/selection-button-boolean
+        name: question,
+        value: oldvalues?.get(question),
+        label: content.get(question + 'text'),
+        hint: content.get(question + 'hint')
+      /}
+    %{
+      }
+    }%
   %{
     }
   }%

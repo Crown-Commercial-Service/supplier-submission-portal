@@ -4,6 +4,7 @@
 %{
   def page = 'p3'
   def question = ''
+  def questionIsRelevantToSelectedLot = false
 }%
 
 #{breadcrumb-one-deep
@@ -15,12 +16,14 @@
   #{heading
     current: pageNum,
     total: pageTotal,
-    title: content.get('p3title')
+    title: content.get(page + 'title')
   /}
+  %{
+    question = page + 'q1'
+    questionIsRelevantToSelectedLot = content.get(question + 'lots').contains(lot)
+    if (questionIsRelevantToSelectedLot) {
+  }%
   <fieldset>
-    %{
-      question = page + 'q1'
-    }%
     #{question-heading
       heading: content.get(question + 'text'),
       hint: content.get(question + 'hint')
@@ -38,5 +41,8 @@
       }
     }%
   </fieldset>
+  %{
+    }
+  }%
   #{footer/}
 </form>

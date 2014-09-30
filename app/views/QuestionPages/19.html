@@ -4,6 +4,7 @@
 %{
   def page = 'p19'
   def question = ''
+  def questionIsRelevantToSelectedLot = false
 }%
 
 #{breadcrumb-one-deep
@@ -18,60 +19,75 @@
     total: pageTotal,
     title: content.get(page + 'title')
   /}
-
-  <fieldset class='question'>
-    %{
-      question = page + 'q1'
-    }%
-    #{question-heading
-      heading: content.get(question + 'text'),
-      hint: content.get(question + 'hint')
-    /}
-    %{
-      for (index in 1..5) {
-    }%
-      #{forms/selection-button-checkbox
-        name: question,
-        value: content.get(question + 'val' + index),
-        label: content.get(question + 'val' + index + 'Label'),
-        checked: oldValues?.get(question)?.contains(content.get(question + 'val' + index))
+  %{
+    question = page + 'q1'
+    questionIsRelevantToSelectedLot = content.get(question + 'lots').contains(lot)
+    if (questionIsRelevantToSelectedLot) {
+  }%
+    <fieldset class='question'>
+      #{question-heading
+        heading: content.get(question + 'text'),
+        hint: content.get(question + 'hint')
       /}
-    %{
-      }
-    }%
-  </fieldset>
+      %{
+        for (index in 1..5) {
+      }%
+        #{forms/selection-button-checkbox
+          name: question,
+          value: content.get(question + 'val' + index),
+          label: content.get(question + 'val' + index + 'Label'),
+          checked: oldValues?.get(question)?.contains(content.get(question + 'val' + index))
+        /}
+      %{
+        }
+      }%
+    </fieldset>
+  %{
+    }
+  }%
 
   %{
     question = page + 'q2'
+    questionIsRelevantToSelectedLot = content.get(question + 'lots').contains(lot)
+    if (questionIsRelevantToSelectedLot) {
   }%
-  #{forms/selection-button-boolean
-    name: question,
-    value: oldvalues?.get(question),
-    label: content.get(question + 'text'),
-    hint: content.get(question + 'hint')
-  /}
-
-  <fieldset class='question'>
-    %{
-      question = page + 'q3'
-    }%
-    #{question-heading
-      heading: content.get(question + 'text'),
+    #{forms/selection-button-boolean
+      name: question,
+      value: oldvalues?.get(question),
+      label: content.get(question + 'text'),
       hint: content.get(question + 'hint')
     /}
-    %{
-      for (index in 1..4) {
-    }%
-      #{forms/selection-button-checkbox
-        name: question,
-        value: content.get(question + 'val' + index),
-        label: content.get(question + 'val' + index + 'Label'),
-        checked: oldValues?.get(question)?.contains(content.get(question + 'val' + index))
+  %{
+    }
+  }%
+
+
+  %{
+    question = page + 'q3'
+    questionIsRelevantToSelectedLot = content.get(question + 'lots').contains(lot)
+    if (questionIsRelevantToSelectedLot) {
+  }%
+    <fieldset class='question'>
+      #{question-heading
+        heading: content.get(question + 'text'),
+        hint: content.get(question + 'hint')
       /}
-    %{
-      }
-    }%
-  </fieldset>
+      %{
+        for (index in 1..4) {
+      }%
+        #{forms/selection-button-checkbox
+          name: question,
+          value: content.get(question + 'val' + index),
+          label: content.get(question + 'val' + index + 'Label'),
+          checked: oldValues?.get(question)?.contains(content.get(question + 'val' + index))
+        /}
+      %{
+        }
+      }%
+    </fieldset>
+  %{
+    }
+  }%
 
   #{footer/}
 

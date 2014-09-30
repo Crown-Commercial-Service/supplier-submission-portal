@@ -1,6 +1,12 @@
 #{extends 'layout.html' /}
 #{set title: 'Adding a new service' /}
 
+%{
+  def page = 'p29'
+  def question = ''
+  def questionIsRelevantToSelectedLot = false
+}%
+
 #{breadcrumb-one-deep
   service_name: serviceName,
   lot: lot
@@ -10,46 +16,65 @@
   #{heading
     current: pageNum,
     total: pageTotal,
-    title: content.get('p29title')
+    title: content.get(page + 'title')
   /}
+  %{
+    question = page + 'q1'
+    questionIsRelevantToSelectedLot = content.get(question + 'lots').contains(lot)
+    if (questionIsRelevantToSelectedLot) {
+  }%
   <fieldset>
     #{question-heading
-      heading: content.get('p29q1text'),
-      hint: content.get('p29q1hint')
+      heading: content.get(question + 'text'),
+      hint: content.get(question + 'hint')
     /}
     #{forms/selection-button-boolean
-      name: 'p29q1',
-      label: content.get('p29q1valtext')
+      name: question
     /}
     #{forms/assurance
-      name: 'p29q1'
+      name: question
     /}
   </fieldset>
+  %{
+    }
+
+    question = page + 'q2'
+    questionIsRelevantToSelectedLot = content.get(question + 'lots').contains(lot)
+    if (questionIsRelevantToSelectedLot) {
+  }%
   <fieldset>
     #{question-heading
-      heading: content.get('p29q2text'),
-      hint: content.get('p29q2hint')
+      heading: content.get(question + 'text'),
+      hint: content.get(question + 'hint')
     /}
     #{forms/selection-button-boolean
-      name: 'p29q2',
-      label: content.get('p29q2valtext')
+      name: question
     /}
     #{forms/assurance
-      name: 'p29q2'
+      name: question
     /}
   </fieldset>
+  %{
+    }
+
+    question = page + 'q3'
+    questionIsRelevantToSelectedLot = content.get(question + 'lots').contains(lot)
+    if (questionIsRelevantToSelectedLot) {
+  }%
   <fieldset>
     #{question-heading
-      heading: content.get('p29q3text'),
-      hint: content.get('p29q3hint')
+      heading: content.get(question + 'text'),
+      hint: content.get(question + 'hint')
     /}
     #{forms/selection-button-boolean
-      name: 'p29q3',
-      label: content.get('p29q3valtext')
+      name: question
     /}
     #{forms/assurance
-      name: 'p29q3'
+      name: question
     /}
   </fieldset>
+  %{
+    }
+  }%
   #{footer/}
 </form>

@@ -1,6 +1,12 @@
 #{extends 'layout.html' /}
 #{set title: 'Adding a new service' /}
 
+%{
+  def page = 'p23'
+  def question = ''
+  def questionIsRelevantToSelectedLot = false
+}%
+
 #{breadcrumb-one-deep
   service_name: serviceName,
   lot: lot
@@ -12,65 +18,91 @@
     total: pageTotal,
     title: content.get('p23title')
   /}
-  <fieldset>
-    #{question-heading
-      heading: content.get('p23q1text'),
-      hint: content.get('p23q1hint')
-    /}
-    %{
-      for (index in 1..8) {
-    }%
-      #{forms/selection-button-radio
-        name: 'p23q1',
-        value: content.get('p23q1val' + index),
-        label: content.get('p23q1val' + index + 'Label')
+  %{
+    question = page + 'q1'
+    questionIsRelevantToSelectedLot = content.get(question + 'lots').contains(lot)
+    if (questionIsRelevantToSelectedLot) {
+  }%
+    <fieldset>
+      #{question-heading
+        heading: content.get(question + 'text'),
+        hint: content.get(question + 'hint')
       /}
-    %{
-      }
-    }%
-    #{forms/assurance
-      name: 'p23q1'
-    /}
-  </fieldset>
-  <fieldset>
-    #{question-heading
-      heading: content.get('p23q2text'),
-      hint: content.get('p23q2hint')
-    /}
-    %{
-      for (index in 1..8) {
-    }%
-      #{forms/selection-button-radio
-        name: 'p23q2',
-        value: content.get('p23q2val' + index),
-        label: content.get('p23q2val' + index + 'Label')
+      %{
+        for (index in 1..8) {
+      }%
+        #{forms/selection-button-radio
+          name: question,
+          value: content.get(question + 'val' + index),
+          label: content.get(question + 'val' + index + 'Label'),
+          hint: content.get(question + 'hint')
+        /}
+      %{
+        }
+      }%
+      #{forms/assurance
+        name: question
       /}
-    %{
-      }
-    }%
-    #{forms/assurance
-      name: 'p23q2'
-    /}
-  </fieldset>
-  <fieldset>
+    </fieldset>
+  %{
+    }
+  }%
+  %{
+    question = page + 'q2'
+    questionIsRelevantToSelectedLot = content.get(question + 'lots').contains(lot)
+    if (questionIsRelevantToSelectedLot) {
+  }%
+    <fieldset>
+      #{question-heading
+        heading: content.get('p23q2text'),
+        hint: content.get('p23q2hint')
+      /}
+      %{
+        for (index in 1..8) {
+      }%
+        #{forms/selection-button-radio
+          name: question,
+          value: content.get(question + 'val' + index),
+          label: content.get(question + 'val' + index + 'Label')
+        /}
+      %{
+        }
+      }%
+      #{forms/assurance
+        name: question
+      /}
+    </fieldset>
+  %{
+    }
+  }%
+  %{
+    question = page + 'q3'
+    questionIsRelevantToSelectedLot = content.get(question + 'lots').contains(lot)
+    if (questionIsRelevantToSelectedLot) {
+  }%
+    <fieldset>
+      <legend class='question-heading'>
     #{question-heading
       heading: content.get('p23q3text'),
       hint: content.get('p23q3hint')
     /}
     %{
-      for (index in 1..8) {
-    }%
-      #{forms/selection-button-radio
-        name: 'p23q3',
-        value: content.get('p23q3val' + index),
-        label: content.get('p23q3val' + index + 'Label')
+        for (index in 1..8) {
+      }%
+        #{forms/selection-button-radio
+          name: question,
+          value: content.get(question + 'val' + index),
+          label: content.get(question + 'val' + index + 'Label')
+        /}
+      %{
+        }
+      }%
+      #{forms/assurance
+        name: question
       /}
-    %{
-      }
-    }%
-    #{forms/assurance
-      name: 'p23q3'
-    /}
-  </fieldset>
+    </fieldset>
+  %{
+    }
+  }%
   #{footer/}
 </form>

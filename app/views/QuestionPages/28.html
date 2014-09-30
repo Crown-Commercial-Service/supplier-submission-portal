@@ -1,6 +1,12 @@
 #{extends 'layout.html' /}
 #{set title: 'Adding a new service' /}
 
+%{
+  def page = 'p28'
+  def question = ''
+  def questionIsRelevantToSelectedLot = false
+}%
+
 #{breadcrumb-one-deep
   service_name: serviceName,
   lot: lot
@@ -10,7 +16,7 @@
   #{heading
     current: pageNum,
     total: pageTotal,
-    title: content.get('p28title')
+    title: content.get(page + 'title')
   /}
   <fieldset>
     #{question-heading
@@ -21,15 +27,15 @@
       for (index in 1..4) {
     }%
       #{forms/selection-button-radio
-        name: 'p28q1',
-        value: content.get('p28q1val' + index),
-        label: content.get('p28q1val' + index + 'Label')
+        name: question,
+        value: content.get(question + 'val' + index),
+        label: content.get(question + 'val' + index + 'Label')
       /}
     %{
       }
     }%
     #{forms/assurance
-      name: 'p28q1'
+      name: question
     /}
   </fieldset>
   #{footer/}

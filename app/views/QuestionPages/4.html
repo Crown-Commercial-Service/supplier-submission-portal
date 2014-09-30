@@ -1,6 +1,12 @@
 #{extends 'layout.html' /}
 #{set title:'Adding a new service' /}
 
+%{
+  def page = 'p4'
+  def question = page + 'q1'
+  def questionIsRelevantToSelectedLot = false
+}%
+
 #{breadcrumb-one-deep
   service_name: serviceName,
   lot: lot
@@ -10,22 +16,36 @@
   #{heading
     current: pageNum,
     total: pageTotal,
-    title: content.get('p4title')
+    title: content.get(page + 'title')
   /}
   <fieldset class='question'>
+    %{
+      questionIsRelevantToSelectedLot = content.get(question + 'lots').contains(lot)
+      if (questionIsRelevantToSelectedLot) {
+    }%
     #{forms/textbox
-      name: 'p4q1',
-      label: content.get('p4q1text'),
-      hint: content.get('p4q1hint'),
-      value: oldValues?.get('p4q1')
+      name: question,
+      label: content.get(question + 'text'),
+      hint: content.get(question + 'hint'),
+      value: oldValues?.get(question)
     /}
+    %{
+      }
+
+      question = page + 'q2'
+      questionIsRelevantToSelectedLot = content.get(question + 'lots').contains(lot)
+      if (questionIsRelevantToSelectedLot) {
+    }%
     #{forms/textbox-with-word-count
-      name: 'p4q2',
-      label: content.get('p4q2text'),
-      hint: content.get('p4q2hint'),
-      value: oldValues?.get('p4q2'),
+      name: question,
+      label: content.get(question + 'text'),
+      hint: content.get(question + 'hint'),
+      value: oldValues?.get(question),
       max_words: 50
     /}
+    %{
+      }
+    }%
   </fieldset>
   #{footer/}
 </form>

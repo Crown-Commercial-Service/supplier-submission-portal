@@ -3,7 +3,8 @@
 
 %{
   def page = 'p7'
-  def question = page + 'q1'
+  def question = ''
+  def questionIsRelevantToSelectedLot = false
 }%
 
 #{breadcrumb-one-deep
@@ -17,16 +18,28 @@
     total: pageTotal,
     title: content.get('p7title')
   /}
+
+  %{
+    question = page + 'q1'
+    questionIsRelevantToSelectedLot = content.get(question + 'lots').contains(lot)
+    if (questionIsRelevantToSelectedLot) {
+  }%
   <fieldset>
     #{forms/selection-button-boolean
       name: question,
       label: content.get(question + 'text')
     /}
   </fieldset>
+  %{
+    }
+  }%
+
+  %{
+    question = page + 'q2'
+    questionIsRelevantToSelectedLot = content.get(question + 'lots').contains(lot)
+    if (questionIsRelevantToSelectedLot) {
+  }%
   <fieldset>
-    %{
-      question = page + 'q2'
-    }%
     #{question-heading
       heading: content.get(question + 'text'),
       hint: content.get(question + 'hint')
@@ -43,14 +56,21 @@
       }
     }%
   </fieldset>
+  %{
+    }
+
+    question = page + 'q3'
+    questionIsRelevantToSelectedLot = content.get(question + 'lots').contains(lot)
+    if (questionIsRelevantToSelectedLot) {
+  }%
   <fieldset>
-    %{
-      question = page + 'q2'
-    }%
     #{forms/file-upload
       name: question,
       label: content.get(question + 'text')
     /}
   </fieldset>
+  %{
+    }
+  }%
   #{footer/}
 </form>

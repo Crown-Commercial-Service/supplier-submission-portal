@@ -1,6 +1,12 @@
 #{extends 'layout.html' /}
 #{set title: 'Adding a new service' /}
 
+%{
+  def page = 'p32'
+  def question = ''
+  def questionIsRelevantToSelectedLot = false
+}%
+
 #{breadcrumb-one-deep
   service_name: serviceName,
   lot: lot
@@ -12,26 +18,34 @@
     total: pageTotal,
     title: content.get('p32title')
   /}
-  <fieldset>
-    #{question-heading
-      heading: content.get('p32q1text'),
-      hint: content.get('p32q1hint')
-    /}
-    %{
-      for (index in 1..8) {
-    }%
-      #{forms/selection-button-checkbox
-        name: 'p32q1',
-        value: content.get('p32q1val' + index),
-        label: content.get('p32q1val' + index + 'Label'),
-        checked: oldValues?.get('p32q1')?.contains(content.get('p32q1val' + index))
+  %{
+    question = page + 'q1'
+    questionIsRelevantToSelectedLot = content.get(question + 'lots').contains(lot)
+    if (questionIsRelevantToSelectedLot) {
+  }%
+    <fieldset>
+      #{question-heading
+        heading: content.get(question + 'text'),
+        hint: content.get(question + 'hint')
       /}
-    %{
-      }
-    }%
-    #{forms/assurance
-      name: 'p32q1'
-    /}
-  </fieldset>
+      %{
+        for (index in 1..8) {
+      }%
+        #{forms/selection-button-checkbox
+          name: 'p32q1',
+          value: content.get('p32q1val' + index),
+          label: content.get('p32q1val' + index + 'Label'),
+          checked: oldValues?.get('p32q1')?.contains(content.get('p32q1val' + index))
+        /}
+      %{
+        }
+      }%
+      #{forms/assurance
+        name: 'p32q1'
+      /}
+    </fieldset>
+  %{
+    }
+  }%
   #{footer/}
 </form>
