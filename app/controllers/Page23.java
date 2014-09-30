@@ -4,7 +4,6 @@ import models.Listing;
 import models.Page;
 import play.mvc.Controller;
 
-<<<<<<< HEAD
 import play.data.validation.*;
 import play.data.validation.Error;
 
