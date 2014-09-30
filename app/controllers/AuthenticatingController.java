@@ -27,14 +27,14 @@ public abstract class AuthenticatingController extends Controller {
     @Before
     public static void checkAuthenticationCookie() {
 
-        if(request.current().cookies.get("gdmssosession")!=null){
-            supplierDetailsFromCookie.put("supplierId", Security.getSupplierIdFromCookie(request.cookies.get("gdmssosession")));
-            supplierDetailsFromCookie.put("supplierEmail", Security.getSupplierEmailFromCookie(request.cookies.get("gdmssosession")));
-            supplierDetailsFromCookie.put("supplierCompanyName", Security.getSupplierCompanyNameFromCookie(request.cookies.get("gdmssosession")));
-        }
-        else{
-            Logger.info("SSO Cookie does not exist / has expired");
-            redirect(DM_URL + "/login");
-        }
+//        if(request.current().cookies.get("gdmssosession")!=null){
+//            supplierDetailsFromCookie.put("supplierId", Security.getSupplierIdFromCookie(request.cookies.get("gdmssosession")));
+//            supplierDetailsFromCookie.put("supplierEmail", Security.getSupplierEmailFromCookie(request.cookies.get("gdmssosession")));
+//            supplierDetailsFromCookie.put("supplierCompanyName", Security.getSupplierCompanyNameFromCookie(request.cookies.get("gdmssosession")));
+//        }
+//        else{
+//            Logger.info("SSO Cookie does not exist / has expired");
+//            redirect(DM_URL + "/login");
+//        }
     }
 }
