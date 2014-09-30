@@ -17,7 +17,7 @@
   #{heading
     current: pageNum,
     total: pageTotal,
-    title: content.get('p2title')
+    title: content.get(page + 'title')
   /}
 
   %{
@@ -31,7 +31,8 @@
     }%
     #{question-heading
       heading: content.get(question + 'text'),
-      hint: content.get(question + 'hint')
+      hint: content.get(question + 'hint'),
+      error: content.get(question + flash.get(question))
     /}
     %{
       for (index in 1..18) {

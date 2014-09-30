@@ -1,0 +1,9 @@
+.validation {
+
+  &-message {
+    @include copy-19;
+    color: $red;
+    margin-bottom: 5px;
+  }
+
+}
