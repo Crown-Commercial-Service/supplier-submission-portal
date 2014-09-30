@@ -23,7 +23,6 @@
     questionIsRelevantToSelectedLot = content.get(question + 'lots').contains(lot)
     if (questionIsRelevantToSelectedLot) {
   }%
-  <fieldset class='question'>
     #{question-heading
       heading: content.get(question + 'text'),
       hint: content.get(question + 'hint'),
@@ -44,7 +43,6 @@
     #{question-footer
       error: content.get(question + flash.get(question))
     /}
-  </fieldset>
   %{
     }
   }%

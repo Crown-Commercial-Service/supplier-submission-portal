@@ -5,6 +5,13 @@ import models.Listing;
 import models.Page;
 import play.mvc.Controller;
 
+import play.data.validation.*;
+import play.data.validation.Error;
+
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.List;
+
 public class Page24 extends Controller {
 
     private static final Long PAGE_ID = 24l;
@@ -16,23 +23,31 @@ public class Page24 extends Controller {
 
         // TODO: Validate all fields on this page requiring validation
         if (!listing.lot.equals("SCS")) {
-//            validation.required(p24q1).message("p24q1:null");
-//            validation.required(p24q2).message("p24q2:null");
-//            validation.required(p24q4).message("p24q4:null");
-//            validation.required(p24q5).message("p24q5:null");
-//            validation.required(p24q6).message("p24q6:null");
-//            validation.required(p24q11).message("p24q11:null");
+            validation.required(p24q1).key("p24q1");
+            validation.required(p24q2).key("p24q2");
+            validation.required(p24q4).key("p24q4");
+            validation.required(p24q5).key("p24q5");
+            validation.required(p24q6).key("p24q6");
+            validation.required(p24q11).message("p24q11");
 
             if (!listing.lot.equals("SaaS")) {
-//                validation.required(p24q7).message("p24q7:null");
-//                validation.required(p24q8).message("p24q8:null");
-//                validation.required(p24q9).message("p24q9:null");
-//                validation.required(p24q10).message("p24q10:null");
+                validation.required(p24q7).key("p24q7");
+                validation.required(p24q8).key("p24q8");
+                validation.required(p24q9).key("p24q9");
+                validation.required(p24q10).message("p24q10");
             }
         }
-//        validation.required(p24q3).message("p24q3:null");
-        if (validation.hasErrors()) {
-            flash.error("%s", validation.errors());
+        validation.required(p24q3).key("p24q3");
+        if(validation.hasErrors()) {
+            //flash.error("%s", validation.errors());
+
+            for(Map.Entry<String, List<Error>> entry : validation.errorsMap().entrySet()) {
+                String key = entry.getKey();
+                String value = entry.getValue().get(0).message();
+
+                flash.put(key, value);
+            }
+            System.out.println(flash);
             redirect(String.format("/page/%d/%d", PAGE_ID, listing.id));
         }
 

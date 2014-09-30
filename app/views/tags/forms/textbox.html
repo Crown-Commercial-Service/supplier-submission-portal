@@ -1,16 +1,17 @@
-#{question-validation-wrapper-open
-  error: _error
-/}
-<label for='${_name}' class='question-heading %{ if (_hint) { }% question-heading-with-hint %{ } }%'>
-  ${_label}
-</label>
-#{forms/hint
-  hint: _hint
-/}
-#{forms/error-message
-  error: _error
-/}
-<input type='text' name='${_name}' id='${_name}' class='text-box' value='${_value}' />
+<fieldset class='question'>
+  #{question-validation-wrapper-open
+    error: _error
+  /}
+  <label for='${_name}' class='question-heading %{ if (_hint) { }% question-heading-with-hint %{ } }%'>
+    ${_label}
+  </label>
+  #{forms/hint
+    hint: _hint
+  /}
+  #{forms/error-message
+    error: _error
+  /}
+  <input type='text' name='${_name}' id='${_name}' class='text-box' value='${_value}' />
 #{question-footer
   error: _error
 /}

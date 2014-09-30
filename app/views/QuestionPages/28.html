@@ -3,7 +3,7 @@
 
 %{
   def page = 'p28'
-  def question = ''
+  def question = page + 'q1'
   def questionIsRelevantToSelectedLot = false
 }%
 
@@ -18,10 +18,10 @@
     total: pageTotal,
     title: content.get(page + 'title')
   /}
-  <fieldset>
     #{question-heading
-      heading: content.get('p28q1text'),
-      hint: content.get('p28q1hint')
+      heading: content.get(question + 'text'),
+      hint: content.get(question + 'hint'),
+      error: content.get(question + flash.get(question))
     /}
     %{
       for (index in 1..4) {
@@ -37,6 +37,8 @@
     #{forms/assurance
       name: question
     /}
-  </fieldset>
+    #{question-footer
+      error: content.get(question + flash.get(question))
+    /}
   #{footer/}
 </form>

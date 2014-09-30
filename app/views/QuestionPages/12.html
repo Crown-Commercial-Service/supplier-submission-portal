@@ -24,7 +24,6 @@
     question = page + 'q1'
   }%
 
-  <fieldset class='question'>
   #{forms/selection-button-boolean
     name: 'p12q1',
     value: oldvalues?.get(question),
@@ -32,7 +31,6 @@
     hint: content.get(question + 'hint'),
     error: content.get(question + flash.get(question))
   /}
-  </fieldset>
 
   #{footer/}
 

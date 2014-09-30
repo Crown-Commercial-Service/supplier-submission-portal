@@ -24,7 +24,6 @@
     questionIsRelevantToSelectedLot = content.get(question + 'lots').contains(lot)
     if (questionIsRelevantToSelectedLot) {
   }%
-  <fieldset>
     %{
       question = page + 'q1'
     }%
@@ -49,7 +48,7 @@
     #{question-footer
       error: content.get(question + flash.get(question))
     /}
-  </fieldset>
+
   %{
     }
   }%

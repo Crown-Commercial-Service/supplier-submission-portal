@@ -18,7 +18,7 @@
     total: pageTotal,
     title: content.get(page + 'title')
   /}
-  <fieldset class='question input-list'>
+  <div class='input-list'>
     %{
       question = page + 'q1'
     }%
@@ -38,6 +38,9 @@
     %{
       }
     }%
-  </fieldset>
+    #{question-footer
+      error: content.get(question + flash.get(question))
+    /}
+  </div>
   #{footer/}
 </form>

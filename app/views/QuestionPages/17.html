@@ -41,7 +41,6 @@
     questionIsRelevantToSelectedLot = content.get(question + 'lots').contains(lot)
     if (questionIsRelevantToSelectedLot) {
   }%
-  <fieldset class='question'>
     #{forms/textbox
       name: question,
       value: oldvalues?.get(question),
@@ -49,7 +48,6 @@
       hint: content.get(question + 'hint'),
       error: content.get(question + flash.get(question))
     /}
-  </fieldset>
   %{
     }
   }%

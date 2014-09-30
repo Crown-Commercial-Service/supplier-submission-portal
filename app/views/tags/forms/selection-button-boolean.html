@@ -16,7 +16,11 @@
     <input type='radio' name='${_name}' id='${_name}-option-2' />
     No<span class='hidden'> I don't agree to the statement</span>
   </label>
-  #{question-footer
-    error: _error
-  /}
-</fieldset>
+  %{ if (_assurance) { }%
+    #{forms/assurance
+      name: _name
+    /}
+  %{ } }%
+#{question-footer
+  error: _error
+/}

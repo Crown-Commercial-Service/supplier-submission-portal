@@ -4,6 +4,13 @@ import models.Listing;
 import models.Page;
 import play.mvc.Controller;
 
+import play.data.validation.*;
+import play.data.validation.Error;
+
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.List;
+
 public class Page25 extends Controller {
 
     private static final Long PAGE_ID = 25l;
@@ -11,14 +18,22 @@ public class Page25 extends Controller {
     public static void savePage(Long listingId, String p25q1, String p25q2, String p25q3, String p25q4) {
 
         Listing listing = Listing.getByListingId(listingId);
-        
+
         // TODO: Validate all fields on this page requiring validation
-//        validation.required(p25q1).message("p25q1:null");
-//        validation.required(p25q2).message("p25q2:null");
-//        validation.required(p25q3).message("p25q3:null");
-//        validation.required(p25q4).message("p25q4:null");
+        validation.required(p25q1).key("p25q1");
+        validation.required(p25q2).key("p25q2");
+        validation.required(p25q3).key("p25q3");
+        validation.required(p25q4).key("p25q4");
         if(validation.hasErrors()) {
-            flash.error("%s", validation.errors());
+            //flash.error("%s", validation.errors());
+
+            for(Map.Entry<String, List<Error>> entry : validation.errorsMap().entrySet()) {
+                String key = entry.getKey();
+                String value = entry.getValue().get(0).message();
+
+                flash.put(key, value);
+            }
+            System.out.println(flash);
             redirect(String.format("/page/%d/%d", PAGE_ID, listing.id));
         }
 

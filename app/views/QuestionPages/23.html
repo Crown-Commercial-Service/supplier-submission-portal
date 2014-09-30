@@ -23,10 +23,10 @@
     questionIsRelevantToSelectedLot = content.get(question + 'lots').contains(lot)
     if (questionIsRelevantToSelectedLot) {
   }%
-    <fieldset>
       #{question-heading
         heading: content.get(question + 'text'),
-        hint: content.get(question + 'hint')
+        hint: content.get(question + 'hint'),
+        error: content.get(question + flash.get(question))
       /}
       %{
         for (index in 1..8) {
@@ -43,7 +43,9 @@
       #{forms/assurance
         name: question
       /}
-    </fieldset>
+      #{question-footer
+        error: content.get(question + flash.get(question))
+      /}
   %{
     }
   }%
@@ -52,10 +54,10 @@
     questionIsRelevantToSelectedLot = content.get(question + 'lots').contains(lot)
     if (questionIsRelevantToSelectedLot) {
   }%
-    <fieldset>
       #{question-heading
         heading: content.get('p23q2text'),
-        hint: content.get('p23q2hint')
+        hint: content.get('p23q2hint'),
+        error: content.get(question + flash.get(question))
       /}
       %{
         for (index in 1..8) {
@@ -71,7 +73,9 @@
       #{forms/assurance
         name: question
       /}
-    </fieldset>
+      #{question-footer
+        error: content.get(question + flash.get(question))
+      /}
   %{
     }
   }%
@@ -80,13 +84,12 @@
     questionIsRelevantToSelectedLot = content.get(question + 'lots').contains(lot)
     if (questionIsRelevantToSelectedLot) {
   }%
-    <fieldset>
-      <legend class='question-heading'>
-    #{question-heading
-      heading: content.get('p23q3text'),
-      hint: content.get('p23q3hint')
-    /}
-    %{
+      #{question-heading
+        heading: content.get('p23q3text'),
+        hint: content.get('p23q3hint'),
+        error: content.get(question + flash.get(question))
+      /}
+      %{
         for (index in 1..8) {
       }%
         #{forms/selection-button-radio
@@ -100,7 +103,9 @@
       #{forms/assurance
         name: question
       /}
-    </fieldset>
+      #{question-footer
+        error: content.get(question + flash.get(question))
+      /}
   %{
     }
   }%

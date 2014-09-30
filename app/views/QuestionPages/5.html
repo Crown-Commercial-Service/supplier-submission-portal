@@ -22,7 +22,7 @@
     questionIsRelevantToSelectedLot = content.get(question + 'lots').contains(lot)
     if (questionIsRelevantToSelectedLot) {
   }%
-  <fieldset class='input-list'>
+  <div class='input-list'>
     #{question-heading
       heading: content.get(question + 'text'),
       hint: content.get(question + 'hint'),
@@ -42,7 +42,7 @@
     #{question-footer
       error: content.get(question + flash.get(question))
     /}
-  </fieldset>
+  </div>
   %{
     }
     question = page + 'q2'
@@ -50,7 +50,7 @@
     questionIsRelevantToSelectedLot = content.get(question + 'lots').contains(lot)
     if (questionIsRelevantToSelectedLot) {
   }%
-  <fieldset class='input-list'>
+  <div class='input-list'>
     #{question-heading
       heading: content.get(question + 'text'),
       hint: content.get(question + 'hint'),
@@ -70,7 +70,7 @@
     #{question-footer
       error: content.get(question + flash.get(question))
     /}
-  </fieldset>
+  </div>
   %{
     }
   }%
