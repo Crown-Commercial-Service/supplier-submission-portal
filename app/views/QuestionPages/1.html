@@ -12,8 +12,6 @@
   lot: lot
 /}
 
-<h3>VAR: ${flash}</h3>
-
 <form action="${request.getBase()}${request.url}" method="POST">
   #{heading
     current: pageNum,
@@ -30,6 +28,7 @@
     %{
       question = page + 'q1'
     }%
+
     #{question-heading
       heading: content.get(question + 'text'),
       hint: content.get(question + 'hint'),

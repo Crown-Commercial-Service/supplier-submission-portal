@@ -23,6 +23,7 @@ public class QuestionPageDisplay extends Controller {
         renderArgs.put("content", Fixtures.getContentProperties());
         renderArgs.put("pageNum", Integer.toString(index+1));
         renderArgs.put("pageTotal", Integer.toString(listing.pageSequence.size()));
+
         Page page = listing.completedPages.get(index);
         if (page!= null) {
             renderArgs.put("oldValues", page.responses);

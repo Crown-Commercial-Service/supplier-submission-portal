@@ -27,7 +27,8 @@
       name: question,
       label: content.get(question + 'text'),
       hint: content.get(question + 'hint'),
-      value: oldValues?.get(question)
+      value: oldValues?.get(question),
+      error: content.get(question + flash.get(question))
     /}
     %{
       }
@@ -41,7 +42,8 @@
       label: content.get(question + 'text'),
       hint: content.get(question + 'hint'),
       value: oldValues?.get(question),
-      max_words: 50
+      max_words: 50,
+      error: content.get(question + flash.get(question))
     /}
     %{
       }

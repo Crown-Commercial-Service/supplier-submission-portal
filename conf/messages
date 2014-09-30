@@ -1,7 +1,6 @@
 # You can specialize this file for each language.
 # For example, for French create a messages.fr file
 #
-
+validation.required=validationNotAnswered
 validation.file.tooLarge=File was too large.
 validation.file.wrongFormat=File was the wrong format.
-
