@@ -18,6 +18,11 @@ public class Security {
     }
 
     public static String[] decrypt(String encryptedString){
-        return new SimpleAesEncryptor("Bar12345Bar12345").decryptArray(encryptedString);
+        SimpleAesEncryptor encryptor = new SimpleAesEncryptor("Bar12345Bar12345");
+        
+        if(!System.getProperty("ssp.cookie.enc").isEmpty()){
+            encryptor = new SimpleAesEncryptor(System.getProperty("ssp.cookie.enc"));
+        }
+        return encryptor.decryptArray(encryptedString);
     }
 }
