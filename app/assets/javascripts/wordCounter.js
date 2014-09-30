@@ -1,10 +1,15 @@
-(function (GOVUK, GDM) {
+(function () {
 
   'use strict';
 
+  var root = this,
+      $ = this.jQuery,
+      GOVUK = this.GOVUK || {
+        GDM : {}
+      };
+
   var counterClass = 'wordCount',
       attach = function() {
-
         var $textarea = $('textarea[data-max-length-in-words]')
         
         if (!$textarea.length) { return; }
@@ -13,10 +18,8 @@
           .attr('aria-controls', 'wordcount')
           .on('change keyup paste', showCount);
         showCount.call($textarea[0]);
-
       },
       showCount = function() {
-
         var $textarea = $(this),
             contents = $textarea.val(),
             numberOfWords = countWords(contents),
@@ -27,17 +30,13 @@
         $textarea
           .next('.' + counterClass)
           .html(message);
-
       },
       countWords = function(text) {
-
         var tokens = text.match(/\S+/g) || []; // Matches consecutive non-whitespace chars
 
         return tokens.length;
-
       },
       getMessageText = function(count) {
-
         var displayedCount = Math.abs(count); // Don't show negative numbers
 
         if (count < -1) {
@@ -55,15 +54,12 @@
         if (count === 0 || count > 1) {
           return displayedCount + ' words remaining';
         }
-
       };
 
-  GDM.wordCounter = function () {
-
-    GDM.sub('formRendered', attach);
-
+  GOVUK.GDM.wordCounter = function () {
+    attach();
   };
 
-  GOVUK.GDM = GDM;
+  this.GOVUK = GOVUK;
 
-}).apply(this, [GOVUK||{}, GOVUK.GDM||{}]);
+}).call(this);
