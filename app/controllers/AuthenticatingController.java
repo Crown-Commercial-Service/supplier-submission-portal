@@ -22,6 +22,7 @@ import java.util.Map;
 public abstract class AuthenticatingController extends Controller {
 
     static Map<String, String> supplierDetailsFromCookie = new HashMap<String, String>();
+    static final String DM_URL = "http://localhost:8080";
 
     @Before
     public static void checkAuthenticationCookie() {
@@ -33,7 +34,7 @@ public abstract class AuthenticatingController extends Controller {
         }
         else{
             Logger.info("SSO Cookie does not exist / has expired");
-            redirect("http://localhost:8080");
+            redirect(DM_URL + "/login");
         }
     }
 }

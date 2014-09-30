@@ -2,5 +2,12 @@
 	<application>ssp-preview</application>
 	<version>1-0-3</version>
 	<threadsafe>true</threadsafe>
+
+    <system-properties>
+        <property name="ssp.cookie.enc" value="Bar12345Bar12345" />
+    </system-properties>
 </appengine-web-app>
+
+
+
 
