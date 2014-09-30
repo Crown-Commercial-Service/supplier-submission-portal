@@ -5,30 +5,30 @@
 @import 'design-patterns/alpha-beta';
 
 // Reset
-@import 'productionised/_reset';
+@import 'components/_reset';
 
 // Layout
-@import 'productionised/_wrappers';
-@import 'productionised/_phase-banner';
+@import 'components/_wrappers';
+@import 'components/_phase-banner';
 
 // Page heading
-@import 'productionised/_breadcrumb-navigation';
-@import 'productionised/_position';
-@import 'productionised/_page-heading';
-@import 'productionised/_page-footer';
+@import 'components/_breadcrumb-navigation';
+@import 'components/_position';
+@import 'components/_page-heading';
+@import 'components/_page-footer';
 
 // Question metadata
-@import 'productionised/_question';
+@import 'components/_question';
 
 // Input interfaces
-@import 'productionised/_text-box';
-@import 'productionised/_word-count';
-@import 'productionised/_input-list';
-@import 'productionised/_selection-button';
-@import 'productionised/_button';
-@import 'productionised/_file-upload';
-@import 'productionised/_optional';
-@import '_assurance';
+@import 'components/_text-box';
+@import 'components/_word-count';
+@import 'components/_input-list';
+@import 'components/_selection-button';
+@import 'components/_button';
+@import 'components/_file-upload';
+@import 'components/_optional';
+@import 'components/_assurance';
 
 // Summary page
-@import 'productionised/_summary';
+@import 'components/_summary';
