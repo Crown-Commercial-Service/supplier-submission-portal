@@ -16,7 +16,10 @@
   #{heading
     current: pageNum,
     total: pageTotal,
-    title: content.get(page + 'title')
+    title: content.get(page + 'title'),
+    questions: "1,2",
+    content: content,
+    page: 4
   /}
     %{
       questionIsRelevantToSelectedLot = content.get(question + 'lots').contains(lot)
