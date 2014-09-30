@@ -18,13 +18,13 @@
     total: pageTotal,
     title: content.get(page + 'title')
   /}
-  <fieldset class='question'>
     %{
       question = page + 'q1'
     }%
     #{question-heading
       heading: content.get(question + 'text'),
-      hint: content.get(question + 'hint')
+      hint: content.get(question + 'hint'),
+      error: content.get(question + flash.get(question))
     /}
     %{
       for (index in 1..7) {
@@ -38,6 +38,8 @@
     %{
       }
     }%
-  </fieldset>
+    #{question-footer
+      error: content.get(question + flash.get(question))
+    /}
   #{footer/}
 </form>

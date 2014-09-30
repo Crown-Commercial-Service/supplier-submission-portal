@@ -24,13 +24,14 @@
     questionIsRelevantToSelectedLot = content.get(question + 'lots').contains(lot)
     if (questionIsRelevantToSelectedLot) {
   }%
-  <fieldset>
     %{
       question = page + 'q1'
     }%
+
     #{question-heading
       heading: content.get(question + 'text'),
-      hint: content.get(question + 'hint')
+      hint: content.get(question + 'hint'),
+      error: content.get(question + flash.get(question))
     /}
     %{
       for (index in 1..2) {
@@ -44,7 +45,10 @@
     %{
       }
     }%
-  </fieldset>
+    #{question-footer
+      error: content.get(question + flash.get(question))
+    /}
+
   %{
     }
   }%

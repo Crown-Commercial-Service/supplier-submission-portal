@@ -24,10 +24,10 @@
     questionIsRelevantToSelectedLot = content.get(question + 'lots').contains(lot)
     if (questionIsRelevantToSelectedLot) {
   }%
-    <fieldset class='question'>
       #{question-heading
         heading: content.get(question + 'text'),
-        hint: content.get(question + 'hint')
+        hint: content.get(question + 'hint'),
+        error: content.get(question + flash.get(question))
       /}
       %{
         for (index in 1..5) {
@@ -41,7 +41,9 @@
       %{
         }
       }%
-    </fieldset>
+      #{question-footer
+        error: content.get(question + flash.get(question))
+      /}
   %{
     }
   }%
@@ -55,22 +57,22 @@
       name: question,
       value: oldvalues?.get(question),
       label: content.get(question + 'text'),
-      hint: content.get(question + 'hint')
+      hint: content.get(question + 'hint'),
+      error: content.get(question + flash.get(question))
     /}
   %{
     }
   }%
-
 
   %{
     question = page + 'q3'
     questionIsRelevantToSelectedLot = content.get(question + 'lots').contains(lot)
     if (questionIsRelevantToSelectedLot) {
   }%
-    <fieldset class='question'>
       #{question-heading
         heading: content.get(question + 'text'),
-        hint: content.get(question + 'hint')
+        hint: content.get(question + 'hint'),
+        error: content.get(question + flash.get(question))
       /}
       %{
         for (index in 1..4) {
@@ -84,7 +86,9 @@
       %{
         }
       }%
-    </fieldset>
+      #{question-footer
+        error: content.get(question + flash.get(question))
+      /}
   %{
     }
   }%

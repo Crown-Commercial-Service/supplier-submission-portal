@@ -4,7 +4,14 @@ import models.Listing;
 import models.Page;
 import play.mvc.Controller;
 
-// Not a real Controller - just a template that can serve as a skeleton for page controllers 
+import play.data.validation.*;
+import play.data.validation.Error;
+
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.List;
+
+// Not a real Controller - just a template that can serve as a skeleton for page controllers
 
 public class Page12 extends Controller {
 
@@ -13,11 +20,20 @@ public class Page12 extends Controller {
     public static void savePage(Long listingId, String p12q1) {
 
         Listing listing = Listing.getByListingId(listingId);
-        
+
         // TODO: Validate all fields on this page requiring validation
-//        validation.required(p12q1).message("p12q1:null");
+        validation.required(p12q1).key("p12q1");
+
         if(validation.hasErrors()) {
-            flash.error("%s", validation.errors());
+            //flash.error("%s", validation.errors());
+
+            for(Map.Entry<String, List<Error>> entry : validation.errorsMap().entrySet()) {
+                String key = entry.getKey();
+                String value = entry.getValue().get(0).message();
+
+                flash.put(key, value);
+            }
+            System.out.println(flash);
             redirect(String.format("/page/%d/%d", PAGE_ID, listing.id));
         }
 

@@ -22,10 +22,11 @@
     questionIsRelevantToSelectedLot = content.get(question + 'lots').contains(lot)
     if (questionIsRelevantToSelectedLot) {
   }%
-  <fieldset class='input-list'>
+  <div class='input-list'>
     #{question-heading
-      heading: content.get('p5q1text'),
-      hint: content.get('p5q1hint')
+      heading: content.get(question + 'text'),
+      hint: content.get(question + 'hint'),
+      error: content.get(question + flash.get(question))
     /}
     %{
       for (index in 1..10) {
@@ -38,7 +39,10 @@
     %{
       }
     }%
-  </fieldset>
+    #{question-footer
+      error: content.get(question + flash.get(question))
+    /}
+  </div>
   %{
     }
     question = page + 'q2'
@@ -46,10 +50,11 @@
     questionIsRelevantToSelectedLot = content.get(question + 'lots').contains(lot)
     if (questionIsRelevantToSelectedLot) {
   }%
-  <fieldset class='input-list'>
+  <div class='input-list'>
     #{question-heading
       heading: content.get(question + 'text'),
-      hint: content.get(question + 'hint')
+      hint: content.get(question + 'hint'),
+      error: content.get(question + flash.get(question))
     /}
     %{
       for (index in 1..10) {
@@ -62,7 +67,10 @@
     %{
       }
     }%
-  </fieldset>
+    #{question-footer
+      error: content.get(question + flash.get(question))
+    /}
+  </div>
   %{
     }
   }%

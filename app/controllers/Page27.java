@@ -4,6 +4,13 @@ import models.Listing;
 import models.Page;
 import play.mvc.Controller;
 
+import play.data.validation.*;
+import play.data.validation.Error;
+
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.List;
+
 public class Page27 extends Controller {
 
     private static final Long PAGE_ID = 27l;
@@ -15,27 +22,36 @@ public class Page27 extends Controller {
 
         // TODO: Validate all fields on this page requiring validation
         // Q9 is the only one for all lots
-//        validation.required(p27q9).message("p27q9:null");
+        validation.required(p27q9).key("p27q9");
         if (!listing.lot.equals("SCS")) {
             if (!listing.lot.equals("SaaS")) {
                 // Q1 for IaaS, PaaS only
-//                validation.required(p27q1).message("p27q1:null");
+                validation.required(p27q1).key("p27q1");
             }
             // Rest are for all lots except SCS
-//            validation.required(p27q2).message("p27q2:null");
-//            validation.required(p27q3).message("p27q3:null");
-//            validation.required(p27q4).message("p27q4:null");
-//            validation.required(p27q5).message("p27q5:null");
-//            validation.required(p27q6).message("p27q6:null");
-//            validation.required(p27q7).message("p27q7:null");
-//            validation.required(p27q8).message("p27q8:null");
-//            validation.required(p27q10).message("p27q10:null");
-//            validation.required(p27q11).message("p27q11:null");
-//            validation.required(p27q12).message("p27q12:null");
-//            validation.required(p27q13).message("p27q13:null");
+            validation.required(p27q2).key("p27q2");
+            validation.required(p27q3).key("p27q3");
+            validation.required(p27q4).key("p27q4");
+            validation.required(p27q5).key("p27q5");
+            validation.required(p27q6).key("p27q6");
+            validation.required(p27q7).key("p27q7");
+            validation.required(p27q8).key("p27q8");
+            validation.required(p27q10).key("p27q10");
+            validation.required(p27q11).key("p27q11");
+            validation.required(p27q12).key("p27q12");
+            validation.required(p27q13).key("p27q13");
         }
+
         if(validation.hasErrors()) {
-            flash.error("%s", validation.errors());
+            //flash.error("%s", validation.errors());
+
+            for(Map.Entry<String, List<Error>> entry : validation.errorsMap().entrySet()) {
+                String key = entry.getKey();
+                String value = entry.getValue().get(0).message();
+
+                flash.put(key, value);
+            }
+            System.out.println(flash);
             redirect(String.format("/page/%d/%d", PAGE_ID, listing.id));
         }
 

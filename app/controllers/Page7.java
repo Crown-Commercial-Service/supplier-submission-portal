@@ -5,8 +5,14 @@ import models.Page;
 import play.i18n.Messages;
 import play.mvc.Controller;
 import uk.gov.gds.dm.DocumentUtils;
+import play.data.validation.*;
+import play.data.validation.Error;
+
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.List;
 
 public class Page7 extends Controller {
 
@@ -16,26 +22,38 @@ public class Page7 extends Controller {
     public static void savePage(Long listingId, String p7q1, String p7q2, File p7q3) {
 
         Listing listing = Listing.getByListingId(listingId);
-        
+
         //Validate all fields on this page requiring validation
         if(!listing.lot.equals("SaaS")){
-        //    validation.required(p7q1).message("p7q1:null");
+            validation.required(p7q1).key("p7q1");
         }
-        //validation.required(p7q2).message("p7q2:null");
+        validation.required(p7q2).key("p7q2");
 
         // Validate document
-        //validation.required(p7q3).message("p7q3: null");
         if(p7q3 != null){
             if(!DocumentUtils.validateDocumentFormat(p7q3)){
-                //validation.addError("p7q3", Messages.getMessage("en", "validation.file.wrongFormat"));
+                validation.addError("p7q3", Messages.getMessage("en", "validation.file.wrongFormat"));
             }
             if(!DocumentUtils.validateDocumentFileSize(p7q3)){
-                //validation.addError("p7q3", Messages.getMessage("en", "validation.file.tooLarge"));
+                validation.addError("p7q3", Messages.getMessage("en", "validation.file.tooLarge"));
             }
+        } else {
+            validation.required(p7q3).key("p7q3");
         }
 
+
+        System.out.println(validation.errorsMap());
+
         if(validation.hasErrors()) {
-            flash.error("%s", validation.errors());
+            //flash.error("%s", validation.errors());
+
+            for(Map.Entry<String, List<Error>> entry : validation.errorsMap().entrySet()) {
+                String key = entry.getKey();
+                String value = entry.getValue().get(0).message();
+
+                flash.put(key, value);
+            }
+            System.out.println(flash);
             redirect(String.format("/page/%d/%d", PAGE_ID, listing.id));
         }
 

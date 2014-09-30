@@ -3,7 +3,7 @@
 
 %{
   def page = 'p26'
-  def question = ''
+  def question = page + 'q1'
   def questionIsRelevantToSelectedLot = false
 }%
 
@@ -13,23 +13,20 @@
 /}
 
 <form action='${request.getBase()}${request.url}' method='POST'>
+
   #{heading
     current: pageNum,
     total: pageTotal,
     title: content.get('p26title')
   /}
-  <fieldset>
-    #{question-heading
-      heading: content.get('p26q1text'),
-      hint: content.get('p26q1hint')
-    /}
-    #{forms/selection-button-boolean
-      name: 'p26q1',
-      label: content.get('p26q1valtext')
-    /}
-    #{forms/assurance
-      name: 'p26q1'
-    /}
-  </fieldset>
+
+  #{forms/selection-button-boolean
+    name: question,
+    label: content.get(question + 'text'),
+    hint: content.get(question + 'hint'),
+    error: content.get(question + flash.get(question)),
+    assurance: true
+  /}
+
   #{footer/}
 </form>

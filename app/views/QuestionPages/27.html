@@ -23,20 +23,13 @@
     questionIsRelevantToSelectedLot = content.get(question + 'lots').contains(lot)
     if (questionIsRelevantToSelectedLot) {
   }%
-  <fieldset>
-    #{question-heading
-      heading: content.get('p27q1text'),
-      hint: content.get('p27q1hint')
-    /}
-  
-      #{forms/selection-button-boolean
-        name: question,
-        label: content.get(question + 'text')
-      /}
-      #{forms/assurance
-        name: question
-      /}
-    </fieldset>
+  #{forms/selection-button-boolean
+    name: question,
+    label: content.get(question + 'text'),
+    hint: content.get(question + 'hint'),
+    error: content.get(question + flash.get(question)),
+    assurance: true
+  /}
   %{
     }
 
@@ -44,19 +37,13 @@
     questionIsRelevantToSelectedLot = content.get(question + 'lots').contains(lot)
     if (questionIsRelevantToSelectedLot) {
   }%
-  <fieldset>
-    #{question-heading
-      heading: content.get('p27q2text'),
-      hint: content.get('p27q2hint')
-    /}
     #{forms/selection-button-boolean
-        name: question,
-        label: content.get(question + 'text')
-      /}
-      #{forms/assurance
-        name: question
-      /}
-    </fieldset>
+      name: question,
+      label: content.get(question + 'text'),
+      hint: content.get(question + 'hint'),
+      error: content.get(question + flash.get(question)),
+      assurance: true
+    /}
   %{
     }
   }%

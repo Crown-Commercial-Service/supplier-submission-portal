@@ -30,7 +30,8 @@
       name: question,
       value: oldvalues?.get(question),
       label: content.get(question + 'text'),
-      hint: content.get(question + 'hint')
+      hint: content.get(question + 'hint'),
+      error: content.get(question + flash.get(question))
     /}
   %{
       }
@@ -43,10 +44,10 @@
     questionIsRelevantToSelectedLot = content.get(question + 'lots').contains(lot)
     if (questionIsRelevantToSelectedLot) {
   }%
-    <fieldset class='question'>
       #{question-heading
         heading: content.get(question + 'text'),
-        hint: content.get(question + 'hint')
+        hint: content.get(question + 'hint'),
+        error: content.get(question + flash.get(question))
       /}
       %{
         for (index in 1..8) {
@@ -60,7 +61,9 @@
       %{
         }
       }%
-    </fieldset>
+      #{question-footer
+        error: content.get(question + flash.get(question))
+      /}
   %{
     }
   }%
@@ -75,7 +78,8 @@
       name: question,
       value: oldvalues?.get(question),
       label: content.get(question + 'text'),
-      hint: content.get(question + 'hint')
+      hint: content.get(question + 'hint'),
+      error: content.get(question + flash.get(question))
     /}
   %{
       }

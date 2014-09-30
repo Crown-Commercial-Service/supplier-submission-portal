@@ -23,10 +23,10 @@
     questionIsRelevantToSelectedLot = content.get(question + 'lots').contains(lot)
     if (questionIsRelevantToSelectedLot) {
   }%
-    <fieldset>
       #{question-heading
         heading: content.get(question + 'text'),
-        hint: content.get(question + 'hint')
+        hint: content.get(question + 'hint'),
+        error: content.get(question + flash.get(question))
       /}
       %{
         for (index in 1..8) {
@@ -43,7 +43,11 @@
       #{forms/assurance
         name: 'p32q1'
       /}
-    </fieldset>
+      #{question-footer
+        heading: content.get(question + 'text'),
+        hint: content.get(question + 'hint'),
+        error: content.get(question + flash.get(question))
+      /}
   %{
     }
   }%

@@ -5,7 +5,8 @@
 %{ } }%
   #{question-heading
     heading: _label,
-    hint: _hint
+    hint: _hint,
+    error: _error
   /}
   <label class='selection-button selection-button-boolean'>
     <input type='radio' name='${_name}' id='${_name}-option-1' />
@@ -15,4 +16,11 @@
     <input type='radio' name='${_name}' id='${_name}-option-2' />
     No<span class='hidden'> I don't agree to the statement</span>
   </label>
-</fieldset>
+  %{ if (_assurance) { }%
+    #{forms/assurance
+      name: _name
+    /}
+  %{ } }%
+#{question-footer
+  error: _error
+/}
