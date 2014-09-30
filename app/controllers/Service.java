@@ -5,7 +5,7 @@ import play.mvc.Controller;
 import play.data.validation.Error;
 import uk.gov.gds.dm.DevUtils;
 
-public class Service extends Controller {
+public class Service extends AuthenticatingController {
 
     public static void editPage(String id, Integer page) {
         render(id, page);
@@ -27,14 +27,15 @@ public class Service extends Controller {
             for(Error error : validation.errors()) {
                 System.out.println(error.message());
             }
+
             //TODO: Show flash error messages in page (add code to main.html to do this?)
             flash.error("Validation failed", validation.errors());
             redirect("/addservice");
         }
 
-        // TODO: Get supplier ID for logged in user
-        Listing listing = new Listing(DevUtils.randomSupplierId(), params.get("lot"));
+        Listing listing = new Listing(supplierDetailsFromCookie.get("supplierId"), params.get("lot"));
         listing.insert();
+
         // TODO: Get next page using page sequence saved in Listing object
         redirect(String.format("/page/%d/%d", listing.firstPage(), listing.id));
     }

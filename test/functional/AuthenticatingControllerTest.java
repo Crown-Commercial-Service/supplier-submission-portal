@@ -8,7 +8,7 @@ import play.test.FunctionalTest;
 /**
  * Created by taosong on 25/09/2014.
  */
-public class AbstractQuestionPageTest  extends FunctionalTest {
+public class AuthenticatingControllerTest extends FunctionalTest {
 
     @Ignore
     @Test

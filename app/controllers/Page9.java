@@ -12,7 +12,7 @@ import java.util.Map;
 import java.util.List;
 
 
-public class Page9 extends Controller {
+public class Page9 extends AuthenticatingController {
 
     private static final Long PAGE_ID = 9l;
 

@@ -9,7 +9,7 @@ import play.mvc.Controller;
 import java.util.List;
 import java.util.Map;
 
-public class Page4 extends Controller {
+public class Page4 extends AuthenticatingController {
 
     private static final Long PAGE_ID = 4l;
 

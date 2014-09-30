@@ -4,6 +4,7 @@ import models.Listing;
 import models.Page;
 import play.mvc.Controller;
 
+<<<<<<< HEAD
 import play.data.validation.*;
 import play.data.validation.Error;
 
@@ -11,7 +12,7 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.List;
 
-public class Page23 extends Controller {
+public class Page23 extends AuthenticatingController {
 
     private static final Long PAGE_ID = 23l;
 

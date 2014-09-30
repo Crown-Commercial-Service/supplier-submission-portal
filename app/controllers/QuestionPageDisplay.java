@@ -5,7 +5,7 @@ import models.Page;
 import play.mvc.Controller;
 
 
-public class QuestionPageDisplay extends Controller {
+public class QuestionPageDisplay extends AuthenticatingController {
 
     public static void showPage(Long pageId, Long listingId) {
 
@@ -13,8 +13,13 @@ public class QuestionPageDisplay extends Controller {
         Listing listing = Listing.getByListingId(listingId);
 
         notFoundIfNull(listing);
-        // TODO: Check listing belongs to authenticated user
+
         if(!listing.pageSequence.contains(pageId)){
+            notFound();
+        }
+
+        // Check listing belongs to authenticated user
+        if(!listing.supplierId.equals(supplierDetailsFromCookie.get("supplierId")) ){
             notFound();
         }
 

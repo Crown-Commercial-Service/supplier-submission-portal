@@ -8,22 +8,22 @@ import java.util.Random;
  */
 public class DevUtils {
     
-    public final static String supplierId1 = "test-supplier-id-1";
-    public final static String supplierId2 = "test-supplier-id-2";
+//    public final static String supplierId1 = "test-supplier-id-1";
+//    public final static String supplierId2 = "test-supplier-id-2";
+//
+//    private final static Random rand = new Random();
     
-    private final static Random rand = new Random();
-    
-    public static String randomSupplierId() {
-        int randomNum = rand.nextInt(2);
-        switch(randomNum) {
-            case 0:
-                return supplierId1;
-            case 1:
-                return supplierId2;
-            default:
-                // Should never happen
-                return "DEFAULT-" + randomNum;
-        }
-    }
+//    public static String randomSupplierId() {
+//        int randomNum = rand.nextInt(2);
+//        switch(randomNum) {
+//            case 0:
+//                return supplierId1;
+//            case 1:
+//                return supplierId2;
+//            default:
+//                // Should never happen
+//                return "DEFAULT-" + randomNum;
+//        }
+//    }
 }
 
