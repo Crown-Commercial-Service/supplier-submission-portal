@@ -17,10 +17,14 @@ public class Security {
         return  decrypt(cookie.value)[2];
     }
 
+    public static String  getSetDateFromCookie(Http.Cookie cookie){
+        return  decrypt(cookie.value)[3];
+    }
+
     public static String[] decrypt(String encryptedString){
         SimpleAesEncryptor encryptor = new SimpleAesEncryptor("Bar12345Bar12345");
-        
-        if(!System.getProperty("ssp.cookie.enc").isEmpty()){
+
+        if(!(System.getProperty("ssp.cookie.enc") == null)){
             encryptor = new SimpleAesEncryptor(System.getProperty("ssp.cookie.enc"));
         }
         return encryptor.decryptArray(encryptedString);
@@ -28,6 +32,6 @@ public class Security {
 
     public static Boolean hasCookieExpired(Http.Cookie cookie){
         //TODO: Do expiration checks
-        return true;
+        return false;
     }
 }
