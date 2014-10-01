@@ -251,7 +251,7 @@ module.exports = function(grunt){
       javascripts: {
         src: [
           'node_modules/jquery-browser/lib/jquery.js',
-          'public/javascripts/**/*.js'
+          'public/javascripts/wordCounter.js'
         ],
         options: {
           specs: 'scripts/test/unit/*Spec.js',
@@ -333,6 +333,7 @@ module.exports = function(grunt){
   ]);
 
   grunt.registerTask('test', [
+    'findJS',
     'jasmine'
   ]);
 

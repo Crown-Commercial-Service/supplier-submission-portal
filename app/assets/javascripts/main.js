@@ -4,6 +4,7 @@
       $ = root.jQuery;
 
   if (typeof GOVUK === 'undefined') { root.GOVUK = {}; }
+  if (typeof GOVUK.GDM === 'undefined') { root.GOVUK.GDM = {}; }
 
   var $buttons = $("label.selection-button input");
   GOVUK.selectionButtons($buttons, {
@@ -11,4 +12,5 @@
     "selectedClass" : "selection-button-selected"
   });
 
+  GOVUK.GDM.wordCounter();
 }).call(this);

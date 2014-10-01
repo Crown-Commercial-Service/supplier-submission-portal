@@ -17,12 +17,6 @@
     data-max-length-in-words="${_max_words}"
     aria-controls='${_name}-word-count'
   >${_value}</textarea>
-  <p
-    class="word-count-counter" id="${_name}-word-count"
-    role='status' aria-live='assertive' aria-relevant='text'
-  >
-    ${_max_words} words maximum
-  </p>
 </div>
 #{question-footer
   error: _error
