@@ -1,0 +1,35 @@
+%{
+  def questionID = ''
+  def pageContainsErrors = false
+  def maxPossibleNumberOfQuestions = 20
+
+  for (question in 1..maxPossibleNumberOfQuestions) {
+    if (flash.get('p' + _page + 'q' + question)) {
+      pageContainsErrors = true
+    }
+  }
+
+  if (pageContainsErrors) {
+}%
+<div class='validation-masthead'>
+  <p class='validation-masthead-heading'>
+    There were problems with your response to the following questions
+  </p>
+  <ul>
+    %{
+      for (question in 1..maxPossibleNumberOfQuestions) {
+        questionID = 'p' + _page + 'q' + question
+        if (flash.get(questionID)) {
+    }%
+          <li>
+            <a href='#${questionID}' class='validation-masthead-link'>${_content.get(questionID + 'text')}</a>
+          </li>
+    %{
+        }
+      }
+    }%
+  </ul>
+</div>
+%{
+  }
+}%
