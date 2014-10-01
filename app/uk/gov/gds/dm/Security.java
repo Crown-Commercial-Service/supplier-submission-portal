@@ -25,4 +25,9 @@ public class Security {
         }
         return encryptor.decryptArray(encryptedString);
     }
+
+    public static Boolean hasCookieExpired(Http.Cookie cookie){
+        //TODO: Do expiration checks
+        return true;
+    }
 }
