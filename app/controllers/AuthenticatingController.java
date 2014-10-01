@@ -24,7 +24,7 @@ public abstract class AuthenticatingController extends Controller {
         if(gdmSsoCookie == null){
             Logger.info("SSO Cookie does not exist.");
             redirect(DM_URL + "/login");
-        } else if (Security.hasCookieExpired(gdmSsoCookie)){
+        } else if (Security.cookieHasExpired(gdmSsoCookie)){
             Logger.info("SSO Cookie has expired");
             redirect(DM_URL + "/login");
         } else {

@@ -1,9 +1,17 @@
 package uk.gov.gds.dm;
 
 import com.elevenware.util.tokenlib.SimpleAesEncryptor;
+import play.Logger;
 import play.mvc.Http;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
+
 public class Security {
+
+    static final long COOKIE_DURATION = TimeUnit.DAYS.toMillis(1);
 
     public static String  getSupplierEmailFromCookie(Http.Cookie cookie){
         return  decrypt(cookie.value)[0];
@@ -30,8 +38,18 @@ public class Security {
         return encryptor.decryptArray(encryptedString);
     }
 
-    public static Boolean hasCookieExpired(Http.Cookie cookie){
-        //TODO: Do expiration checks
-        return false;
+    public static Boolean cookieHasExpired(Http.Cookie cookie){
+        Date cookieSetDate;
+
+        try {
+            cookieSetDate = new SimpleDateFormat("d MMM yyyy HH:mm:ss z").parse(getSetDateFromCookie(cookie));
+        } catch (ParseException pe){
+            Logger.error("Incoming cookie date (%s) could not be parsed. Error: %s" , getSetDateFromCookie(cookie), pe.getMessage());
+            return true;
+        }
+
+        Long timeElapsed = (new Date().getTime() - cookieSetDate.getTime());
+        System.out.println(timeElapsed);
+        return(timeElapsed > COOKIE_DURATION);
     }
 }
