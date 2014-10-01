@@ -8,7 +8,17 @@ describe("Wordcount", function () {
         'someLeft' : ' words remaining'
       },
       $textbox,
-      toHTML;
+      toHTML,
+      sampleCopy49Words,
+      sampleCopy50Words,
+      sampleCopy51Words,
+      sampleCopy52Words;
+
+  
+  sampleCopy49Words = "The suite can reduce risk by providing the tooling for performance management of the cloud infrastructure and backup and restore of associated workload storage. It also provides automated provisioning as well as monitoring capability for improved Service Level Agreement (SLA) and policy focus. These IBM cloud capabilities offer the";
+  sampleCopy50Words = "The suite can reduce risk by providing the tooling for performance management of the cloud infrastructure and backup and restore of associated workload storage. It also provides automated provisioning as well as monitoring capability for improved Service Level Agreement (SLA) and policy focus. These IBM cloud capabilities offer the scalability";
+  sampleCopy51Words = "The suite can reduce risk by providing the tooling for performance management of the cloud infrastructure and backup and restore of associated workload storage. It also provides automated provisioning as well as monitoring capability for improved Service Level Agreement (SLA) and policy focus. These IBM cloud capabilities offer the scalability and";
+  sampleCopy52Words = "The suite can reduce risk by providing the tooling for performance management of the cloud infrastructure and backup and restore of associated workload storage. It also provides automated provisioning as well as monitoring capability for improved Service Level Agreement (SLA) and policy focus. These IBM cloud capabilities offer the scalability and functionality";
 
   toHTML = function ($elm) {
     var $wrapper = $('<div />');
@@ -46,9 +56,36 @@ describe("Wordcount", function () {
       GOVUK.GDM.wordCounter();
       expect($textbox.siblings('p.wordCount').text()).toEqual('40 words remaining');
     });
+
+    it("Should give the correct wordcount for a textbox that has content when the page loads", function () {
+      $textbox.val('Words entered');
+      GOVUK.GDM.wordCounter();
+      expect($textbox.siblings('p.wordCount').text()).toEqual('48 words remaining');
+    });
   });
 
   describe("When content is added to the textbox", function () {
+    it("Should have the correct word count if some words are entered by keyup event", function () {
+      GOVUK.GDM.wordCounter();
+      $textbox.val('Word entered');
+      $textbox.trigger('keyup');
+      expect($textbox.siblings('p.wordCount').text()).toEqual('48 words remaining');
+    });
+
+    it("Should have the correct word count if some words are entered by paste event", function () {
+      GOVUK.GDM.wordCounter();
+      $textbox.val('Words entered');
+      $textbox.trigger('paste');
+      expect($textbox.siblings('p.wordCount').text()).toEqual('48 words remaining');
+    });
+
+    it("Should have the correct word count if some words are entered by change event", function () {
+      GOVUK.GDM.wordCounter();
+      $textbox.val('Words entered');
+      $textbox.trigger('change');
+      expect($textbox.siblings('p.wordCount').text()).toEqual('48 words remaining');
+    });
+
     it("Should have the correct word count if a single word is entered", function () {
       GOVUK.GDM.wordCounter();
       $textbox.val('Word');
@@ -58,21 +95,21 @@ describe("Wordcount", function () {
 
     it("Should have the correct word count if 50 words are entered", function () {
       GOVUK.GDM.wordCounter();
-      $textbox.val('Word');
+      $textbox.val(sampleCopy50Words);
       $textbox.trigger('keyup');
       expect($textbox.siblings('p.wordCount').text()).toEqual('0 words remaining');
     });
 
     it("Should have the correct word count if 51 words are entered", function () {
       GOVUK.GDM.wordCounter();
-      $textbox.val('Word');
+      $textbox.val(sampleCopy51Words);
       $textbox.trigger('keyup');
       expect($textbox.siblings('p.wordCount').text()).toEqual('1 word too many');
     });
 
     it("Should have the correct word count if 52 words are entered", function () {
       GOVUK.GDM.wordCounter();
-      $textbox.val('Word');
+      $textbox.val(sampleCopy52Words);
       $textbox.trigger('keyup');
       expect($textbox.siblings('p.wordCount').text()).toEqual('2 words too many');
     });
