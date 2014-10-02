@@ -130,8 +130,8 @@ module.exports = function(grunt){
       },
 
       toolkit_js: {
-        cwd: 'node_modules/govuk_frontend_toolkit/govuk_frontend_toolkit/javascripts/govuk/',
-        src: 'selection-buttons.js',
+        cwd: 'node_modules/govuk_frontend_toolkit/govuk_frontend_toolkit/javascripts/',
+        src: ['govuk/selection-buttons.js', 'vendor/polyfills/bind.js'],
         dest: 'public/javascripts/',
         expand: true,
         flatten: true
