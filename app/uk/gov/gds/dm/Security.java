@@ -76,5 +76,13 @@ public class Security {
         return new SimpleDateFormat("d MMM yyyy HH:mm:ss z");
     }
 
+    public static Boolean isAuthenticationRequired(){
+        String appName = Play.configuration.getProperty("application.name");
 
+        if(appName.equals("ssp-preview")){
+            return false;
+        } else {
+            return true;
+        }
+    }
 }
