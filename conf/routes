@@ -72,3 +72,6 @@ GET     /fixtures                               Fixtures.initialise
 
 #Styleguide
 GET     /styleguide                             Styleguide.home
+
+#Logout
+GET     /logout                                 Logout.doLogout
