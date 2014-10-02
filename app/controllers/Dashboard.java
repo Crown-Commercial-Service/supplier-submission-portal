@@ -2,8 +2,6 @@ package controllers;
 
 import models.Listing;
 import play.Logger;
-import play.mvc.Controller;
-import uk.gov.gds.dm.DevUtils;
 
 import java.util.List;
 import java.util.Map;

@@ -7,7 +7,9 @@ import play.mvc.Controller;
 
 import play.mvc.Http;
 import uk.gov.gds.dm.Security;
+import uk.gov.gds.dm.URLTools;
 
+import java.net.URL;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -17,7 +19,7 @@ import java.util.concurrent.TimeUnit;
 public abstract class AuthenticatingController extends Controller {
 
     static Map<String, String> supplierDetailsFromCookie = new HashMap<String, String>();
-    static final String DM_URL = "https://digitalmarketplace.service.gov.uk";
+    static final String DM_URL = URLTools.getDigitalMarketplaceURL();
 
     @Before
     public static void checkAuthenticationCookie() {
@@ -27,10 +29,10 @@ public abstract class AuthenticatingController extends Controller {
 
         if(gdmSsoCookie == null){
             Logger.info("SSO Cookie does not exist.");
-            redirect(DM_URL + "/login");
+            redirect(DM_URL + "login");
         } else if (Security.cookieHasExpired(gdmSsoCookie) && !usedRecently){
             Logger.info("SSO Cookie has expired");
-            redirect(DM_URL + "/login");
+            redirect(DM_URL + "login");
         } else {
             supplierDetailsFromCookie.put("supplierId", Security.getCookieSupplierId(gdmSsoCookie));
             supplierDetailsFromCookie.put("supplierEmail", Security.getCookieEmail(gdmSsoCookie));

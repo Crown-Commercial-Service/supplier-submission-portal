@@ -1,9 +1,7 @@
 package controllers;
 
 import models.Listing;
-import play.mvc.Controller;
 import play.data.validation.Error;
-import uk.gov.gds.dm.DevUtils;
 
 public class Service extends AuthenticatingController {
 
