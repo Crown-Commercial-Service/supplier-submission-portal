@@ -15,7 +15,7 @@
 
     if (!idPattern) { return false; }
     this.idPattern = idPattern;
-    this.elementSelector = '.list-entry, .list-add-entry';
+    this.elementSelector = '.list-entry, .list-remove-entry';
     this.$wrapper = $elm;
     this.entries = [];
     this.minEntries = 2;
@@ -29,13 +29,15 @@
         '<span class="hidden">Fieldset legend number </span>{{number}}.' +
       '</label>' +
       '<input type="text" name="{{{name}}}" id="{{{id}}}" class="text-box" value="{{{value}}}">' +
-      '<button type="button" class="button-secondary list-add-entry">' +
-        'Remove<span class="hidden"> Fieldset legend number {{number}}</span>' +
-      '</button>' +
+      '{{#button}}' +
+        '<button type="button" class="button-secondary list-remove-entry">' +
+          'Remove<span class="hidden"> Fieldset legend number {{number}}</span>' +
+        '</button>' +
+      '{{/button}}' +
     '</div>'
   );
   ListEntry.prototype.addButtonTemplate = Hogan.compile(
-    '<button type="button" class="button-secondary">Add another {{subject}}</button>'
+    '<button type="button" class="button-secondary list-add-entry">Add another {{subject}}</button>'
   );
   ListEntry.prototype.getIdPattern = function (input) {
     var pattern = input.id.match(/(p\d+q\d+val)\d+$/);
@@ -71,14 +73,18 @@
   ListEntry.prototype.render = function () {
     this.$wrapper.find(this.elementSelector).remove();
     $.each(this.entries, function (idx, entry) {
-      var entryNumber = idx + 1;
+      var entryNumber = idx + 1,
+          dataObj = {
+            'id' : this.getId(entryNumber),
+            'number' : entryNumber,
+            'name' : this.getId(entryNumber),
+            'value' : entry
+          };
 
-      this.$wrapper.append(this.entryTemplate.render({
-        'id' : this.getId(entryNumber),
-        'number' : entryNumber,
-        'name' : this.getId(entryNumber),
-        'value' : entry
-      }));
+      if (entryNumber > 1) {
+        dataObj.button = true;
+      }
+      this.$wrapper.append(this.entryTemplate.render(dataObj));
     }.bind(this));
     this.$wrapper.append(this.addButtonTemplate.render({
       'subject' : 'subject'
