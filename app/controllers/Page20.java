@@ -19,7 +19,7 @@ public class Page20 extends Controller {
         Listing listing = Listing.getByListingId(listingId);
 
         // TODO: Validate all fields on this page requiring validation
-        validation.required(p20q1).key("p20q1");
+        //validation.required(p20q1).key("p20q1");
         if(validation.hasErrors()) {
             //flash.error("%s", validation.errors());
 
