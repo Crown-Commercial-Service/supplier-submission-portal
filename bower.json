@@ -2,8 +2,7 @@
   "name": "Digital-Marketplace-SSP-Prototype",
   "version": "0.0.1",
   "dependencies": {
-    "jquery": "1.11.0",
-    "mustache": "latest"
+    "jquery": "1.11.0"
   },
   "ignore": [
     "**/.*",
