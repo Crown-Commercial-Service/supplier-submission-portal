@@ -13,4 +13,5 @@
   });
 
   GOVUK.GDM.wordCounter();
+  GOVUK.GDM.listEntry();
 }).call(this);

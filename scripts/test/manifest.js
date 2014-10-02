@@ -2,9 +2,12 @@
 var manifest = {
   support : [
     '../../../node_modules/jquery-browser/lib/jquery.js',
-    '../../../app/assets/javascripts/wordCounter.js'
+    '../../../public/javascripts/hogan.js',
+    '../../../public/javascripts/listEntry.js',
+    '../../../public/javascripts/wordCounter.js'
   ],
   test : [
-    '../unit/WordCountSpec.js'
+    '../unit/WordCountSpec.js',
+    '../unit/ListEntrySpec.js'
   ]
 };
