@@ -30,8 +30,6 @@ public class Page6 extends Controller {
             if(!DocumentUtils.validateDocumentFileSize(p6q1)){
                 validation.addError("p6q1", Messages.getMessage("en", "validation.file.tooLarge"));
             }
-        } else {
-            validation.required(p6q1);
         }
 
         if(validation.hasErrors()) {

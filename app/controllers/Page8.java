@@ -25,7 +25,7 @@ public class Page8 extends Controller {
         if(p8q1 != null) {
             // TODO: Validate arrays
         } else {
-            validation.required(p8q1);
+            // validation.required(p8q1); // TODO: pricing matrix
         }
         validation.required(p8q2).key("p8q2");
         validation.required(p8q3).key("p8q3");
