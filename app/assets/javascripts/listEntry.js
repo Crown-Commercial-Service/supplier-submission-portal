@@ -53,6 +53,7 @@
     }
   };
   ListEntry.prototype.getValues = function () {
+    this.entries = [];
     this.$wrapper.find('input').each(function (idx, elm) {
       var val = $(elm).val();
 
@@ -107,6 +108,7 @@
   ListEntry.prototype.addEntry = function ($removeButton) {
     var currentLastEntryNumber = this.entries.length;
 
+    this.getValues();
     this.entries.push('');
     this.render();
     this.shiftFocus({ 'action' : 'add', 'entryNumberFocused' : currentLastEntryNumber });
@@ -114,6 +116,7 @@
   ListEntry.prototype.removeEntry = function ($removeButton) {
     var entryNumber = parseInt($removeButton.find('span').text().match(/\d+/)[0], 10);
 
+    this.getValues();
     this.removeEntryFromEntries(entryNumber);
     this.render();
     this.shiftFocus({ 'action' : 'remove', 'entryNumberFocused' : entryNumber });

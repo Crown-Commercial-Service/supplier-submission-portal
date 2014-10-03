@@ -93,6 +93,24 @@ describe("ListEntryField", function () {
       expect(getNumberFromEntry($wrapper.find('.list-entry').eq(1))).toEqual(2);
       expect(getNumberFromEntry($wrapper.find('.list-entry').eq(2))).toEqual(3);
     });
+
+    it("Should leave the list with the right values if you remove the last one", function () {
+      mock4Entries($wrapper);
+      GOVUK.GDM.listEntry();
+      $wrapper.find('.list-entry').eq(3).find('button.list-entry-remove').trigger('click');
+      expect($wrapper.find('.list-entry').eq(0).find('input').val()).toEqual('Hosting');
+      expect($wrapper.find('.list-entry').eq(1).find('input').val()).toEqual('Domain provision');
+      expect($wrapper.find('.list-entry').eq(2).find('input').val()).toEqual('CMS');
+    });
+
+    it("Should leave the list with the right values if you remove the second one", function () {
+      mock4Entries($wrapper);
+      GOVUK.GDM.listEntry();
+      $wrapper.find('.list-entry').eq(1).find('button.list-entry-remove').trigger('click');
+      expect($wrapper.find('.list-entry').eq(0).find('input').val()).toEqual('Hosting');
+      expect($wrapper.find('.list-entry').eq(1).find('input').val()).toEqual('CMS');
+      expect($wrapper.find('.list-entry').eq(2).find('input').val()).toEqual('Databases');
+    });
   }); 
 
   describe("When the 'add feature' button is clicked", function () {
@@ -109,7 +127,7 @@ describe("ListEntryField", function () {
       GOVUK.GDM.listEntry();
       expect($wrapper.find('.list-entry').length).toEqual(4);
       $wrapper.find('button.list-entry-add').trigger('click');
-      expect($wrapper.find('button.list-entry-add').text()).toEqual('Add another feature (5 left)');
+      expect($wrapper.find('button.list-entry-add').text()).toEqual('Add another feature (5 remaining)');
     });
 
     it("Should update the number of fields users are allowed to enter if one is added", function () {
@@ -117,7 +135,7 @@ describe("ListEntryField", function () {
       GOVUK.GDM.listEntry();
       expect($wrapper.find('.list-entry').length).toEqual(4);
       $wrapper.find('.list-entry').eq(3).find('button.list-entry-remove').trigger('click');
-      expect($wrapper.find('button.list-entry-add').text()).toEqual('Add another feature (7 left)');
+      expect($wrapper.find('button.list-entry-add').text()).toEqual('Add another feature (7 remaining)');
     });
   });
 });
