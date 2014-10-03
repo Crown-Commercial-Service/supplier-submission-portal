@@ -41,7 +41,7 @@
     '</div>'
   );
   ListEntry.prototype.addButtonTemplate = Hogan.compile(
-    '<button type="button" class="button-secondary list-entry-add">Add another {{subject}} ({{entriesLeft}} left)</button>'
+    '<button type="button" class="button-secondary list-entry-add">Add another {{subject}} ({{entriesLeft}} remaining)</button>'
   );
   ListEntry.prototype.getIdPattern = function (input) {
     var pattern = input.id.match(/(p\d+q\d+val)\d+$/);
