@@ -1,6 +1,7 @@
 package controllers;
 
 import play.Logger;
+import play.Play;
 import play.cache.Cache;
 import play.mvc.Before;
 import play.mvc.Controller;
@@ -46,4 +47,12 @@ public abstract class AuthenticatingController extends Controller {
         }
     }
 
+    @Before
+    static void verifySSL()
+    {
+        if(Play.mode != Play.Mode.DEV){
+            if (!request.secure)
+                redirect("https://" + request.host + request.url);
+        }
+    }
 }
