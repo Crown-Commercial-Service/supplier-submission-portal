@@ -15,13 +15,22 @@
 
     if (!idPattern) { return false; }
     this.idPattern = idPattern;
-    this.elementSelector = '.list-entry, .list-remove-entry';
-    this.$wrapper = $elm;
+    this.elementSelector = '.list-entry, .list-entry-remove, .list-entry-add';
     this.entries = [];
+    this.$wrapper = $elm;
     this.minEntries = 2;
+    this.subject = this.$wrapper.data('subject');
+
     this.getValues();
+    this.maxEntries = this.entries.length;
     this.trimEntries();
     this.render();
+    this.$wrapper.on('click', '.list-entry-remove', function (e) {
+      this.removeEntry($(e.target));
+    }.bind(this));
+    this.$wrapper.on('click', '.list-entry-add', function (e) {
+      this.addEntry();
+    }.bind(this));
   };
   ListEntry.prototype.entryTemplate = Hogan.compile(
     '<div class="list-entry">' +
@@ -30,14 +39,14 @@
       '</label>' +
       '<input type="text" name="{{{name}}}" id="{{{id}}}" class="text-box" value="{{{value}}}">' +
       '{{#button}}' +
-        '<button type="button" class="button-secondary list-remove-entry">' +
+        '<button type="button" class="button-secondary list-entry-remove">' +
           'Remove<span class="hidden"> Fieldset legend number {{number}}</span>' +
         '</button>' +
       '{{/button}}' +
     '</div>'
   );
   ListEntry.prototype.addButtonTemplate = Hogan.compile(
-    '<button type="button" class="button-secondary list-add-entry">Add another {{subject}}</button>'
+    '<button type="button" class="button-secondary list-entry-add">Add another {{subject}} ({{entriesLeft}} left)</button>'
   );
   ListEntry.prototype.getIdPattern = function (input) {
     var pattern = input.id.match(/(p\d+q\d+val)\d+$/);
@@ -60,7 +69,7 @@
       if (entry === '') {
         return null
       } else {
-        return this;
+        return entry;
       }
     }.bind(this));
     if (this.entries.length < this.minEntries) {
@@ -69,6 +78,42 @@
   };
   ListEntry.prototype.getId = function (num) {
     return this.idPattern + num;
+  };
+  ListEntry.prototype.shiftFocus = function (opts) {
+    var numberTargeted;
+
+    if (opts.action === 'remove') {
+      numberTargeted = (opts.entryNumberFocused > 1) ? opts.entryNumberFocused - 1 : 1;
+    } else { // opts.action === 'add'
+      numberTargeted = opts.entryNumberFocused + 1;
+    }
+    this.$wrapper.find('.list-entry').eq(numberTargeted - 1).find('input').focus();
+  };
+  ListEntry.prototype.removeEntryFromEntries = function (entryNumber) {
+    var idx,
+        len,
+        newEntries = [];
+
+    for (idx = 0, len = this.entries.length; idx < len; idx++) {
+      if ((entryNumber - 1) !== idx) {
+        newEntries.push(this.entries[idx]);
+      }
+    }
+    this.entries = newEntries;
+  };
+  ListEntry.prototype.addEntry = function ($removeButton) {
+    var currentLastEntryNumber = this.entries.length;
+
+    this.entries.push('');
+    this.render();
+    this.shiftFocus({ 'action' : 'add', 'entryNumberFocused' : currentLastEntryNumber });
+  };
+  ListEntry.prototype.removeEntry = function ($removeButton) {
+    var entryNumber = parseInt($removeButton.find('span').text().match(/\d+/)[0], 10);
+
+    this.removeEntryFromEntries(entryNumber);
+    this.render();
+    this.shiftFocus({ 'action' : 'remove', 'entryNumberFocused' : entryNumber });
   };
   ListEntry.prototype.render = function () {
     this.$wrapper.find(this.elementSelector).remove();
@@ -87,7 +132,8 @@
       this.$wrapper.append(this.entryTemplate.render(dataObj));
     }.bind(this));
     this.$wrapper.append(this.addButtonTemplate.render({
-      'subject' : 'subject'
+      'subject' : this.subject,
+      'entriesLeft' : (this.maxEntries - this.entries.length)
     }));
   };
 
