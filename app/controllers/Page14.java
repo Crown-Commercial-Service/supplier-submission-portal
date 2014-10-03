@@ -4,7 +4,6 @@ import models.Listing;
 import models.Page;
 import play.mvc.Controller;
 
-<<<<<<< HEAD
 import play.data.validation.*;
 import play.data.validation.Error;
 
@@ -12,10 +11,7 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.List;
 
-public class Page14 extends Controller {
-=======
 public class Page14 extends AuthenticatingController {
->>>>>>> d339c59... Added cookie authentication to all controllers + check supplier ids match owner
 
     private static final Long PAGE_ID = 14l;
 
