@@ -4,7 +4,7 @@
 	<threadsafe>true</threadsafe>
 
     <system-properties>
-        <property name="ssp.cookie.enc" value="Bar12345Bar12345" />
+        <property name="ssp.cookie.enc" value="@{encKey}" />
     </system-properties>
 </appengine-web-app>
 
