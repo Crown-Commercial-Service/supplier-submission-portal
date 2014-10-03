@@ -11,25 +11,46 @@
       @include box-sizing(border-box);
     }
 
-    &-change-link {
-      @include core-19;
-      font-weight: normal;
+    &-top-level-action {
+      @include copy-19;
       text-align: right;
+      margin: -36px 0 0 0;
+      padding-left: 50%;
     }
 
     &-answer-list {
-
       border-top: 1px solid $grey-3;
       margin: 0 0 30px 0;
-
     }
 
-    &-answer {
+    &-without-answers {
+      border-top: 1px solid $grey-3;
+      border-bottom: 1px solid $grey-3;
+      padding-top: 10px;
+    }
 
+    &-answer-heading {
+      display: none;
+    }
+
+    &-answer-part {
       @include core-19;
       padding: 10px 0;
       border-bottom: 1px solid $grey-3;
+      text-align: right;
+    }
 
+    &-answer-title {
+      text-align: left;
+      width: 60%;
+    }
+
+    &-answer-progress {
+      width: 30%;
+    }
+
+    &-answer-action {
+      width: 10%;
     }
 
   }

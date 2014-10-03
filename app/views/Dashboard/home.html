@@ -21,8 +21,10 @@
 <div class='summary-item'>
   <h2 class='summary-item-heading'>
     Draft services
-    <a href='/addservice' class='summary-item-change-link' id='new_service'>Add a new service</a>
   </h2>
+  <p class='summary-item-top-level-action'>
+    <a href='/addservice' class='summary-item-change-link' id='new_service'>Add a new service</a>
+  </p>
 
   #{ifnot listings}
   <p class='question-hint summary-item-answer-list summary-item-answer'>
@@ -31,24 +33,43 @@
   #{/ifnot}
   #{else}
 
-  <ul class='summary-item-answer-list'>
-    #{list listings, as:'listing'}
-    <li class='summary-item-answer'>
+  <table width='100%'>
+    <thead class='summary-item-answer-heading'>
+      <tr>
+        <td>
+          Service name
+        </td>
+        <td>
+          Progress
+        </td>
+        <td>
+          Action
+        </td>
+      </tr>
+    </thead>
+    <tbody class='summary-item-answer-list'>
+      #{list listings, as:'listing'}
       %{
         if (listing.title != null)
            serviceName = listing.title;
         else serviceName = listing.id;
       }%
-      ${serviceName}
-      <span class='summary-item-change-link'>
-        ${listing.completedPageCount()}
-        of
-        ${listing.getPageSequenceSize()} steps complete&ensp;<a href='/service/${listing.id}'>Continue</a>
-        ${listing.description}
-      </span>
-    </li>
-    #{/list}
-  </ul>
+      <tr>
+        <td class='summary-item-answer-part summary-item-answer-title'>
+          ${serviceName}
+        </td>
+        <td class='summary-item-answer-part summary-item-answer-progress'>
+          ${listing.completedPageCount()}
+          of
+          ${listing.getPageSequenceSize()} pages complete
+        </td>
+        <td class='summary-item-answer-part summary-item-answer-action'>
+          <a href='/service/${listing.id}'>Continue</a>
+        </td>
+      </tr>
+      #{/list}
+    </tbody>
+  </table>
   #{/else}
 </div>
 <div class='summary-item'>
@@ -58,7 +79,7 @@
   <p class='question-hint'>
     Once approved, these services will be published on the Digital Marketplace
   </p>
-  <p class='question-hint summary-item-answer-list summary-item-answer'>
+  <p class='question-hint summary-item-without-answers'>
     You haven't marked any services as completed yet
   </p>
 </div>
