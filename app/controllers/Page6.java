@@ -23,7 +23,7 @@ public class Page6 extends AuthenticatingController {
 
         // Validate document
         //validation.required(p6q1).message("p6q1: null");
-        if(!p6q1.equals(null)){
+        if(p6q1 != null){
             if(!DocumentUtils.validateDocumentFormat(p6q1)){
                 validation.addError("p6q1", Messages.getMessage("en", "validation.file.wrongFormat"));
             }
