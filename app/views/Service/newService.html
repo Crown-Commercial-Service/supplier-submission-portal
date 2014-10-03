@@ -22,40 +22,35 @@
     total: pageTotal,
     title: content.get(page + 'title')
   /}
-  <fieldset class='question question-with-explantion'>
-    #{question-heading
-      heading: content.get(question + 'text'),
-      hint: content.get(question + 'hint')
-    /}
-    #{forms/selection-button-radio
-      name: 'lot',
-      label: content.get(question + 'val1Label'),
-      description: 'Infrastructure is the hardware that makes software work. It’s the networks, hosting facilities and servers that platforms and software depend on. IaaS is infrastructure you can order and run entirely over the internet, without having to pay for your own hardware.',
-      value: 'IaaS'
-    /}
-    #{forms/selection-button-radio
-      name: 'lot',
-      label: content.get(question + 'val2Label'),
-      description: 'SaaS is an application or service that can be run over the internet or in the cloud. For example, web-based email services, customer relationship management (CRM) software and analytics tools.',
-      value: 'SaaS'
-    /}
-    #{forms/selection-button-radio
-      name: 'lot',
-      label: content.get(question + 'val3Label'),
-      description: 'Platforms are just that: software platforms that provide a basis for building other services and applications. With PaaS, you can set up, order, pay for and manage platforms in the cloud.',
-      value: 'PaaS'
-    /}
-    #{forms/selection-button-radio
-      name: 'lot',
-      label: content.get(question + 'val4Label'),
-      description: 'Specialist Cloud Services support your transition to SaaS, PaaS and IaaS. For example, cloud strategy, data transfer between providers, or day-to-day support of cloud-based services.',
-      value: 'SCS'
-    /}
-  </fieldset>
+  #{question-heading
+    heading: content.get(question + 'text'),
+    hint: content.get(question + 'hint')
+  /}
+  #{forms/selection-button-radio
+    name: 'lot',
+    label: content.get(question + 'val1Label'),
+    description: 'Infrastructure is the hardware that makes software work. It’s the networks, hosting facilities and servers that platforms and software depend on. IaaS is infrastructure you can order and run entirely over the internet, without having to pay for your own hardware.',
+    value: 'IaaS'
+  /}
+  #{forms/selection-button-radio
+    name: 'lot',
+    label: content.get(question + 'val2Label'),
+    description: 'SaaS is an application or service that can be run over the internet or in the cloud. For example, web-based email services, customer relationship management (CRM) software and analytics tools.',
+    value: 'SaaS'
+  /}
+  #{forms/selection-button-radio
+    name: 'lot',
+    label: content.get(question + 'val3Label'),
+    description: 'Platforms are just that: software platforms that provide a basis for building other services and applications. With PaaS, you can set up, order, pay for and manage platforms in the cloud.',
+    value: 'PaaS'
+  /}
+  #{forms/selection-button-radio
+    name: 'lot',
+    label: content.get(question + 'val4Label'),
+    description: 'Specialist Cloud Services support your transition to SaaS, PaaS and IaaS. For example, cloud strategy, data transfer between providers, or day-to-day support of cloud-based services.',
+    value: 'SCS'
+  /}
   <div class="page-footer">
     <input type="submit" value="Save and continue" id="submit" class="page-footer-item button button-save" />
-    <p class="page-footer-item">
-      <a href="/">Return to dashboard</a>
-    </p>
   </div>
 </form>

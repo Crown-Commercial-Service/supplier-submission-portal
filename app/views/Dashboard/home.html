@@ -14,72 +14,112 @@
 <p class='position'>
     ${supplierDetails.get("supplierEmail")}
 </p>
-<h1 class='page-heading'>
-    ${supplierDetails.get("supplierCompanyName")} [${supplierDetails.get("supplierId")}]
+<h1 class='page-heading' id='supplier-${supplierDetails.get("supplierId")}'>
+    ${supplierDetails.get("supplierCompanyName")}
 </h1>
 
-<div class='summary-item'>
-  <h2 class='summary-item-heading'>
-    Draft services
-  </h2>
-  <p class='summary-item-top-level-action'>
-    <a href='/addservice' class='summary-item-change-link' id='new_service'>Add a new service</a>
-  </p>
+<h2 class='summary-heading'>
+  Draft services
+</h2>
+<p class='summary-top-level-action'>
+  <a href='/addservice' class='summary-change-link' id='new_service'>Add a new service</a>
+</p>
 
-  #{ifnot listings}
-  <p class='question-hint summary-item-answer-list summary-item-answer'>
-    You haven't added any services yet
-  </p>
-  #{/ifnot}
-  #{else}
+#{ifnot listings}
+<p class='question-hint summary-answer-list summary-without-answers'>
+  You haven't added any services yet
+</p>
+#{/ifnot}
+#{else}
 
-  <table width='100%'>
-    <thead class='summary-item-answer-heading'>
-      <tr>
-        <td>
-          Service name
-        </td>
-        <td>
-          Progress
-        </td>
-        <td>
-          Action
-        </td>
-      </tr>
-    </thead>
-    <tbody class='summary-item-answer-list'>
-      #{list listings, as:'listing'}
-      %{
-        if (listing.title != null)
-           serviceName = listing.title;
-        else serviceName = listing.id;
-      }%
-      <tr>
-        <td class='summary-item-answer-part summary-item-answer-title'>
-          ${serviceName}
-        </td>
-        <td class='summary-item-answer-part summary-item-answer-progress'>
-          ${listing.completedPageCount()}
-          of
-          ${listing.getPageSequenceSize()} pages complete
-        </td>
-        <td class='summary-item-answer-part summary-item-answer-action'>
-          <a href='/service/${listing.id}'>Continue</a>
-        </td>
-      </tr>
-      #{/list}
-    </tbody>
-  </table>
-  #{/else}
-</div>
-<div class='summary-item'>
-  <h2 class='summary-item-heading'>
-    Completed services
-  </h2>
-  <p class='question-hint'>
-    Once approved, these services will be published on the Digital Marketplace
-  </p>
-  <p class='question-hint summary-item-without-answers'>
-    You haven't marked any services as completed yet
-  </p>
-</div>
+<table width='100%' class='summary-item'>
+  <thead class='summary-answer-heading'>
+    <tr>
+      <td>
+        Service name
+      </td>
+      <td>
+        Pages completed
+      </td>
+      <td>
+        Link to first incomplete page
+      </td>
+    </tr>
+  </thead>
+  <tbody class='summary-answer-list'>
+    #{list listings, as:'listing'}
+    %{
+      if (listing.title != null)
+         serviceName = listing.title;
+      else serviceName = listing.id;
+    }%
+    <tr class='summary-row'>
+      <td class='summary-answer-title'>
+        <a href='/service/${listing.id}'>${serviceName}</a>
+      </td>
+      <td class='summary-answer-progress'>
+        ${listing.completedPageCount()}
+        of
+        ${listing.getPageSequenceSize()} pages complete
+      </td>
+      <td class='summary-answer-action'>
+        <a href='/service/${listing.id}'>Continue</a>
+      </td>
+    </tr>
+    #{/list}
+  </tbody>
+</table>
+#{/else}
+
+<h2 class='summary-heading'>
+  Completed services
+</h2>
+<p class='question-hint'>
+  These services will be published on the Digital Marketplace when G-Cloud 6 goes live
+</p>
+%{
+  if (play.configuration.getProperty("application.mode") == 'prod') {
+}%
+<p class='question-hint summary-without-answers'>
+  You haven't marked any services as completed yet
+</p>
+%{
+  } else {
+}%
+<table width='100%'>
+  <thead class='summary-answer-heading'>
+    <tr>
+      <td>
+        Service name
+      </td>
+      <td>
+        Actions that can be performed on this service
+      </td>
+    </tr>
+  </thead>
+  <tbody class='summary-answer-list'>
+    <tr class='summary-row'>
+      <td class='summary-answer-title'>
+        <a href='#'>Example service 1</a>
+      </td>
+      <td class='summary-answer-progress'>
+        <button class='summary-answer-button'>
+          Return service to drafts
+        </button>
+      </td>
+    </tr>
+    <tr class='summary-row'>
+      <td class='summary-answer-title'>
+        <a href='#'>Another example service</a>
+      </td>
+      <td class='summary-answer-progress'>
+        <button class='summary-answer-button'>
+          Return service to drafts
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+%{
+  }
+}%
