@@ -1,25 +1,30 @@
 .input-list {
 
-  &-add-button {
-    @include core-19;
-  }
-
-  &-remove-button {
+  .list-entry-remove {
 
     @include core-19;
-    margin: 0 0 10px 0;
-    padding: 0 0 0 15px;
     display: block;
+    margin-bottom: 15px;
 
     @include media(desktop){
-      margin: -52px 0 25px 66%;
+      @include inline-block;
+      margin: 0 0 0 0.6em;
     }
 
   }
 
   .text-box {
 
-    padding-left: 35px;
+    padding-left: 1.84em;
+    width: 100%;
+    @include ie-lte(8) {
+      width: 95%;
+    }
+
+    @include media(desktop){
+      @include inline-block;
+      width: 66%;
+    }
 
     &-number-label {
       float: left;
@@ -33,6 +38,10 @@
       pointer-events: none;
     }
 
+  }
+
+  .list-entry-add {
+    @include core-19;
   }
 
 }
