@@ -25,12 +25,7 @@
     this.maxEntries = this.entries.length;
     this.trimEntries();
     this.render();
-    this.$wrapper.on('click', '.list-entry-remove', function (e) {
-      this.removeEntry($(e.target));
-    }.bind(this));
-    this.$wrapper.on('click', '.list-entry-add', function (e) {
-      this.addEntry();
-    }.bind(this));
+    this.bindEvents();
   };
   ListEntry.prototype.entryTemplate = Hogan.compile(
     '<div class="list-entry">' +
@@ -78,6 +73,14 @@
   };
   ListEntry.prototype.getId = function (num) {
     return this.idPattern + num;
+  };
+  ListEntry.prototype.bindEvents = function () {
+    this.$wrapper.on('click', '.list-entry-remove', function (e) {
+      this.removeEntry($(e.target));
+    }.bind(this));
+    this.$wrapper.on('click', '.list-entry-add', function (e) {
+      this.addEntry();
+    }.bind(this));
   };
   ListEntry.prototype.shiftFocus = function (opts) {
     var numberTargeted;
