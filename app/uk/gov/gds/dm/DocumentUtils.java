@@ -9,7 +9,7 @@ public class DocumentUtils {
     public static final int MAX_FILE_SIZE = 5400000;
 
     public static boolean validateDocumentFormat(File file){
-        String fileType = FilenameUtils.getExtension(file.getName());
+        String fileType = FilenameUtils.getExtension(file.getName().toLowerCase());
         return (fileType.equals("pdf") || fileType.equals("odf") || fileType.equals("pda"));
     }
 
