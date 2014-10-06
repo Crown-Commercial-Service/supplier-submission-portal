@@ -14,7 +14,7 @@
         $textarea
           .after(
             '<p class="' + counterClass + '" ' +
-              'role="status" aria-live="assertive" aria-relevant="text" ' +
+              'role="status" aria-live="polite" aria-relevant="text" ' +
               'id="word-count-' + $textarea.prop('name') + '"' +
             '/>'
           )
