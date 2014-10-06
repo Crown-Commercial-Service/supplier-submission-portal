@@ -41,7 +41,6 @@ public class Page6 extends AuthenticatingController {
 
                 flash.put(key, value);
             }
-            System.out.println(flash);
             redirect(String.format("/page/%d/%d", PAGE_ID, listing.id));
         }
 

@@ -25,14 +25,21 @@ public class Page5 extends AuthenticatingController {
         ArrayList<String> q1 = new ArrayList();
         ArrayList<String> q2 = new ArrayList();
         String s;
+//        System.out.println("PARAMAS " + params);
+//        System.out.println("p5q1val1: "  + params.get("p5q1val1"));
         for (int i=1; i<11; i++) {
-            s = params.get("p5q1val" +i)[0];
-            if (!Strings.isNullOrEmpty(s)) {
-                q1.add(s);
+            if(params.containsKey("p5q1val" + i)){
+                s = params.get("p5q1val" + i)[0];
+                if (!Strings.isNullOrEmpty(s)) {
+                    q1.add(s);
+                }
             }
-            s = params.get("p5q2val" +i)[0];
-            if (!Strings.isNullOrEmpty(s)) {
-                q2.add(s);
+
+            if(params.containsKey("p5q2val" + i)){
+                s = params.get("p5q2val" + i)[0];
+                if (!Strings.isNullOrEmpty(s)) {
+                    q2.add(s);
+                }
             }
         }
         // Validate all fields on this page requiring validation
