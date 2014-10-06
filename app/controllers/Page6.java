@@ -3,6 +3,7 @@ package controllers;
 import models.Listing;
 import models.Page;
 import play.Logger;
+import play.data.Upload;
 import play.mvc.Controller;
 import uk.gov.gds.dm.DocumentUtils;
 import play.i18n.Messages;
@@ -18,22 +19,20 @@ public class Page6 extends AuthenticatingController {
 
     private static final Long PAGE_ID = 6l;
 
-    public static void savePage(Long listingId, File p6q1) {
+    public static void savePage(Long listingId, Upload p6q1) {
 
         Listing listing = Listing.getByListingId(listingId);
 
-        // Validate document
-        //validation.required(p6q1).message("p6q1: null");
         Logger.info("p6q1 = %s", p6q1);
 
         if(p6q1 != null){
-            Logger.info("Inside != null if statement");
-            if(!DocumentUtils.validateDocumentFormat(p6q1)){
-                validation.addError("p6q1", Messages.getMessage("en", "validation.file.wrongFormat"));
-            }
-            if(!DocumentUtils.validateDocumentFileSize(p6q1)){
-                validation.addError("p6q1", Messages.getMessage("en", "validation.file.tooLarge"));
-            }
+//            Logger.info("Inside != null if statement");
+//            if(!DocumentUtils.validateDocumentFormat(p6q1)){
+//                validation.addError("p6q1", Messages.getMessage("en", "validation.file.wrongFormat"));
+//            }
+//            if(!DocumentUtils.validateDocumentFileSize(p6q1)){
+//                validation.addError("p6q1", Messages.getMessage("en", "validation.file.tooLarge"));
+//            }
         }
 
         if(validation.hasErrors()) {
