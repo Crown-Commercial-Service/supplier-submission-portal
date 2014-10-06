@@ -12,8 +12,11 @@
   #{forms/error-message
     error: _error
   /}
+  %{
+    def textBoxSize = _max_words < 30 ? 'medium' : 'large'
+  }%
   <textarea
-    class='text-box text-box-large' name="${_name}" id="${_name}"
+    class='text-box text-box-${textBoxSize}' name="${_name}" id="${_name}"
     data-max-length-in-words="${_max_words}"
     aria-controls='${_name}-word-count'
   >${_value}</textarea>
