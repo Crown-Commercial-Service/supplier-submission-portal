@@ -19,7 +19,7 @@
     this.entries = [];
     this.$wrapper = $elm;
     this.minEntries = 2;
-    this.subject = this.$wrapper.data('subject');
+    this.listItemName = this.$wrapper.data('listItemName');
 
     this.getValues();
     this.maxEntries = this.entries.length;
@@ -30,18 +30,18 @@
   ListEntry.prototype.entryTemplate = Hogan.compile(
     '<div class="list-entry">' +
       '<label for="{{{id}}}" class="text-box-number-label">' +
-        '<span class="hidden">Fieldset legend number </span>{{number}}.' +
+        '<span class="hidden">{{listItemName}} number </span>{{number}}.' +
       '</label>' +
       '<input type="text" name="{{{name}}}" id="{{{id}}}" class="text-box" value="{{{value}}}">' +
       '{{#button}}' +
         '<button type="button" class="button-secondary list-entry-remove">' +
-          'Remove<span class="hidden"> Fieldset legend number {{number}}</span>' +
+          'Remove<span class="hidden"> {{listItemName}} number {{number}}</span>' +
         '</button>' +
       '{{/button}}' +
     '</div>'
   );
   ListEntry.prototype.addButtonTemplate = Hogan.compile(
-    '<button type="button" class="button-secondary list-entry-add">Add another {{subject}} ({{entriesLeft}} remaining)</button>'
+    '<button type="button" class="button-secondary list-entry-add">Add another {{listItemName}} ({{entriesLeft}} remaining)</button>'
   );
   ListEntry.prototype.getIdPattern = function (input) {
     var pattern = input.id.match(/(p\d+q\d+val)\d+$/);
@@ -129,7 +129,8 @@
             'id' : this.getId(entryNumber),
             'number' : entryNumber,
             'name' : this.getId(entryNumber),
-            'value' : entry
+            'value' : entry,
+            'listItemName' : this.listItemName
           };
 
       if (entryNumber > 1) {
@@ -138,7 +139,7 @@
       this.$wrapper.append(this.entryTemplate.render(dataObj));
     }.bind(this));
     this.$wrapper.append(this.addButtonTemplate.render({
-      'subject' : this.subject,
+      'listItemName' : this.listItemName,
       'entriesLeft' : (this.maxEntries - this.entries.length)
     }));
   };

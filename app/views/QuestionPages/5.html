@@ -12,7 +12,7 @@
   lot: lot
 /}
 
-<form action='${request.getBase()}${request.url}' method='POST'>
+<form action="${request.getBase()}${request.url}" method="POST">
   #{heading
     current: pageNum,
     total: pageTotal,
@@ -24,7 +24,7 @@
     questionIsRelevantToSelectedLot = content.get(question + 'lots').contains(lot)
     if (questionIsRelevantToSelectedLot) {
   }%
-  <div class='input-list' data-subject='feature'>
+  <div class="input-list" data-list-item-name="${content.get(question + 'listItemName')}">
     #{question-heading
       heading: content.get(question + 'text'),
       hint: content.get(question + 'hint'),
@@ -52,7 +52,7 @@
     questionIsRelevantToSelectedLot = content.get(question + 'lots').contains(lot)
     if (questionIsRelevantToSelectedLot) {
   }%
-  <div class='input-list'>
+  <div class="input-list" data-list-item-name="${content.get(question + 'listItemName')}">
     #{question-heading
       heading: content.get(question + 'text'),
       hint: content.get(question + 'hint'),
