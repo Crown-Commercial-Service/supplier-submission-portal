@@ -6,14 +6,19 @@
       $ = this.jQuery,
       wordCounter;
 
-  var counterClass = 'wordCount',
+  var counterClass = 'word-count-counter',
       attach = function() {
-        var $textarea = $('textarea[data-max-length-in-words]')
-        
+        var $textarea = $('textarea[data-max-length-in-words]');
+
         if (!$textarea.length) { return; }
         $textarea
-          .after('<p class="' + counterClass + '" role="status" aria-live="assertive" aria-relevant="text" id="wordcount" />')
-          .attr('aria-controls', 'wordcount')
+          .after(
+            '<p class="' + counterClass + '" ' +
+              'role="status" aria-live="polite" aria-relevant="text" ' +
+              'id="word-count-' + $textarea.prop('name') + '"' +
+            '/>'
+          )
+          .attr('aria-controls', 'word-count-' + $textarea.prop('name'))
           .on('change keyup paste', showCount);
         showCount.call($textarea[0]);
       },
