@@ -28,6 +28,7 @@ public class QuestionPageDisplay extends AuthenticatingController {
         renderArgs.put("content", Fixtures.getContentProperties());
         renderArgs.put("pageNum", Integer.toString(index+1));
         renderArgs.put("pageTotal", Integer.toString(listing.pageSequence.size()));
+        renderArgs.put("listingId", listingId);
 
         Page page = listing.completedPages.get(index);
         if (page!= null) {
