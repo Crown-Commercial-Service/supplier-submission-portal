@@ -2,6 +2,7 @@ package controllers;
 
 import models.Listing;
 import models.Page;
+import play.data.Upload;
 import play.i18n.Messages;
 import play.mvc.Controller;
 import uk.gov.gds.dm.DocumentUtils;
@@ -19,7 +20,7 @@ public class Page7 extends AuthenticatingController {
     private static final Long PAGE_ID = 7l;
 
 
-    public static void savePage(Long listingId, String p7q1, String p7q2, File p7q3) {
+    public static void savePage(Long listingId, String p7q1, String p7q2, Upload p7q3) {
 
         Listing listing = Listing.getByListingId(listingId);
 
@@ -30,11 +31,12 @@ public class Page7 extends AuthenticatingController {
         validation.required(p7q2).key("p7q2");
 
         // Validate document
+        validation.required(p7q3).key("p7q3");
         if(p7q3 != null){
-            if(!DocumentUtils.validateDocumentFormat(p7q3)){
+            if(!DocumentUtils.validateDocumentFormat(p7q3.asFile())){
                 validation.addError("p7q3", Messages.getMessage("en", "validation.file.wrongFormat"));
             }
-            if(!DocumentUtils.validateDocumentFileSize(p7q3)){
+            if(!DocumentUtils.validateDocumentFileSize(p7q3.asFile())){
                 validation.addError("p7q3", Messages.getMessage("en", "validation.file.tooLarge"));
             }
         }

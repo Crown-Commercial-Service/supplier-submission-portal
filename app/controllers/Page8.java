@@ -3,6 +3,7 @@ package controllers;
 import com.google.gson.Gson;
 import models.Listing;
 import models.Page;
+import play.data.Upload;
 import play.i18n.Messages;
 import play.mvc.Controller;
 import uk.gov.gds.dm.DocumentUtils;
@@ -18,7 +19,7 @@ public class Page8 extends AuthenticatingController {
 
     private static final Long PAGE_ID = 8l;
 
-    public static void savePage(Long listingId, String[][] p8q1, String p8q2, String p8q3, String p8q4, String p8q5, File p8q6, File p8q7) {
+    public static void savePage(Long listingId, String[][] p8q1, String p8q2, String p8q3, String p8q4, String p8q5, Upload p8q6, Upload p8q7) {
 
         Listing listing = Listing.getByListingId(listingId);
 
@@ -36,20 +37,21 @@ public class Page8 extends AuthenticatingController {
         }
 
         // Validate documents
+        validation.required(p8q6).key("p8q6");
         if(p8q6 != null){
-            if(!DocumentUtils.validateDocumentFormat(p8q6)){
+            if(!DocumentUtils.validateDocumentFormat(p8q6.asFile())){
                 validation.addError("p8q6", Messages.getMessage("en", "validation.file.wrongFormat"));
             }
-            if(!DocumentUtils.validateDocumentFileSize(p8q6)){
+            if(!DocumentUtils.validateDocumentFileSize(p8q6.asFile())){
                 validation.addError("p8q6", Messages.getMessage("en", "validation.file.tooLarge"));
             }
-        } // TODO: Is pricing document optional???
+        }
 
         if(p8q7 != null){
-            if(!DocumentUtils.validateDocumentFormat(p8q7)){
+            if(!DocumentUtils.validateDocumentFormat(p8q7.asFile())){
                 validation.addError("p8q7", Messages.getMessage("en", "validation.file.wrongFormat"));
             }
-            if(!DocumentUtils.validateDocumentFileSize(p8q7)){
+            if(!DocumentUtils.validateDocumentFileSize(p8q7.asFile())){
                 validation.addError("p8q7", Messages.getMessage("en", "validation.file.tooLarge"));
             }
         }

@@ -23,22 +23,19 @@ public class Page6 extends AuthenticatingController {
 
         Listing listing = Listing.getByListingId(listingId);
 
-        Logger.info("p6q1 = %s", p6q1);
+        validation.required(p6q1).key("p6q1");
 
         if(p6q1 != null){
-//            Logger.info("Inside != null if statement");
-//            if(!DocumentUtils.validateDocumentFormat(p6q1)){
-//                validation.addError("p6q1", Messages.getMessage("en", "validation.file.wrongFormat"));
-//            }
-//            if(!DocumentUtils.validateDocumentFileSize(p6q1)){
-//                validation.addError("p6q1", Messages.getMessage("en", "validation.file.tooLarge"));
-//            }
+            if(!DocumentUtils.validateDocumentFormat(p6q1.asFile())){
+                validation.addError("p6q1", Messages.getMessage("en", "validation.file.wrongFormat"));
+            }
+            if(!DocumentUtils.validateDocumentFileSize(p6q1.asFile())){
+                validation.addError("p6q1", Messages.getMessage("en", "validation.file.tooLarge"));
+            }
         }
 
         if(validation.hasErrors()) {
             //flash.error("%s", validation.errors());
-
-            Logger.info("Validation errorsmap: %s", validation.errorsMap());
 
             for(Map.Entry<String, List<Error>> entry : validation.errorsMap().entrySet()) {
                 String key = entry.getKey();
