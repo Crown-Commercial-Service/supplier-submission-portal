@@ -33,10 +33,10 @@ public class Page7 extends AuthenticatingController {
         // Validate document
         validation.required(p7q3).key("p7q3");
         if(p7q3 != null){
-            if(!DocumentUtils.validateDocumentFormat(p7q3.asFile())){
+            if(!DocumentUtils.validateDocumentFormat(p7q3)){
                 validation.addError("p7q3", Messages.getMessage("en", "validation.file.wrongFormat"));
             }
-            if(!DocumentUtils.validateDocumentFileSize(p7q3.asFile())){
+            if(!DocumentUtils.validateDocumentFileSize(p7q3)){
                 validation.addError("p7q3", Messages.getMessage("en", "validation.file.tooLarge"));
             }
         }

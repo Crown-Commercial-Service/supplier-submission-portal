@@ -39,19 +39,19 @@ public class Page8 extends AuthenticatingController {
         // Validate documents
         validation.required(p8q6).key("p8q6");
         if(p8q6 != null){
-            if(!DocumentUtils.validateDocumentFormat(p8q6.asFile())){
+            if(!DocumentUtils.validateDocumentFormat(p8q6)){
                 validation.addError("p8q6", Messages.getMessage("en", "validation.file.wrongFormat"));
             }
-            if(!DocumentUtils.validateDocumentFileSize(p8q6.asFile())){
+            if(!DocumentUtils.validateDocumentFileSize(p8q6)){
                 validation.addError("p8q6", Messages.getMessage("en", "validation.file.tooLarge"));
             }
         }
 
         if(p8q7 != null){
-            if(!DocumentUtils.validateDocumentFormat(p8q7.asFile())){
+            if(!DocumentUtils.validateDocumentFormat(p8q7)){
                 validation.addError("p8q7", Messages.getMessage("en", "validation.file.wrongFormat"));
             }
-            if(!DocumentUtils.validateDocumentFileSize(p8q7.asFile())){
+            if(!DocumentUtils.validateDocumentFileSize(p8q7)){
                 validation.addError("p8q7", Messages.getMessage("en", "validation.file.tooLarge"));
             }
         }
