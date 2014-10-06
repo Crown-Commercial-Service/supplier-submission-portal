@@ -1,14 +1,14 @@
 describe("ListEntryField", function () {
   var entryFieldTemplate = Hogan.compile('<div class="list-entry">' +
-                                          '<label for="{{{id}}}" class="text-box-number-label">' + 
+                                          '<label for="{{{id}}}" class="text-box-number-label">' +
                                             '<span class="hidden">Fieldset legend number </span>{{number}}.' +
                                           '</label>' +
                                           '<input type="text" name="{{{id}}}" id="{{{id}}}" class="text-box" value="">' +
                                         '</div>'
                             ),
       wrapperHTML = '<div class="input-list" data-subject="feature">' +
-                      '<fieldset class="question">' + 
-                        '<legend class="question-heading question-heading-with-hint ">Service features</legend>' + 
+                      '<fieldset class="question">' +
+                        '<legend class="question-heading question-heading-with-hint ">Service features</legend>' +
                         '<p class="question-hint">Include the technical features of your product, eg graphical workflow, remote access. (Maximum 10 words per feature. Maximum 10 features.)</p>' +
                       '</fieldset>' +
                     '</div>',
@@ -29,7 +29,7 @@ describe("ListEntryField", function () {
       $wrapper.append(entryFieldTemplate.render({
         'id' : 'p1q1val' + idx,
         'number' : idx
-      })); 
+      }));
     }
     $(document.body).append($wrapper);
   });
@@ -127,7 +127,7 @@ describe("ListEntryField", function () {
       $wrapper.find('.list-entry').eq(9).find('button.list-entry-remove').trigger('click');
       expect($wrapper.find('button.list-entry-add').length).toEqual(1);
     });
-  }); 
+  });
 
   describe("When the 'add feature' button is clicked", function () {
     it("Should add a new field", function () {
