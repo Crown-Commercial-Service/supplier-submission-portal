@@ -3,32 +3,14 @@ module.exports = function(grunt){
   var JSModules = [];
   var combineJsonFile = __dirname + '/content.json';
   var propertiesFile = __dirname + '/conf/content.properties';
-
-  grunt.registerTask(
-    'findJS',
-    'Make an array of all JS files that can be used by other tasks',
-    function () {
-
-      JSModules.push("public/javascripts/jquery.js");
-      grunt.file.recurse(
-        "public/javascripts",
-        function(abspath, rootdir, subdir, filename) {
-
-          if (
-            filename.match(/\.js/) &&
-            !filename.match(/application\.js/) &&
-            !filename.match(/jquery\.js/) &&
-            !filename.match(/main\.js/) &&
-            !filename.match(/\.min\.js/) &&
-            !filename.match(/\.map/)
-          ) JSModules.push(abspath);
-
-        }
-      );
-      JSModules.push("public/javascripts/main.js");
-
-    }
-  );
+  var JSFiles = [
+    "public/javascripts/jquery.js",
+    "public/javascripts/hogan.js",
+    "public/javascripts/selection-buttons.js",
+    "public/javascripts/wordCounter.js",
+    "public/javascripts/listEntry.js",
+    "public/javascripts/main.js"
+  ];
 
   grunt.initConfig({
 
@@ -130,8 +112,8 @@ module.exports = function(grunt){
       },
 
       toolkit_js: {
-        cwd: 'node_modules/govuk_frontend_toolkit/govuk_frontend_toolkit/javascripts/govuk/',
-        src: 'selection-buttons.js',
+        cwd: 'node_modules/govuk_frontend_toolkit/govuk_frontend_toolkit/javascripts/',
+        src: ['govuk/selection-buttons.js', 'vendor/polyfills/bind.js'],
         dest: 'public/javascripts/',
         expand: true,
         flatten: true
@@ -169,19 +151,6 @@ module.exports = function(grunt){
     },
 
     uglify: {
-      dev: {
-        options: {
-          sourceMap: true,
-          sourceMapName: "public/javascripts/sourcemap.map",
-          mangle: false,
-          compress: false,
-          beautify: true,
-          preserveComments: true
-        },
-        files: {
-          "public/javascripts/application.js": JSModules
-        }
-      },
       production: {
         options: {
           sourceMap: false,
@@ -190,7 +159,7 @@ module.exports = function(grunt){
           preserveComments: false
         },
         files: {
-          "public/javascripts/application.js": JSModules
+          "public/javascripts/application.js": JSFiles
         }
       }
     },
@@ -228,7 +197,7 @@ module.exports = function(grunt){
       },
       js: {
         files: ['app/assets/javascripts/**/*'],
-        tasks: ['copy:assets_js', 'uglify:dev']
+        tasks: ['copy:assets_js']
       },
       self: {
         files: ['Gruntfile.js'],
@@ -310,8 +279,6 @@ module.exports = function(grunt){
     'imagemin',
     'sass:dev',
     'dataUri',
-    'findJS',
-    'uglify:dev',
     'clean:tempCSS'
   ]);
 
@@ -322,7 +289,6 @@ module.exports = function(grunt){
     'imagemin',
     'sass:production',
     'dataUri',
-    'findJS',
     'uglify:production',
     'clean'
   ]);
@@ -333,7 +299,6 @@ module.exports = function(grunt){
   ]);
 
   grunt.registerTask('test', [
-    'findJS',
     'jasmine'
   ]);
 

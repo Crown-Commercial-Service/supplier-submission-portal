@@ -4,9 +4,7 @@
 
   var root = this,
       $ = this.jQuery,
-      GOVUK = this.GOVUK || {};
-
-  GOVUK.GDM = GOVUK.GDM || {};
+      wordCounter;
 
   var counterClass = 'wordCount',
       attach = function() {
@@ -56,10 +54,11 @@
         }
       };
 
-  GOVUK.GDM.wordCounter = function () {
+  wordCounter = function () {
     attach();
   };
 
-  this.GOVUK = GOVUK;
-
+  this.GOVUK = this.GOVUK || {};
+  this.GOVUK.GDM = this.GOVUK.GDM || {};
+  GOVUK.GDM.wordCounter = wordCounter;
 }).call(this);

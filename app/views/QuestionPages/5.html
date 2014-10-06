@@ -24,7 +24,7 @@
     questionIsRelevantToSelectedLot = content.get(question + 'lots').contains(lot)
     if (questionIsRelevantToSelectedLot) {
   }%
-  <div class='input-list'>
+  <div class='input-list' data-subject='feature'>
     #{question-heading
       heading: content.get(question + 'text'),
       hint: content.get(question + 'hint'),
