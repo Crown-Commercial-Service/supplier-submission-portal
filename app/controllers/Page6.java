@@ -2,6 +2,7 @@ package controllers;
 
 import models.Listing;
 import models.Page;
+import play.Logger;
 import play.mvc.Controller;
 import uk.gov.gds.dm.DocumentUtils;
 import play.i18n.Messages;
@@ -23,6 +24,8 @@ public class Page6 extends AuthenticatingController {
 
         // Validate document
         //validation.required(p6q1).message("p6q1: null");
+        Logger.info("p6q1 = %s", p6q1);
+        
         if(p6q1 != null){
             if(!DocumentUtils.validateDocumentFormat(p6q1)){
                 validation.addError("p6q1", Messages.getMessage("en", "validation.file.wrongFormat"));
