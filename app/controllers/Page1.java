@@ -23,7 +23,6 @@ public class Page1 extends AuthenticatingController {
 
         // Validate all fields on this page requiring validation
         validation.required(p1q1).key("p1q1");
-        validation.required(p1q1).key("p1q2");
 
 
         if(validation.hasErrors()) {
