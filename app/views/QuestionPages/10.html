@@ -72,11 +72,12 @@
     if (questionIsRelevantToSelectedLot) {
   }%
     <div class='question'>
-      #{forms/textbox
+      #{forms/textbox-with-word-count
         name: question,
         value: oldvalues?.get(question),
         label: content.get(question + 'text'),
         hint: content.get(question + 'hint'),
+        max_words: 20,
         error: content.get(question + flash.get(question))
       /}
     </div>
