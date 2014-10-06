@@ -10,7 +10,7 @@
   lot: lot
 /}
 
-<form action='${request.getBase()}${request.url}' method='POST' enctype="multipart/form-data">
+#{form @uploadPhoto(), enctype:'multipart/form-data'}
 
   #{heading
     current: pageNum,
@@ -29,4 +29,4 @@
 
   #{footer/}
 
-</form>
+#{/}
