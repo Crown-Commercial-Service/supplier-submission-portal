@@ -1,11 +1,15 @@
 .page-heading {
 
-  @include heading-48;
+  @include heading-36;
   font-weight: bold;
-  margin-bottom: 15px;
 
   @include media(desktop) {
     padding-top: 2px;
   }
 
+}
+
+.page-heading-without-position {
+  @extend .page-heading;
+  margin-top: 25px;
 }

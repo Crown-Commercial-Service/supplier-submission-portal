@@ -25,6 +25,7 @@ public class QuestionPageDisplay extends AuthenticatingController {
 
         int index = listing.pageSequence.indexOf(pageId);
         renderArgs.put("lot", listing.lot);
+        renderArgs.put("listingID", listing.id);
         renderArgs.put("content", Fixtures.getContentProperties());
         renderArgs.put("pageNum", Integer.toString(index+1));
         renderArgs.put("pageTotal", Integer.toString(listing.pageSequence.size()));

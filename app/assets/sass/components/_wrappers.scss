@@ -7,3 +7,7 @@
 #inner-wrapper {
   @include inner-block;
 }
+
+#content {
+  padding-bottom: 60px;
+}
