@@ -111,6 +111,22 @@ describe("ListEntryField", function () {
       expect($wrapper.find('.list-entry').eq(1).find('input').val()).toEqual('CMS');
       expect($wrapper.find('.list-entry').eq(2).find('input').val()).toEqual('Databases');
     });
+
+    it("Should add the 'add' button if the added question is the 10th field", function () {
+      $wrapper.find('.list-entry input').eq(0).val('Hosting');
+      $wrapper.find('.list-entry input').eq(1).val('Domain provision');
+      $wrapper.find('.list-entry input').eq(2).val('CMS');
+      $wrapper.find('.list-entry input').eq(3).val('Databases');
+      $wrapper.find('.list-entry input').eq(4).val('Storage');
+      $wrapper.find('.list-entry input').eq(5).val('Solid-state storage');
+      $wrapper.find('.list-entry input').eq(6).val('Real-time logging');
+      $wrapper.find('.list-entry input').eq(7).val('Social');
+      $wrapper.find('.list-entry input').eq(8).val('Email notifications');
+      $wrapper.find('.list-entry input').eq(9).val('CDN');
+      GOVUK.GDM.listEntry();
+      $wrapper.find('.list-entry').eq(9).find('button.list-entry-remove').trigger('click');
+      expect($wrapper.find('button.list-entry-add').length).toEqual(1);
+    });
   }); 
 
   describe("When the 'add feature' button is clicked", function () {
@@ -136,6 +152,21 @@ describe("ListEntryField", function () {
       expect($wrapper.find('.list-entry').length).toEqual(4);
       $wrapper.find('.list-entry').eq(3).find('button.list-entry-remove').trigger('click');
       expect($wrapper.find('button.list-entry-add').text()).toEqual('Add another feature (7 remaining)');
+    });
+
+    it("Should remove the 'add' button if the added question is the 10th field", function () {
+      $wrapper.find('.list-entry input').eq(0).val('Hosting');
+      $wrapper.find('.list-entry input').eq(1).val('Domain provision');
+      $wrapper.find('.list-entry input').eq(2).val('CMS');
+      $wrapper.find('.list-entry input').eq(3).val('Databases');
+      $wrapper.find('.list-entry input').eq(4).val('Storage');
+      $wrapper.find('.list-entry input').eq(5).val('Solid-state storage');
+      $wrapper.find('.list-entry input').eq(6).val('Real-time logging');
+      $wrapper.find('.list-entry input').eq(7).val('Social');
+      $wrapper.find('.list-entry input').eq(8).val('Email notifications');
+      GOVUK.GDM.listEntry();
+      $wrapper.find('button.list-entry-add').trigger('click');
+      expect($wrapper.find('button.list-entry-add').length).toEqual(0);
     });
   });
 });
