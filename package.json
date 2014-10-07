@@ -27,7 +27,6 @@
     "js-yaml": "3.2.1",
     "minimist": "0.0.8",
     "readdir": "0.0.6",
-    "grunt-contrib-imagemin": "0.8.1",
     "grunt-contrib-uglify": "^0.5.1",
     "grunt-data-uri": "^0.2.0",
     "load-grunt-tasks": "^0.6.0",
