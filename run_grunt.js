@@ -12,11 +12,14 @@ if (argv._.length) {
 } else {
   grunt.cli();
 }
-fs.writeFileSync(pidFile, process.pid, fileOptions);
-process.on('SIGINT', function() {
-  var pid = fs.readFileSync(pidFile, fileOptions);
 
-  fs.unlink(pidFile);
-  process.kill(pid, 'SIGTERM');
-  process.exit();
-});
+if (!fs.existsSync(pidFile)) {
+  fs.writeFileSync(pidFile, process.pid, fileOptions);
+  process.on('SIGINT', function() {
+    var pid = fs.readFileSync(pidFile, fileOptions);
+
+    fs.unlink(pidFile);
+    process.kill(pid, 'SIGTERM');
+    process.exit();
+  });
+}
