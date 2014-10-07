@@ -32,20 +32,24 @@ sed -e "s/<application>$el_value<\/application>/<application>$1<\/application>/g
 
 echo 'OUTPUT (appengine): Replaced '$el_value' with '$1
 
-# Extracting the value from the appengine element
+# Writing our changes back to the original file ($1)
+chmod 666 $appengine_web
+mv $temp_file $appengine_web
+
+# Extracting the ssl-enabled value from the appengine element
 ssl_value=`grep "<ssl-enabled>.*<.ssl-enabled>" $appengine_web | sed -e "s/^.*<ssl-enabled/<ssl-enabled/" | cut -f2 -d">"| cut -f1 -d"<"`
 
 echo 'OUTPUT (appengine): Found the current value for the element <ssl-enabled> - '$ssl_value''
 
 # Replacing elemen’s value with $3
-sed -e "s/<ssl-enabled>$el_value<\/ssl-enabled>/<ssl-enabled>$3<\/ssl-enabled>/g" $appengine_web > $temp_file
+sed -e "s/<ssl-enabled>$ssl_value<\/ssl-enabled>/<ssl-enabled>$3<\/ssl-enabled>/g" $appengine_web > $temp_file
 
 echo 'OUTPUT (appengine): Replaced '$ssl_value' with '$3
-
 
 # Writing our changes back to the original file ($1)
 chmod 666 $appengine_web
 mv $temp_file $appengine_web
+
 
 if [ $# -eq 2 ]; then
 # ---------- appengine-web.xml (change cookie encryption key) -------------
