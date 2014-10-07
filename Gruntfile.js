@@ -180,7 +180,7 @@ module.exports = function(grunt){
       },
       images: {
         files: ['app/assets/images/**/*'],
-        tasks: ['sass:dev', 'dataUri'],
+        tasks: ['copy', 'sass:dev', 'dataUri'],
         options: { nospawn: true }
       },
       js: {
