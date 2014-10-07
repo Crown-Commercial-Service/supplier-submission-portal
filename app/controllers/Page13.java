@@ -2,12 +2,8 @@ package controllers;
 
 import models.Listing;
 import models.Page;
-import play.mvc.Controller;
-
-import play.data.validation.*;
 import play.data.validation.Error;
 
-import java.util.ArrayList;
 import java.util.Map;
 import java.util.List;
 
@@ -19,13 +15,17 @@ public class Page13 extends AuthenticatingController {
 
         Listing listing = Listing.getByListingId(listingId);
 
-        // TODO: Validate all fields on this page requiring validation
+        // Validate all fields on this page requiring validation
         validation.required(p13q1).key("p13q1");
+        validation.maxSize(p13q1, 10);
+
         validation.required(p13q2).key("p13q2");
+        validation.maxSize(p13q2, 10);
+
         validation.required(p13q3).key("p13q3");
+        validation.maxSize(p13q3, 10);
 
         if(validation.hasErrors()) {
-            //flash.error("%s", validation.errors());
 
             for(Map.Entry<String, List<Error>> entry : validation.errorsMap().entrySet()) {
                 String key = entry.getKey();

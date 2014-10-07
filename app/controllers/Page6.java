@@ -2,16 +2,11 @@ package controllers;
 
 import models.Listing;
 import models.Page;
-import play.Logger;
 import play.data.Upload;
-import play.mvc.Controller;
 import uk.gov.gds.dm.DocumentUtils;
 import play.i18n.Messages;
-import play.data.validation.*;
 import play.data.validation.Error;
 
-import java.io.File;
-import java.util.ArrayList;
 import java.util.Map;
 import java.util.List;
 
@@ -25,7 +20,6 @@ public class Page6 extends AuthenticatingController {
 
         validation.required(p6q1).key("p6q1");
 
-
         if(p6q1 != null){
             if(!DocumentUtils.validateDocumentFormat(p6q1)){
                 validation.addError("p6q1", Messages.getMessage("en", "validation.file.wrongFormat"));
@@ -36,7 +30,6 @@ public class Page6 extends AuthenticatingController {
         }
 
         if(validation.hasErrors()) {
-            //flash.error("%s", validation.errors());
 
             for(Map.Entry<String, List<Error>> entry : validation.errorsMap().entrySet()) {
                 String key = entry.getKey();

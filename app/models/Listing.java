@@ -32,11 +32,6 @@ public class Listing extends Model {
     @NotNull
     public String title;
 
-    @Column("description")
-    @Max(200)
-    @NotNull
-    public String description;
-
     @Embedded
     public List<Long> pageSequence;
     
@@ -112,7 +107,6 @@ public class Listing extends Model {
                 ", supplierId='" + supplierId + "'" +
                 ", lot='" + lot + "'" +
                 ", title='" + title + "'" +
-                ", description='" + description + "'" +
                 ", pageSequence='" + pageSequence + "'" +
                 '}';
     }

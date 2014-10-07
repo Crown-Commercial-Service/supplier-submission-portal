@@ -2,12 +2,8 @@ package controllers;
 
 import models.Listing;
 import models.Page;
-import play.mvc.Controller;
-
-import play.data.validation.*;
 import play.data.validation.Error;
 
-import java.util.ArrayList;
 import java.util.Map;
 import java.util.List;
 
@@ -15,17 +11,25 @@ public class Page29 extends AuthenticatingController {
 
     private static final Long PAGE_ID = 29l;
 
-    public static void savePage(Long listingId, String p29q1, String p29q2, String p29q3) {
+    public static void savePage(Long listingId, String p29q1, String p29q2, String p29q3, String p29q1assurance, String p29q2assurance, String p29q3assurance) {
 
         Listing listing = Listing.getByListingId(listingId);
 
-        // TODO: Validate all fields on this page requiring validation
+        // Validate all fields on this page requiring validation
         validation.required(p29q1).key("p29q1");
+        validation.maxSize(p29q1, 10);
         validation.required(p29q2).key("p29q2");
+        validation.maxSize(p29q2, 10);
         validation.required(p29q3).key("p29q3");
+        validation.maxSize(p29q3, 10);
+        validation.required(p29q1assurance).key("p29q1assurance");
+        validation.maxSize(p29q1assurance, 50);
+        validation.required(p29q2assurance).key("p29q2assurance");
+        validation.maxSize(p29q2assurance, 50);
+        validation.required(p29q3assurance).key("p29q3assurance");
+        validation.maxSize(p29q3assurance, 50);
 
         if(validation.hasErrors()) {
-            //flash.error("%s", validation.errors());
 
             for(Map.Entry<String, List<Error>> entry : validation.errorsMap().entrySet()) {
                 String key = entry.getKey();

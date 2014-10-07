@@ -2,12 +2,8 @@ package controllers;
 
 import models.Listing;
 import models.Page;
-import play.mvc.Controller;
-
-import play.data.validation.*;
 import play.data.validation.Error;
 
-import java.util.ArrayList;
 import java.util.Map;
 import java.util.List;
 
@@ -15,17 +11,30 @@ public class Page25 extends AuthenticatingController {
 
     private static final Long PAGE_ID = 25l;
 
-    public static void savePage(Long listingId, String p25q1, String p25q2, String p25q3, String p25q4) {
+    public static void savePage(Long listingId, String p25q1, String p25q2, String p25q2assurance, String p25q3, String p25q3assurance, String p25q4, String p25q4assurance) {
 
         Listing listing = Listing.getByListingId(listingId);
 
-        // TODO: Validate all fields on this page requiring validation
+        // Validate all fields on this page requiring validation
         validation.required(p25q1).key("p25q1");
+        validation.maxSize(p25q1, 30);
+
         validation.required(p25q2).key("p25q2");
+        validation.maxSize(p25q2, 30);
+        validation.required(p25q2assurance).key("p25q2assurance");
+        validation.maxSize(p25q2assurance, 50);
+
         validation.required(p25q3).key("p25q3");
+        validation.maxSize(p25q3, 10);
+        validation.required(p25q3assurance).key("p25q3assurance");
+        validation.maxSize(p25q3assurance, 50);
+
         validation.required(p25q4).key("p25q4");
+        validation.maxSize(p25q4, 10);
+        validation.required(p25q4assurance).key("p25q4assurance");
+        validation.maxSize(p25q4assurance, 50);
+
         if(validation.hasErrors()) {
-            //flash.error("%s", validation.errors());
 
             for(Map.Entry<String, List<Error>> entry : validation.errorsMap().entrySet()) {
                 String key = entry.getKey();
@@ -43,6 +52,9 @@ public class Page25 extends AuthenticatingController {
         page.responses.put("p25q2", p25q2);
         page.responses.put("p25q3", p25q3);
         page.responses.put("p25q4", p25q4);
+        page.responses.put("p25q2assurance", p25q2assurance);
+        page.responses.put("p25q3assurance", p25q3assurance);
+        page.responses.put("p25q4assurance", p25q4assurance);
         page.insert();
         listing.addResponsePage(page, PAGE_ID);
         redirect(listing.nextPageUrl(PAGE_ID, listing.id));

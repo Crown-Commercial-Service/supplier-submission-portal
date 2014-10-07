@@ -15,7 +15,7 @@ public class URLTools {
     }
 
     private static String getLocalDigitalMarketplaceURL(){
-        String[] localDigitalMarketplaceURLs = new String[] {"http://localhost.digitalmarketplace.service.gov.uk:8080/", "http://localhost:8080/", "http://localhost:8080/digitalmarketplace"};
+        String[] localDigitalMarketplaceURLs = new String[] {"http://localhost.digitalmarketplace.service.gov.uk:8080/", "http://localhost:8080/", "http://localhost:8080/digitalmarketplace/"};
 
         if(isWorkingURL(localDigitalMarketplaceURLs[0])){
             return localDigitalMarketplaceURLs[0];

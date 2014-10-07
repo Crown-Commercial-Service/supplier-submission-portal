@@ -4,11 +4,10 @@ import com.google.gson.Gson;
 import models.Listing;
 import models.Page;
 
-import play.data.validation.*;
-import play.data.validation.Error;
-import play.mvc.Controller;
 
-import java.util.HashMap;
+import play.data.validation.Error;
+import uk.gov.gds.dm.ValidationUtils;
+
 import java.util.List;
 import java.util.Map;
 
@@ -23,10 +22,10 @@ public class Page1 extends AuthenticatingController {
 
         // Validate all fields on this page requiring validation
         validation.required(p1q1).key("p1q1");
+        validation.isTrue(ValidationUtils.stringArrayValuesAreNotTooLong(p1q1, 30)).key("p1q1").message("Invalid values");
 
 
         if(validation.hasErrors()) {
-            //flash.error("%s", validation.errorsMap());
 
             for(Map.Entry<String, List<Error>> entry : validation.errorsMap().entrySet()) {
                 String key = entry.getKey();

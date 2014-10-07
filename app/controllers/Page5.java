@@ -4,9 +4,8 @@ import com.google.appengine.repackaged.com.google.common.base.Strings;
 import com.google.gson.Gson;
 import models.Listing;
 import models.Page;
-import play.mvc.Controller;
-import play.data.validation.*;
 import play.data.validation.Error;
+import uk.gov.gds.dm.ValidationUtils;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -16,7 +15,7 @@ public class Page5 extends AuthenticatingController {
 
     private static final Long PAGE_ID = 5l;
 
-    public static void savePage(Long listingId, String body) {
+    public static void savePage(Long listingId) {
 
         Listing listing = Listing.getByListingId(listingId);
 
@@ -25,12 +24,13 @@ public class Page5 extends AuthenticatingController {
         ArrayList<String> q1 = new ArrayList();
         ArrayList<String> q2 = new ArrayList();
         String s;
-//        System.out.println("PARAMAS " + params);
-//        System.out.println("p5q1val1: "  + params.get("p5q1val1"));
+
         for (int i=1; i<11; i++) {
             if(params.containsKey("p5q1val" + i)){
                 s = params.get("p5q1val" + i)[0];
                 if (!Strings.isNullOrEmpty(s)) {
+                    validation.maxSize(s, 100).key("p5q1val" + i).message("Too many characters");
+                    validation.isTrue(ValidationUtils.isWordCountLessThan(s, 10)).key("p5q1val" + i).message("Too many words");
                     q1.add(s);
                 }
             }
@@ -38,6 +38,8 @@ public class Page5 extends AuthenticatingController {
             if(params.containsKey("p5q2val" + i)){
                 s = params.get("p5q2val" + i)[0];
                 if (!Strings.isNullOrEmpty(s)) {
+                    validation.maxSize(s, 100).key("p5q2val" + i).message("Too many characters");
+                    validation.isTrue(ValidationUtils.isWordCountLessThan(s, 10)).key("p5q2val" + i).message("Too many words");
                     q2.add(s);
                 }
             }
@@ -45,8 +47,8 @@ public class Page5 extends AuthenticatingController {
         // Validate all fields on this page requiring validation
         validation.isTrue("p5q1", q1.size() > 0).message("validation.required");
         validation.isTrue("p5q2", q2.size() > 0).message("validation.required");
+
         if(validation.hasErrors()) {
-            //flash.error("%s", validation.errors());
 
             for(Map.Entry<String, List<Error>> entry : validation.errorsMap().entrySet()) {
                 String key = entry.getKey();

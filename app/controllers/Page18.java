@@ -3,12 +3,9 @@ package controllers;
 import com.google.gson.Gson;
 import models.Listing;
 import models.Page;
-import play.mvc.Controller;
-
-import play.data.validation.*;
 import play.data.validation.Error;
+import uk.gov.gds.dm.ValidationUtils;
 
-import java.util.ArrayList;
 import java.util.Map;
 import java.util.List;
 
@@ -21,10 +18,11 @@ public class Page18 extends AuthenticatingController {
 
         Listing listing = Listing.getByListingId(listingId);
 
-        // TODO: Validate all fields on this page requiring validation
+        // Validate all fields on this page requiring validation
         validation.required(p18q1).key("p18q1");
+        validation.isTrue(ValidationUtils.stringArrayValuesAreNotTooLong(p18q1, 50)).key("p18q1").message("Invalid values");
+
         if(validation.hasErrors()) {
-            //flash.error("%s", validation.errors());
 
             for(Map.Entry<String, List<Error>> entry : validation.errorsMap().entrySet()) {
                 String key = entry.getKey();
