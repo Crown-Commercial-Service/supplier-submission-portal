@@ -33,6 +33,76 @@
       hint: content.get(question + 'hint'),
       error: content.get(question + flash.get(question))
     /}
+    <div class='pricing'>
+      <div class='pricing-column'>
+        <label for='${question}MinPrice' >
+          Minimum price
+          <span class='hidden'>in</span>
+          <span class='pricing-unit'>£</span>
+        </label>
+        <input type='text' class='text-box pricing-input-with-unit' name='${question}MinPrice' id='${question}MinPrice' />
+      </div>
+      <div class='pricing-column'>
+        <span class='pricing-preposition'>&ndash;</span>
+      </div>
+      <div class='pricing-column'>
+        <label for='${question}MaxPrice'>
+          Maximum price
+          <span class='hidden'>in</span>
+          <span class='pricing-unit'>£</span>
+        </label>
+        <p class='question-hint'>
+          Optional
+        </p>
+        <input type='text' class='text-box pricing-input-with-unit' name='${question}MaxPrice' id='${question}MaxPrice' />
+      </div>
+      <div class='pricing-column'>
+        <span class='pricing-preposition'>per</span>
+      </div>
+      <div class='pricing-column'>
+        <label for='${question}Unit'>
+          Unit
+        </label>
+        <select class='pricing-input-select' name='${question}Unit' id='${question}Unit'>
+          <option value=''></option>
+          <option value='Unit'>Unit</option>
+          <option value='Person'>Person</option>
+          <option value='Licence'>Licence</option>
+          <option value='User'>User</option>
+          <option value='Device'>Device</option>
+          <option value='Instance'>Instance</option>
+          <option value='Server'>Server</option>
+          <option value='Virtual machine'>Virtual machine</option>
+          <option value='Transaction'>Transaction</option>
+          <option value='Megabyte'>Megabyte</option>
+          <option value='Gigabyte'>Gigabyte</option>
+          <option value='Terabyte'>Terabyte</option>
+        </select>
+      </div>
+      <div class='pricing-column'>
+        <span class='pricing-preposition'>per</span>
+      </div>
+      <div class='pricing-column'>
+        <label for='${question}Interval'>
+          Interval
+        </label>
+        <p class='question-hint'>
+          Optional
+        </p>
+        <select class='pricing-input-select' name='${question}Interval' id='${question}Interval'>
+          <option value=''></option>
+          <option value='Second'>Second</option>
+          <option value='Minute'>Minute</option>
+          <option value='Hour'>Hour</option>
+          <option value='Day'>Day</option>
+          <option value='Week'>Week</option>
+          <option value='Month'>Month</option>
+          <option value='Quarter'>Quarter</option>
+          <option value='6 months'>6 months</option>
+          <option value='Year'>Year</option>
+        </select>
+      </div>
+    </div>
     #{question-footer
       error: content.get(question + flash.get(question))
     /}
