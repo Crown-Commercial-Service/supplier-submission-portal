@@ -33,6 +33,7 @@ POST    /page/3/{listingId}                     Page3.savePage
 POST    /page/4/{listingId}                     Page4.savePage
 POST    /page/5/{listingId}                     Page5.savePage
 POST    /page/6/{listingId}                     Page6.savePage
+POST    /page/6/                                Page6.savePage
 POST    /page/7/{listingId}                     Page7.savePage
 POST    /page/8/{listingId}                     Page8.savePage
 POST    /page/9/{listingId}                     Page9.savePage

@@ -11,7 +11,9 @@
   lot: lot
 /}
 
-<form action='${request.getBase()}${request.url}' method='POST' enctype="multipart/form-data">
+#{form @Page6.savePage() , enctype:'multipart/form-data'}
+
+   <input type="hidden" id="listingId" name="listingId" value="${listingId}" />
 
   #{heading
     current: pageNum,
@@ -30,4 +32,4 @@
 
   #{footer/}
 
-</form>
+#{/}
