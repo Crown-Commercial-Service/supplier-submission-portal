@@ -2,6 +2,7 @@
 	<application>ssp-preview</application>
 	<version>1-0-3</version>
 	<threadsafe>true</threadsafe>
+	<ssl-enabled>true</ssl-enabled>
 
     <system-properties>
         <property name="ssp.cookie.enc" value="@{encKey}" />
