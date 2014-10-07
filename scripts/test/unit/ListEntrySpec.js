@@ -6,7 +6,7 @@ describe("ListEntryField", function () {
                                           '<input type="text" name="{{{id}}}" id="{{{id}}}" class="text-box" value="">' +
                                         '</div>'
                             ),
-      wrapperHTML = '<div class="input-list" data-subject="feature">' +
+      wrapperHTML = '<div class="input-list" data-list-item-name="feature">' +
                       '<fieldset class="question">' +
                         '<legend class="question-heading question-heading-with-hint ">Service features</legend>' +
                         '<p class="question-hint">Include the technical features of your product, eg graphical workflow, remote access. (Maximum 10 words per feature. Maximum 10 features.)</p>' +
