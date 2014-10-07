@@ -220,7 +220,9 @@ module.exports = function(grunt){
       javascripts: {
         src: [
           'node_modules/jquery-browser/lib/jquery.js',
-          'public/javascripts/wordCounter.js'
+          'public/javascripts/hogan.js',
+          'public/javascripts/wordCounter.js',
+          'public/javascripts/listEntry.js'
         ],
         options: {
           specs: 'scripts/test/unit/*Spec.js',
