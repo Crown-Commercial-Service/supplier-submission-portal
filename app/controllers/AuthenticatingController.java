@@ -46,13 +46,4 @@ public abstract class AuthenticatingController extends Controller {
             supplierDetailsFromCookie.put("supplierCompanyName", "SueDo LTD.");
         }
     }
-
-    @Before
-    static void verifySSL()
-    {
-        if(Play.mode != Play.Mode.DEV){
-            if (!request.secure)
-                redirect("https://" + request.host + request.url);
-        }
-    }
 }
