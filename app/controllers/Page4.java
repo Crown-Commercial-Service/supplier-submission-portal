@@ -2,9 +2,8 @@ package controllers;
 
 import models.Listing;
 import models.Page;
-import play.data.validation.*;
 import play.data.validation.Error;
-import play.mvc.Controller;
+import uk.gov.gds.dm.ValidationUtils;
 
 import java.util.List;
 import java.util.Map;
@@ -19,9 +18,13 @@ public class Page4 extends AuthenticatingController {
 
         // Validate all fields on this page requiring validation
         validation.required(p4q1);
+        validation.maxSize(p4q1, 100);
+
         validation.required(p4q2);
+        validation.isTrue(ValidationUtils.isWordCountLessThan(p4q2, 50)).key("p4q2").message("Too many words");
+        validation.maxSize(p4q2, 500);
+
         if(validation.hasErrors()) {
-            //flash.error("%s", validation.errors());
 
             for(Map.Entry<String, List<Error>> entry : validation.errorsMap().entrySet()) {
                 String key = entry.getKey();
@@ -29,7 +32,6 @@ public class Page4 extends AuthenticatingController {
 
                 flash.put(key, value);
             }
-
             redirect(String.format("/page/%d/%d", PAGE_ID, listing.id));
         }
 
@@ -39,7 +41,6 @@ public class Page4 extends AuthenticatingController {
         page.responses.put("p4q2", p4q2);
         page.insert();
         listing.title = p4q1;
-        listing.description = p4q2;
         listing.addResponsePage(page, PAGE_ID);
         redirect(listing.nextPageUrl(PAGE_ID, listing.id));
     }

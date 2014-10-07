@@ -5,13 +5,9 @@ import models.Listing;
 import models.Page;
 import play.data.Upload;
 import play.i18n.Messages;
-import play.mvc.Controller;
 import uk.gov.gds.dm.DocumentUtils;
-import play.data.validation.*;
 import play.data.validation.Error;
 
-import java.io.File;
-import java.util.ArrayList;
 import java.util.Map;
 import java.util.List;
 
@@ -29,7 +25,9 @@ public class Page8 extends AuthenticatingController {
             // validation.required(p8q1); // TODO: pricing matrix
         }
         validation.required(p8q2).key("p8q2");
+        validation.maxSize(p8q2, 10);
         validation.required(p8q3).key("p8q3");
+        validation.maxSize(p8q3, 10);
 
         if (!listing.lot.equals("SCS")) {
             validation.required(p8q4).key("p8q4");
@@ -57,7 +55,6 @@ public class Page8 extends AuthenticatingController {
         }
 
         if(validation.hasErrors()) {
-            //flash.error("%s", validation.errors());
 
             for(Map.Entry<String, List<Error>> entry : validation.errorsMap().entrySet()) {
                 String key = entry.getKey();

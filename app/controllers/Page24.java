@@ -3,12 +3,8 @@ package controllers;
 import com.google.gson.Gson;
 import models.Listing;
 import models.Page;
-import play.mvc.Controller;
-
-import play.data.validation.*;
 import play.data.validation.Error;
 
-import java.util.ArrayList;
 import java.util.Map;
 import java.util.List;
 
@@ -23,6 +19,7 @@ public class Page24 extends AuthenticatingController {
 
         // TODO: Validate all fields on this page requiring validation
         if (!listing.lot.equals("SCS")) {
+            // SaaS, PaaS, IaaS
             validation.required(p24q1).key("p24q1");
             validation.required(p24q2).key("p24q2");
             validation.required(p24q4).key("p24q4");
@@ -31,15 +28,20 @@ public class Page24 extends AuthenticatingController {
             validation.required(p24q11).message("p24q11");
 
             if (!listing.lot.equals("SaaS")) {
+                //PaaS, IaaS
                 validation.required(p24q7).key("p24q7");
                 validation.required(p24q8).key("p24q8");
                 validation.required(p24q9).key("p24q9");
                 validation.required(p24q10).message("p24q10");
             }
         }
+
+        // TODO: Validate percentage up to 100 - question 11
+
+        // Everything
         validation.required(p24q3).key("p24q3");
+
         if(validation.hasErrors()) {
-            //flash.error("%s", validation.errors());
 
             for(Map.Entry<String, List<Error>> entry : validation.errorsMap().entrySet()) {
                 String key = entry.getKey();

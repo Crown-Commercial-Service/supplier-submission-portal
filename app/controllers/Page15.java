@@ -2,12 +2,8 @@ package controllers;
 
 import models.Listing;
 import models.Page;
-import play.mvc.Controller;
-
-import play.data.validation.*;
 import play.data.validation.Error;
 
-import java.util.ArrayList;
 import java.util.Map;
 import java.util.List;
 
@@ -21,9 +17,9 @@ public class Page15 extends AuthenticatingController {
 
         // Validate all fields on this page requiring validation
         validation.required(p15q1);
+        validation.maxSize(p15q1, 10);
 
         if(validation.hasErrors()) {
-            //flash.error("%s", validation.errors());
 
             for(Map.Entry<String, List<Error>> entry : validation.errorsMap().entrySet()) {
                 String key = entry.getKey();

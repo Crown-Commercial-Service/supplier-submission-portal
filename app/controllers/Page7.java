@@ -4,14 +4,9 @@ import models.Listing;
 import models.Page;
 import play.data.Upload;
 import play.i18n.Messages;
-import play.mvc.Controller;
 import uk.gov.gds.dm.DocumentUtils;
-import play.data.validation.*;
 import play.data.validation.Error;
 
-
-import java.io.File;
-import java.util.ArrayList;
 import java.util.Map;
 import java.util.List;
 
@@ -27,8 +22,10 @@ public class Page7 extends AuthenticatingController {
         //Validate all fields on this page requiring validation
         if(!listing.lot.equals("SaaS")){
             validation.required(p7q1).key("p7q1");
+            validation.maxSize(p7q1, 10);
         }
         validation.required(p7q2).key("p7q2");
+        validation.maxSize(p7q2, 10);
 
         // Validate document
         validation.required(p7q3).key("p7q3");

@@ -2,12 +2,8 @@ package controllers;
 
 import models.Listing;
 import models.Page;
-import play.mvc.Controller;
-
-import play.data.validation.*;
 import play.data.validation.Error;
 
-import java.util.ArrayList;
 import java.util.Map;
 import java.util.List;
 
@@ -15,23 +11,40 @@ public class Page30 extends AuthenticatingController {
 
     private static final Long PAGE_ID = 30l;
 
-    public static void savePage(Long listingId, String p30q1, String p30q2, String p30q3, String p30q4, String p30q5) {
+    public static void savePage(Long listingId, String p30q1, String p30q2, String p30q3, String p30q4, String p30q5,
+                                String p30q1assurance, String p30q2assurance, String p30q3assurance, String p30q4assurance, String p30q5assurance) {
 
         Listing listing = Listing.getByListingId(listingId);
 
-        // TODO: Validate all fields on this page requiring validation
+        // Validate all fields on this page requiring validation
         validation.required(p30q1).key("p30q1");
+        validation.maxSize(p30q1, 10);
+        validation.required(p30q1assurance).key("p30q1assurance");
+        validation.maxSize(p30q1assurance, 50);
         if (!listing.lot.equals("SCS")) {
+            // SaaS, PaaS, IaaS
             validation.required(p30q2).key("p30q2");
+            validation.maxSize(p30q2, 10);
             validation.required(p30q3).key("p30q3");
+            validation.maxSize(p30q3, 10);
             validation.required(p30q4).key("p30q4");
+            validation.maxSize(p30q4, 10);
+            validation.required(p30q2assurance).key("p30q2assurance");
+            validation.maxSize(p30q2assurance, 50);
+            validation.required(p30q3assurance).key("p30q3assurance");
+            validation.maxSize(p30q3assurance, 50);
+            validation.required(p30q4assurance).key("p30q4assurance");
+            validation.maxSize(p30q4assurance, 50);
             if (!listing.lot.equals("SaaS")) {
+                // PaaS, IaaS
                 validation.required(p30q5).key("p30q5");
+                validation.maxSize(p30q5, 10);
+                validation.required(p30q5assurance).key("p30q5assurance");
+                validation.maxSize(p30q5assurance, 50);
             }
         }
 
         if(validation.hasErrors()) {
-            //flash.error("%s", validation.errors());
 
             for(Map.Entry<String, List<Error>> entry : validation.errorsMap().entrySet()) {
                 String key = entry.getKey();

@@ -3,12 +3,10 @@ package controllers;
 import com.google.gson.Gson;
 import models.Listing;
 import models.Page;
-import play.mvc.Controller;
 
-import play.data.validation.*;
 import play.data.validation.Error;
+import uk.gov.gds.dm.ValidationUtils;
 
-import java.util.ArrayList;
 import java.util.Map;
 import java.util.List;
 
@@ -21,15 +19,24 @@ public class Page10 extends AuthenticatingController {
 
         Listing listing = Listing.getByListingId(listingId);
 
-        //TODO: Validate all fields on this page requiring validation
         validation.required(p10q1).key("p10q1");
+        validation.isTrue(ValidationUtils.stringArrayValuesAreNotTooLong(p10q1, 20)).key("p10q1").message("Invalid values");
+
         validation.required(p10q2).key("p10q2");
+        validation.maxSize(p10q2, 10);
+
         validation.required(p10q3).key("p10q3");
+        validation.isTrue(ValidationUtils.isWordCountLessThan(p10q3, 20)).key("p10q3").message("Too many words");
+        validation.maxSize(p10q3, 200);
+
         validation.required(p10q4).key("p10q4");
+        validation.isTrue(ValidationUtils.isWordCountLessThan(p10q4, 20)).key("p10q4").message("Too many words");
+        validation.maxSize(p10q4, 200);
+
         validation.required(p10q5).key("p10q5");
+        validation.maxSize(p10q5, 10);
 
         if(validation.hasErrors()) {
-            //flash.error("%s", validation.errors());
 
             for(Map.Entry<String, List<Error>> entry : validation.errorsMap().entrySet()) {
                 String key = entry.getKey();
