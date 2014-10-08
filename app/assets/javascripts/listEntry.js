@@ -138,10 +138,12 @@
       }
       this.$wrapper.append(this.entryTemplate.render(dataObj));
     }.bind(this));
-    this.$wrapper.append(this.addButtonTemplate.render({
-      'listItemName' : this.listItemName,
-      'entriesLeft' : (this.maxEntries - this.entries.length)
-    }));
+    if (this.entries.length < this.maxEntries) {
+      this.$wrapper.append(this.addButtonTemplate.render({
+        'listItemName' : this.listItemName,
+        'entriesLeft' : (this.maxEntries - this.entries.length)
+      }));
+    }
   };
 
   listEntry = function () {

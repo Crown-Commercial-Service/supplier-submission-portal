@@ -1,14 +1,14 @@
 describe("ListEntryField", function () {
   var entryFieldTemplate = Hogan.compile('<div class="list-entry">' +
-                                          '<label for="{{{id}}}" class="text-box-number-label">' + 
+                                          '<label for="{{{id}}}" class="text-box-number-label">' +
                                             '<span class="hidden">Fieldset legend number </span>{{number}}.' +
                                           '</label>' +
                                           '<input type="text" name="{{{id}}}" id="{{{id}}}" class="text-box" value="">' +
                                         '</div>'
                             ),
-      wrapperHTML = '<div class="input-list" data-subject="feature">' +
-                      '<fieldset class="question">' + 
-                        '<legend class="question-heading question-heading-with-hint ">Service features</legend>' + 
+      wrapperHTML = '<div class="input-list" data-list-item-name="feature">' +
+                      '<fieldset class="question">' +
+                        '<legend class="question-heading question-heading-with-hint ">Service features</legend>' +
                         '<p class="question-hint">Include the technical features of your product, eg graphical workflow, remote access. (Maximum 10 words per feature. Maximum 10 features.)</p>' +
                       '</fieldset>' +
                     '</div>',
@@ -29,7 +29,7 @@ describe("ListEntryField", function () {
       $wrapper.append(entryFieldTemplate.render({
         'id' : 'p1q1val' + idx,
         'number' : idx
-      })); 
+      }));
     }
     $(document.body).append($wrapper);
   });
@@ -111,7 +111,23 @@ describe("ListEntryField", function () {
       expect($wrapper.find('.list-entry').eq(1).find('input').val()).toEqual('CMS');
       expect($wrapper.find('.list-entry').eq(2).find('input').val()).toEqual('Databases');
     });
-  }); 
+
+    it("Should add the 'add' button if the added question is the 10th field", function () {
+      $wrapper.find('.list-entry input').eq(0).val('Hosting');
+      $wrapper.find('.list-entry input').eq(1).val('Domain provision');
+      $wrapper.find('.list-entry input').eq(2).val('CMS');
+      $wrapper.find('.list-entry input').eq(3).val('Databases');
+      $wrapper.find('.list-entry input').eq(4).val('Storage');
+      $wrapper.find('.list-entry input').eq(5).val('Solid-state storage');
+      $wrapper.find('.list-entry input').eq(6).val('Real-time logging');
+      $wrapper.find('.list-entry input').eq(7).val('Social');
+      $wrapper.find('.list-entry input').eq(8).val('Email notifications');
+      $wrapper.find('.list-entry input').eq(9).val('CDN');
+      GOVUK.GDM.listEntry();
+      $wrapper.find('.list-entry').eq(9).find('button.list-entry-remove').trigger('click');
+      expect($wrapper.find('button.list-entry-add').length).toEqual(1);
+    });
+  });
 
   describe("When the 'add feature' button is clicked", function () {
     it("Should add a new field", function () {
@@ -136,6 +152,21 @@ describe("ListEntryField", function () {
       expect($wrapper.find('.list-entry').length).toEqual(4);
       $wrapper.find('.list-entry').eq(3).find('button.list-entry-remove').trigger('click');
       expect($wrapper.find('button.list-entry-add').text()).toEqual('Add another feature (7 remaining)');
+    });
+
+    it("Should remove the 'add' button if the added question is the 10th field", function () {
+      $wrapper.find('.list-entry input').eq(0).val('Hosting');
+      $wrapper.find('.list-entry input').eq(1).val('Domain provision');
+      $wrapper.find('.list-entry input').eq(2).val('CMS');
+      $wrapper.find('.list-entry input').eq(3).val('Databases');
+      $wrapper.find('.list-entry input').eq(4).val('Storage');
+      $wrapper.find('.list-entry input').eq(5).val('Solid-state storage');
+      $wrapper.find('.list-entry input').eq(6).val('Real-time logging');
+      $wrapper.find('.list-entry input').eq(7).val('Social');
+      $wrapper.find('.list-entry input').eq(8).val('Email notifications');
+      GOVUK.GDM.listEntry();
+      $wrapper.find('button.list-entry-add').trigger('click');
+      expect($wrapper.find('button.list-entry-add').length).toEqual(0);
     });
   });
 });
