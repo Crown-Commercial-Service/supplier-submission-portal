@@ -1,5 +1,6 @@
 package functional;
 
+import controllers.Fixtures;
 import org.junit.*;
 import play.Logger;
 import play.mvc.Http;
