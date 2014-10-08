@@ -1,27 +1,23 @@
 package controllers;
 
-import com.google.gson.Gson;
 import models.Listing;
 import models.Page;
 import play.data.validation.Error;
-import uk.gov.gds.dm.ValidationUtils;
 
 import java.util.Map;
 import java.util.List;
 
-public class Page36 extends AuthenticatingController {
+public class Page39 extends AuthenticatingController {
 
-    private static final Long PAGE_ID = 36l;
+    private static final Long PAGE_ID = 39l;
 
-    public static void savePage(Long listingId, String[] p36q1, String p36q1assurance) {
+    public static void savePage(Long listingId, String p39q1) {
 
         Listing listing = Listing.getByListingId(listingId);
 
         // Validate all fields on this page requiring validation
-        validation.required(p36q1).key("p36q1");
-        validation.isTrue(ValidationUtils.stringArrayValuesAreNotTooLong(p36q1, 100)).key("p36q1").message("Invalid values");
-        validation.required(p36q1assurance).key("p36q1assurance");
-        validation.maxSize(p36q1assurance, 50);
+        validation.required(p39q1).key("p39q1");
+        validation.maxSize(p39q1, 50);
 
         if(validation.hasErrors()) {
 
@@ -36,8 +32,7 @@ public class Page36 extends AuthenticatingController {
         }
 
         Page page = new Page(listingId, PAGE_ID);
-        Gson gson = new Gson();
-        page.responses.put("p36q1", gson.toJson(p36q1));
+        page.responses.put("p39q1", p39q1);
         page.insert();
         listing.addResponsePage(page, PAGE_ID);
         redirect(listing.nextPageUrl(PAGE_ID, listing.id));

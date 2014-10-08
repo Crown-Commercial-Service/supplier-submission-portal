@@ -1,10 +1,8 @@
 package controllers;
 
-import com.google.gson.Gson;
 import models.Listing;
 import models.Page;
 import play.data.validation.Error;
-import uk.gov.gds.dm.ValidationUtils;
 
 import java.util.Map;
 import java.util.List;
@@ -13,15 +11,23 @@ public class Page32 extends AuthenticatingController {
 
     private static final Long PAGE_ID = 32l;
 
-    public static void savePage(Long listingId, String[] p32q1, String p32q1assurance) {
+    public static void savePage(Long listingId, String p32q1, String p32q2, String p32q3, String p32q1assurance, String p32q2assurance, String p32q3assurance) {
 
         Listing listing = Listing.getByListingId(listingId);
 
         // Validate all fields on this page requiring validation
         validation.required(p32q1).key("p32q1");
-        validation.isTrue(ValidationUtils.stringArrayValuesAreNotTooLong(p32q1, 100)).key("p32q1").message("Invalid values");
+        validation.maxSize(p32q1, 10);
+        validation.required(p32q2).key("p32q2");
+        validation.maxSize(p32q2, 10);
+        validation.required(p32q3).key("p32q3");
+        validation.maxSize(p32q3, 10);
         validation.required(p32q1assurance).key("p32q1assurance");
         validation.maxSize(p32q1assurance, 50);
+        validation.required(p32q2assurance).key("p32q2assurance");
+        validation.maxSize(p32q2assurance, 50);
+        validation.required(p32q3assurance).key("p32q3assurance");
+        validation.maxSize(p32q3assurance, 50);
 
         if(validation.hasErrors()) {
 
@@ -36,8 +42,9 @@ public class Page32 extends AuthenticatingController {
         }
 
         Page page = new Page(listingId, PAGE_ID);
-        Gson gson = new Gson();
-        page.responses.put("p32q1", gson.toJson(p32q1));
+        page.responses.put("p32q1", p32q1);
+        page.responses.put("p32q2", p32q2);
+        page.responses.put("p32q3", p32q3);
         page.insert();
         listing.addResponsePage(page, PAGE_ID);
         redirect(listing.nextPageUrl(PAGE_ID, listing.id));

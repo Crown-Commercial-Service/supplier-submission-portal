@@ -3,21 +3,43 @@ package controllers;
 import models.Listing;
 import models.Page;
 import play.data.validation.Error;
-
 import java.util.Map;
 import java.util.List;
+
 
 public class Page35 extends AuthenticatingController {
 
     private static final Long PAGE_ID = 35l;
 
-    public static void savePage(Long listingId, String p35q1) {
+    // TODO: ONly half questions here now - rest to p34
+    public static void savePage(Long listingId, String p35q1, String p35q2, String p35q3, String p35q4, String p35q5,
+                                String p35q1assurance, String p35q2assurance, String p35q3assurance, String p35q4assurance, String p35q5assurance) {
 
         Listing listing = Listing.getByListingId(listingId);
 
         // Validate all fields on this page requiring validation
         validation.required(p35q1).key("p35q1");
-        validation.maxSize(p35q1, 50);
+        validation.maxSize(p35q1, 10);
+        validation.required(p35q2).key("p35q2");
+        validation.maxSize(p35q2, 10);
+        validation.required(p35q3).key("p35q3");
+        validation.maxSize(p35q3, 10);
+        validation.required(p35q4).key("p35q4");
+        validation.maxSize(p35q4, 10);
+        validation.required(p35q1assurance).key("p35q1assurance");
+        validation.maxSize(p35q1assurance, 50);
+        validation.required(p35q2assurance).key("p35q2assurance");
+        validation.maxSize(p35q2assurance, 50);
+        validation.required(p35q3assurance).key("p35q3assurance");
+        validation.maxSize(p35q3assurance, 50);
+        validation.required(p35q4assurance).key("p35q4assurance");
+        validation.maxSize(p35q4assurance, 50);
+        if (!listing.lot.equals("SaaS")) {
+            validation.required(p35q5).key("p35q5");
+            validation.maxSize(p35q5, 10);
+            validation.required(p35q5assurance).key("p35q5assurance");
+            validation.maxSize(p35q5assurance, 50);
+        }
 
         if(validation.hasErrors()) {
 
@@ -33,8 +55,13 @@ public class Page35 extends AuthenticatingController {
 
         Page page = new Page(listingId, PAGE_ID);
         page.responses.put("p35q1", p35q1);
+        page.responses.put("p35q2", p35q2);
+        page.responses.put("p35q3", p35q3);
+        page.responses.put("p35q4", p35q4);
+        page.responses.put("p35q5", p35q5);
         page.insert();
         listing.addResponsePage(page, PAGE_ID);
         redirect(listing.nextPageUrl(PAGE_ID, listing.id));
     }
+
 }

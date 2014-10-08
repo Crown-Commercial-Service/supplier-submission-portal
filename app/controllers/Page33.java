@@ -1,10 +1,8 @@
 package controllers;
 
-import com.google.gson.Gson;
 import models.Listing;
 import models.Page;
 import play.data.validation.Error;
-import uk.gov.gds.dm.ValidationUtils;
 
 import java.util.Map;
 import java.util.List;
@@ -13,26 +11,38 @@ public class Page33 extends AuthenticatingController {
 
     private static final Long PAGE_ID = 33l;
 
-    public static void savePage(Long listingId, String p33q1, String[] p33q2, String p33q3, String p33q3assurance, String p33q4, String p33q4assurance) {
+    public static void savePage(Long listingId, String p33q1, String p33q2, String p33q3, String p33q4, String p33q5,
+                                String p33q1assurance, String p33q2assurance, String p33q3assurance, String p33q4assurance, String p33q5assurance) {
 
         Listing listing = Listing.getByListingId(listingId);
 
         // Validate all fields on this page requiring validation
-        if (!listing.lot.equals("SaaS")) {
-            validation.required(p33q1).key("p33q1");
-            validation.maxSize(p33q1, 10);
+        validation.required(p33q1).key("p33q1");
+        validation.maxSize(p33q1, 10);
+        validation.required(p33q1assurance).key("p33q1assurance");
+        validation.maxSize(p33q1assurance, 50);
+        if (!listing.lot.equals("SCS")) {
+            // SaaS, PaaS, IaaS
             validation.required(p33q2).key("p33q2");
-            validation.isTrue(ValidationUtils.stringArrayValuesAreNotTooLong(p33q2, 20)).key("p33q2").message("Invalid values.");
+            validation.maxSize(p33q2, 10);
+            validation.required(p33q3).key("p33q3");
+            validation.maxSize(p33q3, 10);
+            validation.required(p33q4).key("p33q4");
+            validation.maxSize(p33q4, 10);
+            validation.required(p33q2assurance).key("p33q2assurance");
+            validation.maxSize(p33q2assurance, 50);
+            validation.required(p33q3assurance).key("p33q3assurance");
+            validation.maxSize(p33q3assurance, 50);
+            validation.required(p33q4assurance).key("p33q4assurance");
+            validation.maxSize(p33q4assurance, 50);
+            if (!listing.lot.equals("SaaS")) {
+                // PaaS, IaaS
+                validation.required(p33q5).key("p33q5");
+                validation.maxSize(p33q5, 10);
+                validation.required(p33q5assurance).key("p33q5assurance");
+                validation.maxSize(p33q5assurance, 50);
+            }
         }
-        validation.required(p33q3).key("p33q3");
-        validation.maxSize(p33q3, 10);
-        validation.required(p33q3assurance).key("p33q3assurance");
-        validation.maxSize(p33q3assurance, 50);
-
-        validation.required(p33q4).key("p33q4");
-        validation.maxSize(p33q4, 10);
-        validation.required(p33q4assurance).key("p33q4assurance");
-        validation.maxSize(p33q4assurance, 50);
 
         if(validation.hasErrors()) {
 
@@ -46,17 +56,12 @@ public class Page33 extends AuthenticatingController {
             redirect(String.format("/page/%d/%d", PAGE_ID, listing.id));
         }
 
-        Gson gson = new Gson();
         Page page = new Page(listingId, PAGE_ID);
         page.responses.put("p33q1", p33q1);
-        if (p33q2 != null) {
-            page.responses.put("p33q2", gson.toJson(p33q2));
-        }
-        else {
-            page.responses.put("p33q2", null);
-        }
+        page.responses.put("p33q2", p33q2);
         page.responses.put("p33q3", p33q3);
         page.responses.put("p33q4", p33q4);
+        page.responses.put("p33q5", p33q5);
         page.insert();
         listing.addResponsePage(page, PAGE_ID);
         redirect(listing.nextPageUrl(PAGE_ID, listing.id));

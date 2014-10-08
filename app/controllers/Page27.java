@@ -8,6 +8,8 @@ import java.util.List;
 
 public class Page27 extends AuthenticatingController {
 
+    // TODO: REMOVE QUESTIONS NO LONGER HERE
+    
     private static final Long PAGE_ID = 27l;
 
     public static void savePage(Long listingId, String p27q1, String p27q2, String p27q3, String p27q4, String p27q5, String p27q6,
