@@ -23,7 +23,6 @@ public abstract class AuthenticatingController extends Controller {
     @Before
     public static void checkAuthenticationCookie() {
         if(Security.isAuthenticationRequired()){
-            Logger.info("Authentication required.");
             Http.Cookie gdmSsoCookie = request.current().cookies.get("gdmssosession");
             Boolean usedRecently = (Cache.get("last-used") != null);
 
@@ -41,7 +40,6 @@ public abstract class AuthenticatingController extends Controller {
                 Cache.set("last-used", new Date(), "60mn");
             }
         } else {
-            Logger.info("Authentication not required - using dummy supplier ID.");
             supplierDetailsFromCookie.put("supplierId", "1");
             supplierDetailsFromCookie.put("supplierEmail", "supplier@digital.cabinet-office.gov.uk");
             supplierDetailsFromCookie.put("supplierCompanyName", "SueDo LTD.");
