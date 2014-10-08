@@ -2,7 +2,7 @@
 #{set title: 'Adding a new service' /}
 
 %{
-  def page = 'p36'
+  def page = 'p40'
   def question = ''
   def questionIsRelevantToSelectedLot = false
 }%
@@ -17,9 +17,9 @@
   #{heading
     current: pageNum,
     total: pageTotal,
-    title: content.get('p36title'),
+    title: content.get(page + 'title'),
     content: content,
-    page: 36
+    page: 40
   /}
   %{
     question = page + 'q1'
