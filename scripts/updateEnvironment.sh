@@ -4,12 +4,6 @@ appengine_web="./war/WEB-INF/appengine-web.xml"
 application_conf="./conf/application.conf"
 app_yaml="./war/WEB-INF/app.yaml"
 
-# Check that exactly 3 values were passed in
-if [ $# -eq 3 ]; then
-echo  'ERROR: You must enter the value of the envionment, the cookie enc key and wether to force SSL.'
-exit 127
-fi
-
 
 # ---------- appengine-web.xml -------------
 echo "OUTPUT (appengine): Starting... [Ok]"
