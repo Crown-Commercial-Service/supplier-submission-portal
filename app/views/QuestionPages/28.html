@@ -1,0 +1,33 @@
+#{extends 'layout.html' /}
+#{set title: 'Adding a new service' /}
+
+%{
+  def page = 'p28'
+  def question = ''
+  def questionIsRelevantToSelectedLot = false
+}%
+
+#{breadcrumb-one-deep
+  service_name: serviceName,
+  service_id: listingID,
+  lot: lot
+/}
+
+<form action='${request.getBase()}${request.url}' method='POST'>
+  #{heading
+    current: pageNum,
+    total: pageTotal,
+    title: content.get(page + 'title'),
+    content: content,
+    page: 28
+  /}
+  %{
+    question = page + 'q1'
+    questionIsRelevantToSelectedLot = content.get(question + 'lots').contains(lot)
+    if (questionIsRelevantToSelectedLot) {
+  }%
+  %{
+    }
+  }%
+  #{footer/}
+</form>
