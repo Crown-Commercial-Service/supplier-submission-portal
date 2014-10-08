@@ -13,8 +13,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-
-
 public abstract class AuthenticatingController extends Controller {
 
     static Map<String, String> supplierDetailsFromCookie = new HashMap<String, String>();

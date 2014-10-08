@@ -1,11 +1,10 @@
 package controllers;
 
 import models.Page;
+import play.Logger;
 import play.Play;
-import play.modules.siena.SienaFixtures;
 import play.mvc.Controller;
 import play.utils.Properties;
-import siena.Model;
 
 import java.io.InputStream;
 
@@ -25,7 +24,7 @@ public class Fixtures extends Controller {
             contentProperties.load(inputStream);
 
         } catch (Exception ex) {
-            System.out.println("Something went wrong: \n" + ex.getMessage());
+            Logger.error("Something went wrong loading content: \n" + ex.getMessage());
             notFound();
         }
         redirect("/");

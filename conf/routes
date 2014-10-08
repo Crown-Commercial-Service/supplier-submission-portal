@@ -12,7 +12,7 @@ POST    /addservice                             Service.createListing
 
 GET     /documents                              DocumentsController.captureDocuments
 POST    /documents                              DocumentsController.submitDocuments
-GET    /documents/view/{documentId}             DocumentsController.viewDocument
+GET     /documents/view/{documentId}            DocumentsController.viewDocument
 GET     /documents/download                     staticDir:tmp/uploads
 
 # Ignore favicon requests
