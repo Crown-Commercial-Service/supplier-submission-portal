@@ -1,12 +1,12 @@
 #!/bin/sh
-# PARAMS: <new environement value> <cookie enc key>
+# PARAMS: <new environement value> <cookie enc key> <SSL t/f>
 appengine_web="./war/WEB-INF/appengine-web.xml"
 application_conf="./conf/application.conf"
 app_yaml="./war/WEB-INF/app.yaml"
 
 # Check that exactly 3 values were passed in
-if [ $# -eq 0 ]; then
-echo  'ERROR: You must enter the value of the envionment.'
+if [ $# -eq 3 ]; then
+echo  'ERROR: You must enter the value of the envionment, the cookie enc key and wether to force SSL.'
 exit 127
 fi
 
@@ -50,8 +50,6 @@ echo 'OUTPUT (appengine): Replaced '$ssl_value' with '$3
 chmod 666 $appengine_web
 mv $temp_file $appengine_web
 
-
-if [ $# -eq 2 ]; then
 # ---------- appengine-web.xml (change cookie encryption key) -------------
 echo "OUTPUT (appengine): Starting... [Ok]"
 echo "OUTPUT (appengine): Getting $appengine_web, add cookie enc key"
@@ -75,7 +73,6 @@ echo 'OUTPUT (appengine): Replaced '$el_value' with '$2
 # Writing our changes back to the original file ($1)
 chmod 666 $appengine_web
 mv $temp_file $appengine_web
-fi
 
 # ---------- application.conf -------------
 echo "OUTPUT (application_conf): Starting... [Ok]"
