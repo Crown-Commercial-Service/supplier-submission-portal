@@ -2,8 +2,8 @@
 #{set title: 'Adding a new service' /}
 
 %{
-  def page = 'p31'
-  def question = ''
+  def page = 'p28'
+  def question = page + 'q1'
   def questionIsRelevantToSelectedLot = false
 }%
 
@@ -19,36 +19,29 @@
     total: pageTotal,
     title: content.get(page + 'title'),
     content: content,
-    page: 31
+    page: 28
   /}
-  %{
-    question = page + 'q1'
-    questionIsRelevantToSelectedLot = content.get(question + 'lots').contains(lot)
-    if (questionIsRelevantToSelectedLot) {
-  }%
-    #{forms/selection-button-boolean
-      name: question,
-      label: content.get(question + 'text'),
+    #{question-heading
+      heading: content.get(question + 'text'),
       hint: content.get(question + 'hint'),
-      error: content.get(question + flash.get(question)),
-      assurance: true
+      error: content.get(question + flash.get(question))
     /}
-  %{
-    }
-
-    question = page + 'q2'
-    questionIsRelevantToSelectedLot = content.get(question + 'lots').contains(lot)
-    if (questionIsRelevantToSelectedLot) {
-  }%
-    #{forms/selection-button-boolean
-      name: question,
-      label: content.get(question + 'text'),
-      hint: content.get(question + 'hint'),
-      error: content.get(question + flash.get(question)),
-      assurance: true
+    %{
+      for (index in 1..5) {
+    }%
+      #{forms/selection-button-checkbox
+        name: question,
+        value: content.get(question + 'val' + index),
+        label: content.get(question + 'val' + index + 'Label')
+      /}
+    %{
+      }
+    }%
+    #{forms/assurance
+      name: question
     /}
-  %{
-    }
-  }%
+    #{question-footer
+      error: content.get(question + flash.get(question))
+    /}
   #{footer/}
 </form>

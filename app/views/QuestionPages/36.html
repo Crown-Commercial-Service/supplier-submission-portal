@@ -2,7 +2,7 @@
 #{set title: 'Adding a new service' /}
 
 %{
-  def page = 'p36'
+  def page = 'p32'
   def question = ''
   def questionIsRelevantToSelectedLot = false
 }%
@@ -17,9 +17,9 @@
   #{heading
     current: pageNum,
     total: pageTotal,
-    title: content.get('p36title'),
+    title: content.get('p32title'),
     content: content,
-    page: 36
+    page: 32
   /}
   %{
     question = page + 'q1'
@@ -32,50 +32,25 @@
         error: content.get(question + flash.get(question))
       /}
       %{
-        for (index in 1..3) {
+        for (index in 1..8) {
       }%
-        #{forms/selection-button-radio
-          name: question,
-          value: content.get(question + 'val' + index),
-          label: content.get(question + 'val' + index + 'Label')
+        #{forms/selection-button-checkbox
+          name: 'p32q1',
+          value: content.get('p32q1val' + index),
+          label: content.get('p32q1val' + index + 'Label'),
+          checked: oldValues?.get('p32q1')?.contains(content.get('p32q1val' + index))
         /}
       %{
         }
       }%
       #{forms/assurance
-        name: question
+        name: 'p32q1'
       /}
       #{question-footer
+        heading: content.get(question + 'text'),
+        hint: content.get(question + 'hint'),
         error: content.get(question + flash.get(question))
       /}
-  %{
-    }
-
-    question = page + 'q2'
-    questionIsRelevantToSelectedLot = content.get(question + 'lots').contains(lot)
-    if (questionIsRelevantToSelectedLot) {
-  }%
-    #{forms/selection-button-boolean
-      name: question,
-      label: content.get(question + 'text'),
-      hint: content.get(question + 'hint'),
-      error: content.get(question + flash.get(question)),
-      assurance: true
-    /}
-  %{
-    }
-
-    question = page + 'q3'
-    questionIsRelevantToSelectedLot = content.get(question + 'lots').contains(lot)
-    if (questionIsRelevantToSelectedLot) {
-  }%
-    #{forms/selection-button-boolean
-      name: question,
-      label: content.get(question + 'text'),
-      hint: content.get(question + 'hint'),
-      error: content.get(question + flash.get(question)),
-      assurance: true
-    /}
   %{
     }
   }%

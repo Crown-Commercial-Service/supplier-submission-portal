@@ -2,7 +2,7 @@
 #{set title: 'Adding a new service' /}
 
 %{
-  def page = 'p30'
+  def page = 'p33'
   def question = ''
   def questionIsRelevantToSelectedLot = false
 }%
@@ -17,9 +17,9 @@
   #{heading
     current: pageNum,
     total: pageTotal,
-    title: content.get('p30title'),
+    title: content.get('p33title'),
     content: content,
-    page: 30
+    page: 33
   /}
   %{
     question = page + 'q1'
@@ -30,8 +30,7 @@
       name: question,
       label: content.get(question + 'text'),
       hint: content.get(question + 'hint'),
-      error: content.get(question + flash.get(question)),
-      assurance: true
+      error: content.get(question + flash.get(question))
     /}
   %{
     }
@@ -40,12 +39,24 @@
     questionIsRelevantToSelectedLot = content.get(question + 'lots').contains(lot)
     if (questionIsRelevantToSelectedLot) {
   }%
-    #{forms/selection-button-boolean
-      name: question,
-      label: content.get(question + 'text'),
+    #{question-heading
+      heading: content.get(question + 'text'),
       hint: content.get(question + 'hint'),
-      error: content.get(question + flash.get(question)),
-      assurance: true
+      error: content.get(question + flash.get(question))
+    /}
+    %{
+      for (index in 1..3) {
+    }%
+      #{forms/selection-button-checkbox
+        name: question,
+        value: content.get(question + 'val' + index),
+        label: content.get(question + 'val' + index + 'Label')
+      /}
+    %{
+      }
+    }%
+    #{question-footer
+      error: content.get(question + flash.get(question))
     /}
   %{
     }
@@ -65,20 +76,6 @@
     }
 
     question = page + 'q4'
-    questionIsRelevantToSelectedLot = content.get(question + 'lots').contains(lot)
-    if (questionIsRelevantToSelectedLot) {
-  }%
-    #{forms/selection-button-boolean
-      name: question,
-      label: content.get(question + 'text'),
-      hint: content.get(question + 'hint'),
-      error: content.get(question + flash.get(question)),
-      assurance: true
-    /}
-  %{
-    }
-
-    question = page + 'q5'
     questionIsRelevantToSelectedLot = content.get(question + 'lots').contains(lot)
     if (questionIsRelevantToSelectedLot) {
   }%
