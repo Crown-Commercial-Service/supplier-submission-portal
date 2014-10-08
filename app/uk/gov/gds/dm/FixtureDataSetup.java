@@ -5,7 +5,7 @@ import models.Listing;
 public class FixtureDataSetup {
     
     public static Long createListing(String lot) {
-        Listing listing = new Listing("test-supplier", lot);
+        Listing listing = new Listing("1", lot);
         listing.insert();
         return listing.id;
     }

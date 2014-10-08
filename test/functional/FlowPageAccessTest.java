@@ -9,7 +9,6 @@ import uk.gov.gds.dm.ServiceSubmissionJourneyFlows;
 import java.util.HashSet;
 import java.util.Set;
 
-@Ignore
 public class FlowPageAccessTest extends FunctionalTest {
 
     private final static String[] flows = {"IaaS", "SaaS", "PaaS", "SCS"};
@@ -31,19 +30,19 @@ public class FlowPageAccessTest extends FunctionalTest {
 
     private void checkCorrectPagesCanBeAccessedForFlow(String flowType, Long listingId) {
         for (Long pageId : ServiceSubmissionJourneyFlows.getFlow(flowType)){
-            System.out.println(String.format("Testing page works: /page/%d/%d", pageId, listingId)); 
+            System.out.println(String.format("   Testing page works [%s]: /page/%d/%d", flowType, pageId, listingId)); 
             testThatPageWorks(String.format("/page/%d/%d", pageId, listingId));
         }
 
         for (Long pageId : pagesNotInFlow(flowType)){
-            System.out.println(String.format("Testing page doesn't work: /page/%d/%d", pageId, listingId));
+            System.out.println(String.format("   Testing page doesn't work [%s]: /page/%d/%d", flowType, pageId, listingId));
             testThatPageNotInFlowDoesNotWork(String.format("/page/%d/%d", pageId, listingId));
         }
     }
     
     private void testThatPageWorks(String url) {
         Http.Response response = GET(url);
-        System.out.println("Response: " + response.status);
+        System.out.println("     Response: " + response.status);
         assertIsOk(response);
         assertContentType("text/html", response);
         assertCharset(play.Play.defaultWebEncoding, response);
@@ -51,7 +50,7 @@ public class FlowPageAccessTest extends FunctionalTest {
 
     private void testThatPageNotInFlowDoesNotWork(String url) {
         Http.Response response = GET(url);
-        System.out.println("Response: " + response.status);
+        System.out.println("     Response: " + response.status);
         assertIsNotFound(response);
     }
     
