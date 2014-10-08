@@ -1,5 +1,6 @@
 package functional;
 
+import controllers.Fixtures;
 import org.junit.*;
 import play.Logger;
 import play.mvc.Http;
@@ -19,6 +20,7 @@ public class FlowPageAccessTest extends FunctionalTest {
         Logger.info("Loading fixtures...");
         Http.Response response = GET("/fixtures");
         Logger.info("Loaded fixtures: " + response.status + " - " + response.toString());
+        Logger.info("FIXTURES: " + Fixtures.getContentProperties());
     }
 
     @Test
