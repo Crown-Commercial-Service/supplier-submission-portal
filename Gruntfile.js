@@ -52,18 +52,6 @@ module.exports = function(grunt){
       }
     },
 
-    // Compress image assets and move them into public
-    imagemin: {
-      dynamic: {
-        files: [{
-          expand: true,
-          cwd: "app/assets/images/",
-          src: ["*.{png,jpg,gif}"],
-          dest: "public/images/"
-        }]
-      }
-    },
-
     // Make data URIs from images
     dataUri: {
       dist: {
@@ -192,7 +180,7 @@ module.exports = function(grunt){
       },
       images: {
         files: ['app/assets/images/**/*'],
-        tasks: ['imagemin', 'sass:dev', 'dataUri'],
+        tasks: ['copy', 'sass:dev', 'dataUri'],
         options: { nospawn: true }
       },
       js: {
@@ -278,7 +266,6 @@ module.exports = function(grunt){
     'bower',
     'copy',
     'replace',
-    'imagemin',
     'sass:dev',
     'dataUri',
     'clean:tempCSS'
@@ -288,7 +275,6 @@ module.exports = function(grunt){
     'bower',
     'copy',
     'replace',
-    'imagemin',
     'sass:production',
     'dataUri',
     'uglify:production',
