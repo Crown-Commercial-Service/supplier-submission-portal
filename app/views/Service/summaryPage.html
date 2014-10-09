@@ -1,16 +1,11 @@
 #{extends 'layout.html' /}
 #{set title:'Product Summary | Digital Marketplace' /}
 
-<div class='breadcrumb-navigation'>
-  <nav>
-    <ol>
-      <li class='breadcrumb-navigation-item'>
-        <a href="/" class='breadcrumb-navigation-link'>Your G-Cloud 6 submissions</a>
-      </li>
-      <li class='breadcrumb-navigation-item'>Product name ${id}</li>
-    </ol>
-  </nav>
-</div>
+<!--// TODO: pass the real service name and ID here -->
+#{breadcrumb-one-deep
+  service_name: 'Umbraco CMS',
+  service_id: 1
+/}
 
 <h1 class="page-heading-without-position">
   Summary
