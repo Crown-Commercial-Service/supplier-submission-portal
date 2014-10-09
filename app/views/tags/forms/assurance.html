@@ -1,7 +1,10 @@
-<fieldset class="assurance">
-  <legend class="question-heading">
+<fieldset class='assurance'>
+  <legend class='question-heading %{ if (_hint) { }% question-heading-with-hint %{ } }%'>
   Assurance approach
   </legend>
+  #{forms/hint
+    hint: _hint
+  /}
   <label class="selection-button">
     <input type="radio" name="${_name}assurance" value="service-provider-assertion" />
     Service provider assertion
@@ -26,4 +29,7 @@
     <input type="radio" name="${_name}assurance" value="assured-components" />
     Assured components
   </label>
-</fieldset>
+#{question-footer
+  heading: _label,
+  hint: _hint
+/}

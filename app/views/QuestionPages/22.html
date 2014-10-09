@@ -24,23 +24,39 @@
   /}
 
   %{
-    for (index in 1..2) {
-      question = page + 'q' + index
-      questionIsRelevantToSelectedLot = content.get(question + 'lots').contains(lot)
-      if (questionIsRelevantToSelectedLot) {
+    question = page + 'q1'
+    questionIsRelevantToSelectedLot = content.get(question + 'lots').contains(lot)
+    if (questionIsRelevantToSelectedLot) {
   }%
     #{forms/selection-button-boolean
       name: question,
       value: oldvalues?.get(question),
       label: content.get(question + 'text'),
       hint: content.get(question + 'hint'),
-      error: content.get(question + flash.get(question))
+      error: content.get(question + flash.get(question)),
+      assurance: true,
+      assurance_hint: content.get(question + 'assuranceHint')
     /}
   %{
-      }
     }
   }%
 
+  %{
+    question = page + 'q2'
+    questionIsRelevantToSelectedLot = content.get(question + 'lots').contains(lot)
+    if (questionIsRelevantToSelectedLot) {
+  }%
+    #{forms/selection-button-boolean
+      name: question,
+      value: oldvalues?.get(question),
+      label: content.get(question + 'text'),
+      hint: content.get(question + 'hint'),
+      error: content.get(question + flash.get(question)),
+      assurance: true
+    /}
+  %{
+    }
+  }%
 
   %{
     question = page + 'q3'
@@ -64,6 +80,9 @@
       %{
         }
       }%
+      #{forms/assurance
+        name: question
+      /}
       #{question-footer
         error: content.get(question + flash.get(question))
       /}
@@ -82,7 +101,8 @@
       value: oldvalues?.get(question),
       label: content.get(question + 'text'),
       hint: content.get(question + 'hint'),
-      error: content.get(question + flash.get(question))
+      error: content.get(question + flash.get(question)),
+      assurance: true
     /}
   %{
       }
