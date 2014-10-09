@@ -133,6 +133,176 @@
 
   %{
     }
+
+    question = page + 'q5'
+    questionIsRelevantToSelectedLot = content.get(question + 'lots').contains(lot)
+    if (questionIsRelevantToSelectedLot) {
+  }%
+
+    #{question-heading
+      heading: content.get(question + 'text'),
+      hint: content.get(question + 'hint'),
+      error: content.get(question + flash.get(question))
+    /}
+      %{
+        for (index in 1..7) {
+      }%
+        #{forms/selection-button-radio
+          name: question,
+          value: content.get(question + 'val' + index),
+          label: content.get(question + 'val' + index + 'Label')
+        /}
+      %{
+        }
+      }%
+      #{forms/assurance
+        name: question
+      /}
+    #{question-footer
+      error: content.get(question + flash.get(question))
+    /}
+
+  %{
+    }
+    question = page + 'q6'
+    questionIsRelevantToSelectedLot = content.get(question + 'lots').contains(lot)
+    if (questionIsRelevantToSelectedLot) {
+  }%
+
+    #{question-heading
+      heading: content.get(question + 'text'),
+      hint: content.get(question + 'hint'),
+      error: content.get(question + flash.get(question))
+    /}
+      %{
+        for (index in 1..6) {
+      }%
+        #{forms/selection-button-radio
+          name: question,
+          value: content.get(question + 'val' + index),
+          label: content.get(question + 'val' + index + 'Label')
+        /}
+      %{
+        }
+      }%
+      #{forms/assurance
+        name: question
+      /}
+    #{question-footer
+      error: content.get(question + flash.get(question))
+    /}
+
+  %{
+    }
+    question = page + 'q7'
+    questionIsRelevantToSelectedLot = content.get(question + 'lots').contains(lot)
+    if (questionIsRelevantToSelectedLot) {
+  }%
+
+    #{question-heading
+      heading: content.get(question + 'text'),
+      hint: content.get(question + 'hint'),
+      error: content.get(question + flash.get(question))
+    /}
+      %{
+        for (index in 1..8) {
+      }%
+        #{forms/selection-button-radio
+          name: question,
+          value: content.get(question + 'val' + index),
+          label: content.get(question + 'val' + index + 'Label')
+        /}
+      %{
+        }
+      }%
+      #{forms/assurance
+        name: question
+      /}
+    #{question-footer
+      error: content.get(question + flash.get(question))
+    /}
+
+  %{
+    }
+
+    question = page + 'q8'
+    questionIsRelevantToSelectedLot = content.get(question + 'lots').contains(lot)
+    if (questionIsRelevantToSelectedLot) {
+  }%
+
+    #{forms/selection-button-boolean
+      name: question,
+      label: content.get(question + 'text'),
+      hint: content.get(question + 'hint'),
+      error: content.get(question + flash.get(question)),
+      assurance: true
+    /}
+
+  %{
+    }
+
+    question = page + 'q9'
+    questionIsRelevantToSelectedLot = content.get(question + 'lots').contains(lot)
+    if (questionIsRelevantToSelectedLot) {
+  }%
+
+    #{question-heading
+      heading: content.get(question + 'text'),
+      hint: content.get(question + 'hint'),
+      error: content.get(question + flash.get(question))
+    /}
+      %{
+        for (index in 1..8) {
+      }%
+        #{forms/selection-button-radio
+          name: question,
+          value: content.get(question + 'val' + index),
+          label: content.get(question + 'val' + index + 'Label')
+        /}
+      %{
+        }
+      }%
+      #{forms/assurance
+        name: question
+      /}
+    #{question-footer
+      error: content.get(question + flash.get(question))
+    /}
+
+  %{
+    }
+
+    question = page + 'q10'
+    questionIsRelevantToSelectedLot = content.get(question + 'lots').contains(lot)
+    if (questionIsRelevantToSelectedLot) {
+  }%
+
+    #{forms/selection-button-boolean
+      name: question,
+      label: content.get(question + 'text'),
+      hint: content.get(question + 'hint'),
+      error: content.get(question + flash.get(question)),
+      assurance: true
+    /}
+
+  %{
+    }
+
+    question = page + 'q11'
+    questionIsRelevantToSelectedLot = content.get(question + 'lots').contains(lot)
+    if (questionIsRelevantToSelectedLot) {
+  }%
+
+    #{forms/selection-button-boolean
+      name: question,
+      label: content.get(question + 'text'),
+      hint: content.get(question + 'hint'),
+      error: content.get(question + flash.get(question)),
+      assurance: true
+    /}
+
+  %{
+    }
   }%
   #{footer/}
 </form>
