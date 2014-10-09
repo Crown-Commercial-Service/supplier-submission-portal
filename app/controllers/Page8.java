@@ -32,8 +32,8 @@ public class Page8 extends AuthenticatingController {
         } catch(Exception ex) {
             validation.addError("p8q1", Messages.getMessage("en", "validation.invalid"));
         }
-        validation.required(p8q1MinPrice).key("p8q1").message("validationMinPriceRequired");
-        validation.required(p8q1Unit).key("p8q1").message("validationUnitRequired");
+        validation.required(p8q1MinPrice).key("p8q1").message("validationNoMinPriceSpecified");
+        validation.required(p8q1Unit).key("p8q1").message("validationNoUnitSpecified");
         validation.maxSize(p8q1Unit, 25);
         validation.maxSize(p8q1Interval, 25);
         validation.required(p8q2).key("p8q2");
