@@ -11,9 +11,7 @@ public class Page35 extends AuthenticatingController {
 
     private static final Long PAGE_ID = 35l;
 
-    // TODO: ONly half questions here now - rest to p34
-    public static void savePage(Long listingId, String p35q1, String p35q2, String p35q3, String p35q4, String p35q5,
-                                String p35q1assurance, String p35q2assurance, String p35q3assurance, String p35q4assurance, String p35q5assurance) {
+    public static void savePage(Long listingId, String p35q1, String p35q2, String p35q3, String p35q1assurance, String p35q2assurance, String p35q3assurance) {
 
         Listing listing = Listing.getByListingId(listingId);
 
@@ -22,27 +20,20 @@ public class Page35 extends AuthenticatingController {
         validation.maxSize(p35q1, 10);
         validation.required(p35q2).key("p35q2");
         validation.maxSize(p35q2, 10);
-        validation.required(p35q3).key("p35q3");
-        validation.maxSize(p35q3, 10);
-        validation.required(p35q4).key("p35q4");
-        validation.maxSize(p35q4, 10);
+
         validation.required(p35q1assurance).key("p35q1assurance");
         validation.maxSize(p35q1assurance, 50);
         validation.required(p35q2assurance).key("p35q2assurance");
         validation.maxSize(p35q2assurance, 50);
-        validation.required(p35q3assurance).key("p35q3assurance");
-        validation.maxSize(p35q3assurance, 50);
-        validation.required(p35q4assurance).key("p35q4assurance");
-        validation.maxSize(p35q4assurance, 50);
+
         if (!listing.lot.equals("SaaS")) {
-            validation.required(p35q5).key("p35q5");
-            validation.maxSize(p35q5, 10);
-            validation.required(p35q5assurance).key("p35q5assurance");
-            validation.maxSize(p35q5assurance, 50);
+            validation.required(p35q3).key("p35q3");
+            validation.maxSize(p35q3, 10);
+            validation.required(p35q3assurance).key("p35q3assurance");
+            validation.maxSize(p35q3assurance, 50);
         }
 
         if(validation.hasErrors()) {
-
             for(Map.Entry<String, List<Error>> entry : validation.errorsMap().entrySet()) {
                 String key = entry.getKey();
                 String value = entry.getValue().get(0).message();
@@ -57,8 +48,9 @@ public class Page35 extends AuthenticatingController {
         page.responses.put("p35q1", p35q1);
         page.responses.put("p35q2", p35q2);
         page.responses.put("p35q3", p35q3);
-        page.responses.put("p35q4", p35q4);
-        page.responses.put("p35q5", p35q5);
+        page.responses.put("p35q1assurance", p35q1assurance);
+        page.responses.put("p35q2assurance", p35q2assurance);
+        page.responses.put("p35q3assurance", p35q3assurance);
         page.insert();
         listing.addResponsePage(page, PAGE_ID);
         redirect(listing.nextPageUrl(PAGE_ID, listing.id));
