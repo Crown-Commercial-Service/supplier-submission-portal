@@ -1,3 +1,7 @@
+// GOV.UK orange doesn't pass colour contrast when used on a white background
+// This darkens it to the point where it passes WCAG 2 AAA at 18pt and above
+$accessible-orange: darken($orange, 16.5%);
+
 .summary {
 
   &-item {
@@ -5,12 +9,21 @@
   }
 
   &-heading {
+
     @include core-24;
     font-weight: bold;
     position: relative;
     padding: 35px 50% 0 0;
     margin: 0 0 10px 0;
     @include box-sizing(border-box);
+
+    &-number {
+      position: absolute;
+      width: 40px;
+      left: -55px;
+      text-align: right;
+    }
+
   }
 
   &-top-level-action {
@@ -38,9 +51,31 @@
     td {
       padding-top: 10px;
       padding-bottom: 10px;
-      vertical-align: middle;
     }
 
+  }
+
+  &-row-incomplete {
+
+    .summary-question {
+
+      p {
+        padding-left: 10px;
+        border-left: 3px solid $accessible-orange;
+      }
+
+    }
+
+    .summary-answer {
+      color: $accessible-orange;
+    }
+
+  }
+
+  &-incomplete {
+    color: $accessible-orange;
+    font-weight: bold;
+    margin: 40px 0 20px 0;
   }
 
   &-without-answers {
@@ -64,6 +99,7 @@
   &-answer-action {
     white-space: nowrap;
     padding-left: 20px;
+    vertical-align: middle;
   }
 
   &-answer-button {
@@ -74,5 +110,19 @@
     top: -2px;
   }
 
+  &-question {
+    width: 50%;
+    text-align: left;
+    vertical-align: top;
+  }
+
+  &-answer {
+    width: 50%;
+    text-align: left;
+  }
+
+  &-end-link {
+    @include heading-24;
+  }
 
 }
