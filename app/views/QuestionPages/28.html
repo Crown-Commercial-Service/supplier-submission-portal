@@ -34,8 +34,67 @@
       error: content.get(question + flash.get(question)),
       assurance: true
     /}
-
   %{
+    }
+    
+    question = page + 'q2'
+    questionIsRelevantToSelectedLot = content.get(question + 'lots').contains(lot)
+    if (questionIsRelevantToSelectedLot) {
+    }%
+
+    #{forms/selection-button-boolean
+    name: question,
+    label: content.get(question + 'text'),
+    hint: content.get(question + 'hint'),
+    error: content.get(question + flash.get(question)),
+    assurance: true
+    /}
+    %{
+    }
+
+    question = page + 'q3'
+    questionIsRelevantToSelectedLot = content.get(question + 'lots').contains(lot)
+    if (questionIsRelevantToSelectedLot) {
+    }%
+
+    #{forms/selection-button-boolean
+    name: question,
+    label: content.get(question + 'text'),
+    hint: content.get(question + 'hint'),
+    error: content.get(question + flash.get(question)),
+    assurance: true
+    /}
+    %{
+    }
+
+    question = page + 'q4'
+    questionIsRelevantToSelectedLot = content.get(question + 'lots').contains(lot)
+    if (questionIsRelevantToSelectedLot) {
+    }%
+
+    #{forms/selection-button-boolean
+    name: question,
+    label: content.get(question + 'text'),
+    hint: content.get(question + 'hint'),
+    error: content.get(question + flash.get(question)),
+    assurance: true
+    /}
+    %{
+    }
+
+    question = page + 'q5'
+    questionIsRelevantToSelectedLot = content.get(question + 'lots').contains(lot)
+    if (questionIsRelevantToSelectedLot) {
+    }%
+
+    #{forms/selection-button-boolean
+    name: question,
+    label: content.get(question + 'text'),
+    hint: content.get(question + 'hint'),
+    error: content.get(question + flash.get(question)),
+    assurance: true
+    /}
+    %{
     }
   }%
   #{footer/}
