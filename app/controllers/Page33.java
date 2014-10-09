@@ -45,7 +45,6 @@ public class Page33 extends AuthenticatingController {
         }
 
         if(validation.hasErrors()) {
-
             for(Map.Entry<String, List<Error>> entry : validation.errorsMap().entrySet()) {
                 String key = entry.getKey();
                 String value = entry.getValue().get(0).message();
@@ -62,6 +61,11 @@ public class Page33 extends AuthenticatingController {
         page.responses.put("p33q3", p33q3);
         page.responses.put("p33q4", p33q4);
         page.responses.put("p33q5", p33q5);
+        page.responses.put("p33q1assurance", p33q1assurance);
+        page.responses.put("p33q2assurance", p33q2assurance);
+        page.responses.put("p33q3assurance", p33q3assurance);
+        page.responses.put("p33q4assurance", p33q4assurance);
+        page.responses.put("p33q5assurance", p33q5assurance);
         page.insert();
         listing.addResponsePage(page, PAGE_ID);
         redirect(listing.nextPageUrl(PAGE_ID, listing.id));

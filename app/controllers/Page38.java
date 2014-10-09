@@ -22,7 +22,6 @@ public class Page38 extends AuthenticatingController {
         validation.maxSize(p38q1assurance, 50);
 
         if(validation.hasErrors()) {
-
             for(Map.Entry<String, List<Error>> entry : validation.errorsMap().entrySet()) {
                 String key = entry.getKey();
                 String value = entry.getValue().get(0).message();
@@ -35,6 +34,7 @@ public class Page38 extends AuthenticatingController {
 
         Page page = new Page(listingId, PAGE_ID);
         page.responses.put("p38q1", p38q1);
+        page.responses.put("p38q1assurance", p38q1assurance);
         page.insert();
         listing.addResponsePage(page, PAGE_ID);
         redirect(listing.nextPageUrl(PAGE_ID, listing.id));

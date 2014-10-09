@@ -33,7 +33,6 @@ public class Page40 extends AuthenticatingController {
         validation.maxSize(p40q3assurance, 50);
 
         if(validation.hasErrors()) {
-
             for(Map.Entry<String, List<Error>> entry : validation.errorsMap().entrySet()) {
                 String key = entry.getKey();
                 String value = entry.getValue().get(0).message();
@@ -48,6 +47,9 @@ public class Page40 extends AuthenticatingController {
         page.responses.put("p40q1", p40q1);
         page.responses.put("p40q2", p40q2);
         page.responses.put("p40q3", p40q3);
+        page.responses.put("p40q1assurance", p40q1assurance);
+        page.responses.put("p40q2assurance", p40q2assurance);
+        page.responses.put("p40q3assurance", p40q3assurance);
         page.insert();
         listing.addResponsePage(page, PAGE_ID);
         redirect(listing.nextPageUrl(PAGE_ID, listing.id));
