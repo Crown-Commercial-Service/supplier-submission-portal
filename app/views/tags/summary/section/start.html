@@ -1,19 +1,19 @@
+<h2 class='summary-heading'>
+  %{
+    if (_page_list_number) {
+  }%
+    <span class='summary-heading-number'>${_page_list_number}.</span>
+  %{
+    }
+  }%
+  ${_title}
+</h2>
 %{
   if (_page) {
 }%
-<h2 class='summary-heading'>
-  <span class='summary-heading-number'>${_page}.</span>
-  ${_title}
-</h2>
-<p class='summary-top-level-action'>
-  <a href='#' class='summary-change-link' id='new_service'>Edit</a>
-</p>
-%{
-  } else {
-}%
-<h2 class='summary-heading'>
-  ${_title}
-</h2>
+  <p class='summary-top-level-action'>
+    <a href='/page/${_page}/${_service_id}/' class='summary-change-link'>Edit</a>
+  </p>
 %{
   }
 }%

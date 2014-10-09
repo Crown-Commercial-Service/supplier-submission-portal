@@ -8,6 +8,12 @@ import java.util.Map;
 
 public class Service extends AuthenticatingController {
 
+    public static void summaryPage(String id) {
+        renderArgs.put("content", Fixtures.getContentProperties());
+        renderArgs.put("service_id", id);
+        render(id);
+    }
+
     public static void newService() {
         renderArgs.put("content", Fixtures.getContentProperties());
         render();
