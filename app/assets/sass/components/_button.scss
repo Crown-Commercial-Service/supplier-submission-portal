@@ -11,4 +11,8 @@
     @include button($grey-3);
   }
 
+  &-destructive {
+    @include button($red);
+  }
+
 }
