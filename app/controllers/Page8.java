@@ -15,11 +15,23 @@ public class Page8 extends AuthenticatingController {
 
     private static final Long PAGE_ID = 8l;
 
-    public static void savePage(Long listingId, Double p8q1MinPrice, Double p8q1MaxPrice, String p8q1Unit, String p8q1Interval,
+    public static void savePage(Long listingId, String p8q1MinPrice, String p8q1MaxPrice, String p8q1Unit, String p8q1Interval,
                                 String p8q2, String p8q3, String p8q4, String p8q5, Upload p8q6, Upload p8q7) {
 
         Listing listing = Listing.getByListingId(listingId);
 
+        try {
+            Double.valueOf(p8q1MinPrice);
+        } catch(Exception ex) {
+            validation.addError("p8q1", Messages.getMessage("en", "validation.invalid"));
+        }
+        try {
+            if(p8q1MaxPrice != null) {
+                Double.valueOf(p8q1MaxPrice);
+            }
+        } catch(Exception ex) {
+            validation.addError("p8q1", Messages.getMessage("en", "validation.invalid"));
+        }
         validation.required(p8q1MinPrice).key("p8q1").message("validationMinPriceRequired");
         validation.required(p8q1Unit).key("p8q1").message("validationUnitRequired");
         validation.maxSize(p8q1Unit, 25);
@@ -68,8 +80,8 @@ public class Page8 extends AuthenticatingController {
 
         Gson gson = new Gson();
         Page page = new Page(listingId, PAGE_ID);
-        page.responses.put("p8q1MinPrice", Double.toString(p8q1MinPrice));
-        page.responses.put("p8q1MaxPrice", Double.toString(p8q1MaxPrice));
+        page.responses.put("p8q1MinPrice", p8q1MinPrice);
+        page.responses.put("p8q1MaxPrice", p8q1MaxPrice);
         page.responses.put("p8q1Unit", p8q1Unit);
         page.responses.put("p8q1Interval", p8q1Interval);
         page.responses.put("p8q2", p8q2);

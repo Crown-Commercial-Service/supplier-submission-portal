@@ -6,11 +6,19 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class URLTools {
+
     public static String getDigitalMarketplaceURL(){
         if(Play.mode == Play.Mode.DEV){
             return getLocalDigitalMarketplaceURL();
         } else {
-            return getProductionDigitalMarketplaceURL();
+            String appName = Play.configuration.getProperty("application.name");
+            if(appName.equals("ssp-qa")){
+                return getQADigitalMarketplaceURL();
+            } else if (appName.equals("ssp-staging")){
+                return getStagingDigitalMarketplaceURL();
+            } else {
+                return getProductionDigitalMarketplaceURL();
+            }
         }
     }
 
@@ -36,6 +44,14 @@ public class URLTools {
         }
     }
 
+    private static String getStagingDigitalMarketplaceURL(){
+        return  "https://stage.digitalmarketplace.service.gov.uk/";
+    }
+
+    private static String getQADigitalMarketplaceURL(){
+        return "http://qa.digitalmarketplace.service.gov.uk:8080/";
+    }
+
     private static boolean isWorkingURL(String url){
         try {
             final URL testURL = new URL(url);
@@ -45,9 +61,9 @@ public class URLTools {
             huc.connect();
 
             final int code = huc.getResponseCode();
+            System.out.println("Response code: " + code);
             return code != 404;
         } catch (Exception e){
-            System.out.println("There was an error testing the DM URL: " + e.getMessage());
             return false;
         }
     }
