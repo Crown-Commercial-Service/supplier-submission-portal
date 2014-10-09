@@ -1,85 +1,105 @@
 #{extends 'layout.html' /}
 #{set title:'Product Summary | Digital Marketplace' /}
 
-<!--// TODO: pass the real service name and ID here -->
+%{
+  // These should come from the controller
+  def lot = 'SaaS'
+  def SaaSFlow = [2, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40]
+  def optionalQuestions = ['p4q1', 'p8q4', 'p8q5'];
+  def allPagesAreCompleted = false;
+  // -------------------------------------
+
+  def pageIndex = 0
+  def maxPossibleNumberOfQuestions = 20
+  def question
+}%
+
 #{breadcrumb-one-deep
   service_name: 'Umbraco CMS',
-  service_id: 1
+  service_id: service_id
 /}
 
-<h1 class="page-heading-without-position">
-  Summary
-</h1>
+#{heading
+  title: 'Summary',
+/}
 
 #{summary/section/start
-  title: 'Service type'
+  title: content.get('p' + pageIndex + 'title'),
 /}
-
   #{summary/row
-    question: 'Service type',
-    answer: 'Specialist Cloud Services (SCS)'
+    question: content.get('p' + pageIndex + 'q1' + 'text'),
+    answer: 'SaaS'
   /}
-
 #{summary/section/end /}
 
-#{summary/section/start
-  title: 'Service details',
-  page: 1
-/}
+%{
+  for (page in SaaSFlow) {
+}%
 
-  #{summary/row
-    question: 'Service name',
-    answer: 'Umbraco CMS'
-  /}
-  #{summary/row
-    question: 'Service description',
-    answer: 'Professional website development to enhance the delivery and performance of online services based on Sitecore or Umbraco Content Management Systems. We provide development and support services for large scale, business critical websites for many organisations including NHS Direct, Department for Education and the Department for Business, Innovation and Skills.'
+  #{summary/section/start
+    title: content.get('p' + page + 'title'),
+    page_list_number: ++pageIndex,
+    page: page,
+    service_id: service_id
   /}
 
-#{summary/section/end /}
+    %{
+      for (questionIndex in (1..maxPossibleNumberOfQuestions).toArray()) {
+        question = 'p' + page + 'q' + questionIndex;
+        questionIsRelevantToSelectedLot = content.get(question + 'lots')?.contains(lot)
+        if (questionIsRelevantToSelectedLot) {
+    }%
 
-#{summary/section/start
-  title: 'Security and vetting',
-  page: 2
-/}
+      #{summary/row
+        question: content.get(question + 'text'),
+        answer: '',
+        assurance: '',
+        optional: optionalQuestions.contains(question)
+      /}
 
-  #{summary/row
-    question: 'Service is secure',
-    answer: ''
-  /}
-  #{summary/row
-    question: 'People have been vetted',
-    answer: ''
-  /}
+    %{
+        }
+      }
+    }%
 
-#{summary/section/end /}
+  #{summary/section/end /}
 
-<form action='/' method='get'>
+%{
+  }
+}%
 
 
+%{
+  if (allPagesAreCompleted) {
+}%
   <div class='page-footer'>
-    <p class='summary-incomplete'>
+    <div class='page-footer-item'>
+      <form action='/' method='get'>
+        #{forms/selection-button-checkbox
+          name: 'completed',
+          value: 'service-completed',
+          label: 'This service is completed'
+        /}
+      </form>
+    </div>
+    <input type='submit' value='Save and return to submissions' class='page-footer-item button-save' />
+    <!--
+    <input type='submit' value='Delete this service' class='page-footer-item button-destructive' />
+    -->
+  </div>
+%{
+  } else {
+}%
+  <div class='page-footer'>
+    <p class='summary-incomplete-message'>
       Your progress has been saved, but you must answer all required
       questions before you can complete your service
     </p>
     <a href='/' class='page-footer-item summary-return-link'>Return to submissions</a>
+    <!--
     <input type='submit' value='Delete this service' class='page-footer-item button-destructive' />
+    -->
   </div>
-
-  <br /><br /><br /><br />
-
-  <!-- OR SHOW THIS: -->
-
-  <div class='page-footer'>
-    <div class='page-footer-item'>
-      #{forms/selection-button-checkbox
-        name: 'completed',
-        value: 'service-completed',
-        label: 'This service is completed'
-      /}
-    </div>
-    <input type='submit' value='Save and return to submissions' class='page-footer-item button-save' />
-    <input type='submit' value='Delete this service' class='page-footer-item button-destructive' />
-  </div>
-
-</form>
+%{
+  }
+}%

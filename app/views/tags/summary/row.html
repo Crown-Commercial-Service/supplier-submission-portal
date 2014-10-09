@@ -1,14 +1,4 @@
-%{
-  if (_answer) {
-}%
-<tr class='summary-row'>
-%{
-  } else {
-}%
-<tr class='summary-row summary-row-incomplete'>
-%{
-  }
-}%
+<tr class='summary-row%{ if (!_answer && !_optional) { }% summary-row-incomplete%{ } }%'>
   <td class='summary-question'>
     <p>
       ${_question}
@@ -19,11 +9,11 @@
       %{
         if (_answer) {
       }%
-        ${_answer}
+        ${_answer}%{ if (_assurance) { }%, assured by ${_assurance}%{ } }%
       %{
-        } else {
+        } else if (!_optional) {
       }%
-        Required
+        Answer required
       %{
         }
       }%
