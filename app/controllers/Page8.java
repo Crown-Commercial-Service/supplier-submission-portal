@@ -20,8 +20,8 @@ public class Page8 extends AuthenticatingController {
 
         Listing listing = Listing.getByListingId(listingId);
 
-        validation.required(p8q1MinPrice).key("p8q1MinPrice");
-        validation.required(p8q1Unit).key("p8q1Unit");
+        validation.required(p8q1MinPrice).key("p8q1").message("validationMinPriceRequired");
+        validation.required(p8q1Unit).key("p8q1").message("validationUnitRequired");
         validation.maxSize(p8q1Unit, 25);
         validation.maxSize(p8q1Interval, 25);
         validation.required(p8q2).key("p8q2");
