@@ -34,6 +34,7 @@ public abstract class AuthenticatingController extends Controller {
                 supplierDetailsFromCookie.put("supplierId", Security.getCookieSupplierId(gdmSsoCookie));
                 supplierDetailsFromCookie.put("supplierEmail", Security.getCookieEmail(gdmSsoCookie));
                 supplierDetailsFromCookie.put("supplierCompanyName", Security.getCookieSupplierCompanyName(gdmSsoCookie));
+                supplierDetailsFromCookie.put("cookieDate", Security.getCookieDate(gdmSsoCookie));
 
                 Cache.set("last-used", new Date(), "60mn");
             }
