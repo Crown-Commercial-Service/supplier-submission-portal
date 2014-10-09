@@ -45,23 +45,11 @@ public class URLTools {
     }
 
     private static String getStagingDigitalMarketplaceURL(){
-        String[] localDigitalMarketplaceURLs = new String[] {"https://stage.digitalmarketplace.service.gov.uk/", "https://stage.digitalmarketplace.service.gov.uk/digitalmarketplace/"};
-
-        if(isWorkingURL(localDigitalMarketplaceURLs[0])){
-            return localDigitalMarketplaceURLs[0];
-        } else {
-            return localDigitalMarketplaceURLs[1];
-        }
+        return  "https://stage.digitalmarketplace.service.gov.uk/";
     }
 
     private static String getQADigitalMarketplaceURL(){
-        String[] localDigitalMarketplaceURLs = new String[] {"http://qa.digitalmarketplace.service.gov.uk:8080/", "http://qa.digitalmarketplace.service.gov.uk:8080/digitalmarketplace/"};
-
-        if(isWorkingURL(localDigitalMarketplaceURLs[0])){
-            return localDigitalMarketplaceURLs[0];
-        } else {
-            return localDigitalMarketplaceURLs[1];
-        }
+        return "http://qa.digitalmarketplace.service.gov.uk:8080/";
     }
 
     private static boolean isWorkingURL(String url){
@@ -73,6 +61,7 @@ public class URLTools {
             huc.connect();
 
             final int code = huc.getResponseCode();
+            System.out.println("Response code: " + code);
             return code != 404;
         } catch (Exception e){
             return false;
