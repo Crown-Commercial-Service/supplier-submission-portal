@@ -17,7 +17,7 @@
   #{heading
     current: pageNum,
     total: pageTotal,
-    title: content.get('p34title'),
+    title: content.get(page + 'title'),
     content: content,
     page: 34
   /}
@@ -26,27 +26,26 @@
     questionIsRelevantToSelectedLot = content.get(question + 'lots').contains(lot)
     if (questionIsRelevantToSelectedLot) {
   }%
-    #{question-heading
-      heading: content.get(question + 'text'),
+    #{forms/selection-button-boolean
+      name: question,
+      label: content.get(question + 'text'),
       hint: content.get(question + 'hint'),
-      error: content.get(question + flash.get(question))
+      error: content.get(question + flash.get(question)),
+      assurance: true
     /}
-    %{
-      for (index in 1..5) {
-    }%
-      #{forms/selection-button-radio
-        name: question,
-        value: content.get(question + 'val' + index),
-        label: content.get(question + 'val' + index + 'Label')
-      /}
-    %{
-      }
-    }%
-    #{forms/assurance
-      name: question
-    /}
-    #{question-footer
-      error: content.get(question + flash.get(question))
+  %{
+    }
+
+    question = page + 'q2'
+    questionIsRelevantToSelectedLot = content.get(question + 'lots').contains(lot)
+    if (questionIsRelevantToSelectedLot) {
+  }%
+    #{forms/selection-button-boolean
+      name: question,
+      label: content.get(question + 'text'),
+      hint: content.get(question + 'hint'),
+      error: content.get(question + flash.get(question)),
+      assurance: true
     /}
   %{
     }

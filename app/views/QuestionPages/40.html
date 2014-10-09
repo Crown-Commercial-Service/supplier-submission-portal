@@ -2,7 +2,7 @@
 #{set title: 'Adding a new service' /}
 
 %{
-  def page = 'p36'
+  def page = 'p40'
   def question = ''
   def questionIsRelevantToSelectedLot = false
 }%
@@ -19,7 +19,7 @@
     total: pageTotal,
     title: content.get(page + 'title'),
     content: content,
-    page: 36
+    page: 40
   /}
   %{
     question = page + 'q1'
@@ -32,13 +32,12 @@
         error: content.get(question + flash.get(question))
       /}
       %{
-        for (index in 1..8) {
+        for (index in 1..3) {
       }%
-        #{forms/selection-button-checkbox
+        #{forms/selection-button-radio
           name: question,
           value: content.get(question + 'val' + index),
-          label: content.get(question + 'val' + index + 'Label'),
-          checked: oldValues?.get(question)?.contains(content.get(question + 'val' + index))
+          label: content.get(question + 'val' + index + 'Label')
         /}
       %{
         }
@@ -47,10 +46,36 @@
         name: question
       /}
       #{question-footer
-        heading: content.get(question + 'text'),
-        hint: content.get(question + 'hint'),
         error: content.get(question + flash.get(question))
       /}
+  %{
+    }
+
+    question = page + 'q2'
+    questionIsRelevantToSelectedLot = content.get(question + 'lots').contains(lot)
+    if (questionIsRelevantToSelectedLot) {
+  }%
+    #{forms/selection-button-boolean
+      name: question,
+      label: content.get(question + 'text'),
+      hint: content.get(question + 'hint'),
+      error: content.get(question + flash.get(question)),
+      assurance: true
+    /}
+  %{
+    }
+
+    question = page + 'q3'
+    questionIsRelevantToSelectedLot = content.get(question + 'lots').contains(lot)
+    if (questionIsRelevantToSelectedLot) {
+  }%
+    #{forms/selection-button-boolean
+      name: question,
+      label: content.get(question + 'text'),
+      hint: content.get(question + 'hint'),
+      error: content.get(question + flash.get(question)),
+      assurance: true
+    /}
   %{
     }
   }%
