@@ -121,8 +121,9 @@ $accessible-orange: darken($orange, 16.5%);
     text-align: left;
   }
 
-  &-end-link {
-    @include heading-24;
+  &-return-link {
+    @include heading-27;
+    margin-bottom: 25px;
   }
 
 }
