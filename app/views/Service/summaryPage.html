@@ -16,18 +16,77 @@
   Summary
 </h1>
 
+#{summary/section/start
+  title: 'Service type'
+/}
+
+  #{summary/row
+    question: 'Service type',
+    answer: 'Specialist Cloud Services (SCS)'
+  /}
+
+#{summary/section/end /}
+
+#{summary/section/start
+  title: 'Service details',
+  page: 1
+/}
+
+  #{summary/row
+    question: 'Service name',
+    answer: 'Umbraco CMS'
+  /}
+  #{summary/row
+    question: 'Service description',
+    answer: 'Professional website development to enhance the delivery and performance of online services based on Sitecore or Umbraco Content Management Systems. We provide development and support services for large scale, business critical websites for many organisations including NHS Direct, Department for Education and the Department for Business, Innovation and Skills.'
+  /}
+
+#{summary/section/end /}
+
+#{summary/section/start
+  title: 'Security and vetting',
+  page: 2
+/}
+
+  #{summary/row
+    question: 'Service is secure',
+    answer: ''
+  /}
+  #{summary/row
+    question: 'People have been vetted',
+    answer: ''
+  /}
+
+#{summary/section/end /}
+
 #{form @Service.completeListing()}
 
     <input type="hidden" id="listingId" name="listingId" value="${listingId}" />
 
-    #{forms/selection-button-checkbox
-      name: 'serviceCompleted',
-      value: 'service-completed',
-      label: 'This service is completed'
-    /}
 
-    <div class='page-footer'>
-      <input type='submit' value='Save and return to submissions' class='page-footer-item button button-save' />
+  <div class='page-footer'>
+    <p class='summary-incomplete'>
+      Your progress has been saved, but you must answer all required
+      questions before you can complete your service
+    </p>
+    <input type='submit' value='Return to submissions' class='page-footer-item button-save' />
+    <input type='submit' value='Delete this service' class='page-footer-item button-destructive' />
+  </div>
+
+  <br /><br /><br /><br />
+
+  <!-- OR SHOW THIS: -->
+
+  <div class='page-footer'>
+    <div class='page-footer-item'>
+      #{forms/selection-button-checkbox
+        name: 'serviceCompleted',
+        value: 'service-completed',
+        label: 'This service is completed'
+      /}
     </div>
+    <input type='submit' value='Save and return to submissions' class='page-footer-item button-save' />
+    <input type='submit' value='Delete this service' class='page-footer-item button-destructive' />
+  </div>
 
 #{/form}

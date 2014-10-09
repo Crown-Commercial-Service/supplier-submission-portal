@@ -1,0 +1,32 @@
+%{
+  if (_answer) {
+}%
+<tr class='summary-row'>
+%{
+  } else {
+}%
+<tr class='summary-row summary-row-incomplete'>
+%{
+  }
+}%
+  <td class='summary-question'>
+    <p>
+      ${_question}
+    </p>
+  </td>
+  <td class='summary-answer'>
+    <p>
+      %{
+        if (_answer) {
+      }%
+        ${_answer}
+      %{
+        } else {
+      }%
+        Required
+      %{
+        }
+      }%
+    </p>
+  </td>
+</tr>
