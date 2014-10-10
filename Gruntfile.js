@@ -233,12 +233,14 @@ module.exports = function(grunt){
           inputFolder = __dirname + '/conf/digital-marketplace-ssp-content',
           completed = false;
 
-      var completed = script.combine({
+      completed = script.combine({
         'outputJsonFile' : outputJsonFile,
         'inputFolder' : inputFolder
       });
       if (completed) {
         grunt.log.writeln('Files in ' + inputFolder + ' combined to create ' + outputJsonFile);
+      } else {
+        grunt.fail.fatal("Could not produce content from YAML files");
       }
     }
   );
