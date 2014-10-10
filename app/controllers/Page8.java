@@ -1,6 +1,7 @@
 package controllers;
 
 import com.google.gson.Gson;
+import models.Document;
 import models.Listing;
 import models.Page;
 import play.data.Upload;
@@ -10,6 +11,8 @@ import play.data.validation.Error;
 
 import java.util.Map;
 import java.util.List;
+
+import static uk.gov.gds.dm.DocumentUtils.*;
 
 public class Page8 extends AuthenticatingController {
 
@@ -49,19 +52,19 @@ public class Page8 extends AuthenticatingController {
         // Validate documents
         validation.required(p8q6).key("p8q6");
         if(p8q6 != null){
-            if(!DocumentUtils.validateDocumentFormat(p8q6)){
+            if(!validateDocumentFormat(p8q6)){
                 validation.addError("p8q6", Messages.getMessage("en", "validation.file.wrongFormat"));
             }
-            if(!DocumentUtils.validateDocumentFileSize(p8q6)){
+            if(!validateDocumentFileSize(p8q6)){
                 validation.addError("p8q6", Messages.getMessage("en", "validation.file.tooLarge"));
             }
         }
 
         if(p8q7 != null){
-            if(!DocumentUtils.validateDocumentFormat(p8q7)){
+            if(!validateDocumentFormat(p8q7)){
                 validation.addError("p8q7", Messages.getMessage("en", "validation.file.wrongFormat"));
             }
-            if(!DocumentUtils.validateDocumentFileSize(p8q7)){
+            if(!validateDocumentFileSize(p8q7)){
                 validation.addError("p8q7", Messages.getMessage("en", "validation.file.tooLarge"));
             }
         }
@@ -77,6 +80,11 @@ public class Page8 extends AuthenticatingController {
             System.out.println(flash);
             redirect(String.format("/page/%d/%d", PAGE_ID, listing.id));
         }
+
+        Document p8q6Document = storeDocument(p8q6, getSupplierId(), listing.id, "p8q6");
+        p8q6Document.insert();
+        Document p8q7Document = storeDocument(p8q7, getSupplierId(), listing.id, "p8q6");
+        p8q7Document.insert();
 
         Gson gson = new Gson();
         Page page = new Page(listingId, PAGE_ID);
