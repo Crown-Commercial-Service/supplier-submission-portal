@@ -57,26 +57,22 @@ public class Page6 extends AuthenticatingController {
     }
 
     private static Document storeDocument(Upload upload, long listingId) {
-        // bucket/supplier/listing/question/document
-        String bucket = String.valueOf(Play.configuration.get("application.s3.bucket.name"));
+
         String supplierName = getSupplierName();
         String documentName = upload.getFileName();
         try {
             documentName = URLEncoder.encode(documentName, StandardCharsets.UTF_8.name());
         } catch (UnsupportedEncodingException e) {
-            //
+            // won't happen
         }
         Document document = Document
                 .forListing(listingId)
                 .withName(documentName)
                 .forQuestion(QUESTION_ID)
                 .forSupplier(supplierName)
-                .inBucket(bucket)
                 .fromFile(upload.asFile()).build();
 
         document.pushDocumentToStorage();
-
-        System.out.println(document.documentUrl);
 
         return document;
     }

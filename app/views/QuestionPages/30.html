@@ -17,7 +17,7 @@
   #{heading
     current: pageNum,
     total: pageTotal,
-    title: content.get('p30title'),
+    title: content.get(page + 'title'),
     content: content,
     page: 30
   /}
@@ -26,6 +26,7 @@
     questionIsRelevantToSelectedLot = content.get(question + 'lots').contains(lot)
     if (questionIsRelevantToSelectedLot) {
   }%
+
     #{forms/selection-button-boolean
       name: question,
       label: content.get(question + 'text'),
@@ -33,13 +34,14 @@
       error: content.get(question + flash.get(question)),
       assurance: true
     /}
+
   %{
     }
-
     question = page + 'q2'
     questionIsRelevantToSelectedLot = content.get(question + 'lots').contains(lot)
     if (questionIsRelevantToSelectedLot) {
   }%
+
     #{forms/selection-button-boolean
       name: question,
       label: content.get(question + 'text'),
@@ -47,13 +49,14 @@
       error: content.get(question + flash.get(question)),
       assurance: true
     /}
+
   %{
     }
-
     question = page + 'q3'
     questionIsRelevantToSelectedLot = content.get(question + 'lots').contains(lot)
     if (questionIsRelevantToSelectedLot) {
   }%
+
     #{forms/selection-button-boolean
       name: question,
       label: content.get(question + 'text'),
@@ -61,6 +64,7 @@
       error: content.get(question + flash.get(question)),
       assurance: true
     /}
+
   %{
     }
 
@@ -68,6 +72,7 @@
     questionIsRelevantToSelectedLot = content.get(question + 'lots').contains(lot)
     if (questionIsRelevantToSelectedLot) {
   }%
+
     #{forms/selection-button-boolean
       name: question,
       label: content.get(question + 'text'),
@@ -75,6 +80,7 @@
       error: content.get(question + flash.get(question)),
       assurance: true
     /}
+
   %{
     }
 
@@ -82,13 +88,30 @@
     questionIsRelevantToSelectedLot = content.get(question + 'lots').contains(lot)
     if (questionIsRelevantToSelectedLot) {
   }%
-    #{forms/selection-button-boolean
-      name: question,
-      label: content.get(question + 'text'),
+
+    #{question-heading
+      heading: content.get(question + 'text'),
       hint: content.get(question + 'hint'),
-      error: content.get(question + flash.get(question)),
-      assurance: true
+      error: content.get(question + flash.get(question))
     /}
+      %{
+        for (index in 1..4) {
+      }%
+        #{forms/selection-button-radio
+          name: question,
+          value: content.get(question + 'val' + index),
+          label: content.get(question + 'val' + index + 'Label')
+        /}
+      %{
+        }
+      }%
+      #{forms/assurance
+        name: question
+      /}
+    #{question-footer
+      error: content.get(question + flash.get(question))
+    /}
+
   %{
     }
   }%

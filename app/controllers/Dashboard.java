@@ -15,6 +15,8 @@ public class Dashboard extends AuthenticatingController {
         List<Listing> listings = Listing.all(Listing.class).filter("supplierId", supplierDetails.get("supplierId")).fetch();
         Logger.info("System property is : " + System.getProperty("ssp.cookie.enc"));
 
+        Logger.info("%s", supplierDetails);
+
         render(listings, supplierDetails);
     }
 }

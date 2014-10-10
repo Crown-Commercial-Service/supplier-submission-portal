@@ -2,14 +2,12 @@ package controllers;
 
 import models.Listing;
 import models.Page;
-import play.mvc.Controller;
 
 
 public class QuestionPageDisplay extends AuthenticatingController {
 
     public static void showPage(Long pageId, Long listingId) {
 
-        //TODO: Get content from yml file and pass in to template
         Listing listing = Listing.getByListingId(listingId);
 
         notFoundIfNull(listing);

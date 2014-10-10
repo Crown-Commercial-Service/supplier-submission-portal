@@ -2,6 +2,7 @@ package models;
 
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.FileUtils;
+import play.Play;
 import play.data.validation.Check;
 import siena.*;
 import uk.gov.gds.dm.DocumentUtils;
@@ -14,7 +15,6 @@ import java.io.*;
 public class Document extends Model{
 
     private transient File file;
-    private transient String bucket;
     private transient String supplierName;
     private static final S3Uploader uploader = new S3Uploader();
     // For GAE :
@@ -43,20 +43,20 @@ public class Document extends Model{
     @NotNull
     public String documentUrl;
 
-    public Document(String name, long listingId, String questionId, File file, String bucket, String supplierName) {
+    public Document(String name, long listingId, String questionId, File file, String supplierName) {
         this.name = name;
         this.listingId = listingId;
         this.questionId = questionId;
         this.type = getFileType(name);
         this.file = file;
-        this.bucket = bucket;
         this.supplierName = supplierName;
     }
 
     public void pushDocumentToStorage() {
 
-        String myKey = String.format("%s/%d/%s/%s", this.supplierName, this.listingId, this.questionId, this.name);
-        String documentUrl = uploader.upload(this.file, this.bucket, myKey);
+        String bucket = String.valueOf(Play.configuration.get("application.s3.bucket.name"));
+        String documentKey = String.format("%s/%d/%s/%s", this.supplierName, this.listingId, this.questionId, this.name);
+        String documentUrl = uploader.upload(this.file, bucket, documentKey);
         this.documentUrl = documentUrl;
 
     }
@@ -85,17 +85,12 @@ public class Document extends Model{
         return new DocumentBuilder().forSupplier(bucket);
     }
 
-    public static DocumentBuilder inBucket(String bucket) {
-        return new DocumentBuilder().inBucket(bucket);
-    }
-
     public static class DocumentBuilder {
 
         private String question;
         private long listingId;
         private File file;
         private String name;
-        private String bucket;
         private String supplierName;
 
         public DocumentBuilder forQuestion(String question) {
@@ -119,16 +114,11 @@ public class Document extends Model{
         }
 
         public Document build() {
-            return new Document(name, listingId, question, file, bucket, supplierName);
+            return new Document(name, listingId, question, file, supplierName);
         }
 
         public DocumentBuilder forSupplier(String supplierName) {
             this.supplierName = supplierName;
-            return this;
-        }
-
-        public DocumentBuilder inBucket(String bucket) {
-            this.bucket = bucket;
             return this;
         }
 

@@ -4,25 +4,24 @@ import models.Listing;
 import models.Page;
 import play.data.validation.Error;
 
-import java.util.List;
 import java.util.Map;
+import java.util.List;
 
-public class Page29 extends AuthenticatingController {
-    
-    private static final Long PAGE_ID = 29l;
+public class Page38 extends AuthenticatingController {
 
-    public static void savePage(Long listingId, String p29q1, String p29q1assurance) {
+    private static final Long PAGE_ID = 38l;
+
+    public static void savePage(Long listingId, String p38q1, String p38q1assurance) {
 
         Listing listing = Listing.getByListingId(listingId);
 
         // Validate all fields on this page requiring validation
-        validation.required(p29q1).key("p29q1");
-        validation.maxSize(p29q1, 10);
-        validation.required(p29q1assurance).key("p29q1assurance");
-        validation.maxSize(p29q1assurance, 50);
+        validation.required(p38q1).key("p38q1");
+        validation.maxSize(p38q1, 80);
+        validation.required(p38q1assurance).key("p38q1assurance");
+        validation.maxSize(p38q1assurance, 50);
 
         if(validation.hasErrors()) {
-
             for(Map.Entry<String, List<Error>> entry : validation.errorsMap().entrySet()) {
                 String key = entry.getKey();
                 String value = entry.getValue().get(0).message();
@@ -34,11 +33,10 @@ public class Page29 extends AuthenticatingController {
         }
 
         Page page = new Page(listingId, PAGE_ID);
-        page.responses.put("p29q1", p29q1);
-        page.responses.put("p29q1assurance", p29q1assurance);
+        page.responses.put("p38q1", p38q1);
+        page.responses.put("p38q1assurance", p38q1assurance);
         page.insert();
         listing.addResponsePage(page, PAGE_ID);
         redirect(listing.nextPageUrl(PAGE_ID, listing.id));
     }
-
 }

@@ -15,6 +15,7 @@ import java.util.Map;
 
 public abstract class AuthenticatingController extends Controller {
 
+    public static final String COOKIE_DATE = "cookieDate";
     static Map<String, String> supplierDetailsFromCookie = new HashMap<String, String>();
     static final String DM_URL = URLTools.getDigitalMarketplaceURL();
     private static final String SUPPLIER_ID = "supplierId";
@@ -37,6 +38,7 @@ public abstract class AuthenticatingController extends Controller {
                 supplierDetailsFromCookie.put(SUPPLIER_ID, Security.getCookieSupplierId(gdmSsoCookie));
                 supplierDetailsFromCookie.put(SUPPLIER_EMAIL, Security.getCookieEmail(gdmSsoCookie));
                 supplierDetailsFromCookie.put(SUPPLIER_COMPANY_NAME, Security.getCookieSupplierCompanyName(gdmSsoCookie));
+                supplierDetailsFromCookie.put(COOKIE_DATE, Security.getCookieDate(gdmSsoCookie));
 
                 Cache.set("last-used", new Date(), "60mn");
             }

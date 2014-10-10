@@ -2,8 +2,8 @@
 #{set title: 'Adding a new service' /}
 
 %{
-  def page = 'p31'
-  def question = page + 'q1'
+  def page = 'p38'
+  def question = ''
   def questionIsRelevantToSelectedLot = false
 }%
 
@@ -19,17 +19,22 @@
     total: pageTotal,
     title: content.get(page + 'title'),
     content: content,
-    page: 31
+    page: 38
   /}
+  %{
+    question = page + 'q1'
+    questionIsRelevantToSelectedLot = content.get(question + 'lots').contains(lot)
+    if (questionIsRelevantToSelectedLot) {
+  }%
     #{question-heading
       heading: content.get(question + 'text'),
       hint: content.get(question + 'hint'),
       error: content.get(question + flash.get(question))
     /}
     %{
-      for (index in 1..6) {
+      for (index in 1..5) {
     }%
-      #{forms/selection-button-checkbox
+      #{forms/selection-button-radio
         name: question,
         value: content.get(question + 'val' + index),
         label: content.get(question + 'val' + index + 'Label')
@@ -43,5 +48,8 @@
     #{question-footer
       error: content.get(question + flash.get(question))
     /}
+  %{
+    }
+  }%
   #{footer/}
 </form>

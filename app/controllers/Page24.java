@@ -25,7 +25,10 @@ public class Page24 extends AuthenticatingController {
             validation.required(p24q4).key("p24q4");
             validation.required(p24q5).key("p24q5");
             validation.required(p24q6).key("p24q6");
-            validation.required(p24q11).message("p24q11");
+
+            // Validate percentage: .max() catches anything not a number
+            validation.required(p24q11).key("p24q11");
+            validation.max(p24q11, 99.99999999999999).key("p24q11").message("validationNotANumber");
 
             if (!listing.lot.equals("SaaS")) {
                 //PaaS, IaaS
@@ -35,8 +38,6 @@ public class Page24 extends AuthenticatingController {
                 validation.required(p24q10).message("p24q10");
             }
         }
-
-        // TODO: Validate percentage up to 100 - question 11
 
         // Everything
         validation.required(p24q3).key("p24q3");
