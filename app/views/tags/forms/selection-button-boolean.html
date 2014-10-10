@@ -18,7 +18,8 @@
   </label>
   %{ if (_assurance) { }%
     #{forms/assurance
-      name: _name
+      name: _name,
+      hint: _assurance_hint
     /}
   %{ } }%
 #{question-footer
