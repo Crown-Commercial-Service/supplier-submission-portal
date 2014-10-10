@@ -10,6 +10,8 @@ public class Service extends AuthenticatingController {
     }
 
     public static void summaryPage(String id) {
+        renderArgs.put("content", Fixtures.getContentProperties());
+        renderArgs.put("service_id", id);
         render(id);
     }
 
