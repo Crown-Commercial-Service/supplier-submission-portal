@@ -50,9 +50,8 @@ public class Page20 extends AuthenticatingController {
         }
 
         // Save the form data as a Page into the correct page index
-        Gson gson = new Gson();
         Page page = new Page(listingId, PAGE_ID);
-        page.responses.put("p20q1", gson.toJson(p20q1));
+        page.addFieldToPageResponse("p20q1", p20q1);
         page.insert();
         listing.addResponsePage(page, PAGE_ID);
         redirect(listing.nextPageUrl(PAGE_ID, listing.id));

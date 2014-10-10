@@ -5,6 +5,7 @@ import models.Page;
 import play.data.validation.Error;
 import uk.gov.gds.dm.ValidationUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -37,11 +38,14 @@ public class Page4 extends AuthenticatingController {
 
         // Save the form data as a Page into the correct page index
         Page page = new Page(listingId, PAGE_ID);
-        page.responses.put("p4q1", p4q1);
-        page.responses.put("p4q2", p4q2);
+
+        page.addFieldToPageResponse("p4q1", p4q1);
+        page.addFieldToPageResponse("p4q2", p4q2);
+
         page.insert();
         listing.title = p4q1;
         listing.addResponsePage(page, PAGE_ID);
         redirect(listing.nextPageUrl(PAGE_ID, listing.id));
     }
+
 }

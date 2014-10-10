@@ -46,19 +46,18 @@ public class Page37 extends AuthenticatingController {
             redirect(String.format("/page/%d/%d", PAGE_ID, listing.id));
         }
 
-        Gson gson = new Gson();
         Page page = new Page(listingId, PAGE_ID);
-        page.responses.put("p37q1", p37q1);
+        page.addFieldToPageResponse("p37q1", p37q1);
         if (p37q2 != null) {
-            page.responses.put("p37q2", gson.toJson(p37q2));
+            page.addFieldToPageResponse("p37q2", p37q2);
         }
         else {
-            page.responses.put("p37q2", null);
+            page.addFieldToPageResponse("p37q2");
         }
-        page.responses.put("p37q3", p37q3);
-        page.responses.put("p37q4", p37q4);
-        page.responses.put("p37q3assurance", p37q3assurance);
-        page.responses.put("p37q4assurance", p37q4assurance);
+        page.addFieldToPageResponse("p37q3", p37q3);
+        page.addFieldToPageResponse("p37q4", p37q4);
+        page.addFieldToPageResponse("p37q3assurance", p37q3assurance);
+        page.addFieldToPageResponse("p37q4assurance", p37q4assurance);
         page.insert();
         listing.addResponsePage(page, PAGE_ID);
         redirect(listing.nextPageUrl(PAGE_ID, listing.id));

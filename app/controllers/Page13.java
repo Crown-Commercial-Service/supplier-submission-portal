@@ -39,9 +39,9 @@ public class Page13 extends AuthenticatingController {
 
         // Save the form data as a Page into the correct page index
         Page page = new Page(listingId, PAGE_ID);
-        page.responses.put("p13q1", p13q1);
-        page.responses.put("p13q2", p13q2);
-        page.responses.put("p13q3", p13q3);
+        page.addFieldToPageResponse("p13q1", p13q1);
+        page.addFieldToPageResponse("p13q2", p13q2);
+        page.addFieldToPageResponse("p13q3", p13q3);
         page.insert();
         listing.addResponsePage(page, PAGE_ID);
         redirect(listing.nextPageUrl(PAGE_ID, listing.id));

@@ -53,16 +53,16 @@ public class Page28 extends AuthenticatingController {
         }
 
         Page page = new Page(listingId, PAGE_ID);
-        page.responses.put("p28q1", p28q1);
-        page.responses.put("p28q2", p28q2);
-        page.responses.put("p28q3", p28q3);
-        page.responses.put("p28q4", p28q4);
-        page.responses.put("p28q5", p28q5);
-        page.responses.put("p28q1assurance", p28q1assurance);
-        page.responses.put("p28q2assurance", p28q2assurance);
-        page.responses.put("p28q3assurance", p28q3assurance);
-        page.responses.put("p28q4assurance", p28q4assurance);
-        page.responses.put("p28q5assurance", p28q5assurance);
+        page.addFieldToPageResponse("p28q1", p28q1);
+        page.addFieldToPageResponse("p28q2", p28q2);
+        page.addFieldToPageResponse("p28q3", p28q3);
+        page.addFieldToPageResponse("p28q4", p28q4);
+        page.addFieldToPageResponse("p28q5", p28q5);
+        page.addFieldToPageResponse("p28q1assurance", p28q1assurance);
+        page.addFieldToPageResponse("p28q2assurance", p28q2assurance);
+        page.addFieldToPageResponse("p28q3assurance", p28q3assurance);
+        page.addFieldToPageResponse("p28q4assurance", p28q4assurance);
+        page.addFieldToPageResponse("p28q5assurance", p28q5assurance);
 
         page.insert();
         listing.addResponsePage(page, PAGE_ID);

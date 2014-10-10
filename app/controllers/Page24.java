@@ -5,6 +5,7 @@ import models.Listing;
 import models.Page;
 import play.data.validation.Error;
 
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.List;
 
@@ -55,27 +56,28 @@ public class Page24 extends AuthenticatingController {
         }
 
         // Save the form data as a Page into the correct page index
-        Gson gson = new Gson();
         Page page = new Page(listingId, PAGE_ID);
         if (p24q1 != null) {
-            page.responses.put("p24q1", gson.toJson(p24q1));
+            page.addFieldToPageResponse("p24q1", p24q1);
         }
         else {page.responses.put("p24q1", null);
         }
         if (p24q2 != null) {
-            page.responses.put("p24q2", gson.toJson(p24q2));
+            page.addFieldToPageResponse("p24q2", p24q2);
         }
-        else {page.responses.put("p24q2", null);
+        else {
+            page.responses.put("p24q2", new ArrayList<String>());
+            page.addFieldToPageResponse("p24q2");
         }
-        page.responses.put("p24q3", p24q3);
-        page.responses.put("p24q4", p24q4);
-        page.responses.put("p24q5", p24q5);
-        page.responses.put("p24q6", p24q6);
-        page.responses.put("p24q7", p24q7);
-        page.responses.put("p24q8", p24q8);
-        page.responses.put("p24q9", p24q9);
-        page.responses.put("p24q10", p24q10);
-        page.responses.put("p24q11", p24q11);
+        page.addFieldToPageResponse("p24q3", p24q3);
+        page.addFieldToPageResponse("p24q4", p24q4);
+        page.addFieldToPageResponse("p24q5", p24q5);
+        page.addFieldToPageResponse("p24q6", p24q6);
+        page.addFieldToPageResponse("p24q7", p24q7);
+        page.addFieldToPageResponse("p24q8", p24q8);
+        page.addFieldToPageResponse("p24q9", p24q9);
+        page.addFieldToPageResponse("p24q10", p24q10);
+        page.addFieldToPageResponse("p24q11", p24q11);
         page.insert();
         listing.addResponsePage(page, PAGE_ID);
         redirect(listing.nextPageUrl(PAGE_ID, listing.id));

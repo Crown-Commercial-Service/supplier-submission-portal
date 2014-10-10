@@ -38,8 +38,8 @@ public class Page31 extends AuthenticatingController {
 
         Gson gson = new Gson();
         Page page = new Page(listingId, PAGE_ID);
-        page.responses.put("p31q1", gson.toJson(p31q1));
-        page.responses.put("p31q1assurance", p31q1assurance);
+        page.addFieldToPageResponse("p31q1", p31q1);
+        page.addFieldToPageResponse("p31q1assurance", p31q1assurance);
         page.insert();
         listing.addResponsePage(page, PAGE_ID);
         redirect(listing.nextPageUrl(PAGE_ID, listing.id));

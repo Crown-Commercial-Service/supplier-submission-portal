@@ -21,7 +21,7 @@ public class Page5 extends AuthenticatingController {
 
         // Extract multiple values for list items
         Map<String, String[]> params = request.params.all();
-        ArrayList<String> q1 = new ArrayList();
+        ArrayList<String> q1 = new ArrayList<String>();
         ArrayList<String> q2 = new ArrayList();
         String s;
 
@@ -60,10 +60,10 @@ public class Page5 extends AuthenticatingController {
             redirect(String.format("/page/%d/%d", PAGE_ID, listing.id));
         }
 
-        Gson gson = new Gson();
         Page page = new Page(listingId, PAGE_ID);
-        page.responses.put("p5q1", gson.toJson(q1));
-        page.responses.put("p5q2", gson.toJson(q2));
+
+        page.addFieldToPageResponse("p5q1", q1);
+        page.addFieldToPageResponse("p5q2", q2);
         page.insert();
         listing.addResponsePage(page, PAGE_ID);
         redirect(listing.nextPageUrl(PAGE_ID, listing.id));

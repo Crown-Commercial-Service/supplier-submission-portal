@@ -45,12 +45,12 @@ public class Page40 extends AuthenticatingController {
         }
 
         Page page = new Page(listingId, PAGE_ID);
-        page.responses.put("p40q1", p40q1);
-        page.responses.put("p40q2", p40q2);
-        page.responses.put("p40q3", p40q3);
-        page.responses.put("p40q1assurance", p40q1assurance);
-        page.responses.put("p40q2assurance", p40q2assurance);
-        page.responses.put("p40q3assurance", p40q3assurance);
+        page.addFieldToPageResponse("p40q1", p40q1);
+        page.addFieldToPageResponse("p40q2", p40q2);
+        page.addFieldToPageResponse("p40q3", p40q3);
+        page.addFieldToPageResponse("p40q1assurance", p40q1assurance);
+        page.addFieldToPageResponse("p40q2assurance", p40q2assurance);
+        page.addFieldToPageResponse("p40q3assurance", p40q3assurance);
         page.insert();
         listing.addResponsePage(page, PAGE_ID);
         redirect(listing.nextPageUrl(PAGE_ID, listing.id));
