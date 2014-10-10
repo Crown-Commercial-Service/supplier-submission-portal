@@ -56,8 +56,8 @@ public class Page7 extends AuthenticatingController {
 
         //Save the form data as a Page into the correct page index
         Page page = new Page(listingId, PAGE_ID);
-        page.responses.put("p7q1", p7q1);
-        page.responses.put("p7q2", p7q1);
+        page.addFieldToPageResponse("p7q1", p7q1);
+        page.addFieldToPageResponse("p7q2", p7q2);
         // TODO: Document storage response
 
         page.insert();

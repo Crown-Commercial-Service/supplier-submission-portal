@@ -4,8 +4,7 @@ import siena.*;
 import siena.embed.Embedded;
 import siena.embed.EmbeddedMap;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 @EmbeddedMap
 public class Page extends Model {
@@ -38,13 +37,13 @@ public class Page extends Model {
     public Long listingId;
 
     @Embedded
-    public Map<String,String> responses;
+    public Map<String,List<String>> responses;
 
     public Page(Long listingId, Long pageNumber) {
         this.id = nextId();
         this.listingId = listingId;
         this.pageNumber = pageNumber;
-        responses = new HashMap<String,String>();
+        responses = new HashMap<String,List<String>>();
     }
 
     private Page() {
@@ -65,5 +64,28 @@ public class Page extends Model {
                 ", pageNumber='" + pageNumber + "'" +
                 ", responses='" + responses + "'" +
                 '}';
+    }
+
+    public void addFieldToPageResponse(String key, String answer){
+        List<String> answers = new ArrayList<String>();
+        answers.add(answer);
+        this.responses.put(key, answers);
+    }
+
+    public void addFieldToPageResponse(String key, String[] answer){
+        List<String> answers = new ArrayList<String>();
+        for(String s : answer){
+            answers.add(s);
+        }
+        this.responses.put(key, answers);
+    }
+
+    public void addFieldToPageResponse(String key, ArrayList answer){
+        this.responses.put(key, answer);
+    }
+
+    public void addFieldToPageResponse(String key){
+        List<String> answers = Collections.emptyList();
+        this.responses.put(key, answers);
     }
 }

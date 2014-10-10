@@ -34,8 +34,8 @@ public class Page26 extends AuthenticatingController {
         }
 
         Page page = new Page(listingId, PAGE_ID);
-        page.responses.put("p26q1", p26q1);
-        page.responses.put("p26q1assurance", p26q1assurance);
+        page.addFieldToPageResponse("p26q1", p26q1);
+        page.addFieldToPageResponse("p26q1assurance", p26q1assurance);
         page.insert();
         listing.addResponsePage(page, PAGE_ID);
         redirect(listing.nextPageUrl(PAGE_ID, listing.id));

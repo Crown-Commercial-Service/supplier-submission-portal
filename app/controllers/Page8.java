@@ -78,16 +78,15 @@ public class Page8 extends AuthenticatingController {
             redirect(String.format("/page/%d/%d", PAGE_ID, listing.id));
         }
 
-        Gson gson = new Gson();
         Page page = new Page(listingId, PAGE_ID);
-        page.responses.put("p8q1MinPrice", p8q1MinPrice);
-        page.responses.put("p8q1MaxPrice", p8q1MaxPrice);
-        page.responses.put("p8q1Unit", p8q1Unit);
-        page.responses.put("p8q1Interval", p8q1Interval);
-        page.responses.put("p8q2", p8q2);
-        page.responses.put("p8q3", p8q3);
-        page.responses.put("p8q4", p8q4);
-        page.responses.put("p8q5", p8q5);
+        page.addFieldToPageResponse("p8q1MinPrice", p8q1MinPrice);
+        page.addFieldToPageResponse("p8q1MaxPrice", p8q1MaxPrice);
+        page.addFieldToPageResponse("p8q1Unit", p8q1Unit);
+        page.addFieldToPageResponse("p8q1Interval", p8q1Interval);
+        page.addFieldToPageResponse("p8q2", p8q2);
+        page.addFieldToPageResponse("p8q3", p8q3);
+        page.addFieldToPageResponse("p8q4", p8q4);
+        page.addFieldToPageResponse("p8q5", p8q5);
         // TODO: Document storage for p8q6 and p8q7
 
         page.insert();

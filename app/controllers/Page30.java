@@ -56,16 +56,16 @@ public class Page30 extends AuthenticatingController {
         }
 
         Page page = new Page(listingId, PAGE_ID);
-        page.responses.put("p30q1", p30q1);
-        page.responses.put("p30q2", p30q2);
-        page.responses.put("p30q3", p30q3);
-        page.responses.put("p30q4", p30q4);
-        page.responses.put("p30q5", p30q5);
-        page.responses.put("p30q1assurance", p30q1assurance);
-        page.responses.put("p30q2assurance", p30q2assurance);
-        page.responses.put("p30q3assurance", p30q3assurance);
-        page.responses.put("p30q4assurance", p30q4assurance);
-        page.responses.put("p30q5assurance", p30q5assurance);
+        page.addFieldToPageResponse("p30q1", p30q1);
+        page.addFieldToPageResponse("p30q2", p30q2);
+        page.addFieldToPageResponse("p30q3", p30q3);
+        page.addFieldToPageResponse("p30q4", p30q4);
+        page.addFieldToPageResponse("p30q5", p30q5);
+        page.addFieldToPageResponse("p30q1assurance", p30q1assurance);
+        page.addFieldToPageResponse("p30q2assurance", p30q2assurance);
+        page.addFieldToPageResponse("p30q3assurance", p30q3assurance);
+        page.addFieldToPageResponse("p30q4assurance", p30q4assurance);
+        page.addFieldToPageResponse("p30q5assurance", p30q5assurance);
         page.insert();
         listing.addResponsePage(page, PAGE_ID);
         redirect(listing.nextPageUrl(PAGE_ID, listing.id));

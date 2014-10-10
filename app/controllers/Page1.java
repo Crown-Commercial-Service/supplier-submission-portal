@@ -8,6 +8,7 @@ import models.Page;
 import play.data.validation.Error;
 import uk.gov.gds.dm.ValidationUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -26,7 +27,6 @@ public class Page1 extends AuthenticatingController {
 
 
         if(validation.hasErrors()) {
-
             for(Map.Entry<String, List<Error>> entry : validation.errorsMap().entrySet()) {
                 String key = entry.getKey();
                 String value = entry.getValue().get(0).message();
@@ -38,9 +38,10 @@ public class Page1 extends AuthenticatingController {
         }
 
         // Save the form data as a Page into the correct page index
-        Gson gson = new Gson();
         Page page = new Page(listingId, PAGE_ID);
-        page.responses.put("p1q1", gson.toJson(p1q1));
+
+        page.addFieldToPageResponse("p1q1", p1q1);
+
         page.insert();
         listing.addResponsePage(page, PAGE_ID);
         redirect(listing.nextPageUrl(PAGE_ID, listing.id));
