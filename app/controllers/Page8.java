@@ -69,6 +69,20 @@ public class Page8 extends AuthenticatingController {
             }
         }
 
+        try {
+            Document p8q6Document = storeDocument(p8q6, getSupplierId(), listing.id, "p8q6");
+            p8q6Document.insert();
+        } catch(Exception e) {
+            validation.addError("p8q6", Messages.getMessage("en", "validation.upload.failed"));
+        }
+
+        try {
+            Document p8q7Document = storeDocument(p8q7, getSupplierId(), listing.id, "p8q7");
+            p8q7Document.insert();
+        } catch(Exception e) {
+            validation.addError("p8q7", Messages.getMessage("en", "validation.upload.failed"));
+        }
+
         if(validation.hasErrors()) {
 
             for(Map.Entry<String, List<Error>> entry : validation.errorsMap().entrySet()) {
@@ -81,10 +95,7 @@ public class Page8 extends AuthenticatingController {
             redirect(String.format("/page/%d/%d", PAGE_ID, listing.id));
         }
 
-        Document p8q6Document = storeDocument(p8q6, getSupplierId(), listing.id, "p8q6");
-        p8q6Document.insert();
-        Document p8q7Document = storeDocument(p8q7, getSupplierId(), listing.id, "p8q6");
-        p8q7Document.insert();
+
 
         Gson gson = new Gson();
         Page page = new Page(listingId, PAGE_ID);

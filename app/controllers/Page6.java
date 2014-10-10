@@ -33,6 +33,13 @@ public class Page6 extends AuthenticatingController {
             }
         }
 
+        try {
+            Document document = storeDocument(p6q1, getSupplierId(), listingId, QUESTION_ID);
+            document.insert();
+        } catch(Exception e) {
+            validation.addError("p6q1", Messages.getMessage("en", "validation.upload.failed"));
+        }
+
         if(validation.hasErrors()) {
 
             for(Map.Entry<String, List<Error>> entry : validation.errorsMap().entrySet()) {
@@ -46,8 +53,8 @@ public class Page6 extends AuthenticatingController {
 
         Page page = new Page(listingId, PAGE_ID);
 
-        Document document = storeDocument(p6q1, getSupplierId(), listingId, QUESTION_ID);
-        document.insert();
+
+
 
         page.insert();
         listing.addResponsePage(page, PAGE_ID);

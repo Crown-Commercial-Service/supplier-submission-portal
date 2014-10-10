@@ -5,3 +5,4 @@ validation.required=validationNotAnswered
 validation.file.tooLarge=File was too large.
 validation.file.wrongFormat=File was the wrong format.
 validation.invalid=validationNotANumber
+validation.upload.failed=The file upload failed
