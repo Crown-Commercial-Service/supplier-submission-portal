@@ -28,7 +28,7 @@ public class Page19 extends AuthenticatingController {
         validation.isTrue(ValidationUtils.stringArrayValuesAreNotTooLong(p19q3, 30)).key("p19q3").message("Invalid values");
 
         if(validation.hasErrors()) {
-
+            flash.put("body", params.get("body"));
             for(Map.Entry<String, List<Error>> entry : validation.errorsMap().entrySet()) {
                 String key = entry.getKey();
                 String value = entry.getValue().get(0).message();
