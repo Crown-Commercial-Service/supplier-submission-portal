@@ -17,6 +17,9 @@ public abstract class AuthenticatingController extends Controller {
 
     static Map<String, String> supplierDetailsFromCookie = new HashMap<String, String>();
     static final String DM_URL = URLTools.getDigitalMarketplaceURL();
+    private static final String SUPPLIER_ID = "supplierId";
+    private static final String SUPPLIER_EMAIL = "supplierEmail";
+    private static final String SUPPLIER_COMPANY_NAME = "supplierCompanyName";
 
     @Before
     public static void checkAuthenticationCookie() {
@@ -31,9 +34,9 @@ public abstract class AuthenticatingController extends Controller {
                 Logger.info("SSO Cookie has expired");
                 redirect(DM_URL + "login");
             } else {
-                supplierDetailsFromCookie.put("supplierId", Security.getCookieSupplierId(gdmSsoCookie));
-                supplierDetailsFromCookie.put("supplierEmail", Security.getCookieEmail(gdmSsoCookie));
-                supplierDetailsFromCookie.put("supplierCompanyName", Security.getCookieSupplierCompanyName(gdmSsoCookie));
+                supplierDetailsFromCookie.put(SUPPLIER_ID, Security.getCookieSupplierId(gdmSsoCookie));
+                supplierDetailsFromCookie.put(SUPPLIER_EMAIL, Security.getCookieEmail(gdmSsoCookie));
+                supplierDetailsFromCookie.put(SUPPLIER_COMPANY_NAME, Security.getCookieSupplierCompanyName(gdmSsoCookie));
 
                 Cache.set("last-used", new Date(), "60mn");
             }
@@ -43,4 +46,18 @@ public abstract class AuthenticatingController extends Controller {
             supplierDetailsFromCookie.put("supplierCompanyName", "SueDo LTD.");
         }
     }
+
+    protected static String getSupplierId() {
+        return supplierDetailsFromCookie.get(SUPPLIER_ID);
+    }
+
+    protected static String getSupplierName() {
+        return supplierDetailsFromCookie.get(SUPPLIER_COMPANY_NAME);
+    }
+
+    protected static String getEmail() {
+        return supplierDetailsFromCookie.get(SUPPLIER_EMAIL);
+    }
+
+
 }

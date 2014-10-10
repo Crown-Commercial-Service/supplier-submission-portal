@@ -1,18 +1,24 @@
 package controllers;
 
+import models.Document;
 import models.Listing;
 import models.Page;
+import play.Play;
 import play.data.Upload;
 import uk.gov.gds.dm.DocumentUtils;
 import play.i18n.Messages;
 import play.data.validation.Error;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.Map;
 import java.util.List;
 
 public class Page6 extends AuthenticatingController {
 
     private static final Long PAGE_ID = 6l;
+    private static final String QUESTION_ID = "p6q1";
 
     public static void savePage(Long listingId, Upload p6q1) {
 
@@ -42,10 +48,39 @@ public class Page6 extends AuthenticatingController {
 
         Page page = new Page(listingId, PAGE_ID);
 
-        // TODO: Document storage in response
+        Document document = storeDocument(p6q1, listingId);
+        document.insert();
 
         page.insert();
         listing.addResponsePage(page, PAGE_ID);
         redirect(listing.nextPageUrl(PAGE_ID, listing.id));
     }
+
+    private static Document storeDocument(Upload upload, long listingId) {
+        // bucket/supplier/listing/question/document
+        String bucket = String.valueOf(Play.configuration.get("application.s3.bucket.name"));
+        String supplierName = getSupplierName();
+        String documentName = upload.getFileName();
+        try {
+            documentName = URLEncoder.encode(documentName, StandardCharsets.UTF_8.name());
+        } catch (UnsupportedEncodingException e) {
+            //
+        }
+        Document document = Document
+                .forListing(listingId)
+                .withName(documentName)
+                .forQuestion(QUESTION_ID)
+                .forSupplier(supplierName)
+                .inBucket(bucket)
+                .fromFile(upload.asFile()).build();
+
+        document.pushDocumentToStorage();
+
+        System.out.println(document.documentUrl);
+
+        return document;
+    }
+
+
+
 }
