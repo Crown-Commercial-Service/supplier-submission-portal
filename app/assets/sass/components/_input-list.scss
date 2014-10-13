@@ -1,5 +1,9 @@
 .input-list {
 
+  .list-entry {
+    vertical-align: middle;
+  }
+
   .list-entry-remove {
 
     @include core-19;
