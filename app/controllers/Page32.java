@@ -22,11 +22,11 @@ public class Page32 extends AuthenticatingController {
         validation.maxSize(p32q2, 10);
         validation.required(p32q3).key("p32q3");
         validation.maxSize(p32q3, 10);
-        validation.required(p32q1assurance).key("p32q1assurance");
+        validation.required(p32q1assurance).key("p32q1");
         validation.maxSize(p32q1assurance, 50);
-        validation.required(p32q2assurance).key("p32q2assurance");
+        validation.required(p32q2assurance).key("p32q2");
         validation.maxSize(p32q2assurance, 50);
-        validation.required(p32q3assurance).key("p32q3assurance");
+        validation.required(p32q3assurance).key("p32q3");
         validation.maxSize(p32q3assurance, 50);
 
         if(validation.hasErrors()) {

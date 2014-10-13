@@ -1,11 +1,13 @@
 package controllers;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import models.Listing;
 import models.Page;
 import play.Logger;
 
 import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Type;
 import java.net.URLDecoder;
 import java.util.*;
 
@@ -38,14 +40,14 @@ public class QuestionPageDisplay extends AuthenticatingController {
         
         if (flash.get("body") != null) {
             try {
-                renderArgs.put("oldValues", getInvalidAnswers());
+                renderArgs.put("oldValues", unflatten(getInvalidAnswers()));
             } catch (Exception ex) {
                 Logger.error("Error reading in previously entered responses", ex);
             }
         } else {
             Page page = listing.completedPages.get(index);
-            if (page!= null) {
-                renderArgs.put("oldValues", page.responses);
+            if (page.responses != null) {
+                renderArgs.put("oldValues", unflatten(page.responses));
             }
         }
         
@@ -74,7 +76,7 @@ public class QuestionPageDisplay extends AuthenticatingController {
         return query_pairs;
     }
     
-    private static Map<String, String> flatten(Map<String, List<String>> map) {
+    public static Map<String, String> flatten(Map<String, List<String>> map) {
         Map<String, String> toReturn = new HashMap();
         Gson gson = new Gson();
         for(String key : map.keySet()) {
@@ -83,8 +85,28 @@ public class QuestionPageDisplay extends AuthenticatingController {
             } else if (map.get(key).size() == 1) {
                 toReturn.put(key, map.get(key).get(0));
             }
-            else if (map.get(key).size() == 1) {
+            else {
                 toReturn.put(key, gson.toJson(map.get(key)));
+            }
+        }
+        return toReturn;
+    }
+
+    private static Map<String, Collection<String>> unflatten(Map<String,String> flatmap) {
+        Map<String, Collection<String>> toReturn = new HashMap();
+        Gson gson = new Gson();
+        for(String key : flatmap.keySet()) {
+            String val = flatmap.get(key);
+            ArrayList<String> list = new ArrayList();
+            if (val == null || val.isEmpty()){
+                toReturn.put(key, list);
+            } else if (val.startsWith("[")) {
+                Type collectionType = new TypeToken<Collection<String>>(){}.getType();
+                Collection<String> vals = gson.fromJson(val, collectionType);
+                toReturn.put(key, vals);
+            } else {
+                list.add(val);
+                toReturn.put(key, list);
             }
         }
         return toReturn;

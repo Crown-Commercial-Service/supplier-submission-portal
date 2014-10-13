@@ -21,17 +21,17 @@ public class Page25 extends AuthenticatingController {
 
         validation.required(p25q2).key("p25q2");
         validation.maxSize(p25q2, 30);
-        validation.required(p25q2assurance).key("p25q2assurance");
+        validation.required(p25q2assurance).key("p25q2");
         validation.maxSize(p25q2assurance, 50);
 
         validation.required(p25q3).key("p25q3");
         validation.maxSize(p25q3, 10);
-        validation.required(p25q3assurance).key("p25q3assurance");
+        validation.required(p25q3assurance).key("p25q3");
         validation.maxSize(p25q3assurance, 50);
 
         validation.required(p25q4).key("p25q4");
         validation.maxSize(p25q4, 10);
-        validation.required(p25q4assurance).key("p25q4assurance");
+        validation.required(p25q4assurance).key("p25q4");
         validation.maxSize(p25q4assurance, 50);
 
         if(validation.hasErrors()) {

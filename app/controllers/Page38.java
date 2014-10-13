@@ -18,7 +18,7 @@ public class Page38 extends AuthenticatingController {
         // Validate all fields on this page requiring validation
         validation.required(p38q1).key("p38q1");
         validation.maxSize(p38q1, 80);
-        validation.required(p38q1assurance).key("p38q1assurance");
+        validation.required(p38q1assurance).key("p38q1");
         validation.maxSize(p38q1assurance, 50);
 
         if(validation.hasErrors()) {

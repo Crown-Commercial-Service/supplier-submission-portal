@@ -46,7 +46,8 @@
       }
     }%
     #{forms/assurance
-      name: question
+    name: question,
+    oldval: oldValues?.get(question + 'assurance')?.isEmpty() ? "" : oldValues?.get(question + 'assurance')?.get(0)
     /}
     #{question-footer
       error: content.get(question + flash.get(question))
@@ -78,7 +79,8 @@
         }
       }%
       #{forms/assurance
-        name: question
+      name: question,
+      oldval: oldValues?.get(question + 'assurance')?.isEmpty() ? "" : oldValues?.get(question + 'assurance')?.get(0)
       /}
     #{question-footer
       error: content.get(question + flash.get(question))
@@ -103,13 +105,15 @@
         #{forms/selection-button-radio
           name: question,
           value: content.get(question + 'val' + index),
-          label: content.get(question + 'val' + index + 'Label')
+          label: content.get(question + 'val' + index + 'Label'),
+          oldval: oldValues?.get(question)?.get(0)
         /}
       %{
         }
       }%
       #{forms/assurance
-        name: question
+      name: question,
+      oldval: oldValues?.get(question + 'assurance')?.isEmpty() ? "" : oldValues?.get(question + 'assurance')?.get(0)
       /}
     #{question-footer
       error: content.get(question + flash.get(question))
@@ -128,6 +132,8 @@
       label: content.get(question + 'text'),
       hint: content.get(question + 'hint'),
       error: content.get(question + flash.get(question)),
+      value: oldValues?.get(question),
+      oldval: oldValues?.get(question + 'assurance')?.get(0),
       assurance: true
     /}
 
@@ -145,18 +151,20 @@
       error: content.get(question + flash.get(question))
     /}
       %{
-        for (index in 1..7) {
+        for (index in 1..6) {
       }%
         #{forms/selection-button-radio
           name: question,
           value: content.get(question + 'val' + index),
-          label: content.get(question + 'val' + index + 'Label')
+          label: content.get(question + 'val' + index + 'Label'),
+          oldval: oldValues?.get(question)?.get(0)
         /}
       %{
         }
       }%
       #{forms/assurance
-        name: question
+      name: question,
+      oldval: oldValues?.get(question + 'assurance')?.isEmpty() ? "" : oldValues?.get(question + 'assurance')?.get(0)
       /}
     #{question-footer
       error: content.get(question + flash.get(question))
@@ -175,18 +183,20 @@
       error: content.get(question + flash.get(question))
     /}
       %{
-        for (index in 1..6) {
+        for (index in 1..5) {
       }%
         #{forms/selection-button-radio
           name: question,
           value: content.get(question + 'val' + index),
-          label: content.get(question + 'val' + index + 'Label')
+          label: content.get(question + 'val' + index + 'Label'),
+          oldval: oldValues?.get(question)?.get(0)
         /}
       %{
         }
       }%
       #{forms/assurance
-        name: question
+        name: question,
+        oldval: oldValues?.get(question + 'assurance')?.isEmpty() ? "" : oldValues?.get(question + 'assurance')?.get(0)
       /}
     #{question-footer
       error: content.get(question + flash.get(question))
@@ -205,19 +215,21 @@
       error: content.get(question + flash.get(question))
     /}
       %{
-        for (index in 1..8) {
+        for (index in 1..7) {
       }%
         #{forms/selection-button-radio
           name: question,
           value: content.get(question + 'val' + index),
-          label: content.get(question + 'val' + index + 'Label')
+          label: content.get(question + 'val' + index + 'Label'),
+          oldval: oldValues?.get(question)?.get(0)
         /}
       %{
         }
       }%
-      #{forms/assurance
-        name: question
-      /}
+          #{forms/assurance
+          name: question,
+          oldval: oldValues?.get(question + 'assurance')?.isEmpty() ? "" : oldValues?.get(question + 'assurance')?.get(0)
+          /}
     #{question-footer
       error: content.get(question + flash.get(question))
     /}
@@ -235,6 +247,8 @@
       label: content.get(question + 'text'),
       hint: content.get(question + 'hint'),
       error: content.get(question + flash.get(question)),
+      value: oldValues?.get(question),
+      oldval: oldValues?.get(question + 'assurance')?.get(0),
       assurance: true
     /}
 
@@ -252,18 +266,20 @@
       error: content.get(question + flash.get(question))
     /}
       %{
-        for (index in 1..8) {
+        for (index in 1..7) {
       }%
         #{forms/selection-button-radio
           name: question,
           value: content.get(question + 'val' + index),
-          label: content.get(question + 'val' + index + 'Label')
+          label: content.get(question + 'val' + index + 'Label'),
+          oldval: oldValues?.get(question)?.get(0)
         /}
       %{
         }
       }%
       #{forms/assurance
-        name: question
+      name: question,
+      oldval: oldValues?.get(question + 'assurance')?.isEmpty() ? "" : oldValues?.get(question + 'assurance')?.get(0)
       /}
     #{question-footer
       error: content.get(question + flash.get(question))
@@ -282,6 +298,8 @@
       label: content.get(question + 'text'),
       hint: content.get(question + 'hint'),
       error: content.get(question + flash.get(question)),
+      value: oldValues?.get(question),
+      oldval: oldValues?.get(question + 'assurance')?.get(0),
       assurance: true
     /}
 
@@ -298,6 +316,8 @@
       label: content.get(question + 'text'),
       hint: content.get(question + 'hint'),
       error: content.get(question + flash.get(question)),
+      value: oldValues?.get(question)?.isEmpty() ? "" : oldValues?.get(question)?.get(0),
+      oldval: oldValues?.get(question + 'assurance')?.get(0),
       assurance: true
     /}
 

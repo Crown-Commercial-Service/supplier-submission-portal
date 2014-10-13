@@ -19,7 +19,7 @@ public class Page33 extends AuthenticatingController {
         // Validate all fields on this page requiring validation
         validation.required(p33q1).key("p33q1");
         validation.maxSize(p33q1, 10);
-        validation.required(p33q1assurance).key("p33q1assurance");
+        validation.required(p33q1assurance).key("p33q1");
         validation.maxSize(p33q1assurance, 50);
         if (!listing.lot.equals("SCS")) {
             // SaaS, PaaS, IaaS
@@ -29,17 +29,17 @@ public class Page33 extends AuthenticatingController {
             validation.maxSize(p33q3, 10);
             validation.required(p33q4).key("p33q4");
             validation.maxSize(p33q4, 10);
-            validation.required(p33q2assurance).key("p33q2assurance");
+            validation.required(p33q2assurance).key("p33q2");
             validation.maxSize(p33q2assurance, 50);
-            validation.required(p33q3assurance).key("p33q3assurance");
+            validation.required(p33q3assurance).key("p33q3");
             validation.maxSize(p33q3assurance, 50);
-            validation.required(p33q4assurance).key("p33q4assurance");
+            validation.required(p33q4assurance).key("p33q4");
             validation.maxSize(p33q4assurance, 50);
             if (!listing.lot.equals("SaaS")) {
                 // PaaS, IaaS
                 validation.required(p33q5).key("p33q5");
                 validation.maxSize(p33q5, 10);
-                validation.required(p33q5assurance).key("p33q5assurance");
+                validation.required(p33q5assurance).key("p33q5");
                 validation.maxSize(p33q5assurance, 50);
             }
         }

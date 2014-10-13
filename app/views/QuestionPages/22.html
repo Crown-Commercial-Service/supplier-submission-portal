@@ -31,7 +31,7 @@
   }%
     #{forms/selection-button-boolean
       name: question,
-      value: oldvalues?.get(question),
+      value: oldValues?.get(question),
       label: content.get(question + 'text'),
       hint: content.get(question + 'hint'),
       error: content.get(question + flash.get(question))
@@ -59,7 +59,7 @@
           name: question,
           value: content.get(question + 'val' + index),
           label: content.get(question + 'val' + index + 'Label'),
-          checked: oldValues?.get(question)?.contains(content.get(question + 'val' + index))
+          oldval: oldValues?.get(question)?.get(0)
         /}
       %{
         }
@@ -79,7 +79,7 @@
   }%
     #{forms/selection-button-boolean
       name: question,
-      value: oldvalues?.get(question),
+      value: oldValues?.get(question),
       label: content.get(question + 'text'),
       hint: content.get(question + 'hint'),
       error: content.get(question + flash.get(question))

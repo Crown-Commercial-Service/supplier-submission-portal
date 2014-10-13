@@ -37,7 +37,8 @@
       #{forms/selection-button-radio
         name: question,
         value: content.get(question + 'val' + index),
-        label: content.get(question + 'val' + index + 'Label')
+        label: content.get(question + 'val' + index + 'Label'),
+        oldval: oldValues?.get(question)?.get(0)
       /}
     %{
       }

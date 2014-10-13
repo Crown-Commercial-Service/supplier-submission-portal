@@ -20,7 +20,7 @@ public class Page30 extends AuthenticatingController {
         // ALL LOTS
         validation.required(p30q1).key("p30q1");
         validation.maxSize(p30q1, 10);
-        validation.required(p30q1assurance).key("p30q1assurance");
+        validation.required(p30q1assurance).key("p30q1");
         validation.maxSize(p30q1assurance, 50);
 
         if (!listing.lot.equals("SCS")) {
@@ -34,13 +34,13 @@ public class Page30 extends AuthenticatingController {
             validation.required(p30q5).key("p30q5");
             validation.maxSize(p30q5, 20);
 
-            validation.required(p30q2assurance).key("p30q2assurance");
+            validation.required(p30q2assurance).key("p30q2");
             validation.maxSize(p30q2assurance, 50);
-            validation.required(p30q3assurance).key("p30q3assurance");
+            validation.required(p30q3assurance).key("p30q3");
             validation.maxSize(p30q3assurance, 50);
-            validation.required(p30q4assurance).key("p30q4assurance");
+            validation.required(p30q4assurance).key("p30q4");
             validation.maxSize(p30q4assurance, 50);
-            validation.required(p30q5assurance).key("p30q5assurance");
+            validation.required(p30q5assurance).key("p30q5");
             validation.maxSize(p30q5assurance, 50);
         }
 

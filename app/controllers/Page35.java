@@ -21,15 +21,15 @@ public class Page35 extends AuthenticatingController {
         validation.required(p35q2).key("p35q2");
         validation.maxSize(p35q2, 10);
 
-        validation.required(p35q1assurance).key("p35q1assurance");
+        validation.required(p35q1assurance).key("p35q1");
         validation.maxSize(p35q1assurance, 50);
-        validation.required(p35q2assurance).key("p35q2assurance");
+        validation.required(p35q2assurance).key("p35q2");
         validation.maxSize(p35q2assurance, 50);
 
         if (!listing.lot.equals("SaaS")) {
             validation.required(p35q3).key("p35q3");
             validation.maxSize(p35q3, 10);
-            validation.required(p35q3assurance).key("p35q3assurance");
+            validation.required(p35q3assurance).key("p35q3");
             validation.maxSize(p35q3assurance, 50);
         }
 

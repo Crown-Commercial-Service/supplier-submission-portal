@@ -37,13 +37,15 @@
         #{forms/selection-button-radio
           name: question,
           value: content.get(question + 'val' + index),
-          label: content.get(question + 'val' + index + 'Label')
+          label: content.get(question + 'val' + index + 'Label'),
+          oldval: oldValues?.get(question)?.get(0)
         /}
       %{
         }
       }%
       #{forms/assurance
-        name: question
+        name: question,
+        oldval: oldValues?.get(question + 'assurance')?.isEmpty() ? "" : oldValues?.get(question + 'assurance')?.get(0)
       /}
       #{question-footer
         error: content.get(question + flash.get(question))
@@ -60,6 +62,8 @@
       label: content.get(question + 'text'),
       hint: content.get(question + 'hint'),
       error: content.get(question + flash.get(question)),
+      value: oldValues?.get(question),
+      oldval: oldValues?.get(question + 'assurance')?.get(0),
       assurance: true
     /}
   %{
@@ -74,6 +78,8 @@
       label: content.get(question + 'text'),
       hint: content.get(question + 'hint'),
       error: content.get(question + flash.get(question)),
+      value: oldValues?.get(question),
+      oldval: oldValues?.get(question + 'assurance')?.get(0),
       assurance: true
     /}
   %{

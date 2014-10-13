@@ -21,7 +21,7 @@ public class Page31 extends AuthenticatingController {
         // Validate all fields on this page requiring validation
         validation.required(p31q1).key("p31q1");
         validation.isTrue(ValidationUtils.stringArrayValuesAreNotTooLong(p31q1, 100)).key("p31q1").message("Invalid values");
-        validation.required(p31q1assurance).key("p31q1assurance");
+        validation.required(p31q1assurance).key("p31q1");
         validation.maxSize(p31q1assurance, 50);
 
         if(validation.hasErrors()) {

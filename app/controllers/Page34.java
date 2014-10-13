@@ -21,9 +21,9 @@ public class Page34 extends AuthenticatingController {
         validation.maxSize(p34q1, 10);
         validation.required(p34q2).key("p34q2");
         validation.maxSize(p34q2, 10);
-        validation.required(p34q1assurance).key("p34q1assurance");
+        validation.required(p34q1assurance).key("p34q1");
         validation.maxSize(p34q1assurance, 50);
-        validation.required(p34q2assurance).key("p34q2assurance");
+        validation.required(p34q2assurance).key("p34q2");
         validation.maxSize(p34q2assurance, 50);
 
         if(validation.hasErrors()) {

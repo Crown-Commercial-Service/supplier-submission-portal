@@ -18,7 +18,7 @@ public class Page29 extends AuthenticatingController {
         // Validate all fields on this page requiring validation
         validation.required(p29q1).key("p29q1");
         validation.maxSize(p29q1, 10);
-        validation.required(p29q1assurance).key("p29q1assurance");
+        validation.required(p29q1assurance).key("p29q1");
         validation.maxSize(p29q1assurance, 50);
 
         if(validation.hasErrors()) {
