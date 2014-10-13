@@ -68,6 +68,9 @@ module.exports = function(grunt){
     dataUri: {
       dist: {
         src: [
+          "public/stylesheets/.temp/application-ie6.css",
+          "public/stylesheets/.temp/application-ie7.css",
+          "public/stylesheets/.temp/application-ie8.css",
           "public/stylesheets/.temp/application.css"
         ],
         dest: "public/stylesheets/",
