@@ -26,12 +26,6 @@ play clean
 play deps
 play war -o /data/supplier-submission/last-successful/preview-${BUILD_TAG}.war
 
-# Build artefact for QA
-./scripts/updateEnvironment.sh ssp-qa ${ENCRYPTION_KEY} false
-play clean
-play deps
-play war -o /data/supplier-submission/last-successful/qa-${BUILD_TAG}.war
-
 # Build artefact for staging
 ./scripts/updateEnvironment.sh ssp-staging ${ENCRYPTION_KEY} false
 play clean
