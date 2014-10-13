@@ -18,13 +18,9 @@ node run_grunt.js test
 
 # Run unit and Selenium tests within play
 ./scripts/updateEnvironment.sh ssp-preview ${ENCRYPTION_KEY} false
-play auto-test
-
-# Build artefact for preview
-./scripts/updateEnvironment.sh ssp-preview ${ENCRYPTION_KEY} false
 play clean
 play deps
-play war -o /data/supplier-submission/last-successful/preview-${BUILD_TAG}.war
+play auto-test
 
 # Build artefact for staging
 ./scripts/updateEnvironment.sh ssp-staging ${ENCRYPTION_KEY} false
