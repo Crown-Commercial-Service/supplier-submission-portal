@@ -260,39 +260,6 @@
     if (questionIsRelevantToSelectedLot) {
   }%
 
-    #{question-heading
-      heading: content.get(question + 'text'),
-      hint: content.get(question + 'hint'),
-      error: content.get(question + flash.get(question))
-    /}
-      %{
-        for (index in 1..7) {
-      }%
-        #{forms/selection-button-radio
-          name: question,
-          value: content.get(question + 'val' + index),
-          label: content.get(question + 'val' + index + 'Label'),
-          oldval: oldValues?.get(question)?.get(0)
-        /}
-      %{
-        }
-      }%
-      #{forms/assurance
-      name: question,
-      oldval: oldValues?.get(question + 'assurance')?.isEmpty() ? "" : oldValues?.get(question + 'assurance')?.get(0)
-      /}
-    #{question-footer
-      error: content.get(question + flash.get(question))
-    /}
-
-  %{
-    }
-
-    question = page + 'q10'
-    questionIsRelevantToSelectedLot = content.get(question + 'lots').contains(lot)
-    if (questionIsRelevantToSelectedLot) {
-  }%
-
     #{forms/selection-button-boolean
       name: question,
       label: content.get(question + 'text'),
@@ -306,7 +273,7 @@
   %{
     }
 
-    question = page + 'q11'
+    question = page + 'q10'
     questionIsRelevantToSelectedLot = content.get(question + 'lots').contains(lot)
     if (questionIsRelevantToSelectedLot) {
   }%
