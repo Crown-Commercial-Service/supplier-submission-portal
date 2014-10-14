@@ -45,12 +45,20 @@ describe("ListEntryField", function () {
       expect($wrapper.find('.list-entry').length).toEqual(2);
     });
 
-    it("Should remove all the fields except those with values and one without if we have 1 value on page load", function () {
+    it("Should remove all the fields except those first 2, and leave the first field as is if it has a value on page load", function () {
       $wrapper.find('.list-entry input').eq(0).val('Hosting');
       GOVUK.GDM.listEntry();
       expect($wrapper.find('.list-entry').length).toEqual(2);
       expect($wrapper.find('.list-entry').eq(0).find('input').val()).toEqual('Hosting');
       expect($wrapper.find('.list-entry').eq(1).find('input').val()).toEqual('');
+    });
+
+    it("Should remove all the fields except those first 2, and leave the second field as is if it has a value on page load", function () {
+      $wrapper.find('.list-entry input').eq(1).val('Domain provision');
+      GOVUK.GDM.listEntry();
+      expect($wrapper.find('.list-entry').length).toEqual(2);
+      expect($wrapper.find('.list-entry').eq(0).find('input').val()).toEqual('');
+      expect($wrapper.find('.list-entry').eq(1).find('input').val()).toEqual('Domain provision');
     });
 
     it("Should remove all the fields except those with values if we have 4 values on page load", function () {
