@@ -24,12 +24,18 @@ public class Page8 extends AuthenticatingController {
                 
         try {
             min = Double.valueOf(p8q1MinPrice);
+            if (min < 0) {
+                validation.addError("p8q1", Messages.getMessage("en", "validation.invalid"));
+            }
         } catch(Exception ex) {
             validation.addError("p8q1", Messages.getMessage("en", "validation.invalid"));
         }
         try {
             if(p8q1MaxPrice != null) {
                 max = Double.valueOf(p8q1MaxPrice);
+                if (max < 0) {
+                    validation.addError("p8q1", Messages.getMessage("en", "validation.invalid"));
+                }
             }
         } catch(Exception ex) {
             validation.addError("p8q1", Messages.getMessage("en", "validation.invalid"));
