@@ -3,6 +3,9 @@ package controllers;
 import models.Listing;
 import play.data.validation.Error;
 
+import java.util.List;
+import java.util.Map;
+
 public class Service extends AuthenticatingController {
 
     public static void editPage(String id, Integer page) {
@@ -21,13 +24,14 @@ public class Service extends AuthenticatingController {
     public static void createListing(String lot) {
         validation.required(lot);
         validation.match(lot, "SaaS|IaaS|PaaS|SCS");
-        if(validation.hasErrors()) {
-            for(Error error : validation.errors()) {
-                System.out.println(error.message());
-            }
 
-            //TODO: Show flash error messages in page (add code to main.html to do this?)
-            flash.error("Validation failed", validation.errors());
+        if(validation.hasErrors()) {
+            for(Map.Entry<String, List<Error>> entry : validation.errorsMap().entrySet()) {
+                String key = entry.getKey();
+                String value = entry.getValue().get(0).message();
+
+                flash.put(key, value);
+            }
             redirect("/addservice");
         }
 
