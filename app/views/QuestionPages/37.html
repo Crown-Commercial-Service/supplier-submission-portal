@@ -60,38 +60,7 @@
     #{question-footer
       error: content.get(question + flash.get(question))
     /}
-  %{
-    }
 
-    question = page + 'q3'
-    questionIsRelevantToSelectedLot = content.get(question + 'lots').contains(lot)
-    if (questionIsRelevantToSelectedLot) {
-  }%
-    #{forms/selection-button-boolean
-      name: question,
-      label: content.get(question + 'text'),
-      hint: content.get(question + 'hint'),
-      error: content.get(question + flash.get(question)),
-      value: oldValues?.get(question),
-      oldval: oldValues?.get(question + 'assurance')?.get(0),
-      assurance: true
-    /}
-  %{
-    }
-
-    question = page + 'q4'
-    questionIsRelevantToSelectedLot = content.get(question + 'lots').contains(lot)
-    if (questionIsRelevantToSelectedLot) {
-  }%
-    #{forms/selection-button-boolean
-      name: question,
-      label: content.get(question + 'text'),
-      hint: content.get(question + 'hint'),
-      error: content.get(question + flash.get(question)),
-      value: oldValues?.get(question),
-      oldval: oldValues?.get(question + 'assurance')?.get(0),
-      assurance: true
-    /}
   %{
     }
   }%

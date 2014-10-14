@@ -24,15 +24,6 @@ public class Page37 extends AuthenticatingController {
             validation.required(p37q2).key("p37q2");
             validation.isTrue(ValidationUtils.stringArrayValuesAreNotTooLong(p37q2, 20)).key("p37q2").message("Invalid values.");
         }
-        validation.required(p37q3).key("p37q3");
-        validation.maxSize(p37q3, 10);
-        validation.required(p37q3assurance).key("p37q3");
-        validation.maxSize(p37q3assurance, 50);
-
-        validation.required(p37q4).key("p37q4");
-        validation.maxSize(p37q4, 10);
-        validation.required(p37q4assurance).key("p37q4");
-        validation.maxSize(p37q4assurance, 50);
 
         if(validation.hasErrors()) {
             flash.put("body", params.get("body"));
@@ -55,10 +46,6 @@ public class Page37 extends AuthenticatingController {
         else {
             page.responses.put("p37q2", null);
         }
-        page.responses.put("p37q3", p37q3);
-        page.responses.put("p37q4", p37q4);
-        page.responses.put("p37q3assurance", p37q3assurance);
-        page.responses.put("p37q4assurance", p37q4assurance);
         page.insert();
         listing.addResponsePage(page, PAGE_ID);
         redirect(listing.nextPageUrl(PAGE_ID, listing.id));
