@@ -12,7 +12,6 @@
   service_id: listingID,
   lot: lot
 /}
-
 <form action='${request.getBase()}${request.url}' method='POST'>
   #{heading
     current: pageNum,
@@ -38,7 +37,7 @@
         name: question,
         value: content.get(question + 'val' + index),
         label: content.get(question + 'val' + index + 'Label'),
-        oldval: oldValues?.get(question)?.get(0)
+        checked: oldValues?.get(question)?.contains(content.get(question + 'val' + index))
       /}
     %{
       }
