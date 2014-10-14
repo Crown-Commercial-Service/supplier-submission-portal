@@ -32,13 +32,15 @@
       #{forms/selection-button-checkbox
         name: question,
         value: content.get(question + 'val' + index),
-        label: content.get(question + 'val' + index + 'Label')
+        label: content.get(question + 'val' + index + 'Label'),
+        checked: oldValues?.get(question)?.contains(content.get(question + 'val' + index))
       /}
     %{
       }
     }%
     #{forms/assurance
-      name: question
+      name: question,
+      oldval: oldValues?.get(question + 'assurance')?.isEmpty() ? "" : oldValues?.get(question + 'assurance')?.get(0)
     /}
     #{question-footer
       error: content.get(question + flash.get(question))

@@ -42,8 +42,7 @@ public class Page7 extends AuthenticatingController {
         System.out.println(validation.errorsMap());
 
         if(validation.hasErrors()) {
-            //flash.error("%s", validation.errors());
-
+            flash.put("body", "p7q1=" + params.get("p7q1") + "&p7q2=" + params.get("p7q2") + "&p7q3=" + params.get("p7q3"));
             for(Map.Entry<String, List<Error>> entry : validation.errorsMap().entrySet()) {
                 String key = entry.getKey();
                 String value = entry.getValue().get(0).message();
@@ -57,7 +56,7 @@ public class Page7 extends AuthenticatingController {
         //Save the form data as a Page into the correct page index
         Page page = new Page(listingId, PAGE_ID);
         page.responses.put("p7q1", p7q1);
-        page.responses.put("p7q2", p7q1);
+        page.responses.put("p7q2", p7q2);
         // TODO: Document storage response
 
         page.insert();

@@ -9,16 +9,17 @@
     error: _error
   /}
   <label class='selection-button selection-button-boolean'>
-    <input type='radio' name='${_name}' id='${_name}-option-1' />
+    <input type='radio' name='${_name}' id='${_name}-option-1' value="Yes" ${_value?.get(0)?.equals("Yes") ? "checked='checked'" : ''} />
     Yes<span class='hidden'> I agree to the statement</span>
   </label>
   <label class='selection-button selection-button-boolean'>
-    <input type='radio' name='${_name}' id='${_name}-option-2' />
+    <input type='radio' name='${_name}' id='${_name}-option-2' value="No" ${_value?.get(0)?.equals("No") ? "checked='checked'" : ''} />
     No<span class='hidden'> I don't agree to the statement</span>
   </label>
   %{ if (_assurance) { }%
     #{forms/assurance
       name: _name,
+      oldval: _oldval,
       hint: _assurance_hint
     /}
   %{ } }%

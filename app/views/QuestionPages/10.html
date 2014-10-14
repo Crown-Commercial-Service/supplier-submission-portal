@@ -12,7 +12,6 @@
   service_id: listingID,
   lot: lot
 /}
-
 <form action='${request.getBase()}${request.url}' method='POST'>
   #{heading
     current: pageNum,
@@ -57,7 +56,7 @@
   }%
     #{forms/selection-button-boolean
       name: question,
-      value: oldvalues?.get(question),
+      value: oldValues?.get(question),
       label: content.get(question + 'text'),
       hint: content.get(question + 'hint'),
       error: content.get(question + flash.get(question))
@@ -75,7 +74,7 @@
     <div class='question'>
       #{forms/textbox-with-word-count
         name: question,
-        value: oldvalues?.get(question),
+        value: oldValues?.get(question)?.isEmpty() ? "" : oldValues?.get(question)?.get(0),
         label: content.get(question + 'text'),
         hint: content.get(question + 'hint'),
         max_words: 20,
@@ -93,7 +92,7 @@
     <div class='question'>
       #{forms/textbox-with-word-count
         name: question,
-        value: oldvalues?.get(question),
+        value: oldValues?.get(question)?.isEmpty() ? "" : oldValues?.get(question)?.get(0),
         label: content.get(question + 'text'),
         hint: content.get(question + 'hint'),
         max_words: 20,
@@ -112,7 +111,7 @@
   }%
     #{forms/selection-button-boolean
       name: question,
-      value: oldvalues?.get(question),
+      value: oldValues?.get(question),
       label: content.get(question + 'text'),
       hint: content.get(question + 'hint'),
       error: content.get(question + flash.get(question))

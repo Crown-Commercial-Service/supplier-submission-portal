@@ -20,6 +20,7 @@ public class Page39 extends AuthenticatingController {
         validation.maxSize(p39q1, 50);
 
         if(validation.hasErrors()) {
+            flash.put("body", params.get("body"));
             for(Map.Entry<String, List<Error>> entry : validation.errorsMap().entrySet()) {
                 String key = entry.getKey();
                 String value = entry.getValue().get(0).message();

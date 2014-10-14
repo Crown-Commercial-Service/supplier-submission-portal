@@ -18,11 +18,11 @@ public class Page26 extends AuthenticatingController {
         // Validate all fields on this page requiring validation
         validation.required(p26q1).key("p26q1");
         validation.maxSize(p26q1, 10);
-        validation.required(p26q1assurance).key("p26q1assurance");
+        validation.required(p26q1assurance).key("p26q1");
         validation.maxSize(p26q1assurance, 50);
 
         if(validation.hasErrors()) {
-
+            flash.put("body", params.get("body"));
             for(Map.Entry<String, List<Error>> entry : validation.errorsMap().entrySet()) {
                 String key = entry.getKey();
                 String value = entry.getValue().get(0).message();
