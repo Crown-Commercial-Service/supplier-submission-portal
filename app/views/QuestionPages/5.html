@@ -37,7 +37,7 @@
       #{forms/textbox-input-list-item
         name: 'p5q1val' + index,
         numbered: index,
-        value: oldValues?.get('p5q1val' + index)
+        values: oldValues?.get(question)
       /}
     %{
       }
@@ -65,7 +65,7 @@
       #{forms/textbox-input-list-item
         name: question + 'val' + index,
         numbered: index,
-        value: oldValues?.get(question + 'val' + index)
+        values: oldValues?.get(question)
       /}
     %{
       }

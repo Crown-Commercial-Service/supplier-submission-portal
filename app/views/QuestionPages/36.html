@@ -44,7 +44,8 @@
         }
       }%
       #{forms/assurance
-        name: question
+        name: question,
+        oldval: oldValues?.get(question + 'assurance')?.isEmpty() ? "" : oldValues?.get(question + 'assurance')?.get(0)
       /}
       #{question-footer
         heading: content.get(question + 'text'),

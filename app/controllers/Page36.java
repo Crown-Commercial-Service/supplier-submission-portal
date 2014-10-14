@@ -20,10 +20,11 @@ public class Page36 extends AuthenticatingController {
         // Validate all fields on this page requiring validation
         validation.required(p36q1).key("p36q1");
         validation.isTrue(ValidationUtils.stringArrayValuesAreNotTooLong(p36q1, 100)).key("p36q1").message("Invalid values");
-        validation.required(p36q1assurance).key("p36q1assurance");
+        validation.required(p36q1assurance).key("p36q1");
         validation.maxSize(p36q1assurance, 50);
 
         if(validation.hasErrors()) {
+            flash.put("body", params.get("body"));
             for(Map.Entry<String, List<Error>> entry : validation.errorsMap().entrySet()) {
                 String key = entry.getKey();
                 String value = entry.getValue().get(0).message();

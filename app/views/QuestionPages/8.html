@@ -5,6 +5,8 @@
   def page = 'p8'
   def question = ''
   def questionIsRelevantToSelectedLot = false
+  def oldunit = oldValues?.get("p8q1Unit")?.size() > 0 ? oldValues?.get("p8q1Unit")?.get(0) : ''
+  def oldinterval = oldValues?.get("p8q1Interval")?.size() > 0 ? oldValues?.get("p8q1Interval")?.get(0) : ''
 }%
 
 #{breadcrumb-one-deep
@@ -40,7 +42,7 @@
           <span class='hidden'>in</span>
           <span class='pricing-unit'>£</span>
         </label>
-        <input type='text' class='text-box pricing-input-with-unit' name='${question}MinPrice' id='${question}MinPrice' />
+        <input type='text' class='text-box pricing-input-with-unit' name='${question}MinPrice' id='${question}MinPrice' value='${oldValues?.get("p8q1MinPrice")?.size() > 0 ? oldValues?.get("p8q1MinPrice")?.get(0) : ""}'/>
       </div>
       <div class='pricing-column'>
         <span class='pricing-preposition'>to</span>
@@ -54,7 +56,7 @@
         <p class='question-hint'>
           Optional
         </p>
-        <input type='text' class='text-box pricing-input-with-unit' name='${question}MaxPrice' id='${question}MaxPrice' />
+        <input type='text' class='text-box pricing-input-with-unit' name='${question}MaxPrice' id='${question}MaxPrice' value='${oldValues?.get("p8q1MaxPrice")?.size() > 0 ? oldValues?.get("p8q1MaxPrice")?.get(0) : ""}' />
       </div>
       <div class='pricing-column'>
         <span class='pricing-preposition'>per</span>
@@ -65,18 +67,18 @@
         </label>
         <select class='pricing-input-select' name='${question}Unit' id='${question}Unit'>
           <option value=''></option>
-          <option value='Unit'>Unit</option>
-          <option value='Person'>Person</option>
-          <option value='Licence'>Licence</option>
-          <option value='User'>User</option>
-          <option value='Device'>Device</option>
-          <option value='Instance'>Instance</option>
-          <option value='Server'>Server</option>
-          <option value='Virtual machine'>Virtual machine</option>
-          <option value='Transaction'>Transaction</option>
-          <option value='Megabyte'>Megabyte</option>
-          <option value='Gigabyte'>Gigabyte</option>
-          <option value='Terabyte'>Terabyte</option>
+          <option value='Unit' ${oldunit.equals("Unit") ? "selected='selected'" : ''} >Unit</option>
+          <option value='Person' ${oldunit.equals("Person") ? "selected='selected'" : ''} >Person</option>
+          <option value='Licence' ${oldunit.equals("Licence") ? "selected='selected'" : ''} >Licence</option>
+          <option value='User' ${oldunit.equals("User") ? "selected='selected'" : ''} >User</option>
+          <option value='Device' ${oldunit.equals("Device") ? "selected='selected'" : ''} >Device</option>
+          <option value='Instance' ${oldunit.equals("Instance") ? "selected='selected'" : ''} >Instance</option>
+          <option value='Server' ${oldunit.equals("Server") ? "selected='selected'" : ''} >Server</option>
+          <option value='Virtual machine' ${oldunit.equals("Virtual machine") ? "selected='selected'" : ''} >Virtual machine</option>
+          <option value='Transaction' ${oldunit.equals("Transaction") ? "selected='selected'" : ''} >Transaction</option>
+          <option value='Megabyte' ${oldunit.equals("Megabyte") ? "selected='selected'" : ''} >Megabyte</option>
+          <option value='Gigabyte' ${oldunit.equals("Gigabyte") ? "selected='selected'" : ''} >Gigabyte</option>
+          <option value='Terabyte' ${oldunit.equals("Terabyte") ? "selected='selected'" : ''} >Terabyte</option>
         </select>
       </div>
       <div class='pricing-column'>
@@ -91,15 +93,15 @@
         </p>
         <select class='pricing-input-select' name='${question}Interval' id='${question}Interval'>
           <option value=''></option>
-          <option value='Second'>Second</option>
-          <option value='Minute'>Minute</option>
-          <option value='Hour'>Hour</option>
-          <option value='Day'>Day</option>
-          <option value='Week'>Week</option>
-          <option value='Month'>Month</option>
-          <option value='Quarter'>Quarter</option>
-          <option value='6 months'>6 months</option>
-          <option value='Year'>Year</option>
+          <option value='Second' ${oldinterval.equals("Second") ? "selected='selected'" : ''} >Second</option>
+          <option value='Minute' ${oldinterval.equals("Minute") ? "selected='selected'" : ''} >Minute</option>
+          <option value='Hour' ${oldinterval.equals("Hour") ? "selected='selected'" : ''} >Hour</option>
+          <option value='Day' ${oldinterval.equals("Day") ? "selected='selected'" : ''} >Day</option>
+          <option value='Week' ${oldinterval.equals("Second") ? "selected='selected'" : ''} >Week</option>
+          <option value='Month' ${oldinterval.equals("Second") ? "selected='selected'" : ''} >Month</option>
+          <option value='Quarter' ${oldinterval.equals("Second") ? "selected='selected'" : ''} >Quarter</option>
+          <option value='6 months' ${oldinterval.equals("Second") ? "selected='selected'" : ''} >6 months</option>
+          <option value='Year' ${oldinterval.equals("Second") ? "selected='selected'" : ''} >Year</option>
         </select>
       </div>
     </div>
@@ -118,7 +120,7 @@
   }%
     #{forms/selection-button-boolean
       name: question,
-      value: oldvalues?.get(question),
+      value: oldValues?.get(question),
       label: content.get(question + 'text'),
       hint: content.get(question + 'hint'),
       error: content.get(question + flash.get(question))
