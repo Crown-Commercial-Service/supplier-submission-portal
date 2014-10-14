@@ -42,7 +42,7 @@
           <span class='hidden'>in</span>
           <span class='pricing-unit'>£</span>
         </label>
-        <input type='text' class='text-box pricing-input-with-unit' name='${question}MinPrice' id='${question}MinPrice' value='${oldValues?.get("p8q1MinPrice")?.get(0)}'/>
+        <input type='text' class='text-box pricing-input-with-unit' name='${question}MinPrice' id='${question}MinPrice' value='${oldValues?.get("p8q1MinPrice")?.size() > 0 ? oldValues?.get("p8q1MinPrice")?.get(0) : ""}'/>
       </div>
       <div class='pricing-column'>
         <span class='pricing-preposition'>to</span>
@@ -56,7 +56,7 @@
         <p class='question-hint'>
           Optional
         </p>
-        <input type='text' class='text-box pricing-input-with-unit' name='${question}MaxPrice' id='${question}MaxPrice' value='${oldValues?.get("p8q1MaxPrice")?.get(0)}' />
+        <input type='text' class='text-box pricing-input-with-unit' name='${question}MaxPrice' id='${question}MaxPrice' value='${oldValues?.get("p8q1MaxPrice")?.size() > 0 ? oldValues?.get("p8q1MaxPrice")?.get(0) : ""}' />
       </div>
       <div class='pricing-column'>
         <span class='pricing-preposition'>per</span>
