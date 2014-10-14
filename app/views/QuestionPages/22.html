@@ -34,9 +34,7 @@
       oldval: oldValues?.get(question + 'assurance')?.get(0),
       label: content.get(question + 'text'),
       hint: content.get(question + 'hint'),
-      error: content.get(question + flash.get(question)),
-      assurance: true,
-      assurance_hint: content.get(question + 'assuranceHint')
+      error: content.get(question + flash.get(question))
     /}
   %{
     }
@@ -53,8 +51,7 @@
       oldval: oldValues?.get(question + 'assurance')?.get(0),
       label: content.get(question + 'text'),
       hint: content.get(question + 'hint'),
-      error: content.get(question + flash.get(question)),
-      assurance: true
+      error: content.get(question + flash.get(question))
     /}
   %{
     }
@@ -84,6 +81,7 @@
       }%
       #{forms/assurance
         name: question,
+        type: content.get(question + 'assuranceApproach')
         oldval: oldValues?.get(question + 'assurance')?.isEmpty() ? "" : oldValues?.get(question + 'assurance')?.get(0)
       /}
       #{question-footer
@@ -105,8 +103,7 @@
       oldval: oldValues?.get(question + 'assurance')?.get(0),
       label: content.get(question + 'text'),
       hint: content.get(question + 'hint'),
-      error: content.get(question + flash.get(question)),
-      assurance: true
+      error: content.get(question + flash.get(question))
     /}
   %{
       }
