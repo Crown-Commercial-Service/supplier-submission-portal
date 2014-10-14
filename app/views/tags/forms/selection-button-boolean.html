@@ -16,11 +16,12 @@
     <input type='radio' name='${_name}' id='${_name}-option-2' value="No" ${_value?.get(0)?.equals("No") ? "checked='checked'" : ''} />
     No<span class='hidden'> I don't agree to the statement</span>
   </label>
-  %{ if (_assurance) { }%
+  %{ if (_assurance_type) { }%
     #{forms/assurance
       name: _name,
       oldval: _oldval,
-      hint: _assurance_hint
+      hint: _assurance_hint,
+      type: _assurance_type
     /}
   %{ } }%
 #{question-footer
