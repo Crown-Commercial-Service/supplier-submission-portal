@@ -16,16 +16,18 @@
   Summary
 </h1>
 
-<form action='/' method='get'>
+#{form @Service.completeListing()}
 
-#{forms/selection-button-checkbox
-  name: 'p25q1',
-  value: 'service-completed',
-  label: 'This service is completed'
-/}
+    <input type="hidden" id="listingId" name="listingId" value="${listingId}" />
 
-<div class='page-footer'>
-  <input type='submit' value='Save and return to submissions' class='page-footer-item button button-save' />
-</div>
+    #{forms/selection-button-checkbox
+      name: 'serviceCompleted',
+      value: 'service-completed',
+      label: 'This service is completed'
+    /}
 
-</form>
+    <div class='page-footer'>
+      <input type='submit' value='Save and return to submissions' class='page-footer-item button button-save' />
+    </div>
+
+#{/form}

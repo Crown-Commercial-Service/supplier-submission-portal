@@ -32,6 +32,9 @@ public class Listing extends Model {
     @NotNull
     public String title;
 
+    @NotNull
+    public boolean serviceSubmitted;
+
     @Embedded
     public List<Long> pageSequence;
     
@@ -47,12 +50,13 @@ public class Listing extends Model {
         for (int i=0; i< size; i++) {
             completedPages.add(Page.emptyPage());
         }
+        this.serviceSubmitted = false;
     }
 
     public String nextPageUrl(Long currentPage, Long listingId) {
         Long nextPage = nextPage(currentPage);
         if (nextPage < 0) {
-            return String.format("/page/finished/%d", listingId);
+            return String.format("/service/%d/summary", listingId);
         }
         else {
             return String.format("/page/%d/%d", nextPage, listingId);
@@ -88,7 +92,7 @@ public class Listing extends Model {
         update();
     }
     
-    public boolean isFullyCompleted() {
+    public boolean allPagesHaveBeenCompleted() {
         return pageSequence.size() == completedPageCount();
     }
     
@@ -108,6 +112,7 @@ public class Listing extends Model {
                 ", lot='" + lot + "'" +
                 ", title='" + title + "'" +
                 ", pageSequence='" + pageSequence + "'" +
+                ", serviceSubmitted='" + serviceSubmitted + "'" +
                 '}';
     }
 
