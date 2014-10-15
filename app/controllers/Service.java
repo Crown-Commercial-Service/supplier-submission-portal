@@ -68,4 +68,16 @@ public class Service extends AuthenticatingController {
         flash.put("success", "Your service has been moved back to draft.");
         redirect("/");
     }
+
+    public static void showDeletePage(Long listingId){
+        Listing listing = Listing.getByListingId(listingId);
+        renderTemplate(String.format("Service/delete.html"), listing);
+    }
+
+    public static void delete(Long listingId){
+        Listing listing = Listing.getByListingId(listingId);
+        listing.delete();
+
+        redirect("/");
+    }
 }
