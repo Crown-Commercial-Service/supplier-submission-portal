@@ -1,33 +1,95 @@
 #{extends 'layout.html' /}
 #{set title:'Product Summary | Digital Marketplace' /}
 
-<div class='breadcrumb-navigation'>
-  <nav>
-    <ol>
-      <li class='breadcrumb-navigation-item'>
-        <a href="/" class='breadcrumb-navigation-link'>Your G-Cloud 6 submissions</a>
-      </li>
-      <li class='breadcrumb-navigation-item'>Product name ${id}</li>
-    </ol>
-  </nav>
-</div>
+#{breadcrumb-one-deep
+  service_name: listing.title,
+  service_id: service_id
+/}
 
-<h1 class="page-heading-without-position">
-  Summary
-</h1>
+#{heading
+  title: 'Summary',
+/}
 
-#{form @Service.completeListing()}
+#{summary/section/start
+  title: content.get('p' + pageIndex + 'title'),
+/}
+  #{summary/row
+    question: content.get('p' + pageIndex + 'q1' + 'text'),
+    answer: "${listing.lot}"
+  /}
+#{summary/section/end /}
 
-    <input type="hidden" id="listingId" name="listingId" value="${listingId}" />
+%{
+  for (page in flow) {
+}%
 
-    #{forms/selection-button-checkbox
-      name: 'serviceCompleted',
-      value: 'service-completed',
-      label: 'This service is completed'
-    /}
+  #{summary/section/start
+    title: content.get('p' + page + 'title'),
+    page_list_number: ++pageIndex,
+    page: page,
+    service_id: service_id
+  /}
 
-    <div class='page-footer'>
-      <input type='submit' value='Save and return to submissions' class='page-footer-item button button-save' />
+    %{
+      for (questionIndex in (1..maxPossibleNumberOfQuestions).toArray()) {
+        question = 'p' + page + 'q' + questionIndex;
+        questionIsRelevantToSelectedLot = content.get(question + 'lots')?.contains(listing.lot)
+        if (questionIsRelevantToSelectedLot) {
+    }%
+
+      #{summary/row
+        question: content.get(question + 'text'),
+        answer: storedValues.get(question),
+        assurance: storedValues.get(question + 'assurance'),
+        optional: optionalQuestions.contains(question)
+      /}
+
+    %{
+        }
+      }
+    }%
+
+  #{summary/section/end /}
+
+%{
+  }
+}%
+
+
+
+
+%{
+  if (listing.allPagesHaveBeenCompleted()) {
+}%
+  <div class='page-footer'>
+    #{form @Service.completeListing()}
+    <div class='page-footer-item'>
+      <input type="hidden" id="listingId" name="listingId" value="${listingId}" />
+      #{forms/selection-button-checkbox
+        name: 'serviceCompleted',
+        value: 'service-completed',
+        label: 'This service is completed'
+      /}
     </div>
-
-#{/form}
+    <input type='submit' value='Save and return to submissions' class='page-footer-item button-save' />
+    #{/form}
+    <!--
+    <input type='submit' value='Delete this service' class='page-footer-item button-destructive' />
+    -->
+  </div>
+%{
+  } else {
+}%
+  <div class='page-footer'>
+    <p class='summary-incomplete-message'>
+      Your progress has been saved, but you must answer all required
+      questions before you can complete your service
+    </p>
+    <a href='/' class='page-footer-item summary-return-link'>Return to submissions</a>
+    <!--
+    <input type='submit' value='Delete this service' class='page-footer-item button-destructive' />
+    -->
+  </div>
+%{
+  }
+}%

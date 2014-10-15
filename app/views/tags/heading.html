@@ -2,12 +2,22 @@
   content: _content,
   page: _page
 /}
-<p class='position position-page-${_current}'>
-  Page ${_current}
-  %{ if (_total) { }%
-    of ${_total}
-  %{ } }%
-</p>
-<h1 class="page-heading">
-  ${_title}
-</h1>
+%{
+  if (_current) {
+}%
+  <p class='position position-page-${_current}'>
+    Page ${_current}
+    %{ if (_total) { }%
+      of ${_total}
+    %{ } }%
+  </p>
+  <h1 class="page-heading">
+%{
+  } else {
+}%
+  <h1 class="page-heading page-heading-without-position">
+%{
+  }
+}%
+    ${_title}
+  </h1>

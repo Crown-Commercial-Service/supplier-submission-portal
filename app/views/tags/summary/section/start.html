@@ -1,0 +1,31 @@
+<h2 class='summary-heading'>
+  %{
+    if (_page_list_number) {
+  }%
+    <span class='summary-heading-number'>${_page_list_number}.</span>
+  %{
+    }
+  }%
+  ${_title}
+</h2>
+%{
+  if (_page) {
+}%
+  <p class='summary-top-level-action'>
+    <a href='/page/${_page}/${_service_id}' class='summary-change-link'>Edit</a>
+  </p>
+%{
+  }
+}%
+<table width='100%' class='summary-item'>
+  <thead class='summary-answer-heading'>
+    <tr>
+      <td>
+        Question name
+      </td>
+      <td>
+        Answer
+      </td>
+    </tr>
+  </thead>
+  <tbody class='summary-answer-list'>
