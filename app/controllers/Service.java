@@ -2,6 +2,9 @@ package controllers;
 
 import models.Listing;
 import play.data.validation.Error;
+import uk.gov.gds.dm.ServiceSubmissionJourneyFlows;
+
+import java.util.List;
 
 public class Service extends AuthenticatingController {
 
@@ -10,8 +13,18 @@ public class Service extends AuthenticatingController {
     }
 
     public static void summaryPage(String id) {
+        long listingId = Long.parseLong(id);
+        Listing listing = Listing.getByListingId(listingId);
+        List<Long> flow = ServiceSubmissionJourneyFlows.getFlow(listing.lot);
+        List<String> optionalQuestions = ServiceSubmissionJourneyFlows.getOptionalQuestions();
+
         renderArgs.put("content", Fixtures.getContentProperties());
         renderArgs.put("service_id", id);
+        renderArgs.put("listing", listing);
+        renderArgs.put("flow", flow);
+        renderArgs.put("maxPossibleNumberOfQuestions", 20);
+        renderArgs.put("optionalQuestions", optionalQuestions);
+        renderArgs.put("pageIndex", 0);
         render(id);
     }
 
