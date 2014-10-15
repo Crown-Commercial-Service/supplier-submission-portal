@@ -39,8 +39,8 @@
 
       #{summary/row
         question: content.get(question + 'text'),
-        answer: '',
-        assurance: '',
+        answer: storedValues.get(question),
+        assurance: storedValues.get(question + 'assurance'),
         optional: optionalQuestions.contains(question)
       /}
 
@@ -59,7 +59,7 @@
 
 
 %{
-  if (allPagesAreCompleted) {
+  if (listing.isFullyCompleted()) {
 }%
   <div class='page-footer'>
     #{form @Service.completeListing()}

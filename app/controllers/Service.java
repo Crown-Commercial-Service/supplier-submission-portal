@@ -1,10 +1,13 @@
 package controllers;
 
 import models.Listing;
+import models.Page;
 import play.data.validation.Error;
 import uk.gov.gds.dm.ServiceSubmissionJourneyFlows;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import java.util.List;
 import java.util.Map;
@@ -17,6 +20,15 @@ public class Service extends AuthenticatingController {
         List<Long> flow = ServiceSubmissionJourneyFlows.getFlow(listing.lot);
         List<String> optionalQuestions = ServiceSubmissionJourneyFlows.getOptionalQuestions();
 
+        Map<String, String> allAnswers = new HashMap<String, String>();
+        for(Page p : listing.completedPages){
+            if(p.responses != null){
+                allAnswers.putAll(p.responses);
+            }
+        }
+
+        System.out.println(allAnswers);
+
         renderArgs.put("content", Fixtures.getContentProperties());
         renderArgs.put("service_id", id);
         renderArgs.put("listing", listing);
@@ -24,6 +36,7 @@ public class Service extends AuthenticatingController {
         renderArgs.put("maxPossibleNumberOfQuestions", 20);
         renderArgs.put("optionalQuestions", optionalQuestions);
         renderArgs.put("pageIndex", 0);
+        renderArgs.put("storedValues", allAnswers);
         render(id);
     }
 
