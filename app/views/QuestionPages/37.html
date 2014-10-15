@@ -31,7 +31,10 @@
       label: content.get(question + 'text'),
       hint: content.get(question + 'hint'),
       value: oldValues?.get(question),
-      error: content.get(question + flash.get(question))
+      error: content.get(question + flash.get(question)),
+      assurance_value: oldValues?.get(question + 'assurance')?.isEmpty() ? "" : oldValues?.get(question + 'assurance')?.get(0),
+      assurance_type: content.get(question + 'assuranceApproach')
+      /}
     /}
   %{
     }
@@ -57,6 +60,11 @@
     %{
       }
     }%
+    #{forms/assurance
+      name: question,
+      oldval: oldValues?.get(question + 'assurance')?.isEmpty() ? "" : oldValues?.get(question + 'assurance')?.get(0),
+      type: content.get(question + 'assuranceApproach')
+    /}
     #{question-footer
       error: content.get(question + flash.get(question))
     /}

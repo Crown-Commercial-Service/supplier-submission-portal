@@ -31,7 +31,6 @@
     #{forms/selection-button-boolean
       name: question,
       value: oldValues?.get(question),
-      oldval: oldValues?.get(question + 'assurance')?.get(0),
       label: content.get(question + 'text'),
       hint: content.get(question + 'hint'),
       error: content.get(question + flash.get(question))
@@ -48,7 +47,6 @@
     #{forms/selection-button-boolean
       name: question,
       value: oldValues?.get(question),
-      oldval: oldValues?.get(question + 'assurance')?.get(0),
       label: content.get(question + 'text'),
       hint: content.get(question + 'hint'),
       error: content.get(question + flash.get(question))
@@ -79,11 +77,6 @@
       %{
         }
       }%
-      #{forms/assurance
-        name: question,
-        type: content.get(question + 'assuranceApproach')
-        oldval: oldValues?.get(question + 'assurance')?.isEmpty() ? "" : oldValues?.get(question + 'assurance')?.get(0)
-      /}
       #{question-footer
         error: content.get(question + flash.get(question))
       /}
@@ -100,7 +93,6 @@
     #{forms/selection-button-boolean
       name: question,
       value: oldValues?.get(question),
-      oldval: oldValues?.get(question + 'assurance')?.get(0),
       label: content.get(question + 'text'),
       hint: content.get(question + 'hint'),
       error: content.get(question + flash.get(question))

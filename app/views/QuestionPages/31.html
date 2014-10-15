@@ -40,7 +40,7 @@
     }%
     #{forms/assurance
       name: question,
-      type: content.get(question + 'assuranceApproach')
+      type: content.get(question + 'assuranceApproach'),
       oldval: oldValues?.get(question + 'assurance')?.isEmpty() ? "" : oldValues?.get(question + 'assurance')?.get(0)
     /}
     #{question-footer

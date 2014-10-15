@@ -34,77 +34,77 @@
       error: content.get(question + flash.get(question)),
       value: oldValues?.get(question),
       assurance_type: content.get(question + 'assuranceApproach'),
-      assurance_value: oldValues?.get(question + 'assurance')
+      assurance_value: oldValues?.get(question + 'assurance')?.isEmpty() ? "" : oldValues?.get(question + 'assurance')?.get(0)
     /}
   %{
     }
-    
+
     question = page + 'q2'
     questionIsRelevantToSelectedLot = content.get(question + 'lots').contains(lot)
     if (questionIsRelevantToSelectedLot) {
-    }%
+  }%
 
     #{forms/selection-button-boolean
-    name: question,
-    label: content.get(question + 'text'),
-    hint: content.get(question + 'hint'),
-    error: content.get(question + flash.get(question)),
-    assurance_type: content.get(question + 'assuranceApproach')
-    value: oldValues?.get(question),
-    assurance_value: oldValues?.get(question + 'assurance')
+      name: question,
+      label: content.get(question + 'text'),
+      hint: content.get(question + 'hint'),
+      error: content.get(question + flash.get(question)),
+      assurance_type: content.get(question + 'assuranceApproach'),
+      value: oldValues?.get(question),
+      assurance_value: oldValues?.get(question + 'assurance')?.isEmpty() ? "" : oldValues?.get(question + 'assurance')?.get(0)
     /}
-    %{
+  %{
     }
 
     question = page + 'q3'
     questionIsRelevantToSelectedLot = content.get(question + 'lots').contains(lot)
     if (questionIsRelevantToSelectedLot) {
-    }%
+  }%
 
     #{forms/selection-button-boolean
-    name: question,
-    label: content.get(question + 'text'),
-    hint: content.get(question + 'hint'),
-    error: content.get(question + flash.get(question)),
-    assurance_type: content.get(question + 'assuranceApproach')
-    value: oldValues?.get(question),,
-    assurance_value: oldValues?.get(question + 'assurance')
+      name: question,
+      label: content.get(question + 'text'),
+      hint: content.get(question + 'hint'),
+      error: content.get(question + flash.get(question)),
+      assurance_type: content.get(question + 'assuranceApproach'),
+      value: oldValues?.get(question),,
+      assurance_value: oldValues?.get(question + 'assurance')?.isEmpty() ? "" : oldValues?.get(question + 'assurance')?.get(0)
     /}
-    %{
+  %{
     }
 
     question = page + 'q4'
     questionIsRelevantToSelectedLot = content.get(question + 'lots').contains(lot)
     if (questionIsRelevantToSelectedLot) {
-    }%
+  }%
 
     #{forms/selection-button-boolean
-    name: question,
-    label: content.get(question + 'text'),
-    hint: content.get(question + 'hint'),
-    error: content.get(question + flash.get(question)),
-    assurance_type: content.get(question + 'assuranceApproach')
-    value: oldValues?.get(question),
-    assurance_value: oldValues?.get(question + 'assurance')
+      name: question,
+      label: content.get(question + 'text'),
+      hint: content.get(question + 'hint'),
+      error: content.get(question + flash.get(question)),
+      assurance_type: content.get(question + 'assuranceApproach'),
+      value: oldValues?.get(question),
+      assurance_value: oldValues?.get(question + 'assurance')?.isEmpty() ? "" : oldValues?.get(question + 'assurance')?.get(0)
     /}
-    %{
+  %{
     }
 
     question = page + 'q5'
     questionIsRelevantToSelectedLot = content.get(question + 'lots').contains(lot)
     if (questionIsRelevantToSelectedLot) {
-    }%
+  }%
 
     #{forms/selection-button-boolean
-    name: question,
-    label: content.get(question + 'text'),
-    hint: content.get(question + 'hint'),
-    error: content.get(question + flash.get(question)),
-    assurance_type: content.get(question + 'assuranceApproach')
-    value: oldValues?.get(question),
-    assurance_value: oldValues?.get(question + 'assurance')
+      name: question,
+      label: content.get(question + 'text'),
+      hint: content.get(question + 'hint'),
+      error: content.get(question + flash.get(question)),
+      assurance_type: content.get(question + 'assuranceApproach'),
+      value: oldValues?.get(question),
+      assurance_value: oldValues?.get(question + 'assurance')?.isEmpty() ? "" : oldValues?.get(question + 'assurance')?.get(0)
     /}
-    %{
+  %{
     }
   }%
   #{footer prevPageURL: prevPageURL /}

@@ -44,6 +44,11 @@
       %{
         }
       }%
+      #{forms/assurance
+        name: question,
+        oldval: oldValues?.get(question + 'assurance')?.isEmpty() ? "" : oldValues?.get(question + 'assurance')?.get(0),
+        type: content.get(question + 'assuranceApproach')
+      /}
       #{question-footer
         error: content.get(question + flash.get(question))
       /}
@@ -72,8 +77,8 @@
         }
       }%
       #{forms/assurance
-      name: question,
-      oldval: oldValues?.get(question + 'assurance')?.isEmpty() ? "" : oldValues?.get(question + 'assurance')?.get(0),
+        name: question,
+        oldval: oldValues?.get(question + 'assurance')?.isEmpty() ? "" : oldValues?.get(question + 'assurance')?.get(0),
         type: content.get(question + 'assuranceApproach')
       /}
       #{question-footer
@@ -92,7 +97,8 @@
       hint: content.get(question + 'hint'),
       error: content.get(question + flash.get(question)),
       value: oldValues?.get(question),
-      assurance_type: content.get(question + 'assuranceApproach')
+      assurance_type: content.get(question + 'assuranceApproach'),
+      assurance_value: oldValues?.get(question + 'assurance')?.isEmpty() ? "" : oldValues?.get(question + 'assurance')?.get(0)
     /}
   %{
     }
@@ -107,7 +113,8 @@
       hint: content.get(question + 'hint'),
       error: content.get(question + flash.get(question)),
       value: oldValues?.get(question),
-      assurance_type: content.get(question + 'assuranceApproach')
+      assurance_type: content.get(question + 'assuranceApproach'),
+      assurance_value: oldValues?.get(question + 'assurance')?.isEmpty() ? "" : oldValues?.get(question + 'assurance')?.get(0)
     /}
   %{
     }

@@ -81,8 +81,7 @@
 
     for (answer in assurance_options) {
   }%
-  <label class="selection-button" for="${_name}assurance">
-    <input type="radio" name="${_name}assurance${++answer_index}" value="${answer}" />
+  <label class="selection-button" for="${_name}assurance${++answer_index}">
     <input type="radio" id="${_name}assurance${answer_index}" name="${_name}assurance" value="${answer}" %{ if (_oldval.equals(answer)) { }% checked='checked' %{ }}% />
     ${answer}
   </label>
