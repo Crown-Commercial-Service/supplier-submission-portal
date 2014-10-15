@@ -2,7 +2,7 @@
 #{set title:'Product Summary | Digital Marketplace' /}
 
 #{breadcrumb-one-deep
-  service_name: 'Umbraco CMS',
+  service_name: listing.title,
   service_id: service_id
 /}
 
@@ -59,7 +59,7 @@
 
 
 %{
-  if (listing.isFullyCompleted()) {
+  if (listing.allPagesHaveBeenCompleted()) {
 }%
   <div class='page-footer'>
     #{form @Service.completeListing()}

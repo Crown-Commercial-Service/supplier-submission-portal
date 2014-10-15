@@ -14,8 +14,7 @@ import java.util.Map;
 
 public class Service extends AuthenticatingController {
 
-    public static void summaryPage(String id) {
-        long listingId = Long.parseLong(id);
+    public static void summaryPage(Long listingId) {
         Listing listing = Listing.getByListingId(listingId);
         List<Long> flow = ServiceSubmissionJourneyFlows.getFlow(listing.lot);
         List<String> optionalQuestions = ServiceSubmissionJourneyFlows.getOptionalQuestions();
@@ -30,14 +29,14 @@ public class Service extends AuthenticatingController {
         System.out.println(allAnswers);
 
         renderArgs.put("content", Fixtures.getContentProperties());
-        renderArgs.put("service_id", id);
+        renderArgs.put("service_id", listingId);
         renderArgs.put("listing", listing);
         renderArgs.put("flow", flow);
         renderArgs.put("maxPossibleNumberOfQuestions", 20);
         renderArgs.put("optionalQuestions", optionalQuestions);
         renderArgs.put("pageIndex", 0);
         renderArgs.put("storedValues", allAnswers);
-        render(id);
+        render(listingId);
     }
 
     public static void newService() {
