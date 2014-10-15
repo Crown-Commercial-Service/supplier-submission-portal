@@ -5,8 +5,6 @@
 # Home page
 GET     /                                       Dashboard.home
 
-GET     /service/{id}                           Service.summaryPage
-GET     /service/{id}/{page}                    Service.editPage
 GET     /addservice                             Service.newService
 POST    /addservice                             Service.createListing
 
@@ -70,7 +68,9 @@ POST    /page/39/{listingId}                    Page39.savePage
 POST    /page/40/{listingId}                    Page40.savePage
 
 # Show summary page for service once all questions are complete
-GET     /page/finished/{listingId}              Service.submissionComplete
+GET     /service/{listingId}/summary            Service.summaryPage
+POST    /service/complete                       Service.completeListing
+POST    /service/draft                          Service.markListingAsDraft
 
 #Load question page content
 GET     /fixtures                               Fixtures.initialise

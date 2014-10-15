@@ -61,16 +61,19 @@
     }.bind(this));
   };
   ListEntry.prototype.trimEntries = function () {
-    this.entries = $.map(this.entries, function (entry) {
-      if (entry === '') {
-        return null
+    var entryIdx = this.entries.length,
+        newEntries = [];
+
+    while (entryIdx--) {
+      if (this.entries[entryIdx] !== '') {
+        newEntries.push(this.entries[entryIdx]);
       } else {
-        return entry;
+        if (entryIdx < this.minEntries) {
+          newEntries.push('');
+        }
       }
-    }.bind(this));
-    if (this.entries.length < this.minEntries) {
-      this.entries = ['', ''];
     }
+    this.entries = newEntries.reverse();
   };
   ListEntry.prototype.getId = function (num) {
     return this.idPattern + num;

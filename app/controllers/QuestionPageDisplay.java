@@ -35,8 +35,8 @@ public class QuestionPageDisplay extends AuthenticatingController {
         renderArgs.put("pageNum", Integer.toString(index+1));
         renderArgs.put("pageTotal", Integer.toString(listing.pageSequence.size()));
         renderArgs.put("listingId", listingId);
+        renderArgs.put("prevPageURL", listing.prevPageUrl(pageId, listingId));
 
-        
         
         if (flash.get("body") != null) {
             try {

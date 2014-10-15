@@ -2,6 +2,10 @@
     <button class='button-save'>
       Save and continue
     </button>
-    <a href='#' class='page-footer-item'>Previous page of questions</a>
+
+ %{ if (_prevPageURL) { }%
+      <a href='${_prevPageURL}' class='page-footer-item'>Previous page of questions</a>
+  %{ } }%
+
     <a href='/' class='page-footer-item'>Summary of pages</a>
   </div>
