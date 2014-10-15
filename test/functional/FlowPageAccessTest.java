@@ -2,11 +2,15 @@ package functional;
 
 import org.junit.*;
 import play.Logger;
+import play.Play;
 import play.mvc.Http;
 import play.test.FunctionalTest;
+import uk.gov.gds.dm.CookieUtils;
 import uk.gov.gds.dm.FixtureDataSetup;
+import uk.gov.gds.dm.Security;
 import uk.gov.gds.dm.ServiceSubmissionJourneyFlows;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -17,7 +21,15 @@ public class FlowPageAccessTest extends FunctionalTest {
     @Before
     public void loadFixtures() {
         Http.Response response = GET("/fixtures");
+        Http.Response.current().removeCookie("gdmssosession");
         Logger.info("Loaded fixtures: " + response.status + " - " + response.toString());
+        CookieUtils.setSSOCookie("test@SSOtest.com", "1270000", "Test LTD.", "9999999", new Date());
+    }
+
+
+    @AfterClass
+    public static void cleanUp(){
+        CookieUtils.clearSSOCookie();
     }
 
     @Test
@@ -66,4 +78,6 @@ public class FlowPageAccessTest extends FunctionalTest {
         notInFlow.removeAll(ServiceSubmissionJourneyFlows.getFlow(flow));
         return notInFlow;
     }
+
+
 }

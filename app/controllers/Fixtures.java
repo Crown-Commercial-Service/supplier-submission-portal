@@ -5,8 +5,10 @@ import play.Logger;
 import play.Play;
 import play.mvc.Controller;
 import play.utils.Properties;
+import uk.gov.gds.dm.CookieUtils;
 
 import java.io.InputStream;
+import java.util.Date;
 
 public class Fixtures extends Controller {
 
@@ -22,7 +24,6 @@ public class Fixtures extends Controller {
             contentProperties = new Properties();
             InputStream inputStream = Play.classloader.getResourceAsStream("content.properties");
             contentProperties.load(inputStream);
-
         } catch (Exception ex) {
             Logger.error("Something went wrong loading content: \n" + ex.getMessage());
             notFound();

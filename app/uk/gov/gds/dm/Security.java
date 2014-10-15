@@ -1,12 +1,10 @@
 package uk.gov.gds.dm;
 
-import com.elevenware.util.tokenlib.SimpleAesEncryptor;
 import play.Logger;
 import play.Play;
+import play.libs.Crypto;
 import play.mvc.Http;
 
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -40,21 +38,30 @@ public class Security {
     }
 
     public static String[] decrypt(String encryptedString){
-        SimpleAesEncryptor encryptor = new SimpleAesEncryptor("Bar12345Bar12345");
+        //SimpleAesEncryptor encryptor = new SimpleAesEncryptor("Bar12345Bar12345");
+        String decrypted;
 
         if(!(System.getProperty("ssp.cookie.enc") == null)){
-            encryptor = new SimpleAesEncryptor(System.getProperty("ssp.cookie.enc"));
+            //encryptor = new SimpleAesEncryptor(System.getProperty("ssp.cookie.enc"));
+            decrypted = Crypto.decryptAES(encryptedString, System.getProperty("ssp.cookie.enc"));
         }
-        return encryptor.decryptArray(encryptedString);
+        decrypted = Crypto.decryptAES(encryptedString, "Bar12345Bar12345");
+        //return encryptor.decryptArray(encryptedString);
+        return decrypted.split("\\|");
     }
 
     public static String encrypt(String[] stringArray){
-        SimpleAesEncryptor encryptor = new SimpleAesEncryptor("Bar12345Bar12345");
+        StringBuilder buf = new StringBuilder();
+        for(String string:stringArray) {
+            buf.append(string).append("|");
+        }
+        //SimpleAesEncryptor encryptor = new SimpleAesEncryptor("Bar12345Bar12345");
 
         if(!(System.getProperty("ssp.cookie.enc") == null)){
-            encryptor = new SimpleAesEncryptor(System.getProperty("ssp.cookie.enc"));
+            //encryptor = new SimpleAesEncryptor(System.getProperty("ssp.cookie.enc"));
+            return Crypto.encryptAES(buf.toString(), System.getProperty("ssp.cookie.enc"));
         }
-        return encryptor.encryptArray(stringArray);
+        return Crypto.encryptAES(buf.toString(), "Bar12345Bar12345");
     }
 
     public static Boolean cookieHasExpired(Http.Cookie cookie){
@@ -84,5 +91,10 @@ public class Security {
         } else {
             return true;
         }
+    }
+
+    public static boolean applicationIsRunningAsSecure() {
+        Http.Request httpRequest = Http.Request.current();
+        return httpRequest.secure;
     }
 }
