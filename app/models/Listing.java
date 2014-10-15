@@ -59,8 +59,22 @@ public class Listing extends Model {
         }
     }
 
-    public Long firstPage() {
-        return pageSequence.get(0);
+    public String prevPageUrl(Long currentPage, Long listingId) {
+        Long prevPage = prevPage(currentPage);
+        if (prevPage < 0) {
+            return null;
+        }
+        else {
+            return String.format("/page/%d/%d", prevPage, listingId);
+        }
+    }
+
+    public static List<Listing> allBySupplierId(String supplierId) {
+        return Model.all(Listing.class).filter("supplierId", supplierId).fetch();
+    }
+
+    public static Listing getByListingId(Long listingId) {
+        return Listing.getByKey(Listing.class, listingId);
     }
 
     public int completedPageCount() {
@@ -91,13 +105,29 @@ public class Listing extends Model {
     public boolean isFullyCompleted() {
         return pageSequence.size() == completedPageCount();
     }
-    
-    public static List<Listing> allBySupplierId(String supplierId) {
-        return Model.all(Listing.class).filter("supplierId", supplierId).fetch();
+
+    public Long firstPage() {
+        return pageSequence.get(0);
     }
 
-    public static Listing getByListingId(Long listingId) {
-        return Listing.getByKey(Listing.class, listingId);
+    private Long nextPage(Long currentPage) {
+        int index = pageSequence.indexOf(currentPage);
+        if (index == pageSequence.size()-1) {
+            // End of questions
+            return -1l;
+        } else {
+            return pageSequence.get(index+1);
+        }
+    }
+
+    private Long prevPage(Long currentPage) {
+        int index = pageSequence.indexOf(currentPage);
+        if (index < 1) {
+            // Start of questions
+            return -1l;
+        } else {
+            return pageSequence.get(index-1);
+        }
     }
 
     @Override
@@ -109,16 +139,6 @@ public class Listing extends Model {
                 ", title='" + title + "'" +
                 ", pageSequence='" + pageSequence + "'" +
                 '}';
-    }
-
-    private Long nextPage(Long currentPage) {
-        int index = pageSequence.indexOf(currentPage);
-        if (index == pageSequence.size()-1) {
-            // End of questions
-            return -1l;
-        } else {
-            return pageSequence.get(index+1);
-        }
     }
 
 }
