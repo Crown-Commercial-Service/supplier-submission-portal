@@ -7,6 +7,8 @@ GET     /                                       Dashboard.home
 
 GET     /addservice                             Service.newService
 POST    /addservice                             Service.createListing
+POST    /service/delete/show                    Service.showDeletePage
+POST    /service/delete                         Service.delete
 
 GET     /documents                              DocumentsController.captureDocuments
 POST    /documents                              DocumentsController.submitDocuments

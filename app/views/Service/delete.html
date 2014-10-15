@@ -1,0 +1,37 @@
+#{extends 'layout.html' /}
+#{set title:'Delete service | Digital Marketplace' /}
+
+<div class='breadcrumb-navigation'>
+    <nav>
+        <ol>
+            <li class='breadcrumb-navigation-item'>
+                <a href="/" class='breadcrumb-navigation-link'>Your G-Cloud 6 submissions</a>
+            </li>
+            <li class='breadcrumb-navigation-item'>Product name ${listing.title}</li>
+        </ol>
+    </nav>
+</div>
+
+<h1 class="page-heading-without-position">
+    Delete a service
+</h1>
+
+#{form @Service.delete()}
+
+    <input type="hidden" id="listingId" name="listingId" value="${listing.id}" />
+    #{ifnot listing.title}
+        <p class="validation-message">
+            Are you sure you want to delete the service "${listing.id}"?
+        </p>
+    #{/ifnot}
+    #{else}
+        <p class="validation-message">
+            Are you sure you want to delete the service "${listing.title}"?
+        </p>
+    #{/else}
+
+    <div class='page-footer'>
+        <input type='submit' value='Delete service' class='page-footer-item button button-save' />
+    </div>
+
+#{/form}
