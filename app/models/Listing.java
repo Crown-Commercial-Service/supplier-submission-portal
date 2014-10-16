@@ -143,8 +143,11 @@ public class Listing extends Model {
 
     public String getLastUpdated(){
         Date d = this.lastUpdated;
-        SimpleDateFormat sdf = new SimpleDateFormat("");
-        return sdf.format(d);
+
+        // 10:20am, 8 July 2014
+        SimpleDateFormat sdf = new SimpleDateFormat("KK:mm aa, dd MMM yyyy");
+        String formattedDateString = sdf.format(d);
+        return formattedDateString.replace("AM", "am").replace("PM","pm");
     }
 
     @Override
