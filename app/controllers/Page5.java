@@ -7,6 +7,8 @@ import models.Page;
 import play.data.validation.Error;
 import uk.gov.gds.dm.ValidationUtils;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.List;
@@ -15,7 +17,7 @@ public class Page5 extends AuthenticatingController {
 
     private static final Long PAGE_ID = 5l;
 
-    public static void savePage(Long listingId) {
+    public static void savePage(Long listingId) throws UnsupportedEncodingException {
 
         Listing listing = Listing.getByListingId(listingId);
 
@@ -25,6 +27,7 @@ public class Page5 extends AuthenticatingController {
         ArrayList<String> q2 = new ArrayList();
         String s;
 
+        StringBuilder paramString = new StringBuilder();
         for (int i=1; i<11; i++) {
             if(params.containsKey("p5q1val" + i)){
                 s = params.get("p5q1val" + i)[0];
@@ -32,6 +35,7 @@ public class Page5 extends AuthenticatingController {
                     validation.maxSize(s, 100).key("p5q1val" + i).message("Too many characters");
                     validation.isTrue(ValidationUtils.isWordCountLessThan(s, 10)).key("p5q1val" + i).message("Too many words");
                     q1.add(s);
+                    paramString.append("p5q1=").append(URLEncoder.encode(s, "UTF-8")).append("&");
                 }
             }
 
@@ -41,6 +45,7 @@ public class Page5 extends AuthenticatingController {
                     validation.maxSize(s, 100).key("p5q2val" + i).message("Too many characters");
                     validation.isTrue(ValidationUtils.isWordCountLessThan(s, 10)).key("p5q2val" + i).message("Too many words");
                     q2.add(s);
+                    paramString.append("p5q2=").append(URLEncoder.encode(s, "UTF-8")).append("&");
                 }
             }
         }
@@ -49,7 +54,7 @@ public class Page5 extends AuthenticatingController {
         validation.isTrue("p5q2", q2.size() > 0).message("validation.required");
 
         if(validation.hasErrors()) {
-
+            flash.put("body", paramString.toString());
             for(Map.Entry<String, List<Error>> entry : validation.errorsMap().entrySet()) {
                 String key = entry.getKey();
                 String value = entry.getValue().get(0).message();

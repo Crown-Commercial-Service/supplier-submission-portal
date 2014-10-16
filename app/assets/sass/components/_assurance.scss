@@ -5,5 +5,11 @@
   .question-heading {
     @include core-19;
     margin-bottom: 6px;
+
+    &-with-hint {
+      margin-bottom: 0;
+    }
+
   }
+
 }

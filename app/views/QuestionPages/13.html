@@ -31,7 +31,7 @@
     }%
       #{forms/selection-button-boolean
         name: question,
-        value: oldvalues?.get(question),
+        value: oldValues?.get(question),
         label: content.get(question + 'text'),
         hint: content.get(question + 'hint'),
         error: content.get(question + flash.get(question))
@@ -42,5 +42,5 @@
   %{
     }
   }%
-  #{footer/}
+  #{footer prevPageURL: prevPageURL /}
 </form>

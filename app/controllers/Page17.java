@@ -19,13 +19,13 @@ public class Page17 extends AuthenticatingController {
         validation.required(p17q1).key("p17q1");
         validation.maxSize(p17q1, 10);
 
-        if(p17q1.toLowerCase().equals("yes")){
+        if(p17q1 != null && p17q1.toLowerCase().equals("yes")){
             validation.required(p17q2).key("p17q2");
             validation.maxSize(p17q2, 100);
         }
 
         if(validation.hasErrors()) {
-
+            flash.put("body", params.get("body"));
             for(Map.Entry<String, List<Error>> entry : validation.errorsMap().entrySet()) {
                 String key = entry.getKey();
                 String value = entry.getValue().get(0).message();

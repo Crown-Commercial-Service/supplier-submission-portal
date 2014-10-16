@@ -19,20 +19,21 @@ public class Page40 extends AuthenticatingController {
         // Validate all fields on this page requiring validation
         validation.required(p40q1).key("p40q1");
         validation.maxSize(p40q1, 40);
-        validation.required(p40q1assurance).key("p40q1assurance");
+        validation.required(p40q1assurance).key("p40q1");
         validation.maxSize(p40q1assurance, 50);
         if (!listing.lot.equals("SaaS")) {
             validation.required(p40q2).key("p40q2");
             validation.maxSize(p40q2, 10);
-            validation.required(p40q2assurance).key("p40q2assurance");
+            validation.required(p40q2assurance).key("p40q2");
             validation.maxSize(p40q2assurance, 50);
         }
         validation.required(p40q3).key("p40q3");
         validation.maxSize(p40q3, 10);
-        validation.required(p40q3assurance).key("p40q3assurance");
+        validation.required(p40q3assurance).key("p40q3");
         validation.maxSize(p40q3assurance, 50);
 
         if(validation.hasErrors()) {
+            flash.put("body", params.get("body"));
             for(Map.Entry<String, List<Error>> entry : validation.errorsMap().entrySet()) {
                 String key = entry.getKey();
                 String value = entry.getValue().get(0).message();

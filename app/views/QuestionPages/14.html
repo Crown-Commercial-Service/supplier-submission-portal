@@ -31,7 +31,7 @@
 
     #{forms/selection-button-boolean
       name: 'p14q1',
-      value: oldvalues?.get('p14q1'),
+      value: oldValues?.get('p14q1'),
       label: content.get('p14q1text'),
       hint: content.get('p14q1hint'),
       error: content.get(question + flash.get(question))
@@ -51,7 +51,7 @@
     }%
       #{forms/textbox
         name: 'p14q' + index,
-        value: oldvalues?.get('p14q' + index),
+        value: oldValues?.get(question)?.isEmpty() ? "" : oldValues?.get(question)?.get(0),
         label: content.get('p14q' + index + 'text'),
         hint: content.get('p14q' + index + 'hint'),
         error: content.get(question + flash.get(question))
@@ -63,5 +63,5 @@
     }
   }%
 
-  #{footer/}
+  #{footer prevPageURL: prevPageURL /}
 </form>

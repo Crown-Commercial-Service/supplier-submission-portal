@@ -82,6 +82,10 @@ public class Security {
     }
 
     public static Boolean isAuthenticationRequired(){
+        if(Play.mode == Play.Mode.DEV){
+            return false;
+        }
+        
         String appName = Play.configuration.getProperty("application.name");
 
         if(appName.equals("ssp-preview") || appName.equals("ssp-staging")){

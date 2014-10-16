@@ -32,6 +32,9 @@ public class Listing extends Model {
     @NotNull
     public String title;
 
+    @NotNull
+    public boolean serviceSubmitted;
+
     @Embedded
     public List<Long> pageSequence;
     
@@ -47,20 +50,35 @@ public class Listing extends Model {
         for (int i=0; i< size; i++) {
             completedPages.add(Page.emptyPage());
         }
+        this.serviceSubmitted = false;
     }
 
     public String nextPageUrl(Long currentPage, Long listingId) {
         Long nextPage = nextPage(currentPage);
         if (nextPage < 0) {
-            return String.format("/page/finished/%d", listingId);
+            return String.format("/service/%d/summary", listingId);
         }
         else {
             return String.format("/page/%d/%d", nextPage, listingId);
         }
     }
 
-    public Long firstPage() {
-        return pageSequence.get(0);
+    public String prevPageUrl(Long currentPage, Long listingId) {
+        Long prevPage = prevPage(currentPage);
+        if (prevPage < 0) {
+            return null;
+        }
+        else {
+            return String.format("/page/%d/%d", prevPage, listingId);
+        }
+    }
+
+    public static List<Listing> allBySupplierId(String supplierId) {
+        return Model.all(Listing.class).filter("supplierId", supplierId).fetch();
+    }
+
+    public static Listing getByListingId(Long listingId) {
+        return Listing.getByKey(Listing.class, listingId);
     }
 
     public int completedPageCount() {
@@ -88,27 +106,12 @@ public class Listing extends Model {
         update();
     }
     
-    public boolean isFullyCompleted() {
+    public boolean allPagesHaveBeenCompleted() {
         return pageSequence.size() == completedPageCount();
     }
-    
-    public static List<Listing> allBySupplierId(String supplierId) {
-        return Model.all(Listing.class).filter("supplierId", supplierId).fetch();
-    }
 
-    public static Listing getByListingId(Long listingId) {
-        return Listing.getByKey(Listing.class, listingId);
-    }
-
-    @Override
-    public String toString() {
-        return "Listing{" +
-                "id=" + id +
-                ", supplierId='" + supplierId + "'" +
-                ", lot='" + lot + "'" +
-                ", title='" + title + "'" +
-                ", pageSequence='" + pageSequence + "'" +
-                '}';
+    public Long firstPage() {
+        return pageSequence.get(0);
     }
 
     private Long nextPage(Long currentPage) {
@@ -119,6 +122,28 @@ public class Listing extends Model {
         } else {
             return pageSequence.get(index+1);
         }
+    }
+
+    private Long prevPage(Long currentPage) {
+        int index = pageSequence.indexOf(currentPage);
+        if (index < 1) {
+            // Start of questions
+            return -1l;
+        } else {
+            return pageSequence.get(index-1);
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "Listing{" +
+                "id=" + id +
+                ", supplierId='" + supplierId + "'" +
+                ", lot='" + lot + "'" +
+                ", title='" + title + "'" +
+                ", pageSequence='" + pageSequence + "'" +
+                ", serviceSubmitted='" + serviceSubmitted + "'" +
+                '}';
     }
 
 }

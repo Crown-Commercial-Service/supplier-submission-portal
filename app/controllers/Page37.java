@@ -26,15 +26,16 @@ public class Page37 extends AuthenticatingController {
         }
         validation.required(p37q3).key("p37q3");
         validation.maxSize(p37q3, 10);
-        validation.required(p37q3assurance).key("p37q3assurance");
+        validation.required(p37q3assurance).key("p37q3");
         validation.maxSize(p37q3assurance, 50);
 
         validation.required(p37q4).key("p37q4");
         validation.maxSize(p37q4, 10);
-        validation.required(p37q4assurance).key("p37q4assurance");
+        validation.required(p37q4assurance).key("p37q4");
         validation.maxSize(p37q4assurance, 50);
 
         if(validation.hasErrors()) {
+            flash.put("body", params.get("body"));
             for(Map.Entry<String, List<Error>> entry : validation.errorsMap().entrySet()) {
                 String key = entry.getKey();
                 String value = entry.getValue().get(0).message();

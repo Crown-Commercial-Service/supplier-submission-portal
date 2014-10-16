@@ -24,23 +24,41 @@
   /}
 
   %{
-    for (index in 1..2) {
-      question = page + 'q' + index
-      questionIsRelevantToSelectedLot = content.get(question + 'lots').contains(lot)
-      if (questionIsRelevantToSelectedLot) {
+    question = page + 'q1'
+    questionIsRelevantToSelectedLot = content.get(question + 'lots').contains(lot)
+    if (questionIsRelevantToSelectedLot) {
   }%
     #{forms/selection-button-boolean
       name: question,
-      value: oldvalues?.get(question),
+      value: oldValues?.get(question),
+      oldval: oldValues?.get(question + 'assurance')?.get(0),
       label: content.get(question + 'text'),
       hint: content.get(question + 'hint'),
-      error: content.get(question + flash.get(question))
+      error: content.get(question + flash.get(question)),
+      assurance: true,
+      assurance_hint: content.get(question + 'assuranceHint')
     /}
   %{
-      }
     }
   }%
 
+  %{
+    question = page + 'q2'
+    questionIsRelevantToSelectedLot = content.get(question + 'lots').contains(lot)
+    if (questionIsRelevantToSelectedLot) {
+  }%
+    #{forms/selection-button-boolean
+      name: question,
+      value: oldValues?.get(question),
+      oldval: oldValues?.get(question + 'assurance')?.get(0),
+      label: content.get(question + 'text'),
+      hint: content.get(question + 'hint'),
+      error: content.get(question + flash.get(question)),
+      assurance: true
+    /}
+  %{
+    }
+  }%
 
   %{
     question = page + 'q3'
@@ -59,11 +77,15 @@
           name: question,
           value: content.get(question + 'val' + index),
           label: content.get(question + 'val' + index + 'Label'),
-          checked: oldValues?.get(question)?.contains(content.get(question + 'val' + index))
+          oldval: oldValues?.get(question)?.get(0)
         /}
       %{
         }
       }%
+      #{forms/assurance
+        name: question,
+        oldval: oldValues?.get(question + 'assurance')?.isEmpty() ? "" : oldValues?.get(question + 'assurance')?.get(0)
+      /}
       #{question-footer
         error: content.get(question + flash.get(question))
       /}
@@ -79,16 +101,18 @@
   }%
     #{forms/selection-button-boolean
       name: question,
-      value: oldvalues?.get(question),
+      value: oldValues?.get(question),
+      oldval: oldValues?.get(question + 'assurance')?.get(0),
       label: content.get(question + 'text'),
       hint: content.get(question + 'hint'),
-      error: content.get(question + flash.get(question))
+      error: content.get(question + flash.get(question)),
+      assurance: true
     /}
   %{
       }
     }
   }%
 
-  #{footer/}
+  #{footer prevPageURL: prevPageURL /}
 
 </form>

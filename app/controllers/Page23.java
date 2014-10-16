@@ -16,22 +16,22 @@ public class Page23 extends AuthenticatingController {
 
         // Validate all fields on this page requiring validation
         validation.required(p23q1).key("p23q1");
-        validation.required(p23q1).key("p23q1assurance");
+        validation.required(p23q1assurance).key("p23q1");
         validation.maxSize(p23q1, 50);
-        validation.maxSize(p23q1, 50);
+        validation.maxSize(p23q1assurance, 50);
         if(!listing.lot.equals("SaaS")) {
             validation.required(p23q2).key("p23q2");
-            validation.required(p23q1).key("p23q2assurance");
+            validation.required(p23q2assurance).key("p23q2");
             validation.maxSize(p23q2, 50);
             validation.maxSize(p23q2assurance, 50);
             validation.required(p23q3).key("p23q3");
-            validation.required(p23q1).key("p23q3assurance");
+            validation.required(p23q3assurance).key("p23q3");
             validation.maxSize(p23q3, 50);
             validation.maxSize(p23q3assurance, 50);
         }
 
         if(validation.hasErrors()) {
-
+            flash.put("body", params.get("body"));
             for(Map.Entry<String, List<Error>> entry : validation.errorsMap().entrySet()) {
                 String key = entry.getKey();
                 String value = entry.getValue().get(0).message();

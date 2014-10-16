@@ -32,11 +32,13 @@
       label: content.get(question + 'text'),
       hint: content.get(question + 'hint'),
       error: content.get(question + flash.get(question)),
+      value: oldValues?.get(question),
+      oldval: oldValues?.get(question + 'assurance')?.get(0),
       assurance: true
     /}
 
   %{
     }
   }%
-  #{footer/}
+  #{footer prevPageURL: prevPageURL /}
 </form>

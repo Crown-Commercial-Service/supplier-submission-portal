@@ -21,12 +21,13 @@ public class Page34 extends AuthenticatingController {
         validation.maxSize(p34q1, 10);
         validation.required(p34q2).key("p34q2");
         validation.maxSize(p34q2, 10);
-        validation.required(p34q1assurance).key("p34q1assurance");
+        validation.required(p34q1assurance).key("p34q1");
         validation.maxSize(p34q1assurance, 50);
-        validation.required(p34q2assurance).key("p34q2assurance");
+        validation.required(p34q2assurance).key("p34q2");
         validation.maxSize(p34q2assurance, 50);
 
         if(validation.hasErrors()) {
+            flash.put("body", params.get("body"));
             for(Map.Entry<String, List<Error>> entry : validation.errorsMap().entrySet()) {
                 String key = entry.getKey();
                 String value = entry.getValue().get(0).message();

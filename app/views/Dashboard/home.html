@@ -55,7 +55,7 @@
     }%
     <tr class='summary-row'>
       <td class='summary-answer-title'>
-        <a href='/service/${listing.id}'>${serviceName}</a>
+        <a href='/service/${listing.id}/summary'>${serviceName}</a>
       </td>
       <td class='summary-answer-progress'>
         ${listing.completedPageCount()}
@@ -63,7 +63,7 @@
         ${listing.getPageSequenceSize()} pages complete
       </td>
       <td class='summary-answer-action'>
-        <a href='/service/${listing.id}'>Continue</a>
+        <a href='/service/${listing.id}/summary'>Continue</a>
       </td>
     </tr>
     #{/list}
@@ -77,49 +77,40 @@
 <p class='question-hint'>
   These services will be published on the Digital Marketplace when G-Cloud 6 goes live
 </p>
-%{
-  if (play.configuration.getProperty("application.mode") == 'prod') {
-}%
-<p class='question-hint summary-without-answers'>
-  You haven't marked any services as completed yet
-</p>
-%{
-  } else {
-}%
-<table width='100%'>
-  <thead class='summary-answer-heading'>
-    <tr>
-      <td>
-        Service name
-      </td>
-      <td>
-        Actions that can be performed on this service
-      </td>
-    </tr>
-  </thead>
-  <tbody class='summary-answer-list'>
-    <tr class='summary-row'>
-      <td class='summary-answer-title'>
-        <a href='#'>Example service 1</a>
-      </td>
-      <td class='summary-answer-progress'>
-        <button class='summary-answer-button'>
-          Return service to drafts
-        </button>
-      </td>
-    </tr>
-    <tr class='summary-row'>
-      <td class='summary-answer-title'>
-        <a href='#'>Another example service</a>
-      </td>
-      <td class='summary-answer-progress'>
-        <button class='summary-answer-button'>
-          Return service to drafts
-        </button>
-      </td>
-    </tr>
-  </tbody>
-</table>
-%{
-  }
-}%
+#{ifnot completedListings}
+    <p class='question-hint summary-without-answers'>
+      You haven't marked any services as completed yet
+    </p>
+#{/ifnot}
+#{else}
+    <table width='100%'>
+      <thead class='summary-answer-heading'>
+        <tr>
+          <td>
+            Service name
+          </td>
+          <td>
+            Actions that can be performed on this service
+          </td>
+        </tr>
+      </thead>
+      <tbody class='summary-answer-list'>
+
+      #{list completedListings, as:'completedListing'}
+        <tr class='summary-row'>
+          <td class='summary-answer-title'>
+            <a href='/service/${completedListing.id}/summary'>${completedListing.title}</a>
+          </td>
+          <td class='summary-answer-progress'>
+              #{form @Service.markListingAsDraft() }
+                <input type="hidden" id="listingId" name="listingId" value="${completedListing.id}" />
+                <button class='summary-answer-button'>
+                  Return service to drafts
+                </button>
+              #{/form}
+          </td>
+        </tr>
+      #{/list}
+      </tbody>
+    </table>
+#{/else}

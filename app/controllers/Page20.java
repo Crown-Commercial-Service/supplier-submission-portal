@@ -38,7 +38,7 @@ public class Page20 extends AuthenticatingController {
 
         // Validate all fields on this page requiring validation
         if(validation.hasErrors()) {
-
+            flash.put("body", params.get("body"));
             for(Map.Entry<String, List<Error>> entry : validation.errorsMap().entrySet()) {
                 String key = entry.getKey();
                 String value = entry.getValue().get(0).message();

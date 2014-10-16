@@ -5,3 +5,9 @@
 <label class='text-box-percentage-label' for='${_name}'>
   % <span class='hidden'> ${_hidden_label}</span>
 </label>
+%{ if (_assurance) { }%
+#{forms/assurance
+name: _name,
+oldval: _oldval
+/}
+%{ } }%
