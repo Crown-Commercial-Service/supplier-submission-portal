@@ -89,4 +89,15 @@ public class Security {
             return true;
         }
     }
+
+    public static String getDMTeamSuppplierId() {
+        String appName = Play.configuration.getProperty("application.name");
+        if(appName.equals("ssp-live")){
+            return "577184";
+        } else if (appName.equals("ssp-qa")) {
+            return "211325";
+        } else {
+            return "1166557";
+        }
+    }
 }
