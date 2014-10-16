@@ -29,11 +29,9 @@ public abstract class AuthenticatingController extends Controller {
                 redirect(DM_URL + "login");
             } else if ((Security.cookieHasExpired(gdmSsoCookie) && !usedRecently)
                     || (!Security.supplierIdIsAllowed(Security.getCookieSupplierId(gdmSsoCookie)))){
-                Logger.info("ID: " + Security.getCookieSupplierId(gdmSsoCookie));
                 Logger.info("SSO Cookie has expired or supplier id was not allowed.");
                 redirect(DM_URL + "login");
             } else {
-                Logger.info("ID: " + Security.getCookieSupplierId(gdmSsoCookie));
                 supplierDetailsFromCookie.put("supplierId", Security.getCookieSupplierId(gdmSsoCookie));
                 supplierDetailsFromCookie.put("supplierEmail", Security.getCookieEmail(gdmSsoCookie));
                 supplierDetailsFromCookie.put("supplierCompanyName", Security.getCookieSupplierCompanyName(gdmSsoCookie));
