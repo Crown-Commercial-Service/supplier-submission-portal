@@ -73,7 +73,11 @@
     </div>
     <input type='submit' value='Save and return to submissions' class='page-footer-item button-save' />
     #{/form}
-    <input type='submit' value='Delete this service' class='page-footer-item button-destructive' />
+
+    #{form @Service.showDeletePage()}
+        <input type="hidden" id="listingId" name="listingId" value="${listingId}" />
+        <input type='submit' id="showDeleteMessage" name="showDeleteMessage" value='Delete this service' class='page-footer-item button-destructive' />
+    #{/form}
   </div>
 %{
   } else {
