@@ -13,7 +13,7 @@ import static siena.Json.*;
 
 @Table("listing")
 public class Listing extends Model {
-    
+
     // For GAE :
     // 1. @Id annotated field corresponding to the primary key must be Long type
     // 2. @Id annotated field corresponding to the primary key must be called "id"
@@ -48,10 +48,10 @@ public class Listing extends Model {
 
     @Embedded
     public List<Long> pageSequence;
-    
+
     @Embedded
     public List<Page> completedPages;
-    
+
     public Listing(String supplierId, String lot) {
         this.supplierId = supplierId;
         this.lot = lot;
@@ -130,7 +130,7 @@ public class Listing extends Model {
         this.lastCompletedByEmail = completedByEmail;
         update();
     }
-    
+
     public boolean allPagesHaveBeenCompleted() {
         return pageSequence.size() == completedPageCount();
     }
@@ -163,7 +163,7 @@ public class Listing extends Model {
         Date d = this.lastUpdated;
 
         // 10:20am, 8 July 2014
-        SimpleDateFormat sdf = new SimpleDateFormat("KK:mm aa, dd MMM yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("KK:mmaa, dd MMM yyyy");
         String formattedDateString = sdf.format(d);
         return formattedDateString.replace("AM", "am").replace("PM","pm");
     }
@@ -172,7 +172,7 @@ public class Listing extends Model {
         Date d = this.lastCompleted;
 
         // 10:20am, 8 July 2014
-        SimpleDateFormat sdf = new SimpleDateFormat("KK:mm aa, dd MMM yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("KK:mmaa, dd MMM yyyy");
         String formattedDateString = sdf.format(d);
         return formattedDateString.replace("AM", "am").replace("PM","pm");
     }
