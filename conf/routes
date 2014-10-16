@@ -70,7 +70,7 @@ POST    /page/39/{listingId}                    Page39.savePage
 POST    /page/40/{listingId}                    Page40.savePage
 
 # Show summary page for service once all questions are complete
-GET     /service/{listingId}/summary            SummaryPage.showPage
+GET     /service/{listingId}/summary            Service.summaryPage
 POST    /service/complete                       Service.completeListing
 POST    /service/draft                          Service.markListingAsDraft
 
