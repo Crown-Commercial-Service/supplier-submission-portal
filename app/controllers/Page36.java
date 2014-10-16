@@ -40,7 +40,7 @@ public class Page36 extends AuthenticatingController {
         page.responses.put("p36q1", gson.toJson(p36q1));
         page.responses.put("p36q1assurance", p36q1assurance);
         page.insert();
-        listing.addResponsePage(page, PAGE_ID);
+        listing.addResponsePage(page, PAGE_ID, supplierDetailsFromCookie.get("supplierEmail"));
         redirect(listing.nextPageUrl(PAGE_ID, listing.id));
     }
 }

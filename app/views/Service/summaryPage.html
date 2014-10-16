@@ -10,6 +10,15 @@
   title: 'Summary',
 /}
 
+<p>Last updated by: ${listing.lastUpdatedEmail}, at ${listing.getLastUpdated()}</p>
+
+%{
+if (listing.serviceSubmitted) {
+}%
+    <p>Completed by: ${listing.lastCompletedByEmail}, at ${listing.getLastCompleted()}</p>
+%{
+}
+}%
 #{summary/section/start
   title: content.get('p' + pageIndex + 'title'),
 /}

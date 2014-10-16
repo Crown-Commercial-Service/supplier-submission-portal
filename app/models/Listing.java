@@ -40,6 +40,12 @@ public class Listing extends Model {
     @NotNull
     public Date lastUpdated;
 
+    @NotNull
+    public String lastUpdatedEmail;
+
+    public String lastCompletedByEmail;
+    public Date lastCompleted;
+
     @Embedded
     public List<Long> pageSequence;
     
@@ -101,7 +107,7 @@ public class Listing extends Model {
         return pageSequence.size();
     }
 
-    public void addResponsePage(Page page, Long pageId) {
+    public void addResponsePage(Page page, Long pageId, String updateByEmail) {
         int index = pageSequence.indexOf(pageId);
         Page p = completedPages.get(index);
         if (p.id != 0) {
@@ -109,7 +115,19 @@ public class Listing extends Model {
             completedPages.remove(index);
         }
         completedPages.add(index, page);
+        updateListing(updateByEmail);
+    }
+
+    private void updateListing(String updatedByEmail){
         this.lastUpdated = new Date();
+        this.lastUpdatedEmail = updatedByEmail;
+        update();
+    }
+
+    public void completeListing(String completedByEmail){
+        this.serviceSubmitted = true;
+        this.lastCompleted= new Date();
+        this.lastCompletedByEmail = completedByEmail;
         update();
     }
     
@@ -143,6 +161,15 @@ public class Listing extends Model {
 
     public String getLastUpdated(){
         Date d = this.lastUpdated;
+
+        // 10:20am, 8 July 2014
+        SimpleDateFormat sdf = new SimpleDateFormat("KK:mm aa, dd MMM yyyy");
+        String formattedDateString = sdf.format(d);
+        return formattedDateString.replace("AM", "am").replace("PM","pm");
+    }
+
+    public String getLastCompleted(){
+        Date d = this.lastCompleted;
 
         // 10:20am, 8 July 2014
         SimpleDateFormat sdf = new SimpleDateFormat("KK:mm aa, dd MMM yyyy");

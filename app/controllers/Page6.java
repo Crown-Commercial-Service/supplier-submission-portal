@@ -45,7 +45,7 @@ public class Page6 extends AuthenticatingController {
         // TODO: Document storage in response
 
         page.insert();
-        listing.addResponsePage(page, PAGE_ID);
+        listing.addResponsePage(page, PAGE_ID, supplierDetailsFromCookie.get("supplierEmail"));
         redirect(listing.nextPageUrl(PAGE_ID, listing.id));
     }
 }

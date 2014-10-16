@@ -49,7 +49,7 @@ public class Page32 extends AuthenticatingController {
         page.responses.put("p32q2assurance", p32q2assurance);
         page.responses.put("p32q3assurance", p32q3assurance);
         page.insert();
-        listing.addResponsePage(page, PAGE_ID);
+        listing.addResponsePage(page, PAGE_ID, supplierDetailsFromCookie.get("supplierEmail"));
         redirect(listing.nextPageUrl(PAGE_ID, listing.id));
     }
 }

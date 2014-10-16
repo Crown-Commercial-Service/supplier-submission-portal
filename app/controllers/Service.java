@@ -84,8 +84,7 @@ public class Service extends AuthenticatingController {
             redirect(String.format("/service/%d/summary", listingId));
         }
 
-        listing.serviceSubmitted = true;
-        listing.save();
+        listing.completeListing(supplierDetailsFromCookie.get("supplierEmail"));
 
         flash.put("success", "Your service has been marked as completed.");
         redirect("/");

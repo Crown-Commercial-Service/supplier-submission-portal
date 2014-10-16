@@ -44,7 +44,7 @@ public class Page34 extends AuthenticatingController {
         page.responses.put("p34q1assurance", p34q1assurance);
         page.responses.put("p34q2assurance", p34q2assurance);
         page.insert();
-        listing.addResponsePage(page, PAGE_ID);
+        listing.addResponsePage(page, PAGE_ID, supplierDetailsFromCookie.get("supplierEmail"));
         redirect(listing.nextPageUrl(PAGE_ID, listing.id));
     }
 
