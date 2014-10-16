@@ -1,6 +1,8 @@
 package models;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import siena.*;
@@ -35,6 +37,9 @@ public class Listing extends Model {
     @NotNull
     public boolean serviceSubmitted;
 
+    @NotNull
+    public Date lastUpdated;
+
     @Embedded
     public List<Long> pageSequence;
     
@@ -51,6 +56,7 @@ public class Listing extends Model {
             completedPages.add(Page.emptyPage());
         }
         this.serviceSubmitted = false;
+        this.lastUpdated = new Date();
     }
 
     public String nextPageUrl(Long currentPage, Long listingId) {
@@ -103,6 +109,7 @@ public class Listing extends Model {
             completedPages.remove(index);
         }
         completedPages.add(index, page);
+        this.lastUpdated = new Date();
         update();
     }
     
@@ -132,6 +139,12 @@ public class Listing extends Model {
         } else {
             return pageSequence.get(index-1);
         }
+    }
+
+    public String getLastUpdated(){
+        Date d = this.lastUpdated;
+        SimpleDateFormat sdf = new SimpleDateFormat("");
+        return sdf.format(d);
     }
 
     @Override
