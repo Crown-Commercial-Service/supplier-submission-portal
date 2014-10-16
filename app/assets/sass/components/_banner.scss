@@ -1,0 +1,18 @@
+.banner {
+
+  background: $highlight-colour;
+  @include core-24;
+  padding: 20px 20px 25px 20px;
+  margin-top: 15px;
+
+  &-warning {
+    @extend .banner;
+    border-left: 5px solid $red;
+    color: $red;
+  }
+
+  &-action {
+    margin-top: 15px;
+  }
+
+}
