@@ -23,13 +23,12 @@ public abstract class AuthenticatingController extends Controller {
         if(Security.isAuthenticationRequired()){
             Http.Cookie gdmSsoCookie = request.current().cookies.get("gdmssosession");
             Boolean usedRecently = (Cache.get("last-used") != null);
-            String DMteamSupplierId = Security.getDMTeamSuppplierId();
 
             if(gdmSsoCookie == null){
                 Logger.info("SSO Cookie does not exist.");
                 redirect(DM_URL + "login");
             } else if ((Security.cookieHasExpired(gdmSsoCookie) && !usedRecently)
-                    || (!Security.getCookieSupplierId(gdmSsoCookie).equals(DMteamSupplierId))){
+                    || (!Security.supplierIdIsAllowed(Security.getCookieSupplierId(gdmSsoCookie)))){
                 Logger.info("ID: " + Security.getCookieSupplierId(gdmSsoCookie));
                 Logger.info("SSO Cookie has expired or supplier id was not allowed.");
                 redirect(DM_URL + "login");

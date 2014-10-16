@@ -90,14 +90,16 @@ public class Security {
         }
     }
 
-    public static String getDMTeamSuppplierId() {
+    public static Boolean supplierIdIsAllowed(String supplierId){
         String appName = Play.configuration.getProperty("application.name");
         if(appName.equals("ssp-live")){
-            return "577184";
-        } else if (appName.equals("ssp-qa")) {
-            return "211325";
+            if(supplierId.equals("577184")){
+                return true;
+            } else {
+                return false;
+            }
         } else {
-            return "1166557";
+            return true;
         }
     }
 }
