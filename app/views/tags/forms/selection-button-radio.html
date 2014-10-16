@@ -1,7 +1,7 @@
 <label class='selection-button%{ if (_description) { }% selection-button-with-description%{ } }%'>
   <input
     type='radio' name='${_name}' id='${_name}-${_value}' value='${_label}'
-    %{ if (_oldval.equals(_value)) { }% checked='checked' %{ }}%
+    %{ if (_oldval.equals(_label)) { }% checked='checked' %{ }}%
   />
   ${_label}
 </label>

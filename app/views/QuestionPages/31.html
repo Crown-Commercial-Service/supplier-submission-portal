@@ -27,13 +27,13 @@
       error: content.get(question + flash.get(question))
     /}
     %{
-      for (index in 1..6) {
+      for (index in 1..4) {
     }%
       #{forms/selection-button-checkbox
         name: question,
         value: content.get(question + 'val' + index),
         label: content.get(question + 'val' + index + 'Label'),
-        checked: oldValues?.get(question)?.contains(content.get(question + 'val' + index))
+        checked: oldValues?.get(question)?.contains(content.get(question + 'val' + index + 'Label'))
       /}
     %{
       }

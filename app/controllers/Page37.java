@@ -13,7 +13,7 @@ public class Page37 extends AuthenticatingController {
 
     private static final Long PAGE_ID = 37l;
 
-    public static void savePage(Long listingId, String p37q1, String[] p37q2, String p37q3, String p37q3assurance, String p37q4, String p37q4assurance) {
+    public static void savePage(Long listingId, String p37q1, String p37q1assurance, String[] p37q2, String p37q2assurance,  String p37q3, String p37q3assurance, String p37q4, String p37q4assurance) {
 
         Listing listing = Listing.getByListingId(listingId);
 
@@ -21,8 +21,10 @@ public class Page37 extends AuthenticatingController {
         if (!listing.lot.equals("SaaS")) {
             validation.required(p37q1).key("p37q1");
             validation.maxSize(p37q1, 10);
+            validation.required(p37q1assurance).key("p37q1");
             validation.required(p37q2).key("p37q2");
-            validation.isTrue(ValidationUtils.stringArrayValuesAreNotTooLong(p37q2, 20)).key("p37q2").message("Invalid values.");
+            validation.required(p37q2assurance).key("p37q2");
+            validation.isTrue(ValidationUtils.stringArrayValuesAreNotTooLong(p37q2, 50)).key("p37q2").message("Invalid values.");
         }
 
         if(validation.hasErrors()) {

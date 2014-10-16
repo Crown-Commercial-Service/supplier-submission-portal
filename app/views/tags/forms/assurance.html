@@ -9,7 +9,6 @@
   #{forms/hint
     hint: _hint
   /}
-
   %{
     if (_type == '2answers-type1') {
       assurance_options = [
@@ -24,7 +23,7 @@
         'Independent validation of assertion'
       ]
     }
-    if (_type == '3answers-type2') {
+    if (_type == '3answers-type2' || _type == '2answers-type2') {
       assurance_options = [
         'Service provider assertion',
         'Independent validation of assertion',

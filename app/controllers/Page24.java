@@ -38,17 +38,16 @@ public class Page24 extends AuthenticatingController {
             // Validate percentage: .max() catches anything not a number
             validation.required(p24q10).key("p24q10");
             validation.max(p24q10, 99.99999999999999).key("p24q10").message("validationNotANumber");
+            validation.required(p24q10assurance).key("p24q10");
 
             if (!listing.lot.equals("SaaS")) {
                 //PaaS, IaaS
                 validation.required(p24q7).key("p24q7");
                 validation.required(p24q8).key("p24q8");
                 validation.required(p24q9).key("p24q9");
-                validation.required(p24q10).key("p24q10");
                 validation.required(p24q7assurance).key("p24q7");
                 validation.required(p24q8assurance).key("p24q8");
                 validation.required(p24q9assurance).key("p24q9");
-                validation.required(p24q10assurance).message("p24q10");
             }
         }
 
@@ -101,6 +100,7 @@ public class Page24 extends AuthenticatingController {
         page.responses.put("p24q8assurance", p24q8assurance);
         page.responses.put("p24q9assurance", p24q9assurance);
         page.responses.put("p24q10assurance", p24q10assurance);
+        page.responses.put("p24q11assurance", p24q11assurance);
         page.insert();
         listing.addResponsePage(page, PAGE_ID);
         redirect(listing.nextPageUrl(PAGE_ID, listing.id));
