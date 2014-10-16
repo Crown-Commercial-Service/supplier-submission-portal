@@ -100,7 +100,7 @@ public class Service extends AuthenticatingController {
         redirect("/");
     }
 
-    public static void showDeletePage(Long listingId, Boolean showDeleteMessage){
+    public static void showDeletePage(Long listingId, String showDeleteMessage){
         Listing listing = Listing.getByListingId(listingId);
         List<Long> flow = ServiceSubmissionJourneyFlows.getFlow(listing.lot);
         List<String> optionalQuestions = ServiceSubmissionJourneyFlows.getOptionalQuestions();
@@ -122,7 +122,9 @@ public class Service extends AuthenticatingController {
         renderArgs.put("optionalQuestions", optionalQuestions);
         renderArgs.put("pageIndex", 0);
         renderArgs.put("storedValues", allAnswers);
-        renderArgs.put("showDeleteMessage", showDeleteMessage);
+        if(showDeleteMessage != null){
+            renderArgs.put("confirmDeleteMessage", "Are you sure you want to delete this service?");
+        }
         renderTemplate("Service/summaryPage.html", listingId);
     }
 

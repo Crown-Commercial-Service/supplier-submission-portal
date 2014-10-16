@@ -65,14 +65,6 @@
       <td class='summary-answer-action'>
         <a href='/service/${listing.id}/summary'>Continue</a>
       </td>
-        <td class='summary-answer-progress'>
-            #{form @Service.showDeletePage() }
-                <input type="hidden" id="listingId" name="listingId" value="${listing.id}" />
-                <button class='summary-answer-button'>
-                    Delete service
-                </button>
-            #{/form}
-        </td>
     </tr>
     #{/list}
   </tbody>
