@@ -1,15 +1,18 @@
 package controllers;
 
 import com.google.gson.Gson;
+import models.Document;
 import models.Listing;
 import models.Page;
+import play.Logger;
 import play.data.Upload;
 import play.i18n.Messages;
-import uk.gov.gds.dm.DocumentUtils;
 import play.data.validation.Error;
 
 import java.util.Map;
 import java.util.List;
+
+import static uk.gov.gds.dm.DocumentUtils.*;
 
 public class Page8 extends AuthenticatingController {
 
@@ -62,21 +65,37 @@ public class Page8 extends AuthenticatingController {
         // Validate documents
         validation.required(p8q6).key("p8q6");
         if(p8q6 != null){
-            if(!DocumentUtils.validateDocumentFormat(p8q6)){
+            if(!validateDocumentFormat(p8q6)){
                 validation.addError("p8q6", Messages.getMessage("en", "validation.file.wrongFormat"));
             }
-            if(!DocumentUtils.validateDocumentFileSize(p8q6)){
+            if(!validateDocumentFileSize(p8q6)){
                 validation.addError("p8q6", Messages.getMessage("en", "validation.file.tooLarge"));
             }
         }
 
         if(p8q7 != null){
-            if(!DocumentUtils.validateDocumentFormat(p8q7)){
+            if(!validateDocumentFormat(p8q7)){
                 validation.addError("p8q7", Messages.getMessage("en", "validation.file.wrongFormat"));
             }
-            if(!DocumentUtils.validateDocumentFileSize(p8q7)){
+            if(!validateDocumentFileSize(p8q7)){
                 validation.addError("p8q7", Messages.getMessage("en", "validation.file.tooLarge"));
             }
+        }
+
+        try {
+            Document p8q6Document = storeDocument(p8q6, getSupplierId(), listing.id, "p8q6");
+            p8q6Document.insert();
+        } catch(Exception e) {
+            Logger.error(e, "Could not upload document to S3. Cause: %s", e.getMessage());
+            validation.addError("p8q6", Messages.getMessage("en", "validation.upload.failed"));
+        }
+
+        try {
+            Document p8q7Document = storeDocument(p8q7, getSupplierId(), listing.id, "p8q7");
+            p8q7Document.insert();
+        } catch(Exception e) {
+            Logger.error(e, "Could not upload document to S3. Cause: %s", e.getMessage());
+            validation.addError("p8q7", Messages.getMessage("en", "validation.upload.failed"));
         }
 
         if(validation.hasErrors()) {

@@ -1,14 +1,17 @@
 package controllers;
 
+import models.Document;
 import models.Listing;
 import models.Page;
+import play.Logger;
 import play.data.Upload;
 import play.i18n.Messages;
-import uk.gov.gds.dm.DocumentUtils;
 import play.data.validation.Error;
 
 import java.util.Map;
 import java.util.List;
+
+import static uk.gov.gds.dm.DocumentUtils.*;
 
 public class Page7 extends AuthenticatingController {
 
@@ -30,14 +33,21 @@ public class Page7 extends AuthenticatingController {
         // Validate document
         validation.required(p7q3).key("p7q3");
         if(p7q3 != null){
-            if(!DocumentUtils.validateDocumentFormat(p7q3)){
+            if(!validateDocumentFormat(p7q3)){
                 validation.addError("p7q3", Messages.getMessage("en", "validation.file.wrongFormat"));
             }
-            if(!DocumentUtils.validateDocumentFileSize(p7q3)){
+            if(!validateDocumentFileSize(p7q3)){
                 validation.addError("p7q3", Messages.getMessage("en", "validation.file.tooLarge"));
             }
         }
 
+        try {
+            Document document = storeDocument(p7q3, getSupplierId(), listing.id, "p7q3");
+            document.insert();
+        } catch(Exception e) {
+            Logger.error(e, "Could not upload document to S3. Cause: %s", e.getMessage());
+            validation.addError("p7q3", Messages.getMessage("en", "validation.upload.failed"));
+        }
 
         System.out.println(validation.errorsMap());
 
@@ -57,7 +67,6 @@ public class Page7 extends AuthenticatingController {
         Page page = new Page(listingId, PAGE_ID);
         page.responses.put("p7q1", p7q1);
         page.responses.put("p7q2", p7q2);
-        // TODO: Document storage response
 
         page.insert();
         listing.addResponsePage(page, PAGE_ID);
