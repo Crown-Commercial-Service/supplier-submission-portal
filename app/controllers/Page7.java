@@ -3,9 +3,9 @@ package controllers;
 import models.Document;
 import models.Listing;
 import models.Page;
+import play.Logger;
 import play.data.Upload;
 import play.i18n.Messages;
-import uk.gov.gds.dm.DocumentUtils;
 import play.data.validation.Error;
 
 import java.util.Map;
@@ -45,6 +45,7 @@ public class Page7 extends AuthenticatingController {
             Document document = storeDocument(p7q3, getSupplierId(), listing.id, "p7q3");
             document.insert();
         } catch(Exception e) {
+            Logger.error(e, "Could not upload document to S3. Cause: %s", e.getMessage());
             validation.addError("p7q3", Messages.getMessage("en", "validation.upload.failed"));
         }
 

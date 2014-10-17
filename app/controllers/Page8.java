@@ -4,9 +4,9 @@ import com.google.gson.Gson;
 import models.Document;
 import models.Listing;
 import models.Page;
+import play.Logger;
 import play.data.Upload;
 import play.i18n.Messages;
-import uk.gov.gds.dm.DocumentUtils;
 import play.data.validation.Error;
 
 import java.util.Map;
@@ -86,6 +86,7 @@ public class Page8 extends AuthenticatingController {
             Document p8q6Document = storeDocument(p8q6, getSupplierId(), listing.id, "p8q6");
             p8q6Document.insert();
         } catch(Exception e) {
+            Logger.error(e, "Could not upload document to S3. Cause: %s", e.getMessage());
             validation.addError("p8q6", Messages.getMessage("en", "validation.upload.failed"));
         }
 
@@ -93,6 +94,7 @@ public class Page8 extends AuthenticatingController {
             Document p8q7Document = storeDocument(p8q7, getSupplierId(), listing.id, "p8q7");
             p8q7Document.insert();
         } catch(Exception e) {
+            Logger.error(e, "Could not upload document to S3. Cause: %s", e.getMessage());
             validation.addError("p8q7", Messages.getMessage("en", "validation.upload.failed"));
         }
 
@@ -111,8 +113,6 @@ public class Page8 extends AuthenticatingController {
             System.out.println(flash);
             redirect(String.format("/page/%d/%d", PAGE_ID, listing.id));
         }
-
-
 
         Gson gson = new Gson();
         Page page = new Page(listingId, PAGE_ID);

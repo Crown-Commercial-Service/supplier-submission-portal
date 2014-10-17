@@ -1,14 +1,10 @@
 package models;
 
 import org.apache.commons.io.FilenameUtils;
-import org.apache.commons.io.FileUtils;
 import play.Play;
-import play.data.validation.Check;
 import siena.*;
-import uk.gov.gds.dm.DocumentUtils;
 import uk.gov.gds.dm.S3Uploader;
 
-import javax.persistence.Lob;
 import java.io.*;
 
 @Table("documents")
