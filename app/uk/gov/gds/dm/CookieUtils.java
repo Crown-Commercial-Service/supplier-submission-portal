@@ -41,7 +41,7 @@ public class CookieUtils {
                 new Date(), currentCookieArray.get("eSourcingId"));
     }
 
-    public static void clearSSOCookieWithCurrentTimestamp(Map<String, String> currentCookieArray){
+    public static void clearSSOCookie(Map<String, String> currentCookieArray){
         clearSSOCookie(currentCookieArray.get("supplierEmail"), currentCookieArray.get("supplierId"), currentCookieArray.get("supplierCompanyName"),
                 new Date(), currentCookieArray.get("eSourcingId"));
     }

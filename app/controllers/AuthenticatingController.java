@@ -42,7 +42,6 @@ public abstract class AuthenticatingController extends Controller {
         } else {
             populateMapWithSSOCookieData(gdmSsoCookie);
             CookieUtils.updateSSOCookieWithCurrentTimestamp(supplierDetailsFromCookie);
-            System.out.println("Cookie date: " + Security.getCookieDate(gdmSsoCookie));
         }
     }
 
