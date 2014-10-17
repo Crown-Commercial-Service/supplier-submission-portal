@@ -18,6 +18,7 @@ public class Security {
     private static final int SUPPLIER_ID = 1;
     private static final int COMPANY_NAME = 2;
     private static final int CREATED_DATE = 3;
+    private static final int ESOURCING_ID = 4;
 
     static final long COOKIE_DURATION = TimeUnit.DAYS.toMillis(1);
 
@@ -35,6 +36,14 @@ public class Security {
 
     public static String  getCookieDate(Http.Cookie cookie){
         return  decrypt(cookie.value)[CREATED_DATE];
+    }
+
+    public static String getESourcingId(Http.Cookie cookie) {
+        String[] tokens = decrypt(cookie.value);
+        if(tokens.length < 5) {
+            return "";
+        }
+        return tokens[ESOURCING_ID];
     }
 
     public static String returnEncryptedCookieValueWithCurrentDate(Http.Cookie cookie) {
