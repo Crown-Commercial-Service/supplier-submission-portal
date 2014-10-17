@@ -1,3 +1,11 @@
+%{
+  // Make assurance lowercase if it doesn't start with an acronym
+  if (String in _assurance.getClass()) {
+    if (_assurance?.getAt(1)?.toCharacter().isLowerCase()) {
+      _assurance = _assurance[0].toLowerCase() + _assurance.substring(1)
+    }
+  }
+}%
 <tr class='summary-row%{ if (!_answer && !_optional) { }% summary-row-incomplete%{ } }%'>
   <td class='summary-question'>
     <p>
