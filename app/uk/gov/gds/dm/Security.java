@@ -89,4 +89,17 @@ public class Security {
             return true;
         }
     }
+
+    public static Boolean supplierIdIsAllowed(String supplierId){
+        String appName = Play.configuration.getProperty("application.name");
+        if(appName.equals("ssp-live")){
+            if(supplierId.equals("577184")){
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return true;
+        }
+    }
 }
