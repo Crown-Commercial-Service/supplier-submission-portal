@@ -6,6 +6,32 @@
   service_id: service_id
 /}
 
+%{
+  if (confirmDeleteMessage) {
+}%
+  <div class='banner-warning'>
+    <p>
+      ${confirmDeleteMessage}
+    </p>
+    #{form @Service.delete()}
+        <input type="hidden" id="listingId" name="listingId" value="${listingId}" />
+        %{
+        if (listing.title) {
+        }%
+        <input type='submit' value='Yes, delete &ldquo;${listing.title}&rdquo;' class='banner-action button-destructive' />
+        %{
+            } else {
+         }%
+        <input type='submit' value='Yes, delete this service' class='banner-action button-destructive' />
+    %{
+        }
+        }%
+    #{/form}
+  </div>
+%{
+  }
+}%
+
 #{heading
   title: 'Summary',
 /}
@@ -57,39 +83,40 @@
 
 
 
-
+<div class='page-footer'>
 %{
   if (listing.allPagesHaveBeenCompleted()) {
 }%
-  <div class='page-footer'>
-    #{form @Service.completeListing()}
-    <div class='page-footer-item'>
-      <input type="hidden" id="listingId" name="listingId" value="${listingId}" />
-      #{forms/selection-button-checkbox
-        name: 'serviceCompleted',
-        value: 'service-completed',
-        label: 'This service is completed'
-      /}
-    </div>
-    <input type='submit' value='Save and return to submissions' class='page-footer-item button-save' />
-    #{/form}
-    <!--
-    <input type='submit' value='Delete this service' class='page-footer-item button-destructive' />
-    -->
+  #{form @Service.completeListing()}
+  <div class='page-footer-item'>
+    <input type="hidden" id="listingId" name="listingId" value="${listingId}" />
+    #{forms/selection-button-checkbox
+      name: 'serviceCompleted',
+      value: 'service-completed',
+      label: 'This service is completed'
+    /}
   </div>
+  <input type='submit' value='Save and return to submissions' class='page-footer-item button-save' />
+  #{/form}
 %{
   } else {
 }%
-  <div class='page-footer'>
-    <p class='summary-incomplete-message'>
-      Your progress has been saved, but you must answer all required
-      questions before you can complete your service
-    </p>
-    <a href='/' class='page-footer-item summary-return-link'>Return to submissions</a>
-    <!--
-    <input type='submit' value='Delete this service' class='page-footer-item button-destructive' />
-    -->
-  </div>
+  <p class='summary-incomplete-message'>
+    Your progress has been saved, but you must answer all required
+    questions before you can complete your service
+  </p>
+  <a href='/' class='page-footer-item summary-return-link'>Return to submissions</a>
 %{
   }
 }%
+%{
+  if (!confirmDeleteMessage) {
+}%
+    #{form @Service.showDeletePage()}
+        <input type="hidden" id="listingId" name="listingId" value="${listingId}" />
+        <input type='submit' id="showDeleteMessage" name="showDeleteMessage" value='Delete this service' class='page-footer-item button-destructive' />
+    #{/form}
+%{
+  }
+}%
+</div>
