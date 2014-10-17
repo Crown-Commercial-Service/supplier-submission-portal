@@ -5,6 +5,7 @@ import com.google.gson.reflect.TypeToken;
 import models.Listing;
 import models.Page;
 import play.Logger;
+import uk.gov.gds.dm.Fixtures;
 
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;

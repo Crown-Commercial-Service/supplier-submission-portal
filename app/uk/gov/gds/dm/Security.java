@@ -14,22 +14,36 @@ import java.util.concurrent.TimeUnit;
 
 public class Security {
 
+    private static final int EMAIL = 0;
+    private static final int SUPPLIER_ID = 1;
+    private static final int COMPANY_NAME = 2;
+    private static final int CREATED_DATE = 3;
+    private static final int ESOURCING_ID = 4;
+
     static final long COOKIE_DURATION = TimeUnit.DAYS.toMillis(1);
 
     public static String  getCookieEmail(Http.Cookie cookie){
-        return  decrypt(cookie.value)[0];
+        return  decrypt(cookie.value)[EMAIL];
     }
 
     public static String  getCookieSupplierId(Http.Cookie cookie){
-        return  decrypt(cookie.value)[1];
+        return  decrypt(cookie.value)[SUPPLIER_ID];
     }
 
     public static String  getCookieSupplierCompanyName(Http.Cookie cookie){
-        return  decrypt(cookie.value)[2];
+        return  decrypt(cookie.value)[COMPANY_NAME];
     }
 
     public static String  getCookieDate(Http.Cookie cookie){
-        return  decrypt(cookie.value)[3];
+        return  decrypt(cookie.value)[CREATED_DATE];
+    }
+
+    public static String getESourcingId(Http.Cookie cookie) {
+        String[] tokens = decrypt(cookie.value);
+        if(tokens.length < 5) {
+            return "";
+        }
+        return tokens[ESOURCING_ID];
     }
 
     public static String returnEncryptedCookieValueWithCurrentDate(Http.Cookie cookie) {
@@ -85,6 +99,19 @@ public class Security {
 
         if(appName.equals("ssp-preview") || appName.equals("ssp-staging")){
             return false;
+        } else {
+            return true;
+        }
+    }
+
+    public static Boolean supplierIdIsAllowed(String supplierId){
+        String appName = Play.configuration.getProperty("application.name");
+        if(appName.equals("ssp-live")){
+            if(supplierId.equals("577184")){
+                return true;
+            } else {
+                return false;
+            }
         } else {
             return true;
         }

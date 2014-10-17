@@ -75,8 +75,10 @@ POST    /page/38/{listingId}                    Page38.savePage
 POST    /page/39/{listingId}                    Page39.savePage
 POST    /page/40/{listingId}                    Page40.savePage
 
-#Load question page content
-GET     /fixtures                               Fixtures.initialise
+# Show summary page for service once all questions are complete
+GET     /service/{listingId}/summary            Service.summaryPage
+POST    /service/complete                       Service.completeListing
+POST    /service/draft                          Service.markListingAsDraft
 
 #Styleguide
 GET     /styleguide                             Styleguide.home

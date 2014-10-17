@@ -15,8 +15,13 @@ import java.util.Map;
 
 public abstract class AuthenticatingController extends Controller {
 
-    static Map<String, String> supplierDetailsFromCookie = new HashMap<String, String>();
+    public static final String COOKIE_DATE = "cookieDate";
+    private static final String ESOURCING_ID = "esourcingId";
+    static Map<String, String> supplierDetailsFromCookie = new HashMap<>();
     static final String DM_URL = URLTools.getDigitalMarketplaceURL();
+    private static final String SUPPLIER_ID = "supplierId";
+    private static final String SUPPLIER_EMAIL = "supplierEmail";
+    private static final String SUPPLIER_COMPANY_NAME = "supplierCompanyName";
 
     @Before
     public static void checkAuthenticationCookie() {
@@ -27,14 +32,16 @@ public abstract class AuthenticatingController extends Controller {
             if(gdmSsoCookie == null){
                 Logger.info("SSO Cookie does not exist.");
                 redirect(DM_URL + "login");
-            } else if (Security.cookieHasExpired(gdmSsoCookie) && !usedRecently){
-                Logger.info("SSO Cookie has expired");
+            } else if ((Security.cookieHasExpired(gdmSsoCookie) && !usedRecently)
+                    || (!Security.supplierIdIsAllowed(Security.getCookieSupplierId(gdmSsoCookie)))){
+                Logger.info("SSO Cookie has expired or supplier id was not allowed.");
                 redirect(DM_URL + "login");
             } else {
-                supplierDetailsFromCookie.put("supplierId", Security.getCookieSupplierId(gdmSsoCookie));
-                supplierDetailsFromCookie.put("supplierEmail", Security.getCookieEmail(gdmSsoCookie));
-                supplierDetailsFromCookie.put("supplierCompanyName", Security.getCookieSupplierCompanyName(gdmSsoCookie));
-                supplierDetailsFromCookie.put("cookieDate", Security.getCookieDate(gdmSsoCookie));
+                supplierDetailsFromCookie.put(SUPPLIER_ID, Security.getCookieSupplierId(gdmSsoCookie));
+                supplierDetailsFromCookie.put(SUPPLIER_EMAIL, Security.getCookieEmail(gdmSsoCookie));
+                supplierDetailsFromCookie.put(SUPPLIER_COMPANY_NAME, Security.getCookieSupplierCompanyName(gdmSsoCookie));
+                supplierDetailsFromCookie.put(COOKIE_DATE, Security.getCookieDate(gdmSsoCookie));
+                supplierDetailsFromCookie.put(ESOURCING_ID, Security.getESourcingId(gdmSsoCookie));
 
                 Cache.set("last-used", new Date(), "60mn");
             }
@@ -44,4 +51,21 @@ public abstract class AuthenticatingController extends Controller {
             supplierDetailsFromCookie.put("supplierCompanyName", "SueDo LTD.");
         }
     }
+
+    protected static String getSupplierId() {
+        return supplierDetailsFromCookie.get(SUPPLIER_ID);
+    }
+
+    protected static String getSupplierName() {
+        return supplierDetailsFromCookie.get(SUPPLIER_COMPANY_NAME);
+    }
+
+    protected static String getEmail() {
+        return supplierDetailsFromCookie.get(SUPPLIER_EMAIL);
+    }
+
+    protected static String getEsourcingId() {
+        return supplierDetailsFromCookie.get(ESOURCING_ID);
+    }
+
 }
