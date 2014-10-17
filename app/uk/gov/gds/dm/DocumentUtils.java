@@ -4,10 +4,8 @@ import models.Document;
 import org.apache.commons.io.FilenameUtils;
 import play.data.Upload;
 
-import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 
 public class DocumentUtils {
 
@@ -26,7 +24,7 @@ public class DocumentUtils {
 
         String documentName = upload.getFileName();
         try {
-            documentName = URLEncoder.encode(documentName, StandardCharsets.UTF_8.name());
+            documentName = URLEncoder.encode(documentName, "UTF-8");
         } catch (UnsupportedEncodingException e) {
             // won't happen
         }
