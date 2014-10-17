@@ -28,19 +28,20 @@ public class Page28 extends AuthenticatingController {
         validation.required(p28q5).key("p28q5");
         validation.maxSize(p28q5, 10);
 
-        validation.required(p28q1assurance).key("p28q1assurance");
-        validation.maxSize(p28q1assurance, 10);
-        validation.required(p28q2assurance).key("p28q2assurance");
-        validation.maxSize(p28q2assurance, 10);
-        validation.required(p28q3assurance).key("p28q3assurance");
-        validation.maxSize(p28q3assurance, 10);
-        validation.required(p28q4assurance).key("p28q4assurance");
-        validation.maxSize(p28q4assurance, 10);
-        validation.required(p28q5assurance).key("p28q5assurance");
-        validation.maxSize(p28q5assurance, 10);
+        validation.required(p28q1assurance).key("p28q1");
+        validation.maxSize(p28q1assurance, 50);
+        validation.required(p28q2assurance).key("p28q2");
+        validation.maxSize(p28q2assurance, 50);
+        validation.required(p28q3assurance).key("p28q3");
+        validation.maxSize(p28q3assurance, 50);
+        validation.required(p28q4assurance).key("p28q4");
+        validation.maxSize(p28q4assurance, 50);
+        validation.required(p28q5assurance).key("p28q5");
+        validation.maxSize(p28q5assurance, 50);
 
 
         if(validation.hasErrors()) {
+            flash.put("body", params.get("body"));
             for(Map.Entry<String, List<Error>> entry : validation.errorsMap().entrySet()) {
                 String key = entry.getKey();
                 String value = entry.getValue().get(0).message();

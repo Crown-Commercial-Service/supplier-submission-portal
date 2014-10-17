@@ -1,16 +1,43 @@
 package controllers;
 
 import models.Listing;
+import models.Page;
 import play.data.validation.Error;
+import uk.gov.gds.dm.ServiceSubmissionJourneyFlows;
+import uk.gov.gds.dm.Fixtures;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import java.util.List;
+import java.util.Map;
 
 public class Service extends AuthenticatingController {
 
-    public static void editPage(String id, Integer page) {
-        render(id, page);
-    }
+    public static void summaryPage(Long listingId) {
+        Listing listing = Listing.getByListingId(listingId);
+        List<Long> flow = ServiceSubmissionJourneyFlows.getFlow(listing.lot);
+        List<String> optionalQuestions = ServiceSubmissionJourneyFlows.getOptionalQuestions();
 
-    public static void summaryPage(String id) {
-        render(id);
+        Map<String, String> allAnswers = new HashMap<String, String>();
+        for(Page p : listing.completedPages){
+            if(p.responses != null){
+                allAnswers.putAll(p.responses);
+            }
+        }
+
+        System.out.println(allAnswers);
+
+        renderArgs.put("content", Fixtures.getContentProperties());
+        renderArgs.put("service_id", listingId);
+        renderArgs.put("listing", listing);
+        renderArgs.put("flow", flow);
+        renderArgs.put("maxPossibleNumberOfQuestions", 20);
+        renderArgs.put("optionalQuestions", optionalQuestions);
+        renderArgs.put("pageIndex", 0);
+        renderArgs.put("storedValues", allAnswers);
+        render(listingId);
     }
 
     public static void newService() {
@@ -21,13 +48,14 @@ public class Service extends AuthenticatingController {
     public static void createListing(String lot) {
         validation.required(lot);
         validation.match(lot, "SaaS|IaaS|PaaS|SCS");
-        if(validation.hasErrors()) {
-            for(Error error : validation.errors()) {
-                System.out.println(error.message());
-            }
 
-            //TODO: Show flash error messages in page (add code to main.html to do this?)
-            flash.error("Validation failed", validation.errors());
+        if(validation.hasErrors()) {
+            for(Map.Entry<String, List<Error>> entry : validation.errorsMap().entrySet()) {
+                String key = entry.getKey();
+                String value = entry.getValue().get(0).message();
+
+                flash.put(key, value);
+            }
             redirect("/addservice");
         }
 
@@ -38,8 +66,38 @@ public class Service extends AuthenticatingController {
         redirect(String.format("/page/%d/%d", listing.firstPage(), listing.id));
     }
 
-    public static void submissionComplete(String listingId) {
-        // TODO: Add flash message to say "All questions complete"
-        redirect(String.format("/service/%d", listingId));
+    public static void completeListing(Long listingId, String serviceCompleted){
+
+        Listing listing = Listing.getByListingId(listingId);
+
+        validation.required(serviceCompleted);
+        if(serviceCompleted != null){
+            validation.isTrue(listing.allPagesHaveBeenCompleted()).key("service").message("This service is not complete.");
+        }
+
+        if(validation.hasErrors()){
+            for(Map.Entry<String, List<Error>> entry : validation.errorsMap().entrySet()) {
+                String key = entry.getKey();
+                String value = entry.getValue().get(0).message();
+
+                flash.put(key, value);
+            }
+            redirect(String.format("/service/%d/summary", listingId));
+        }
+
+        listing.serviceSubmitted = true;
+        listing.save();
+
+        flash.put("success", "Your service has been marked as completed.");
+        redirect("/");
+    }
+
+    public static void markListingAsDraft(Long listingId){
+        Listing listing = Listing.getByListingId(listingId);
+        listing.serviceSubmitted = false;
+        listing.save();
+
+        flash.put("success", "Your service has been moved back to draft.");
+        redirect("/");
     }
 }

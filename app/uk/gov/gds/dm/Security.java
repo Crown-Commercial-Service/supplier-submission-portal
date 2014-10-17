@@ -91,10 +91,27 @@ public class Security {
     }
 
     public static Boolean isAuthenticationRequired(){
+        if(Play.mode == Play.Mode.DEV){
+            return false;
+        }
+        
         String appName = Play.configuration.getProperty("application.name");
 
         if(appName.equals("ssp-preview") || appName.equals("ssp-staging")){
             return false;
+        } else {
+            return true;
+        }
+    }
+
+    public static Boolean supplierIdIsAllowed(String supplierId){
+        String appName = Play.configuration.getProperty("application.name");
+        if(appName.equals("ssp-live")){
+            if(supplierId.equals("577184")){
+                return true;
+            } else {
+                return false;
+            }
         } else {
             return true;
         }

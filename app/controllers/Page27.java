@@ -19,19 +19,20 @@ public class Page27 extends AuthenticatingController {
             // SaaS, PaaS, IaaS
             validation.required(p27q2).key("p27q2");
             validation.maxSize(p27q2, 10);
-            validation.required(p27q2assurance).key("p27q2assurance");
+            validation.required(p27q2assurance).key("p27q2");
             validation.maxSize(p27q2assurance, 50);
 
             if (!listing.lot.equals("SaaS")) {
                 // Q1 for IaaS, PaaS only
                 validation.required(p27q1).key("p27q1");
                 validation.maxSize(p27q1, 10);
-                validation.required(p27q1assurance).key("p27q1assurance");
+                validation.required(p27q1assurance).key("p27q1");
                 validation.maxSize(p27q1assurance, 50);
             }
         }
 
         if(validation.hasErrors()) {
+            flash.put("body", params.get("body"));
             for(Map.Entry<String, List<Error>> entry : validation.errorsMap().entrySet()) {
                 String key = entry.getKey();
                 String value = entry.getValue().get(0).message();

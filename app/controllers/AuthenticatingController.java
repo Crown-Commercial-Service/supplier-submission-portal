@@ -17,7 +17,7 @@ public abstract class AuthenticatingController extends Controller {
 
     public static final String COOKIE_DATE = "cookieDate";
     private static final String ESOURCING_ID = "esourcingId";
-    static Map<String, String> supplierDetailsFromCookie = new HashMap<String, String>();
+    static Map<String, String> supplierDetailsFromCookie = new HashMap<>();
     static final String DM_URL = URLTools.getDigitalMarketplaceURL();
     private static final String SUPPLIER_ID = "supplierId";
     private static final String SUPPLIER_EMAIL = "supplierEmail";
@@ -32,8 +32,9 @@ public abstract class AuthenticatingController extends Controller {
             if(gdmSsoCookie == null){
                 Logger.info("SSO Cookie does not exist.");
                 redirect(DM_URL + "login");
-            } else if (Security.cookieHasExpired(gdmSsoCookie) && !usedRecently){
-                Logger.info("SSO Cookie has expired");
+            } else if ((Security.cookieHasExpired(gdmSsoCookie) && !usedRecently)
+                    || (!Security.supplierIdIsAllowed(Security.getCookieSupplierId(gdmSsoCookie)))){
+                Logger.info("SSO Cookie has expired or supplier id was not allowed.");
                 redirect(DM_URL + "login");
             } else {
                 supplierDetailsFromCookie.put(SUPPLIER_ID, Security.getCookieSupplierId(gdmSsoCookie));
@@ -66,6 +67,5 @@ public abstract class AuthenticatingController extends Controller {
     protected static String getEsourcingId() {
         return supplierDetailsFromCookie.get(ESOURCING_ID);
     }
-
 
 }

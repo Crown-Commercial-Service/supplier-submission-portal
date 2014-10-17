@@ -155,5 +155,8 @@ module.exports = {
 
     var jsonString = JSON.stringify(ssp);
     fs.writeFileSync(outputJsonFile, beautify(jsonString, formatingOptions), { encoding : 'utf-8' });
+
+    return true;
+
   }
 };

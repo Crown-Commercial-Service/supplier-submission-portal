@@ -1,15 +1,18 @@
 package controllers;
 
 import com.google.gson.Gson;
+import models.Document;
 import models.Listing;
 import models.Page;
+import play.Logger;
 import play.data.Upload;
 import play.i18n.Messages;
-import uk.gov.gds.dm.DocumentUtils;
 import play.data.validation.Error;
 
 import java.util.Map;
 import java.util.List;
+
+import static uk.gov.gds.dm.DocumentUtils.*;
 
 public class Page8 extends AuthenticatingController {
 
@@ -20,17 +23,30 @@ public class Page8 extends AuthenticatingController {
 
         Listing listing = Listing.getByListingId(listingId);
 
+        Double min = null, max = null;
+                
         try {
-            Double.valueOf(p8q1MinPrice);
+            min = Double.valueOf(p8q1MinPrice);
+            if (min < 0) {
+                validation.addError("p8q1", Messages.getMessage("en", "validation.invalid"));
+            }
         } catch(Exception ex) {
             validation.addError("p8q1", Messages.getMessage("en", "validation.invalid"));
         }
         try {
             if(p8q1MaxPrice != null) {
-                Double.valueOf(p8q1MaxPrice);
+                max = Double.valueOf(p8q1MaxPrice);
+                if (max < 0) {
+                    validation.addError("p8q1", Messages.getMessage("en", "validation.invalid"));
+                }
             }
         } catch(Exception ex) {
             validation.addError("p8q1", Messages.getMessage("en", "validation.invalid"));
+        }
+        if (min != null && max != null) {
+            if (min > max) {
+                validation.addError("p8q1", Messages.getMessage("en", "validation.maxLessThanMin"));
+            }
         }
         validation.required(p8q1MinPrice).key("p8q1").message("validationNoMinPriceSpecified");
         validation.required(p8q1Unit).key("p8q1").message("validationNoUnitSpecified");
@@ -49,25 +65,45 @@ public class Page8 extends AuthenticatingController {
         // Validate documents
         validation.required(p8q6).key("p8q6");
         if(p8q6 != null){
-            if(!DocumentUtils.validateDocumentFormat(p8q6)){
+            if(!validateDocumentFormat(p8q6)){
                 validation.addError("p8q6", Messages.getMessage("en", "validation.file.wrongFormat"));
             }
-            if(!DocumentUtils.validateDocumentFileSize(p8q6)){
+            if(!validateDocumentFileSize(p8q6)){
                 validation.addError("p8q6", Messages.getMessage("en", "validation.file.tooLarge"));
             }
         }
 
         if(p8q7 != null){
-            if(!DocumentUtils.validateDocumentFormat(p8q7)){
+            if(!validateDocumentFormat(p8q7)){
                 validation.addError("p8q7", Messages.getMessage("en", "validation.file.wrongFormat"));
             }
-            if(!DocumentUtils.validateDocumentFileSize(p8q7)){
+            if(!validateDocumentFileSize(p8q7)){
                 validation.addError("p8q7", Messages.getMessage("en", "validation.file.tooLarge"));
             }
         }
 
-        if(validation.hasErrors()) {
+        try {
+            Document p8q6Document = storeDocument(p8q6, getSupplierId(), listing.id, "p8q6");
+            p8q6Document.insert();
+        } catch(Exception e) {
+            Logger.error(e, "Could not upload document to S3. Cause: %s", e.getMessage());
+            validation.addError("p8q6", Messages.getMessage("en", "validation.upload.failed"));
+        }
 
+        try {
+            Document p8q7Document = storeDocument(p8q7, getSupplierId(), listing.id, "p8q7");
+            p8q7Document.insert();
+        } catch(Exception e) {
+            Logger.error(e, "Could not upload document to S3. Cause: %s", e.getMessage());
+            validation.addError("p8q7", Messages.getMessage("en", "validation.upload.failed"));
+        }
+
+        if(validation.hasErrors()) {
+            flash.put("body", "p8q1MinPrice=" + params.get("p8q1MinPrice") + "&p8q1MaxPrice=" + params.get("p8q1MaxPrice") +
+                    "&p8q1Unit=" + params.get("p8q1Unit") + "&p8q1Interval=" + params.get("p8q1Interval") +
+                    "&p8q2=" + params.get("p8q2") + "&p8q3=" + 
+                    params.get("p8q3") + "&p8q4=" + params.get("p8q4") + "&p8q5=" + params.get("p8q5") + 
+                    "&p8q6=" + params.get("p8q6") + "&p8q7=" + params.get("p8q7"));
             for(Map.Entry<String, List<Error>> entry : validation.errorsMap().entrySet()) {
                 String key = entry.getKey();
                 String value = entry.getValue().get(0).message();

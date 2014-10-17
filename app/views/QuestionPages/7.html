@@ -30,7 +30,8 @@
     #{forms/selection-button-boolean
       name: question,
       label: content.get(question + 'text'),
-      error: content.get(question + flash.get(question))
+      error: content.get(question + flash.get(question)),
+      value: oldValues?.get(question)
     /}
   %{
     }
@@ -52,7 +53,8 @@
       #{forms/selection-button-radio
         name: 'p7q2',
         value: content.get('p7q2val' + index),
-        label: content.get('p7q2val' + index + 'Label')
+        label: content.get('p7q2val' + index + 'Label'),
+        oldval: oldValues?.get(question)?.get(0)
       /}
     %{
       }
@@ -75,5 +77,5 @@
   %{
     }
   }%
-  #{footer/}
+  #{footer prevPageURL: prevPageURL /}
 </form>

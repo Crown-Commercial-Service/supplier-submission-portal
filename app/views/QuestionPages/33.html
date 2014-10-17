@@ -17,7 +17,7 @@
   #{heading
     current: pageNum,
     total: pageTotal,
-    title: content.get('p30title'),
+    title: content.get('p33title'),
     content: content,
     page: 33
   /}
@@ -31,6 +31,8 @@
       label: content.get(question + 'text'),
       hint: content.get(question + 'hint'),
       error: content.get(question + flash.get(question)),
+      value: oldValues?.get(question),
+      oldval: oldValues?.get(question + 'assurance')?.get(0),
       assurance: true
     /}
   %{
@@ -45,6 +47,8 @@
       label: content.get(question + 'text'),
       hint: content.get(question + 'hint'),
       error: content.get(question + flash.get(question)),
+      value: oldValues?.get(question),
+      oldval: oldValues?.get(question + 'assurance')?.get(0),
       assurance: true
     /}
   %{
@@ -59,6 +63,8 @@
       label: content.get(question + 'text'),
       hint: content.get(question + 'hint'),
       error: content.get(question + flash.get(question)),
+      value: oldValues?.get(question),
+      oldval: oldValues?.get(question + 'assurance')?.get(0),
       assurance: true
     /}
   %{
@@ -73,6 +79,8 @@
       label: content.get(question + 'text'),
       hint: content.get(question + 'hint'),
       error: content.get(question + flash.get(question)),
+      value: oldValues?.get(question),
+      oldval: oldValues?.get(question + 'assurance')?.get(0),
       assurance: true
     /}
   %{
@@ -87,10 +95,12 @@
       label: content.get(question + 'text'),
       hint: content.get(question + 'hint'),
       error: content.get(question + flash.get(question)),
+      value: oldValues?.get(question),
+      oldval: oldValues?.get(question + 'assurance')?.get(0),
       assurance: true
     /}
   %{
     }
   }%
-  #{footer/}
+  #{footer prevPageURL: prevPageURL /}
 </form>

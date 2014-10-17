@@ -47,8 +47,6 @@ Start her up!
 
 Then point a browser to [http://localhost:9000/](http://localhost:9000/) to see where we're at.
 
-Before you can add new services you need to load the fixtures by visiting [http://localhost:9000/fixtures](http://localhost:9000/fixtures).
-
 If you want to use the IntelliJ Idea IDE then do the following before importing the project (other import methods don't seem to work as nicely as this one); there are also similar commands for other popular IDEs:
 
 `~/workspace/supplier-submission-portal$ play idealize`

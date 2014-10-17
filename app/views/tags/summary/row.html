@@ -1,0 +1,22 @@
+<tr class='summary-row%{ if (!_answer && !_optional) { }% summary-row-incomplete%{ } }%'>
+  <td class='summary-question'>
+    <p>
+      ${_question}
+    </p>
+  </td>
+  <td class='summary-answer'>
+    <p>
+      %{
+        if (_answer) {
+      }%
+        ${_answer}%{ if (_assurance) { }%, assured by ${_assurance}%{ } }%
+      %{
+        } else if (!_optional) {
+      }%
+        Answer required
+      %{
+        }
+      }%
+    </p>
+  </td>
+</tr>

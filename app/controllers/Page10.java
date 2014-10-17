@@ -37,7 +37,7 @@ public class Page10 extends AuthenticatingController {
         validation.maxSize(p10q5, 10);
 
         if(validation.hasErrors()) {
-
+            flash.put("body", params.get("body"));
             for(Map.Entry<String, List<Error>> entry : validation.errorsMap().entrySet()) {
                 String key = entry.getKey();
                 String value = entry.getValue().get(0).message();
