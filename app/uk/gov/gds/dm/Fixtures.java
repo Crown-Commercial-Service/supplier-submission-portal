@@ -1,15 +1,13 @@
-package controllers;
+package uk.gov.gds.dm;
 
 import models.Page;
-import play.Logger;
 import play.Play;
-import play.mvc.Controller;
 import play.utils.Properties;
 
 import java.io.InputStream;
 import java.io.IOException;
 
-public class Fixtures extends Controller {
+public class Fixtures {
 
     private static Properties contentProperties;
 
@@ -19,7 +17,7 @@ public class Fixtures extends Controller {
         contentProperties.load(inputStream);
     }
 
-    public static Properties getContentProperties(){
+    public static Properties getContentProperties() {
         if (null == contentProperties) {
             try {
                 Page.initialiseAutoIncrementId();
