@@ -72,9 +72,6 @@ GET     /service/{listingId}/summary            Service.summaryPage
 POST    /service/complete                       Service.completeListing
 POST    /service/draft                          Service.markListingAsDraft
 
-#Load question page content
-GET     /fixtures                               Fixtures.initialise
-
 #Styleguide
 GET     /styleguide                             Styleguide.home
 

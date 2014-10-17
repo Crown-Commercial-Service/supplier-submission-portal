@@ -13,21 +13,6 @@ public class Fixtures extends Controller {
 
     private static Properties contentProperties;
 
-    public static void initialise() {
-        Page.initialiseAutoIncrementId();
-        loadQuestionPages();
-    }
-    
-    private static void loadQuestionPages() {
-        try {
-            loadContentProperties();
-        } catch (Exception ex) {
-            Logger.error("Something went wrong loading content: \n" + ex.getMessage());
-            notFound();
-        }
-        redirect("/");
-    }
-
     private static void loadContentProperties() throws IOException {
         contentProperties = new Properties();
         InputStream inputStream = Play.classloader.getResourceAsStream("content.properties");
