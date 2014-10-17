@@ -56,7 +56,7 @@ public class Page21 extends AuthenticatingController {
         Page page = new Page(listingId, PAGE_ID);
         page.responses.put("p21q1", gson.toJson(p21q1));
         page.insert();
-        listing.addResponsePage(page, PAGE_ID);
+        listing.addResponsePage(page, PAGE_ID, supplierDetailsFromCookie.get("supplierEmail"));
         redirect(listing.nextPageUrl(PAGE_ID, listing.id));
     }
 }

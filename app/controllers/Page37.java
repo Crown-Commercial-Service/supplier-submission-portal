@@ -60,7 +60,7 @@ public class Page37 extends AuthenticatingController {
         page.responses.put("p37q3assurance", p37q3assurance);
         page.responses.put("p37q4assurance", p37q4assurance);
         page.insert();
-        listing.addResponsePage(page, PAGE_ID);
+        listing.addResponsePage(page, PAGE_ID, supplierDetailsFromCookie.get("supplierEmail"));
         redirect(listing.nextPageUrl(PAGE_ID, listing.id));
     }
 

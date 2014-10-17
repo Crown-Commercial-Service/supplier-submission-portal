@@ -1,6 +1,8 @@
 package models;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import siena.*;
@@ -11,7 +13,7 @@ import static siena.Json.*;
 
 @Table("listing")
 public class Listing extends Model {
-    
+
     // For GAE :
     // 1. @Id annotated field corresponding to the primary key must be Long type
     // 2. @Id annotated field corresponding to the primary key must be called "id"
@@ -35,12 +37,21 @@ public class Listing extends Model {
     @NotNull
     public boolean serviceSubmitted;
 
+    @NotNull
+    public Date lastUpdated;
+
+    @NotNull
+    public String lastUpdatedEmail;
+
+    public String lastCompletedByEmail;
+    public Date lastCompleted;
+
     @Embedded
     public List<Long> pageSequence;
-    
+
     @Embedded
     public List<Page> completedPages;
-    
+
     public Listing(String supplierId, String lot) {
         this.supplierId = supplierId;
         this.lot = lot;
@@ -51,6 +62,7 @@ public class Listing extends Model {
             completedPages.add(Page.emptyPage());
         }
         this.serviceSubmitted = false;
+        this.lastUpdated = new Date();
     }
 
     public String nextPageUrl(Long currentPage, Long listingId) {
@@ -95,7 +107,7 @@ public class Listing extends Model {
         return pageSequence.size();
     }
 
-    public void addResponsePage(Page page, Long pageId) {
+    public void addResponsePage(Page page, Long pageId, String updateByEmail) {
         int index = pageSequence.indexOf(pageId);
         Page p = completedPages.get(index);
         if (p.id != 0) {
@@ -103,9 +115,22 @@ public class Listing extends Model {
             completedPages.remove(index);
         }
         completedPages.add(index, page);
+        updateListing(updateByEmail);
+    }
+
+    private void updateListing(String updatedByEmail){
+        this.lastUpdated = new Date();
+        this.lastUpdatedEmail = updatedByEmail;
         update();
     }
-    
+
+    public void completeListing(String completedByEmail){
+        this.serviceSubmitted = true;
+        this.lastCompleted= new Date();
+        this.lastCompletedByEmail = completedByEmail;
+        update();
+    }
+
     public boolean allPagesHaveBeenCompleted() {
         return pageSequence.size() == completedPageCount();
     }
@@ -132,6 +157,24 @@ public class Listing extends Model {
         } else {
             return pageSequence.get(index-1);
         }
+    }
+
+    public String getLastUpdated(){
+        Date d = this.lastUpdated;
+
+        // 10:20am, 8 July 2014
+        SimpleDateFormat sdf = new SimpleDateFormat("KK:mmaa, dd MMM yyyy");
+        String formattedDateString = sdf.format(d);
+        return formattedDateString.replace("AM", "am").replace("PM","pm");
+    }
+
+    public String getLastCompleted(){
+        Date d = this.lastCompleted;
+
+        // 10:20am, 8 July 2014
+        SimpleDateFormat sdf = new SimpleDateFormat("KK:mmaa, dd MMM yyyy");
+        String formattedDateString = sdf.format(d);
+        return formattedDateString.replace("AM", "am").replace("PM","pm");
     }
 
     @Override

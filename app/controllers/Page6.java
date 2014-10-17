@@ -56,7 +56,7 @@ public class Page6 extends AuthenticatingController {
         Page page = new Page(listingId, PAGE_ID);
 
         page.insert();
-        listing.addResponsePage(page, PAGE_ID);
+        listing.addResponsePage(page, PAGE_ID, supplierDetailsFromCookie.get("supplierEmail"));
         redirect(listing.nextPageUrl(PAGE_ID, listing.id));
     }
 

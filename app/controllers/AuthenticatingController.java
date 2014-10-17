@@ -47,7 +47,7 @@ public abstract class AuthenticatingController extends Controller {
             }
         } else {
             supplierDetailsFromCookie.put("supplierId", "1");
-            supplierDetailsFromCookie.put("supplierEmail", "supplier@digital.cabinet-office.gov.uk");
+            supplierDetailsFromCookie.put("supplierEmail", "new-supplier@digital.cabinet-office.gov.uk");
             supplierDetailsFromCookie.put("supplierCompanyName", "SueDo LTD.");
         }
     }

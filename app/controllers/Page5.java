@@ -70,7 +70,7 @@ public class Page5 extends AuthenticatingController {
         page.responses.put("p5q1", gson.toJson(q1));
         page.responses.put("p5q2", gson.toJson(q2));
         page.insert();
-        listing.addResponsePage(page, PAGE_ID);
+        listing.addResponsePage(page, PAGE_ID, supplierDetailsFromCookie.get("supplierEmail"));
         redirect(listing.nextPageUrl(PAGE_ID, listing.id));
     }
 }

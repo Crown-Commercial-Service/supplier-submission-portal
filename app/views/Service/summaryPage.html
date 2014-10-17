@@ -36,6 +36,16 @@
   title: 'Summary',
 /}
 
+<p class='question-hint'>
+  Last edited by ${listing.lastUpdatedEmail} at
+  ${listing.getLastUpdated()}
+</p>
+<p class='question-hint'>
+  %{ if (listing.serviceSubmitted) { }%
+  Completed by
+  ${listing.lastCompletedByEmail} at ${listing.getLastCompleted()}%{ } }%
+</p>
+
 #{summary/section/start
   title: content.get('p' + pageIndex + 'title'),
 /}

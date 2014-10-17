@@ -102,12 +102,12 @@
             <a href='/service/${completedListing.id}/summary'>${completedListing.title}</a>
           </td>
           <td class='summary-answer-progress'>
-              #{form @Service.markListingAsDraft() }
-                <input type="hidden" id="listingId" name="listingId" value="${completedListing.id}" />
-                <button class='summary-answer-button'>
-                  Return service to drafts
-                </button>
-              #{/form}
+            #{form @Service.markListingAsDraft() }
+              <input type="hidden" id="listingId" name="listingId" value="${completedListing.id}" />
+              <button class='summary-answer-button'>
+                Return service to drafts
+              </button>
+            #{/form}
           </td>
 
         </tr>

@@ -53,7 +53,7 @@ public class Page35 extends AuthenticatingController {
         page.responses.put("p35q2assurance", p35q2assurance);
         page.responses.put("p35q3assurance", p35q3assurance);
         page.insert();
-        listing.addResponsePage(page, PAGE_ID);
+        listing.addResponsePage(page, PAGE_ID, supplierDetailsFromCookie.get("supplierEmail"));
         redirect(listing.nextPageUrl(PAGE_ID, listing.id));
     }
 
