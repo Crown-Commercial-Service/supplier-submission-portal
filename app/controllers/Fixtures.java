@@ -7,6 +7,7 @@ import play.mvc.Controller;
 import play.utils.Properties;
 
 import java.io.InputStream;
+import java.io.IOException;
 
 public class Fixtures extends Controller {
 
@@ -19,10 +20,7 @@ public class Fixtures extends Controller {
     
     private static void loadQuestionPages() {
         try {
-            contentProperties = new Properties();
-            InputStream inputStream = Play.classloader.getResourceAsStream("content.properties");
-            contentProperties.load(inputStream);
-
+            loadContentProperties();
         } catch (Exception ex) {
             Logger.error("Something went wrong loading content: \n" + ex.getMessage());
             notFound();
@@ -30,7 +28,21 @@ public class Fixtures extends Controller {
         redirect("/");
     }
 
+    private static void loadContentProperties() throws IOException {
+        contentProperties = new Properties();
+        InputStream inputStream = Play.classloader.getResourceAsStream("content.properties");
+        contentProperties.load(inputStream);
+    }
+
     public static Properties getContentProperties(){
+        if (null == contentProperties) {
+            try {
+                Page.initialiseAutoIncrementId();
+                loadContentProperties();
+            } catch (IOException ex) {
+                throw new RuntimeException("Failed to load content: " + ex.getMessage());
+            }
+        }
         return contentProperties;
     }
 }
