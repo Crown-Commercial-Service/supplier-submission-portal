@@ -1,6 +1,5 @@
 package controllers;
 
-import com.google.gson.Gson;
 import models.Document;
 import models.Listing;
 import models.Page;
@@ -34,7 +33,7 @@ public class Page8 extends AuthenticatingController {
             validation.addError("p8q1", Messages.getMessage("en", "validation.invalid"));
         }
         try {
-            if(p8q1MaxPrice != null) {
+            if(p8q1MaxPrice != null && !p8q1MaxPrice.isEmpty()) {
                 max = Double.valueOf(p8q1MaxPrice);
                 if (max < 0) {
                     validation.addError("p8q1", Messages.getMessage("en", "validation.invalid"));
@@ -71,6 +70,13 @@ public class Page8 extends AuthenticatingController {
             if(!validateDocumentFileSize(p8q6)){
                 validation.addError("p8q6", Messages.getMessage("en", "validation.file.tooLarge"));
             }
+            try {
+                Document p8q6Document = storeDocument(p8q6, getSupplierId(), listing.id, "p8q6");
+                p8q6Document.insert();
+            } catch(Exception e) {
+                Logger.error(e, "Could not upload document to S3. Cause: %s", e.getMessage());
+                validation.addError("p8q6", Messages.getMessage("en", "validation.upload.failed"));
+            }
         }
 
         if(p8q7 != null){
@@ -80,22 +86,13 @@ public class Page8 extends AuthenticatingController {
             if(!validateDocumentFileSize(p8q7)){
                 validation.addError("p8q7", Messages.getMessage("en", "validation.file.tooLarge"));
             }
-        }
-
-        try {
-            Document p8q6Document = storeDocument(p8q6, getSupplierId(), listing.id, "p8q6");
-            p8q6Document.insert();
-        } catch(Exception e) {
-            Logger.error(e, "Could not upload document to S3. Cause: %s", e.getMessage());
-            validation.addError("p8q6", Messages.getMessage("en", "validation.upload.failed"));
-        }
-
-        try {
-            Document p8q7Document = storeDocument(p8q7, getSupplierId(), listing.id, "p8q7");
-            p8q7Document.insert();
-        } catch(Exception e) {
-            Logger.error(e, "Could not upload document to S3. Cause: %s", e.getMessage());
-            validation.addError("p8q7", Messages.getMessage("en", "validation.upload.failed"));
+            try {
+                Document p8q7Document = storeDocument(p8q7, getSupplierId(), listing.id, "p8q7");
+                p8q7Document.insert();
+            } catch(Exception e) {
+                Logger.error(e, "Could not upload document to S3. Cause: %s", e.getMessage());
+                validation.addError("p8q7", Messages.getMessage("en", "validation.upload.failed"));
+            }
         }
 
         if(validation.hasErrors()) {
@@ -114,7 +111,6 @@ public class Page8 extends AuthenticatingController {
             redirect(String.format("/page/%d/%d", PAGE_ID, listing.id));
         }
 
-        Gson gson = new Gson();
         Page page = new Page(listingId, PAGE_ID);
         page.responses.put("p8q1MinPrice", p8q1MinPrice);
         page.responses.put("p8q1MaxPrice", p8q1MaxPrice);
@@ -124,7 +120,7 @@ public class Page8 extends AuthenticatingController {
         page.responses.put("p8q3", p8q3);
         page.responses.put("p8q4", p8q4);
         page.responses.put("p8q5", p8q5);
-        // TODO: Document storage for p8q6 and p8q7
+        // TODO: Document storage for p8q6 and p8q7 - save something in the Page
 
         page.insert();
         listing.addResponsePage(page, PAGE_ID, supplierDetailsFromCookie.get("supplierEmail"));
