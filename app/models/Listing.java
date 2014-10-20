@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 import siena.*;
 import siena.embed.Embedded;
@@ -164,6 +165,7 @@ public class Listing extends Model {
 
         // 10:20am, 8 July 2014
         SimpleDateFormat sdf = new SimpleDateFormat("KK:mmaa, dd MMM yyyy");
+        sdf.setTimeZone(TimeZone.getTimeZone("Europe/London"));
         String formattedDateString = sdf.format(d);
         return formattedDateString.replace("AM", "am").replace("PM","pm");
     }
@@ -173,6 +175,7 @@ public class Listing extends Model {
 
         // 10:20am, 8 July 2014
         SimpleDateFormat sdf = new SimpleDateFormat("KK:mmaa, dd MMM yyyy");
+        sdf.setTimeZone(TimeZone.getTimeZone("Europe/London"));
         String formattedDateString = sdf.format(d);
         return formattedDateString.replace("AM", "am").replace("PM","pm");
     }
