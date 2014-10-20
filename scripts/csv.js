@@ -4,7 +4,7 @@ module.exports = {
     var fs = require('fs');
     var path = require('path');
     var Mustache = require('mustache');
-    var assurancesFile = fs.readFileSync(__dirname + '/assurance.js', { encoding : 'utf-8' });
+    var assurancesFile = fs.readFileSync(__dirname + '/assurance.json', { encoding : 'utf-8' });
 
     var inputJsonFile = opts.inputJsonFile;
     var outputCsvFile = opts.outputCsvFile;
@@ -297,7 +297,7 @@ module.exports = {
     ], 'PaaS');
     var ScsCsvArray = makeInitialArray([
       ["Page title","Question","Hint"]
-    ], 'ScS');
+    ], 'SCS');
 
     IaasCsvArray = makeRowCellsMatchNumberOfCoumns(IaasCsvArray);
     SaasCsvArray = makeRowCellsMatchNumberOfCoumns(SaasCsvArray);
