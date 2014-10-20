@@ -4,12 +4,14 @@ module.exports = {
     var fs = require('fs');
     var path = require('path');
     var Mustache = require('mustache');
+    var assurancesFile = fs.readFileSync(__dirname + '/assurance.js', { encoding : 'utf-8' });
 
     var inputJsonFile = opts.inputJsonFile;
     var outputCsvFile = opts.outputCsvFile;
     var formatingOptions = { 'indent' : 2 };
+    var assurances = JSON.parse(assurancesFile);
 
-    var contentFile = fs.readFileSync(inputJsonFile, { encoding : 'utf-8' })
+    var contentFile = fs.readFileSync(inputJsonFile, { encoding : 'utf-8' });
     var ssp = JSON.parse(contentFile);
 
     var getFirstPropertyKey = function (obj) {
@@ -73,6 +75,12 @@ module.exports = {
 
       result.text = questionName;
       result.dependsOnLots = getLots(questionObject.dependsOnLots);
+      if (questionObject.hasOwnProperty('assuranceApproach')) {
+        result.assuranceApproach = questionObject.assuranceApproach;
+      }
+      if (questionObject.hasOwnProperty('assuranceHint')) {
+        result.assuranceHint = questionObject.assuranceHint;
+      }
 
       for (prop in questionObject) {
         if (bannedProps.indexOf(prop) === -1) {
@@ -90,9 +98,6 @@ module.exports = {
           prop,
           getLots;
 
-      if (result.type === 'assurance') {
-        return false;
-      }
       for (prop in fieldObject) {
         if (bannedProps.indexOf(prop) === -1) {
           result[prop] = fieldObject[prop];
@@ -152,8 +157,6 @@ module.exports = {
           return getArrayOfValidFields(questionFields);
         }
       };
-
-      if (questionObj.dependsOnLots.indexOf(lot) === -1) { return false; }
 
       for (idx = 0, len = requiredFields.length; idx < len; idx++) {
         requiredField = requiredFields[idx];
@@ -238,16 +241,45 @@ module.exports = {
       return csvArray;
     };
 
+    var getAssuranceRow = function (assuranceApproach, assuranceHint) {
+      var idx,
+          len,
+          assuranceArray = (assuranceHint) ? [assuranceHint] : [''];
+
+      for (idx = 0, len = assurances.length; idx < len; idx++) {
+        if (assurances[idx].types.indexOf(assuranceApproach) > -1) {
+          return assuranceArray.concat(assurances[idx].answers);
+        }
+      }
+      return false;
+    };
+
     var makeInitialArray = function (csvArray, lot) {
       var pageTitle,
-          questionIdx;
+          questionsObj,
+          questionIdx,
+          assuranceRow,
+          assuranceHint = false;
 
       for (idx = 0, len = pageObjects.length; idx < len; idx++) {
         pageTitle = pageObjects[idx].title;
         for (questionIdx = 0, questionsLen = pageObjects[idx].questions.length; questionIdx < questionsLen; questionIdx++) {
-          csvRow = getCSVLineFromQuestion(pageTitle, pageObjects[idx].questions[questionIdx], lot);
-          if (csvRow) {
-            csvArray.push(csvRow);
+          questionsObj = pageObjects[idx].questions[questionIdx];
+          
+          if (questionsObj.dependsOnLots.indexOf(lot) > -1) {
+            csvRow = getCSVLineFromQuestion(pageTitle, questionsObj);
+            if (csvRow) {
+              csvArray.push(csvRow);
+            }
+            if (questionsObj.hasOwnProperty('assuranceApproach')) {
+              assuranceHint = (questionsObj.hasOwnProperty('assuranceHint')) ? questionsObj.assuranceHint : false;
+              assuranceRow = getAssuranceRow(questionsObj.assuranceApproach, assuranceHint);
+              if (assuranceRow) {
+                csvArray.push([pageTitle,'Assurance approach'].concat(assuranceRow));
+              } else {
+                console.warn("No assurance question found for '" + questionsObj.text + "' on '" + pageTitle + "' page when lot '" + lot + "' is selected");
+              }
+            }
           }
         }
       }
