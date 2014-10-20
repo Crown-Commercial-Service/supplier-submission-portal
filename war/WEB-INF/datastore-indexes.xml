@@ -3,4 +3,10 @@
     <datastore-index kind="Page" ancestor="false" source="manual">
         <property name="__key__" direction="desc"/>
     </datastore-index>
+
+    <datastore-index kind="listing" ancestor="false" source="manual">
+        <property name="supplierId" direction="asc"/>
+        <property name="lastUpdated" direction="desc"/>
+    </datastore-index>
+
 </datastore-indexes> 
