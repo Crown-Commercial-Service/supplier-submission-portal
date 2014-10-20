@@ -70,13 +70,13 @@ public class Page8 extends AuthenticatingController {
             if(!validateDocumentFileSize(p8q6)){
                 validation.addError("p8q6", Messages.getMessage("en", "validation.file.tooLarge"));
             }
-            try {
-                Document p8q6Document = storeDocument(p8q6, getSupplierId(), listing.id, "p8q6");
-                p8q6Document.insert();
-            } catch(Exception e) {
-                Logger.error(e, "Could not upload document to S3. Cause: %s", e.getMessage());
-                validation.addError("p8q6", Messages.getMessage("en", "validation.upload.failed"));
-            }
+//            try {
+//                Document p8q6Document = storeDocument(p8q6, getSupplierId(), listing.id, "p8q6");
+//                p8q6Document.insert();
+//            } catch(Exception e) {
+//                Logger.error(e, "Could not upload document to S3. Cause: %s", e.getMessage());
+//                validation.addError("p8q6", Messages.getMessage("en", "validation.upload.failed"));
+//            }
         }
 
         if(p8q7 != null){
@@ -86,13 +86,13 @@ public class Page8 extends AuthenticatingController {
             if(!validateDocumentFileSize(p8q7)){
                 validation.addError("p8q7", Messages.getMessage("en", "validation.file.tooLarge"));
             }
-            try {
-                Document p8q7Document = storeDocument(p8q7, getSupplierId(), listing.id, "p8q7");
-                p8q7Document.insert();
-            } catch(Exception e) {
-                Logger.error(e, "Could not upload document to S3. Cause: %s", e.getMessage());
-                validation.addError("p8q7", Messages.getMessage("en", "validation.upload.failed"));
-            }
+//            try {
+//                Document p8q7Document = storeDocument(p8q7, getSupplierId(), listing.id, "p8q7");
+//                p8q7Document.insert();
+//            } catch(Exception e) {
+//                Logger.error(e, "Could not upload document to S3. Cause: %s", e.getMessage());
+//                validation.addError("p8q7", Messages.getMessage("en", "validation.upload.failed"));
+//            }
         }
 
         if(validation.hasErrors()) {
@@ -120,6 +120,8 @@ public class Page8 extends AuthenticatingController {
         page.responses.put("p8q3", p8q3);
         page.responses.put("p8q4", p8q4);
         page.responses.put("p8q5", p8q5);
+        page.responses.put("p8q6", p8q6.getFileName());
+        if (p8q7 != null) page.responses.put("p8q7", p8q7.getFileName());
         // TODO: Document storage for p8q6 and p8q7 - save something in the Page
 
         page.insert();
