@@ -34,13 +34,13 @@ public class Page6 extends AuthenticatingController {
             }
         }
 
-        try {
-            Document document = storeDocument(p6q1, getSupplierId(), listingId, QUESTION_ID);
-            document.insert();
-        } catch(Exception e) {
-            Logger.error(e, "Could not upload document to S3. Cause: %s", e.getMessage());
-            validation.addError("p6q1", Messages.getMessage("en", "validation.upload.failed"));
-        }
+//        try {
+//            Document document = storeDocument(p6q1, getSupplierId(), listingId, QUESTION_ID);
+//            document.insert();
+//        } catch(Exception e) {
+//            Logger.error(e, "Could not upload document to S3. Cause: %s", e.getMessage());
+//            validation.addError("p6q1", Messages.getMessage("en", "validation.upload.failed"));
+//        }
 
         if(validation.hasErrors()) {
             flash.put("body", params.get("body"));
@@ -54,7 +54,7 @@ public class Page6 extends AuthenticatingController {
         }
 
         Page page = new Page(listingId, PAGE_ID);
-
+        page.responses.put("p6q1", p6q1.getFileName());
         page.insert();
         listing.addResponsePage(page, PAGE_ID, supplierDetailsFromCookie.get("supplierEmail"));
         redirect(listing.nextPageUrl(PAGE_ID, listing.id));
