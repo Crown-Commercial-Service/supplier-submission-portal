@@ -1,8 +1,10 @@
 package uk.gov.gds.dm;
 
 import com.elevenware.util.tokenlib.SimpleAesEncryptor;
+import org.apache.commons.lang.StringEscapeUtils;
 import play.Logger;
 import play.Play;
+import play.libs.Crypto;
 import play.mvc.Http;
 
 import java.net.HttpURLConnection;
@@ -54,21 +56,27 @@ public class Security {
     }
 
     public static String[] decrypt(String encryptedString){
-        SimpleAesEncryptor encryptor = new SimpleAesEncryptor("Bar12345Bar12345");
+        SimpleAesEncryptor simpleAesEncryptor;
 
         if(!(System.getProperty("ssp.cookie.enc") == null)){
-            encryptor = new SimpleAesEncryptor(System.getProperty("ssp.cookie.enc"));
+            simpleAesEncryptor = new SimpleAesEncryptor(System.getProperty("ssp.cookie.enc"));
+        } else {
+            simpleAesEncryptor = new SimpleAesEncryptor("Bar12345Bar12345");
         }
-        return encryptor.decryptArray(encryptedString);
+
+        return simpleAesEncryptor.decryptArray(StringEscapeUtils.unescapeJava(encryptedString));
     }
 
     public static String encrypt(String[] stringArray){
-        SimpleAesEncryptor encryptor = new SimpleAesEncryptor("Bar12345Bar12345");
+        SimpleAesEncryptor simpleAesEncryptor;
 
         if(!(System.getProperty("ssp.cookie.enc") == null)){
-            encryptor = new SimpleAesEncryptor(System.getProperty("ssp.cookie.enc"));
+            simpleAesEncryptor = new SimpleAesEncryptor(System.getProperty("ssp.cookie.enc"));
+        } else {
+            simpleAesEncryptor = new SimpleAesEncryptor("Bar12345Bar12345");
         }
-        return encryptor.encryptArray(stringArray);
+
+        return simpleAesEncryptor.encryptArray(stringArray);
     }
 
     public static Boolean cookieHasExpired(Http.Cookie cookie){
@@ -82,7 +90,6 @@ public class Security {
         }
 
         Long timeElapsed = (new Date().getTime() - cookieSetDate.getTime());
-        System.out.println("Time elapsed: " + timeElapsed + "  COOKIE DURATION: " + COOKIE_DURATION);
         return(timeElapsed > COOKIE_DURATION);
     }
 
@@ -115,5 +122,10 @@ public class Security {
         } else {
             return true;
         }
+    }
+
+    public static boolean applicationIsRunningAsSecure() {
+        Http.Request httpRequest = Http.Request.current();
+        return httpRequest.secure;
     }
 }
