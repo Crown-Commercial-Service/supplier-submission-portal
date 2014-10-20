@@ -35,7 +35,7 @@ public class URLTools {
     }
 
     private static String getProductionDigitalMarketplaceURL(){
-        String[] localDigitalMarketplaceURLs = new String[] {"https://digitalmarketplace.service.gov.uk/", "https://digitalmarketplace.service.gov.uk/digitalmarketplace/"};
+        String[] localDigitalMarketplaceURLs = new String[] {"https://www.digitalmarketplace.service.gov.uk/", "https://www.digitalmarketplace.service.gov.uk/digitalmarketplace/"};
 
         if(isWorkingURL(localDigitalMarketplaceURLs[0])){
             return localDigitalMarketplaceURLs[0];
