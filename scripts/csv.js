@@ -33,7 +33,6 @@ module.exports = {
     var getProductionPageBase = function (pageWrapper, pageIndex) {
       var result = {};
 
-      result.pageNumber = pageIndex;
       result.title = getPageNameFromWrapper(pageWrapper);
       result.questions = [];
 
@@ -72,7 +71,6 @@ module.exports = {
 
       };
 
-      result.questionNumber = questionIndex + 1;
       result.text = questionName;
       result.dependsOnLots = getLots(questionObject.dependsOnLots);
 
@@ -90,30 +88,15 @@ module.exports = {
       var result = {},
           bannedProps = [],
           prop,
-          getParam,
           getLots;
-
-      getParam = function (label) {
-        label = label.toLowerCase();
-        label = label.replace(/\s+/g, '-');
-        label = label.replace(/[^\w-]+/g, '');
-
-        return label;
-      };
 
       if (result.type === 'assurance') {
         return false;
       }
-      result.fieldNumber = fieldIndex + 1;
       for (prop in fieldObject) {
         if (bannedProps.indexOf(prop) === -1) {
           result[prop] = fieldObject[prop];
         }
-      }
-      if (typeof result.label !== 'undefined') {
-        result.param = getParam(result.label);
-      } else {
-        result.param = getParam(question);
       }
 
       return result;
