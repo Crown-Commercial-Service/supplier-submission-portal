@@ -17,7 +17,20 @@
       %{
         if (_answer) {
       }%
-        ${_answer}%{ if (_assurance) { }%, assured by ${_assurance}%{ } }%
+        %{if(_serviceTypeQuestion){}%
+             ${_answer}
+        %{} else if(_answer.size() > 1){ }%
+            %{_answer.each {
+                print it + ", "
+            }}%
+          %{
+           } else {
+          }%
+                ${_answer.getAt(0)}
+          %{
+          }
+          }%
+        %{ if (_assurance) { }%, assured by ${_assurance}%{ } }%
       %{
         } else if (!_optional) {
       }%
