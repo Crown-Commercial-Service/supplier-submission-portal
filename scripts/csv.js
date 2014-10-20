@@ -124,7 +124,7 @@ module.exports = {
       }
     }
     var getCSVLineFromQuestion = function (pageTitle, questionObj, lot) {
-      var requiredFields = ["text","requirements","hint"],
+      var requiredFields = ["text","hint"],
           resultingArray = [pageTitle],
           formatValue,
           idx,
@@ -132,7 +132,6 @@ module.exports = {
 
       var getArrayOfValidFields = function (fieldsArr) {
         var prop,
-            validFields = ['label', 'explanation'],
             resultingFields = [];
 
         for (idx = 0, len = fieldsArr.length; idx < len; idx++) {
@@ -142,22 +141,19 @@ module.exports = {
           } else {
             resultingFields.push('');
           }
-          if (typeof fieldObj.explanation !== 'undefined') {
-            resultingFields.push(fieldObj.explanation);
-          } else {
-            resultingFields.push('');
-          }
         }
         return resultingFields;
       };
 
       var getFields = function (questionFields) {
         if (questionFields[0].type === 'boolean') {
-          return ['Yes', '', 'No', ''];
+          return ['Yes', 'No'];
         } else {
           return getArrayOfValidFields(questionFields);
         }
       };
+
+      if (questionObj.dependsOnLots.indexOf(lot) === -1) { return false; }
 
       for (idx = 0, len = requiredFields.length; idx < len; idx++) {
         requiredField = requiredFields[idx];
@@ -189,11 +185,7 @@ module.exports = {
         isHeaderRow = idx === 0;
         while (paddingCells--) {
           if (isHeaderRow) {
-            if ((cellsPadded % 2) === 0) {
-              csvArray[idx].push('Answer ' + ((cellsPadded / 2) + 1));
-            } else {
-              csvArray[idx].push('Answer ' + (((cellsPadded - 1) / 2) + 1) + ' explanation');
-            }
+            csvArray[idx].push('Answer ' + (cellsPadded + 1));
             cellsPadded++;
           } else {
             csvArray[idx].push('');
@@ -253,23 +245,26 @@ module.exports = {
       for (idx = 0, len = pageObjects.length; idx < len; idx++) {
         pageTitle = pageObjects[idx].title;
         for (questionIdx = 0, questionsLen = pageObjects[idx].questions.length; questionIdx < questionsLen; questionIdx++) {
-          csvArray.push(getCSVLineFromQuestion(pageTitle, pageObjects[idx].questions[questionIdx], lot));
+          csvRow = getCSVLineFromQuestion(pageTitle, pageObjects[idx].questions[questionIdx], lot);
+          if (csvRow) {
+            csvArray.push(csvRow);
+          }
         }
       }
       return csvArray;
     };
 
     var IaasCsvArray = makeInitialArray([
-      ["Page title","Question","Description","Hint"]
+      ["Page title","Question","Hint"]
     ], 'IaaS');
     var SaasCsvArray = makeInitialArray([
-      ["Page title","Question","Description","Hint"]
+      ["Page title","Question","Hint"]
     ], 'SaaS');
     var PaasCsvArray = makeInitialArray([
-      ["Page title","Question","Description","Hint"]
+      ["Page title","Question","Hint"]
     ], 'PaaS');
     var ScsCsvArray = makeInitialArray([
-      ["Page title","Question","Description","Hint"]
+      ["Page title","Question","Hint"]
     ], 'ScS');
 
     IaasCsvArray = makeRowCellsMatchNumberOfCoumns(IaasCsvArray);
@@ -281,9 +276,9 @@ module.exports = {
     var PaasCsvPage = makeCsvFromArray(PaasCsvArray);
     var ScsCsvPage = makeCsvFromArray(ScsCsvArray);
     
-    fs.writeFileSync(outputCsvFile.replace(/\.js/, '_IaaS.js'), IaasCsvPage, { encoding : 'utf-8' });
-    fs.writeFileSync(outputCsvFile.replace(/\.js/, '_SaaS.js'), SaasCsvPage, { encoding : 'utf-8' });
-    fs.writeFileSync(outputCsvFile.replace(/\.js/, '_PaaS.js'), PaasCsvPage, { encoding : 'utf-8' });
-    fs.writeFileSync(outputCsvFile.replace(/\.js/, '_SCS.js'), ScsCsvPage, { encoding : 'utf-8' });
+    fs.writeFileSync(outputCsvFile.replace(/\.csv/, '_IaaS.csv'), IaasCsvPage, { encoding : 'utf-8' });
+    fs.writeFileSync(outputCsvFile.replace(/\.csv/, '_SaaS.csv'), SaasCsvPage, { encoding : 'utf-8' });
+    fs.writeFileSync(outputCsvFile.replace(/\.csv/, '_PaaS.csv'), PaasCsvPage, { encoding : 'utf-8' });
+    fs.writeFileSync(outputCsvFile.replace(/\.csv/, '_SCS.csv'), ScsCsvPage, { encoding : 'utf-8' });
   }
 };
