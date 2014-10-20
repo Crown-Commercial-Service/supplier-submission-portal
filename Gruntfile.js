@@ -3,6 +3,7 @@ module.exports = function(grunt){
   var JSModules = [];
   var combineJsonFile = __dirname + '/content.json';
   var propertiesFile = __dirname + '/conf/content.properties';
+  var csvFile = __dirname + '/conf/content.csv';
   var JSFiles = [
     "public/javascripts/jquery.js",
     "public/javascripts/hogan.js",
@@ -261,9 +262,31 @@ module.exports = function(grunt){
     }
   );
 
+  grunt.registerTask(
+    'csv',
+    'Converts the content.json file into conf/content.csv',
+    function () {
+      var script = require(__dirname + '/scripts/csv.js'),
+          inputJsonFile = combineJsonFile,
+          outputCsvFile = csvFile;
+
+      script.csv({
+        'inputJsonFile' : inputJsonFile,
+        'outputCsvFile' : outputCsvFile
+      });
+      grunt.log.writeln(inputJsonFile + ' converted into ' + outputCsvFile);
+    }
+  );
+
   grunt.registerTask('content', [
     'combine',
     'properties',
+    'clean:combine'
+  ]);
+
+  grunt.registerTask('spreadsheet', [
+    'combine',
+    'csv',
     'clean:combine'
   ]);
 
