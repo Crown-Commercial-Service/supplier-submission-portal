@@ -15,7 +15,7 @@ import java.util.Map;
 
 public abstract class AuthenticatingController extends Controller {
 
-    static Map<String, String> supplierDetailsFromCookie = new HashMap<>();
+    static Map<String, String> supplierDetailsFromCookie = new HashMap<String, String>();
     static final String DM_URL = URLTools.getDigitalMarketplaceURL();
     public static final String COOKIE_DATE = "cookieDate";
     private static final String ESOURCING_ID = "esourcingId";
