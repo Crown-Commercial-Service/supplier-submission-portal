@@ -268,13 +268,22 @@ module.exports = function(grunt){
     function () {
       var script = require(__dirname + '/scripts/csv.js'),
           inputJsonFile = combineJsonFile,
-          outputCsvFile = csvFile;
+          outputCsvFile = csvFile,
+          IaasCsvFile = outputCsvFile.replace(/\.csv$/, '_IaaS.csv'),
+          SaasCsvFile = outputCsvFile.replace(/\.csv$/, '_SaaS.csv'),
+          PaasCsvFile = outputCsvFile.replace(/\.csv$/, '_PaaS.csv'),
+          ScsCsvFile = outputCsvFile.replace(/\.csv$/, '_ScS.csv');
 
       script.csv({
         'inputJsonFile' : inputJsonFile,
         'outputCsvFile' : outputCsvFile
       });
-      grunt.log.writeln(inputJsonFile + ' converted into ' + outputCsvFile);
+      grunt.log.writeln(inputJsonFile + ' converted into:');
+      grunt.log.writeln('');
+      grunt.log.writeln(IaasCsvFile);
+      grunt.log.writeln(SaasCsvFile);
+      grunt.log.writeln(PaasCsvFile);
+      grunt.log.writeln(ScsCsvFile);
     }
   );
 
