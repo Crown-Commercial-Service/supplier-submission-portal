@@ -22,7 +22,7 @@
     content: content,
     page: 22
   /}
-
+${oldValues}
   %{
     question = page + 'q1'
     questionIsRelevantToSelectedLot = content.get(question + 'lots').contains(lot)
@@ -31,12 +31,9 @@
     #{forms/selection-button-boolean
       name: question,
       value: oldValues?.get(question),
-      oldval: oldValues?.get(question + 'assurance')?.get(0),
       label: content.get(question + 'text'),
       hint: content.get(question + 'hint'),
-      error: content.get(question + flash.get(question)),
-      assurance: true,
-      assurance_hint: content.get(question + 'assuranceHint')
+      error: content.get(question + flash.get(question))
     /}
   %{
     }
@@ -50,11 +47,9 @@
     #{forms/selection-button-boolean
       name: question,
       value: oldValues?.get(question),
-      oldval: oldValues?.get(question + 'assurance')?.get(0),
       label: content.get(question + 'text'),
       hint: content.get(question + 'hint'),
-      error: content.get(question + flash.get(question)),
-      assurance: true
+      error: content.get(question + flash.get(question))
     /}
   %{
     }
@@ -82,10 +77,6 @@
       %{
         }
       }%
-      #{forms/assurance
-        name: question,
-        oldval: oldValues?.get(question + 'assurance')?.isEmpty() ? "" : oldValues?.get(question + 'assurance')?.get(0)
-      /}
       #{question-footer
         error: content.get(question + flash.get(question))
       /}
@@ -102,11 +93,9 @@
     #{forms/selection-button-boolean
       name: question,
       value: oldValues?.get(question),
-      oldval: oldValues?.get(question + 'assurance')?.get(0),
       label: content.get(question + 'text'),
       hint: content.get(question + 'hint'),
-      error: content.get(question + flash.get(question)),
-      assurance: true
+      error: content.get(question + flash.get(question))
     /}
   %{
       }

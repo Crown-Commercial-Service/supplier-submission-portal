@@ -1,7 +1,12 @@
+%{
+  if (!_label_override) {
+    _label_override = _label
+  }
+}%
 <label class='selection-button%{ if (_description) { }% selection-button-with-description%{ } }%'>
   <input
-    type='radio' name='${_name}' id='${_name}-${_value}' value='${_value}'
-    %{ if (_oldval.equals(_value)) { }% checked='checked' %{ }}%
+    type='radio' name='${_name}' id='${_name}-${_value}' value='${_label_override}'
+    %{ if (_oldval.equals(_label)) { }% checked='checked' %{ }}%
   />
   ${_label}
 </label>

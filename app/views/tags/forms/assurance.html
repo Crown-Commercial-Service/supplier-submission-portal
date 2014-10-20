@@ -1,3 +1,7 @@
+%{
+  def assurance_options = []
+  def answer_index = 0
+}%
 <fieldset class='assurance'>
   <legend class='question-heading %{ if (_hint) { }% question-heading-with-hint %{ } }%'>
   Assurance approach
@@ -5,30 +9,85 @@
   #{forms/hint
     hint: _hint
   /}
-  <label class="selection-button">
-    <input type="radio" name="${_name}assurance" value="service-provider-assertion" %{ if (_oldval.equals("service-provider-assertion")) { }% checked='checked' %{ }}% />
-    Service provider assertion
+  %{
+    if (_type == '2answers-type1') {
+      assurance_options = [
+        'Service provider assertion',
+        'Independent validation of assertion'
+      ]
+    }
+    if (_type == '3answers-type1') {
+      assurance_options = [
+        'Service provider assertion',
+        'Contractual commitment',
+        'Independent validation of assertion'
+      ]
+    }
+    if (_type == '3answers-type2' || _type == '2answers-type2') {
+      assurance_options = [
+        'Service provider assertion',
+        'Independent validation of assertion',
+        'Independent testing of implementation'
+      ]
+    }
+    if (_type == '3answers-type3') {
+      assurance_options = [
+        'Service provider assertion',
+        'Independent testing of implementation',
+        'CESG-assured components'
+      ]
+    }
+    if (_type == '3answers-type4') {
+      assurance_options = [
+        'Service provider assertion',
+        'Independent validation of assertion',
+        'Independent testing of implementation'
+      ]
+    }
+    if (_type == '4answers-type1') {
+      assurance_options = [
+        'Service provider assertion',
+        'Independent validation of assertion',
+        'Independent testing of implementation',
+        'CESG-assured components'
+      ]
+    }
+    if (_type == '4answers-type2') {
+      assurance_options = [
+        'Service provider assertion',
+        'Contractual commitment',
+        'Independent validation of assertion',
+        'CESG-assured components'
+      ]
+    }
+    if (_type == '4answers-type3') {
+      assurance_options = [
+        'Service provider assertion',
+        'Independent testing of implementation',
+        'Assurance of service design',
+        'CESG-assured components'
+      ]
+    }
+    if (_type == '5answers-type1') {
+      assurance_options = [
+        'Service provider assertion',
+        'Contractual commitment',
+        'Independent validation of assertion',
+        'Independent testing of implementation',
+        'CESG-assured components'
+      ]
+    }
+
+    for (answer in assurance_options) {
+  }%
+  <label class="selection-button" for="${_name}assurance${++answer_index}">
+    <input type="radio" id="${_name}assurance${answer_index}" name="${_name}assurance" value="${answer}" %{ if (_oldval.equals(answer)) { }% checked='checked' %{ }}% />
+    ${answer}
   </label>
-  <label class="selection-button">
-    <input type="radio" name="${_name}assurance" value="contractual-commitment" %{ if (_oldval.equals("contractual-commitment")) { }% checked='checked' %{ }}% />
-    Contractual commitment
-  </label>
-  <label class="selection-button">
-    <input type="radio" name="${_name}assurance" value="independent-validation-of-assertion" %{ if (_oldval.equals("independent-validation-of-assertion")) { }% checked='checked' %{ }}% />
-    Independent validation of assertion
-  </label>
-  <label class="selection-button">
-    <input type="radio" name="${_name}assurance" value="independent-testing-of-implementation" %{ if (_oldval.equals("independent-testing-of-implementation")) { }% checked='checked' %{ }}% />
-    Independent testing of implementation
-  </label>
-  <label class="selection-button">
-    <input type="radio" name="${_name}assurance" value="assurance-in-the service-design" %{ if (_oldval.equals("assurance-in-the service-design")) { }% checked='checked' %{ }}% />
-    Assurance in the service design
-  </label>
-  <label class="selection-button">
-    <input type="radio" name="${_name}assurance" value="assured-components" %{ if (_oldval.equals("assured-components")) { }% checked='checked' %{ }}% />
-    Assured components
-  </label>
+  %{
+    }
+  }%
+
 #{question-footer
   heading: _label,
   hint: _hint

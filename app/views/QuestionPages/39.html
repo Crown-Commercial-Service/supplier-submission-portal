@@ -43,6 +43,11 @@
     %{
       }
     }%
+    #{forms/assurance
+      name: question,
+      oldval: oldValues?.get(question + 'assurance')?.isEmpty() ? "" : oldValues?.get(question + 'assurance')?.get(0),
+      type: content.get(question + 'assuranceApproach')
+    /}
     #{question-footer
       error: content.get(question + flash.get(question))
     /}

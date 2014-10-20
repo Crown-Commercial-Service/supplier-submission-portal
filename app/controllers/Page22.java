@@ -11,7 +11,7 @@ public class Page22 extends AuthenticatingController {
 
     private static final Long PAGE_ID = 22l;
 
-    public static void savePage(Long listingId, String p22q1, String p22q2, String p22q3, String p22q4, String p22q5, 
+    public static void savePage(Long listingId, String p22q1, String p22q2, String p22q3, String p22q4, String p22q5,
                                 String p22q1assurance, String p22q2assurance, String p22q3assurance, String p22q4assurance, String p22q5assurance) {
 
         Listing listing = Listing.getByListingId(listingId);
@@ -19,29 +19,19 @@ public class Page22 extends AuthenticatingController {
         // Validate all fields on this page requiring validation
         validation.required(p22q1).key("p22q1");
         validation.maxSize(p22q1, 10);
-        validation.required(p22q1assurance).key("p22q1");
-        validation.maxSize(p22q1assurance, 50);
-        
+
         validation.required(p22q2).key("p22q2");
         validation.maxSize(p22q2, 10);
-        validation.required(p22q2assurance).key("p22q2");
-        validation.maxSize(p22q2assurance, 50);
-        
+
         validation.required(p22q3).key("p22q3");
         validation.maxSize(p22q3, 30);
-        validation.required(p22q3assurance).key("p22q3");
-        validation.maxSize(p22q3assurance, 50);
-        
+
         validation.required(p22q4).key("p22q4");
         validation.maxSize(p22q4, 10);
-        validation.required(p22q4assurance).key("p22q4");
-        validation.maxSize(p22q4assurance, 50);
-        
+
         validation.required(p22q5).key("p22q5");
         validation.maxSize(p22q5, 10);
-        validation.required(p22q5assurance).key("p22q5");
-        validation.maxSize(p22q5assurance, 50);
-        
+
         if(validation.hasErrors()) {
             flash.put("body", params.get("body"));
             for(Map.Entry<String, List<Error>> entry : validation.errorsMap().entrySet()) {
@@ -61,11 +51,6 @@ public class Page22 extends AuthenticatingController {
         page.responses.put("p22q3", p22q3);
         page.responses.put("p22q4", p22q4);
         page.responses.put("p22q5", p22q5);
-        page.responses.put("p22q1assurance", p22q1assurance);
-        page.responses.put("p22q2assurance", p22q2assurance);
-        page.responses.put("p22q3assurance", p22q3assurance);
-        page.responses.put("p22q4assurance", p22q4assurance);
-        page.responses.put("p22q5assurance", p22q5assurance);
         page.insert();
         listing.addResponsePage(page, PAGE_ID, supplierDetailsFromCookie.get("supplierEmail"));
         redirect(listing.nextPageUrl(PAGE_ID, listing.id));

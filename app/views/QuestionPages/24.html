@@ -40,14 +40,15 @@
         name: question,
         value: content.get(question + 'val' + index),
         label: content.get(question + 'val' + index + 'Label'),
-        checked: oldValues?.get(question)?.contains(content.get(question + 'val' + index))
+        checked: oldValues?.get(question)?.contains(content.get(question + 'val' + index + 'Label'))
       /}
     %{
       }
     }%
     #{forms/assurance
-    name: question,
-    oldval: oldValues?.get(question + 'assurance')?.isEmpty() ? "" : oldValues?.get(question + 'assurance')?.get(0)
+      name: question,
+      type: content.get(question + 'assuranceApproach'),
+      oldval: oldValues?.get(question + 'assurance')?.isEmpty() ? "" : oldValues?.get(question + 'assurance')?.get(0)
     /}
     #{question-footer
       error: content.get(question + flash.get(question))
@@ -73,14 +74,15 @@
           name: question,
           value: content.get(question + 'val' + index),
           label: content.get(question + 'val' + index + 'Label'),
-          checked: oldValues?.get(question)?.contains(content.get(question + 'val' + index))
+          checked: oldValues?.get(question)?.contains(content.get(question + 'val' + index + 'Label'))
         /}
       %{
         }
       }%
       #{forms/assurance
-      name: question,
-      oldval: oldValues?.get(question + 'assurance')?.isEmpty() ? "" : oldValues?.get(question + 'assurance')?.get(0)
+        name: question,
+        type: content.get(question + 'assuranceApproach'),
+        oldval: oldValues?.get(question + 'assurance')?.isEmpty() ? "" : oldValues?.get(question + 'assurance')?.get(0)
       /}
     #{question-footer
       error: content.get(question + flash.get(question))
@@ -112,8 +114,9 @@
         }
       }%
       #{forms/assurance
-      name: question,
-      oldval: oldValues?.get(question + 'assurance')?.isEmpty() ? "" : oldValues?.get(question + 'assurance')?.get(0)
+        name: question,
+        oldval: oldValues?.get(question + 'assurance')?.isEmpty() ? "" : oldValues?.get(question + 'assurance')?.get(0),
+        type: content.get(question + 'assuranceApproach')
       /}
     #{question-footer
       error: content.get(question + flash.get(question))
@@ -133,8 +136,8 @@
       hint: content.get(question + 'hint'),
       error: content.get(question + flash.get(question)),
       value: oldValues?.get(question),
-      oldval: oldValues?.get(question + 'assurance')?.get(0),
-      assurance: true
+      assurance_type: content.get(question + 'assuranceApproach'),
+      assurance_value: oldValues?.get(question + 'assurance')?.isEmpty() ? "" : oldValues?.get(question + 'assurance')?.get(0),
     /}
 
   %{
@@ -163,8 +166,10 @@
         }
       }%
       #{forms/assurance
-      name: question,
-      oldval: oldValues?.get(question + 'assurance')?.isEmpty() ? "" : oldValues?.get(question + 'assurance')?.get(0)
+        name: question,
+        oldval: oldValues?.get(question + 'assurance')?.isEmpty() ? "" : oldValues?.get(question + 'assurance')?.get(0),
+        name: question,
+        type: content.get(question + 'assuranceApproach')
       /}
     #{question-footer
       error: content.get(question + flash.get(question))
@@ -183,7 +188,7 @@
       error: content.get(question + flash.get(question))
     /}
       %{
-        for (index in 1..5) {
+        for (index in 1..4) {
       }%
         #{forms/selection-button-radio
           name: question,
@@ -196,6 +201,7 @@
       }%
       #{forms/assurance
         name: question,
+        type: content.get(question + 'assuranceApproach'),
         oldval: oldValues?.get(question + 'assurance')?.isEmpty() ? "" : oldValues?.get(question + 'assurance')?.get(0)
       /}
     #{question-footer
@@ -226,10 +232,11 @@
       %{
         }
       }%
-          #{forms/assurance
-          name: question,
-          oldval: oldValues?.get(question + 'assurance')?.isEmpty() ? "" : oldValues?.get(question + 'assurance')?.get(0)
-          /}
+      #{forms/assurance
+        name: question,
+        type: content.get(question + 'assuranceApproach'),
+        oldval: oldValues?.get(question + 'assurance')?.isEmpty() ? "" : oldValues?.get(question + 'assurance')?.get(0)
+      /}
     #{question-footer
       error: content.get(question + flash.get(question))
     /}
@@ -248,8 +255,8 @@
       hint: content.get(question + 'hint'),
       error: content.get(question + flash.get(question)),
       value: oldValues?.get(question),
-      oldval: oldValues?.get(question + 'assurance')?.get(0),
-      assurance: true
+      assurance_type: content.get(question + 'assuranceApproach'),
+      assurance_value: oldValues?.get(question + 'assurance')?.isEmpty() ? "" : oldValues?.get(question + 'assurance')?.get(0),
     /}
 
   %{
@@ -260,29 +267,14 @@
     if (questionIsRelevantToSelectedLot) {
   }%
 
-    #{question-heading
-      heading: content.get(question + 'text'),
-      hint: content.get(question + 'hint'),
-      error: content.get(question + flash.get(question))
-    /}
-      %{
-        for (index in 1..7) {
-      }%
-        #{forms/selection-button-radio
-          name: question,
-          value: content.get(question + 'val' + index),
-          label: content.get(question + 'val' + index + 'Label'),
-          oldval: oldValues?.get(question)?.get(0)
-        /}
-      %{
-        }
-      }%
-      #{forms/assurance
+    #{forms/selection-button-boolean
       name: question,
-      oldval: oldValues?.get(question + 'assurance')?.isEmpty() ? "" : oldValues?.get(question + 'assurance')?.get(0)
-      /}
-    #{question-footer
-      error: content.get(question + flash.get(question))
+      label: content.get(question + 'text'),
+      hint: content.get(question + 'hint'),
+      error: content.get(question + flash.get(question)),
+      value: oldValues?.get(question),
+      assurance_type: content.get(question + 'assuranceApproach'),
+      assurance_value: oldValues?.get(question + 'assurance')?.isEmpty() ? "" : oldValues?.get(question + 'assurance')?.get(0),
     /}
 
   %{
@@ -293,32 +285,14 @@
     if (questionIsRelevantToSelectedLot) {
   }%
 
-    #{forms/selection-button-boolean
-      name: question,
-      label: content.get(question + 'text'),
-      hint: content.get(question + 'hint'),
-      error: content.get(question + flash.get(question)),
-      value: oldValues?.get(question),
-      oldval: oldValues?.get(question + 'assurance')?.get(0),
-      assurance: true
-    /}
-
-  %{
-    }
-
-    question = page + 'q11'
-    questionIsRelevantToSelectedLot = content.get(question + 'lots').contains(lot)
-    if (questionIsRelevantToSelectedLot) {
-  }%
-
     #{forms/textbox-percentage
       name: question,
       label: content.get(question + 'text'),
       hint: content.get(question + 'hint'),
       error: content.get(question + flash.get(question)),
       value: oldValues?.get(question)?.isEmpty() ? "" : oldValues?.get(question)?.get(0),
-      oldval: oldValues?.get(question + 'assurance')?.get(0),
-      assurance: true
+      assurance_type: content.get(question + 'assuranceApproach'),
+      assurance_value: oldValues?.get(question + 'assurance')?.isEmpty() ? "" : oldValues?.get(question + 'assurance')?.get(0)
     /}
 
   %{

@@ -21,7 +21,7 @@
     content: content,
     page: 16
   /}
-  <fieldset class="input-list" data-list-item-name="${content.get(question + 'listItemName')}">
+  <div class="input-list" data-list-item-name="${content.get(question + 'listItemName')}">
     %{
       question = page + 'q1'
     }%
@@ -30,19 +30,20 @@
       hint: content.get(question + 'hint'),
       error: content.get(question + flash.get(question))
     /}
-    %{
-      for (index in 1..10) {
-    }%
-      #{forms/textbox-input-list-item
-        name: question + 'val' + index,
-        numbered: index,
-        value: oldValues?.get(question + 'val' + index)
-      /}
-    %{
-      }
-    }%
-  #{question-footer
-    error: content.get(question + flash.get(question))
-  /}
+      %{
+        for (index in 1..10) {
+      }%
+        #{forms/textbox-input-list-item
+          name: question + 'val' + index,
+          numbered: index,
+          value: oldValues?.get(question + 'val' + index)
+        /}
+      %{
+        }
+      }%
+    #{question-footer
+      error: content.get(question + flash.get(question))
+    /}
+  </div>
   #{footer prevPageURL: prevPageURL /}
 </form>

@@ -24,27 +24,26 @@
     %{
       question = page + 'q1'
     }%
-
-  <div class="input-list" data-list-item-name="${content.get(question + 'listItemName')}">
     #{question-heading
       heading: content.get(question + 'text'),
       hint: content.get(question + 'hint'),
       error: content.get(question + flash.get(question))
     /}
-    %{
-      for (index in 1..10) {
-    }%
-      #{forms/textbox-input-list-item
-        name: question + 'val' + index,
-        numbered: index,
-        values: oldValues?.get(question)
-      /}
-    %{
-      }
-    }%
+    <div class="input-list" data-list-item-name="${content.get(question + 'listItemName')}">
+      %{
+        for (index in 1..10) {
+      }%
+        #{forms/textbox-input-list-item
+          name: question + 'val' + index,
+          numbered: index,
+          values: oldValues?.get(question)
+        /}
+      %{
+        }
+      }%
+    </div>
     #{question-footer
       error: content.get(question + flash.get(question))
     /}
-  </div>
   #{footer prevPageURL: prevPageURL /}
 </form>

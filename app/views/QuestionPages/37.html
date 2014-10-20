@@ -31,7 +31,9 @@
       label: content.get(question + 'text'),
       hint: content.get(question + 'hint'),
       value: oldValues?.get(question),
-      error: content.get(question + flash.get(question))
+      error: content.get(question + flash.get(question)),
+      assurance_value: oldValues?.get(question + 'assurance')?.isEmpty() ? "" : oldValues?.get(question + 'assurance')?.get(0),
+      assurance_type: content.get(question + 'assuranceApproach')
     /}
   %{
     }
@@ -52,46 +54,20 @@
         name: question,
         value: content.get(question + 'val' + index),
         label: content.get(question + 'val' + index + 'Label'),
-        checked: oldValues?.get(question)?.contains(content.get(question + 'val' + index))
+        checked: oldValues?.get(question)?.contains(content.get(question + 'val' + index + 'Label'))
       /}
     %{
       }
     }%
+    #{forms/assurance
+      name: question,
+      oldval: oldValues?.get(question + 'assurance')?.isEmpty() ? "" : oldValues?.get(question + 'assurance')?.get(0),
+      type: content.get(question + 'assuranceApproach')
+    /}
     #{question-footer
       error: content.get(question + flash.get(question))
     /}
-  %{
-    }
 
-    question = page + 'q3'
-    questionIsRelevantToSelectedLot = content.get(question + 'lots').contains(lot)
-    if (questionIsRelevantToSelectedLot) {
-  }%
-    #{forms/selection-button-boolean
-      name: question,
-      label: content.get(question + 'text'),
-      hint: content.get(question + 'hint'),
-      error: content.get(question + flash.get(question)),
-      value: oldValues?.get(question),
-      oldval: oldValues?.get(question + 'assurance')?.get(0),
-      assurance: true
-    /}
-  %{
-    }
-
-    question = page + 'q4'
-    questionIsRelevantToSelectedLot = content.get(question + 'lots').contains(lot)
-    if (questionIsRelevantToSelectedLot) {
-  }%
-    #{forms/selection-button-boolean
-      name: question,
-      label: content.get(question + 'text'),
-      hint: content.get(question + 'hint'),
-      error: content.get(question + flash.get(question)),
-      value: oldValues?.get(question),
-      oldval: oldValues?.get(question + 'assurance')?.get(0),
-      assurance: true
-    /}
   %{
     }
   }%

@@ -38,7 +38,7 @@ public class QuestionPageDisplay extends AuthenticatingController {
         renderArgs.put("listingId", listingId);
         renderArgs.put("prevPageURL", listing.prevPageUrl(pageId, listingId));
 
-        
+
         if (flash.get("body") != null) {
             try {
                 renderArgs.put("oldValues", unflatten(getInvalidAnswers()));
@@ -51,7 +51,7 @@ public class QuestionPageDisplay extends AuthenticatingController {
                 renderArgs.put("oldValues", unflatten(page.responses));
             }
         }
-        
+
         renderArgs.put("serviceName", listing.title);
         renderTemplate(String.format("QuestionPages/%d.html", pageId));
     }
@@ -59,7 +59,7 @@ public class QuestionPageDisplay extends AuthenticatingController {
     private static Map<String, String> getInvalidAnswers() throws UnsupportedEncodingException {
         return flatten(splitParams(flash.get("body")));
     }
-    
+
     // Code based on answer given by user Pr0gr4mm3r at:
     // http://stackoverflow.com/questions/13592236/parse-the-uri-string-into-name-value-collection-in-java
     private static Map<String, List<String>> splitParams(String paramString) throws UnsupportedEncodingException {
@@ -76,7 +76,7 @@ public class QuestionPageDisplay extends AuthenticatingController {
         }
         return query_pairs;
     }
-    
+
     public static Map<String, String> flatten(Map<String, List<String>> map) {
         Map<String, String> toReturn = new HashMap();
         Gson gson = new Gson();

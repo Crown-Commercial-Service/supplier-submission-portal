@@ -1,13 +1,27 @@
+#{question-validation-wrapper-open
+  error: _error
+/}
 <label class='question-heading' for='${_name}'>
   ${_label}
 </label>
+#{forms/hint
+  hint: _hint
+/}
+#{forms/error-message
+  error: _error
+/}
 <input type='text' name='${_name}' id='${_name}' class='text-box text-box-percentage' value='${_value}' />
 <label class='text-box-percentage-label' for='${_name}'>
   % <span class='hidden'> ${_hidden_label}</span>
 </label>
-%{ if (_assurance) { }%
-#{forms/assurance
-name: _name,
-oldval: _oldval
-/}
+%{ if (_assurance_type) { }%
+  #{forms/assurance
+    name: _name,
+    hint: _assurance_hint,
+    type: _assurance_type,
+    oldval: _assurance_value
+  /}
 %{ } }%
+#{question-validation-wrapper-close
+  error: _error
+/}

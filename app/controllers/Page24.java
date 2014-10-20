@@ -13,9 +13,9 @@ public class Page24 extends AuthenticatingController {
     private static final Long PAGE_ID = 24l;
 
     public static void savePage(Long listingId, String[] p24q1, String[] p24q2, String p24q3, String p24q4, String p24q5, String p24q6,
-                                String p24q7, String p24q8, String p24q9, String p24q10, String p24q11, String p24q1assurance, 
-                                String p24q2assurance, String p24q3assurance, String p24q4assurance, String p24q5assurance, 
-                                String p24q6assurance, String p24q7assurance, String p24q8assurance, String p24q9assurance, 
+                                String p24q7, String p24q8, String p24q9, String p24q10, String p24q11, String p24q1assurance,
+                                String p24q2assurance, String p24q3assurance, String p24q4assurance, String p24q5assurance,
+                                String p24q6assurance, String p24q7assurance, String p24q8assurance, String p24q9assurance,
                                 String p24q10assurance, String p24q11assurance) {
 
         Listing listing = Listing.getByListingId(listingId);
@@ -36,20 +36,18 @@ public class Page24 extends AuthenticatingController {
             validation.required(p24q6assurance).key("p24q6");
 
             // Validate percentage: .max() catches anything not a number
-            validation.required(p24q11).key("p24q11");
-            validation.max(p24q11, 99.99999999999999).key("p24q11").message("validationNotANumber");
-            validation.required(p24q11assurance).key("p24q11");
+            validation.required(p24q10).key("p24q10");
+            validation.max(p24q10, 99.99999999999999).key("p24q10").message("validationNotANumber");
+            validation.required(p24q10assurance).key("p24q10");
 
             if (!listing.lot.equals("SaaS")) {
                 //PaaS, IaaS
                 validation.required(p24q7).key("p24q7");
                 validation.required(p24q8).key("p24q8");
                 validation.required(p24q9).key("p24q9");
-                validation.required(p24q10).message("p24q10");
                 validation.required(p24q7assurance).key("p24q7");
                 validation.required(p24q8assurance).key("p24q8");
                 validation.required(p24q9assurance).key("p24q9");
-                validation.required(p24q10assurance).message("p24q10");
             }
         }
 
