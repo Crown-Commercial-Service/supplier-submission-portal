@@ -1,9 +1,14 @@
 package models; 
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import siena.*;
 import siena.embed.Embedded;
 import siena.embed.EmbeddedMap;
 
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -55,7 +60,25 @@ public class Page extends Model {
         return new Page();
     }
 
-    // TODO: Method(s) to store responses into the responses object
+    public Map<String, Collection<String>> getUnflattenedResponses () {
+        Map<String, Collection<String>> toReturn = new HashMap();
+        Gson gson = new Gson();
+        for(String key : this.responses.keySet()) {
+            String val = this.responses.get(key);
+            ArrayList<String> list = new ArrayList();
+            if (val == null || val.isEmpty()){
+                toReturn.put(key, list);
+            } else if (val.startsWith("[")) {
+                Type collectionType = new TypeToken<Collection<String>>(){}.getType();
+                Collection<String> vals = gson.fromJson(val, collectionType);
+                toReturn.put(key, vals);
+            } else {
+                list.add(val);
+                toReturn.put(key, list);
+            }
+        }
+        return toReturn;
+    }
 
     @Override
     public String toString() {

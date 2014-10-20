@@ -1,14 +1,15 @@
 package controllers;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import models.Listing;
 import models.Page;
 import play.data.validation.Error;
 import uk.gov.gds.dm.ServiceSubmissionJourneyFlows;
 import uk.gov.gds.dm.Fixtures;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.lang.reflect.Type;
+import java.util.*;
 
 import java.util.List;
 import java.util.Map;
@@ -20,14 +21,14 @@ public class Service extends AuthenticatingController {
         List<Long> flow = ServiceSubmissionJourneyFlows.getFlow(listing.lot);
         List<String> optionalQuestions = ServiceSubmissionJourneyFlows.getOptionalQuestions();
 
-        Map<String, String> allAnswers = new HashMap<String, String>();
+        // Map<String, String> allAnswers = new HashMap<String, String>();
+        Map<String, Collection<String>> allAnswers = new HashMap<String, Collection<String>>();
+
         for(Page p : listing.completedPages){
             if(p.responses != null){
-                allAnswers.putAll(p.responses);
+                allAnswers.putAll(p.getUnflattenedResponses());
             }
         }
-
-        System.out.println(allAnswers);
 
         renderArgs.put("content", Fixtures.getContentProperties());
         renderArgs.put("service_id", listingId);
