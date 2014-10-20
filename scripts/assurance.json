@@ -1,0 +1,78 @@
+[
+  {
+    "types" : ["2answers-type1"],
+    "answers" : [
+      "Service provider assertion",
+      "Independent validation of assertion"
+    ]
+  },
+  {
+    "types" : ["3answers-type1"],
+    "answers" : [
+      "Service provider assertion",
+      "Contractual commitment",
+      "Independent validation of assertion"
+    ]
+  },
+  {
+    "types" : ["3answers-type2", "2answers-type2"],
+    "answers" : [
+      "Service provider assertion",
+      "Independent validation of assertion",
+      "Independent testing of implementation"
+    ]
+  },
+  {
+    "types" : ["3answers-type3"],
+    "answers" : [
+      "Service provider assertion",
+      "Independent testing of implementation",
+      "CESG-assured components"
+    ]
+  },
+  {
+    "types" : ["3answers-type4"],
+    "answers" : [
+      "Service provider assertion",
+      "Independent validation of assertion",
+      "Independent testing of implementation"
+    ]
+  },
+  {
+    "types" : ["4answers-type1"],
+    "answers" : [
+      "Service provider assertion",
+      "Independent validation of assertion",
+      "Independent testing of implementation",
+      "CESG-assured components"
+    ]
+  },
+  {
+    "types" : ["4answers-type2"],
+    "answers" : [
+      "Service provider assertion",
+      "Contractual commitment",
+      "Independent validation of assertion",
+      "CESG-assured components"
+    ]
+  },
+  {
+    "types" : ["4answers-type3"],
+    "answers" : [
+      "Service provider assertion",
+      "Independent testing of implementation",
+      "Assurance of service design",
+      "CESG-assured components"
+    ]
+  },
+  {
+    "types" : ["5answers-type1"],
+    "answers" : [
+      "Service provider assertion",
+      "Contractual commitment",
+      "Independent validation of assertion",
+      "Independent testing of implementation",
+      "CESG-assured components"
+    ]
+  }
+]
