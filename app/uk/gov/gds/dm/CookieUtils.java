@@ -17,7 +17,7 @@ public class CookieUtils {
     private static final boolean HTTP_ONLY = true;
 
     public static void setSSOCookie (String email, String supplierId, String companyName, Date timestamp, String eSourcingId){
-        String token = generateEncryptedSSOCookieString(email, supplierId, companyName, timestamp, eSourcingId);
+        String token = generateEncryptedSSOCookieString(email, supplierId, companyName, Security.getDateFormat().format(timestamp), eSourcingId);
 
         if(Play.mode == Play.Mode.DEV) {
             Http.Response.current().setCookie(SSO_COOKIE_NAME, token , LOCAL_DOMAIN, PATH, COOKIE_TTL, Security.applicationIsRunningAsSecure(), HTTP_ONLY);
@@ -27,7 +27,7 @@ public class CookieUtils {
     }
 
     public static void clearSSOCookie (String email, String supplierId, String companyName, Date timestamp, String eSourcingId){
-        String token = generateEncryptedSSOCookieString(email, supplierId, companyName, timestamp, eSourcingId);
+        String token = generateEncryptedSSOCookieString(email, supplierId, companyName, Security.getDateFormat().format(timestamp), eSourcingId);
 
         if(Play.mode == Play.Mode.DEV) {
             Http.Response.current().setCookie(SSO_COOKIE_NAME, token , LOCAL_DOMAIN, PATH, COOKIE_EXPIRE, Security.applicationIsRunningAsSecure(), HTTP_ONLY);
@@ -47,8 +47,8 @@ public class CookieUtils {
     }
 
 
-    public static String generateEncryptedSSOCookieString(String email, String supplierId, String companyName, Date timestamp, String eSourcingId){
-        String[] unencrypted = { email, supplierId, companyName, timestamp.toString(), eSourcingId };
+    public static String generateEncryptedSSOCookieString(String email, String supplierId, String companyName, String timestamp, String eSourcingId){
+        String[] unencrypted = { email, supplierId, companyName, timestamp, eSourcingId };
         return StringEscapeUtils.escapeJava(Security.encrypt(unencrypted));
     }
 }
