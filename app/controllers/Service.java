@@ -46,8 +46,8 @@ public class Service extends AuthenticatingController {
     }
 
     public static void createListing(String lot) {
-        validation.required(lot);
-        validation.match(lot, "SaaS|IaaS|PaaS|SCS");
+        validation.required(lot).key("p0q1");
+        validation.match(lot, "SaaS|IaaS|PaaS|SCS").key("p0q1");
 
         if(validation.hasErrors()) {
             for(Map.Entry<String, List<Error>> entry : validation.errorsMap().entrySet()) {
