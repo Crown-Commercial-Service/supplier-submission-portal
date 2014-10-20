@@ -40,7 +40,7 @@ public class Page11 extends AuthenticatingController {
         page.responses.put("p11q1", p11q1);
         page.responses.put("p11q2", p11q2);
         page.insert();
-        listing.addResponsePage(page, PAGE_ID);
+        listing.addResponsePage(page, PAGE_ID, supplierDetailsFromCookie.get("supplierEmail"));
         redirect(listing.nextPageUrl(PAGE_ID, listing.id));
     }
 }

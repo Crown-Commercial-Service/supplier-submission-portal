@@ -56,7 +56,7 @@ public class Page25 extends AuthenticatingController {
         page.responses.put("p25q3assurance", p25q3assurance);
         page.responses.put("p25q4assurance", p25q4assurance);
         page.insert();
-        listing.addResponsePage(page, PAGE_ID);
+        listing.addResponsePage(page, PAGE_ID, supplierDetailsFromCookie.get("supplierEmail"));
         redirect(listing.nextPageUrl(PAGE_ID, listing.id));
     }
 }

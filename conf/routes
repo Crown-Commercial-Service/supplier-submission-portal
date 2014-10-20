@@ -7,6 +7,14 @@ GET     /                                       Dashboard.home
 
 GET     /addservice                             Service.newService
 POST    /addservice                             Service.createListing
+POST    /service/delete                         Service.delete
+
+# Show summary page for service once all questions are complete
+GET     /service/{listingId}/summary            Service.summaryPage
+POST    /service/{listingId}/summary            Service.summaryPage
+POST    /service/complete                       Service.completeListing
+POST    /service/draft                          Service.markListingAsDraft
+POST    /service/summary/delete                 Service.showDeletePage
 
 GET     /documents                              DocumentsController.captureDocuments
 POST    /documents                              DocumentsController.submitDocuments
@@ -71,9 +79,6 @@ POST    /page/40/{listingId}                    Page40.savePage
 GET     /service/{listingId}/summary            Service.summaryPage
 POST    /service/complete                       Service.completeListing
 POST    /service/draft                          Service.markListingAsDraft
-
-#Load question page content
-GET     /fixtures                               Fixtures.initialise
 
 #Styleguide
 GET     /styleguide                             Styleguide.home

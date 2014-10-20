@@ -27,13 +27,19 @@ play auto-test
 ./scripts/updateEnvironment.sh ssp-staging ${ENCRYPTION_KEY} false
 play clean
 play deps
-play war -o /data/supplier-submission/last-successful/submissions-staging-${BUILD_NUMBER}.war
+play war -o /data/supplier-submission/last-successful/submissions-staging-${BUILD_NUMBER}.war --%staging
 
 # Build artefact for live
 ./scripts/updateEnvironment.sh ssp-live ${ENCRYPTION_KEY} true
+## use production web.xml
+mv ./war/WEB-INF/web.xml ./war/WEB-INF/web-not-production.xml
+mv ./war/WEB-INF/web-production.xml ./war/WEB-INF/web.xml
 play clean
 play deps
-play war -o /data/supplier-submission/last-successful/submissions-live-${BUILD_NUMBER}.war
+play war -o /data/supplier-submission/last-successful/submissions-live-${BUILD_NUMBER}.war --%prod
+## switch back to original web.xml
+mv ./war/WEB-INF/web.xml ./war/WEB-INF/web-production.xml
+mv ./war/WEB-INF/web-not-production.xml ./war/WEB-INF/web.xml
 
 git tag -a jenkins-build-${BUILD_NUMBER} -m "To deploy this build, use the following build number in Jenkins: ${BUILD_NUMBER}"
 git push --tags
