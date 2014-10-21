@@ -11,18 +11,41 @@
     ${_question}
   </td>
   <td class='summary-answer'>
-    <p>
-      %{
-        if (_answer) {
-      }%
-        ${_answer}%{ if (_assurance) { }%, assured by ${_assurance}%{ } }%
-      %{
-        } else if (!_optional) {
-      }%
-        Answer required
-      %{
-        }
-      }%
-    </p>
+    %{
+      if (_answer) {
+    }%
+      %{if(_serviceTypeQuestion){}%
+        ${_answer}
+      %{} else if(_answer.size() > 1){ }%
+        <ul>
+          %{
+            _answer.each {
+              // Filter out empty elements (especially ones we've inserted as padding)
+              if (it) {
+          }%
+            <li>
+              ${it}
+            </li>
+          %{
+              }
+            }
+          }%
+        </ul>
+        %{ if (_assurance) { }%
+          <p>Assured by ${_assurance}</p>
+        %{ } }%
+      %{} else {}%
+        <p>
+          ${_answer.getAt(0)}%{ if (_assurance) { }%, assured by ${_assurance}%{ } }%
+        </p>
+      %{}}%
+
+    %{
+      } else if (!_optional) {
+    }%
+      <p>Answer required</p>
+    %{
+      }
+    }%
   </td>
 </tr>

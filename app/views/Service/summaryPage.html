@@ -51,7 +51,8 @@
 /}
   #{summary/row
     question: content.get('p' + pageIndex + 'q1' + 'text'),
-    answer: "${listing.lot}"
+    answer: listing.lot,
+    serviceTypeQuestion: true
   /}
 #{summary/section/end /}
 
@@ -72,11 +73,10 @@
         questionIsRelevantToSelectedLot = content.get(question + 'lots')?.contains(listing.lot)
         if (questionIsRelevantToSelectedLot) {
     }%
-
       #{summary/row
         question: content.get(question + 'text'),
         answer: storedValues.get(question),
-        assurance: storedValues.get(question + 'assurance'),
+        assurance: storedValues.get(question + 'assurance')?.get(0),
         optional: optionalQuestions.contains(question)
       /}
 

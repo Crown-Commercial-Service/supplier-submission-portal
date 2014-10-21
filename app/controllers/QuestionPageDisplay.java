@@ -48,7 +48,7 @@ public class QuestionPageDisplay extends AuthenticatingController {
         } else {
             Page page = listing.completedPages.get(index);
             if (page.responses != null) {
-                renderArgs.put("oldValues", unflatten(page.responses));
+                renderArgs.put("oldValues", page.getUnflattenedResponses());
             }
         }
 
