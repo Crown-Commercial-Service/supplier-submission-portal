@@ -5,6 +5,7 @@ import com.google.gson.reflect.TypeToken;
 import models.Listing;
 import models.Page;
 import play.Logger;
+import play.Play;
 import uk.gov.gds.dm.Fixtures;
 
 import java.io.UnsupportedEncodingException;
@@ -18,8 +19,6 @@ public class QuestionPageDisplay extends AuthenticatingController {
 
         Listing listing = Listing.getByListingId(listingId);
 
-        System.out.println(listing);
-
         notFoundIfNull(listing);
 
         if(!listing.pageSequence.contains(pageId)){
@@ -31,7 +30,7 @@ public class QuestionPageDisplay extends AuthenticatingController {
             notFound();
         }
 
-        if (listing.serviceSubmitted == true) {
+        if (Play.mode != Play.Mode.DEV && listing.serviceSubmitted == true) {
             notFound();
         }
 
