@@ -180,6 +180,26 @@ public class Listing extends Model {
         return formattedDateString.replace("AM", "am").replace("PM","pm");
     }
 
+    public Long getFirstIncompletePage() {
+
+      int completed = 0;
+
+      for (Page p : completedPages) {
+        if (p.pageNumber != 0) {
+          completed++;
+        } else {
+          break;
+        }
+      }
+
+      if (completed >= pageSequence.size()) {
+        return 0L;
+      } else {
+        return pageSequence.get(completed);
+      }
+
+    }
+
     @Override
     public String toString() {
         return "Listing{" +

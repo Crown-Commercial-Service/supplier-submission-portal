@@ -63,7 +63,13 @@
         ${listing.getPageSequenceSize()} pages complete
       </td>
       <td class='summary-answer-action'>
-        <a href='/service/${listing.id}/summary'>Continue</a>
+        %{
+          if (0 != listing.getFirstIncompletePage()) {
+        }%
+        <a href='/page/${listing.getFirstIncompletePage()}/${listing.id}'>Continue</a>
+        %{
+          }
+        }%
       </td>
     </tr>
     #{/list}
