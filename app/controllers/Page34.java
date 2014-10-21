@@ -38,14 +38,18 @@ public class Page34 extends AuthenticatingController {
             redirect(String.format("/page/%d/%d", PAGE_ID, listing.id));
         }
 
-        Page page = new Page(listingId, PAGE_ID);
-        page.responses.put("p34q1", p34q1);
-        page.responses.put("p34q2", p34q2);
-        page.responses.put("p34q1assurance", p34q1assurance);
-        page.responses.put("p34q2assurance", p34q2assurance);
-        page.insert();
-        listing.addResponsePage(page, PAGE_ID, supplierDetailsFromCookie.get("supplierEmail"));
-        redirect(listing.nextPageUrl(PAGE_ID, listing.id));
+        if (listing.serviceSubmitted) {
+          redirect(listing.summaryPageUrl());
+        } else {
+          Page page = new Page(listingId, PAGE_ID);
+          page.responses.put("p34q1", p34q1);
+          page.responses.put("p34q2", p34q2);
+          page.responses.put("p34q1assurance", p34q1assurance);
+          page.responses.put("p34q2assurance", p34q2assurance);
+          page.insert();
+          listing.addResponsePage(page, PAGE_ID, supplierDetailsFromCookie.get("supplierEmail"));
+          redirect(listing.nextPageUrl(PAGE_ID, listing.id));
+        }
     }
 
 }

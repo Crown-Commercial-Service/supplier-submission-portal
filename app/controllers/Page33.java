@@ -56,20 +56,24 @@ public class Page33 extends AuthenticatingController {
             redirect(String.format("/page/%d/%d", PAGE_ID, listing.id));
         }
 
-        Page page = new Page(listingId, PAGE_ID);
-        page.responses.put("p33q1", p33q1);
-        page.responses.put("p33q2", p33q2);
-        page.responses.put("p33q3", p33q3);
-        page.responses.put("p33q4", p33q4);
-        page.responses.put("p33q5", p33q5);
-        page.responses.put("p33q1assurance", p33q1assurance);
-        page.responses.put("p33q2assurance", p33q2assurance);
-        page.responses.put("p33q3assurance", p33q3assurance);
-        page.responses.put("p33q4assurance", p33q4assurance);
-        page.responses.put("p33q5assurance", p33q5assurance);
-        page.insert();
-        listing.addResponsePage(page, PAGE_ID, supplierDetailsFromCookie.get("supplierEmail"));
-        redirect(listing.nextPageUrl(PAGE_ID, listing.id));
+        if (listing.serviceSubmitted) {
+          redirect(listing.summaryPageUrl());
+        } else {
+          Page page = new Page(listingId, PAGE_ID);
+          page.responses.put("p33q1", p33q1);
+          page.responses.put("p33q2", p33q2);
+          page.responses.put("p33q3", p33q3);
+          page.responses.put("p33q4", p33q4);
+          page.responses.put("p33q5", p33q5);
+          page.responses.put("p33q1assurance", p33q1assurance);
+          page.responses.put("p33q2assurance", p33q2assurance);
+          page.responses.put("p33q3assurance", p33q3assurance);
+          page.responses.put("p33q4assurance", p33q4assurance);
+          page.responses.put("p33q5assurance", p33q5assurance);
+          page.insert();
+          listing.addResponsePage(page, PAGE_ID, supplierDetailsFromCookie.get("supplierEmail"));
+          redirect(listing.nextPageUrl(PAGE_ID, listing.id));
+        }
     }
 
 }

@@ -64,13 +64,17 @@ public class Page7 extends AuthenticatingController {
         }
 
         //Save the form data as a Page into the correct page index
-        Page page = new Page(listingId, PAGE_ID);
-        page.responses.put("p7q1", p7q1);
-        page.responses.put("p7q2", p7q2);
-        page.responses.put("p7q3", p7q3.getFileName());
-        page.insert();
-        listing.addResponsePage(page, PAGE_ID, supplierDetailsFromCookie.get("supplierEmail"));
-        redirect(listing.nextPageUrl(PAGE_ID, listing.id));
+        if (listing.serviceSubmitted) {
+          redirect(listing.summaryPageUrl());
+        } else {
+          Page page = new Page(listingId, PAGE_ID);
+          page.responses.put("p7q1", p7q1);
+          page.responses.put("p7q2", p7q2);
+          page.responses.put("p7q3", p7q3.getFileName());
+          page.insert();
+          listing.addResponsePage(page, PAGE_ID, supplierDetailsFromCookie.get("supplierEmail"));
+          redirect(listing.nextPageUrl(PAGE_ID, listing.id));
+        }
     }
 
 }

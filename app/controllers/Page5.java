@@ -65,12 +65,16 @@ public class Page5 extends AuthenticatingController {
             redirect(String.format("/page/%d/%d", PAGE_ID, listing.id));
         }
 
-        Gson gson = new Gson();
-        Page page = new Page(listingId, PAGE_ID);
-        page.responses.put("p5q1", gson.toJson(q1));
-        page.responses.put("p5q2", gson.toJson(q2));
-        page.insert();
-        listing.addResponsePage(page, PAGE_ID, supplierDetailsFromCookie.get("supplierEmail"));
-        redirect(listing.nextPageUrl(PAGE_ID, listing.id));
+        if (listing.serviceSubmitted) {
+          redirect(listing.summaryPageUrl());
+        } else {
+          Gson gson = new Gson();
+          Page page = new Page(listingId, PAGE_ID);
+          page.responses.put("p5q1", gson.toJson(q1));
+          page.responses.put("p5q2", gson.toJson(q2));
+          page.insert();
+          listing.addResponsePage(page, PAGE_ID, supplierDetailsFromCookie.get("supplierEmail"));
+          redirect(listing.nextPageUrl(PAGE_ID, listing.id));
+        }
     }
 }

@@ -3,9 +3,10 @@
       Save and continue
     </button>
 
- %{ if (_prevPageURL) { }%
-      <a href='${_prevPageURL}' class='page-footer-item'>Previous page of questions</a>
+  %{ if (_prevPageURL) { }%
+    <a href='${_prevPageURL}' class='page-footer-item'>Previous page of questions</a>
   %{ } }%
-
-    <a href='/' class='page-footer-item'>Summary of pages</a>
+  %{ if (_summaryPageURL) { }%
+    <a href='${_summaryPageURL}' class='page-footer-item'>Summary of pages</a>
+  %{ } }%
   </div>

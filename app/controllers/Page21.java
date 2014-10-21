@@ -51,12 +51,16 @@ public class Page21 extends AuthenticatingController {
             redirect(String.format("/page/%d/%d", PAGE_ID, listing.id));
         }
 
-        // Save the form data as a Page into the correct page index
-        Gson gson = new Gson();
-        Page page = new Page(listingId, PAGE_ID);
-        page.responses.put("p21q1", gson.toJson(p21q1));
-        page.insert();
-        listing.addResponsePage(page, PAGE_ID, supplierDetailsFromCookie.get("supplierEmail"));
-        redirect(listing.nextPageUrl(PAGE_ID, listing.id));
+        if (listing.serviceSubmitted) {
+          redirect(listing.summaryPageUrl());
+        } else {
+          // Save the form data as a Page into the correct page index
+          Gson gson = new Gson();
+          Page page = new Page(listingId, PAGE_ID);
+          page.responses.put("p21q1", gson.toJson(p21q1));
+          page.insert();
+          listing.addResponsePage(page, PAGE_ID, supplierDetailsFromCookie.get("supplierEmail"));
+          redirect(listing.nextPageUrl(PAGE_ID, listing.id));
+        }
     }
 }

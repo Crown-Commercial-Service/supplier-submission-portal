@@ -86,6 +86,10 @@ public class Listing extends Model {
         }
     }
 
+    public String summaryPageUrl() {
+      return String.format("/service/%d/summary", this.id);
+    }
+
     public static List<Listing> allBySupplierId(String supplierId) {
         return Model.all(Listing.class).filter("supplierId", supplierId).fetch();
     }

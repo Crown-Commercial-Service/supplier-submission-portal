@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 public class Page28 extends AuthenticatingController {
-    
+
     private static final Long PAGE_ID = 28l;
 
     public static void savePage(Long listingId, String p28q1, String p28q2, String p28q3, String p28q4, String p28q5,
@@ -52,21 +52,25 @@ public class Page28 extends AuthenticatingController {
             redirect(String.format("/page/%d/%d", PAGE_ID, listing.id));
         }
 
-        Page page = new Page(listingId, PAGE_ID);
-        page.responses.put("p28q1", p28q1);
-        page.responses.put("p28q2", p28q2);
-        page.responses.put("p28q3", p28q3);
-        page.responses.put("p28q4", p28q4);
-        page.responses.put("p28q5", p28q5);
-        page.responses.put("p28q1assurance", p28q1assurance);
-        page.responses.put("p28q2assurance", p28q2assurance);
-        page.responses.put("p28q3assurance", p28q3assurance);
-        page.responses.put("p28q4assurance", p28q4assurance);
-        page.responses.put("p28q5assurance", p28q5assurance);
+        if (listing.serviceSubmitted) {
+          redirect(listing.summaryPageUrl());
+        } else {
+          Page page = new Page(listingId, PAGE_ID);
+          page.responses.put("p28q1", p28q1);
+          page.responses.put("p28q2", p28q2);
+          page.responses.put("p28q3", p28q3);
+          page.responses.put("p28q4", p28q4);
+          page.responses.put("p28q5", p28q5);
+          page.responses.put("p28q1assurance", p28q1assurance);
+          page.responses.put("p28q2assurance", p28q2assurance);
+          page.responses.put("p28q3assurance", p28q3assurance);
+          page.responses.put("p28q4assurance", p28q4assurance);
+          page.responses.put("p28q5assurance", p28q5assurance);
 
-        page.insert();
-        listing.addResponsePage(page, PAGE_ID, supplierDetailsFromCookie.get("supplierEmail"));
-        redirect(listing.nextPageUrl(PAGE_ID, listing.id));
+          page.insert();
+          listing.addResponsePage(page, PAGE_ID, supplierDetailsFromCookie.get("supplierEmail"));
+          redirect(listing.nextPageUrl(PAGE_ID, listing.id));
+        }
     }
 
 }

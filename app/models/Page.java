@@ -1,4 +1,4 @@
-package models; 
+package models;
 
 import siena.*;
 import siena.embed.Embedded;
@@ -11,18 +11,18 @@ import java.util.Map;
 public class Page extends Model {
 
     private static long autoIncrementId = 12345;
-    
+
     private static long nextId() {
         return autoIncrementId++;
     }
-    
+
     public static void initialiseAutoIncrementId() {
         Page pageWithHighestId =  Model.all(Page.class).order("-id").get();
         if (pageWithHighestId != null) {
             autoIncrementId = pageWithHighestId.id + 1;
         }
     }
-    
+
     // For GAE :
     // 1. @Id annotated field corresponding to the primary key must be Long type
     // 2. @Id annotated field corresponding to the primary key must be called "id"
@@ -50,7 +50,7 @@ public class Page extends Model {
     private Page() {
 
     }
-    
+
     public static Page emptyPage() {
         return new Page();
     }

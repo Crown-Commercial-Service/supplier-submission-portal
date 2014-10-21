@@ -18,6 +18,8 @@ public class QuestionPageDisplay extends AuthenticatingController {
 
         Listing listing = Listing.getByListingId(listingId);
 
+        System.out.println(listing);
+
         notFoundIfNull(listing);
 
         if(!listing.pageSequence.contains(pageId)){
@@ -29,7 +31,7 @@ public class QuestionPageDisplay extends AuthenticatingController {
             notFound();
         }
 
-        if (listing.isServiceSubmitted()) {
+        if (listing.serviceSubmitted == true) {
             notFound();
         }
 
@@ -41,7 +43,7 @@ public class QuestionPageDisplay extends AuthenticatingController {
         renderArgs.put("pageTotal", Integer.toString(listing.pageSequence.size()));
         renderArgs.put("listingId", listingId);
         renderArgs.put("prevPageURL", listing.prevPageUrl(pageId, listingId));
-
+        renderArgs.put("summaryPageURL", listing.summaryPageUrl());
 
         if (flash.get("body") != null) {
             try {

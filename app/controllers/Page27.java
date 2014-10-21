@@ -7,7 +7,7 @@ import java.util.Map;
 import java.util.List;
 
 public class Page27 extends AuthenticatingController {
-    
+
     private static final Long PAGE_ID = 27l;
 
     public static void savePage(Long listingId, String p27q1, String p27q2, String p27q1assurance, String p27q2assurance) {
@@ -43,14 +43,18 @@ public class Page27 extends AuthenticatingController {
             redirect(String.format("/page/%d/%d", PAGE_ID, listing.id));
         }
 
-        Page page = new Page(listingId, PAGE_ID);
-        page.responses.put("p27q1", p27q1);
-        page.responses.put("p27q2", p27q2);
-        page.responses.put("p27q1assurance", p27q1assurance);
-        page.responses.put("p27q2assurance", p27q2assurance);
-        page.insert();
-        listing.addResponsePage(page, PAGE_ID, supplierDetailsFromCookie.get("supplierEmail"));
-        redirect(listing.nextPageUrl(PAGE_ID, listing.id));
+        if (listing.serviceSubmitted) {
+          redirect(listing.summaryPageUrl());
+        } else {
+          Page page = new Page(listingId, PAGE_ID);
+          page.responses.put("p27q1", p27q1);
+          page.responses.put("p27q2", p27q2);
+          page.responses.put("p27q1assurance", p27q1assurance);
+          page.responses.put("p27q2assurance", p27q2assurance);
+          page.insert();
+          listing.addResponsePage(page, PAGE_ID, supplierDetailsFromCookie.get("supplierEmail"));
+          redirect(listing.nextPageUrl(PAGE_ID, listing.id));
+        }
     }
 
 }

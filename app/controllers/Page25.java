@@ -46,17 +46,21 @@ public class Page25 extends AuthenticatingController {
             redirect(String.format("/page/%d/%d", PAGE_ID, listing.id));
         }
 
-        // Save the form data as a Page into the correct page index
-        Page page = new Page(listingId, PAGE_ID);
-        page.responses.put("p25q1", p25q1);
-        page.responses.put("p25q2", p25q2);
-        page.responses.put("p25q3", p25q3);
-        page.responses.put("p25q4", p25q4);
-        page.responses.put("p25q2assurance", p25q2assurance);
-        page.responses.put("p25q3assurance", p25q3assurance);
-        page.responses.put("p25q4assurance", p25q4assurance);
-        page.insert();
-        listing.addResponsePage(page, PAGE_ID, supplierDetailsFromCookie.get("supplierEmail"));
-        redirect(listing.nextPageUrl(PAGE_ID, listing.id));
+        if (listing.serviceSubmitted) {
+          redirect(listing.summaryPageUrl());
+        } else {
+          // Save the form data as a Page into the correct page index
+          Page page = new Page(listingId, PAGE_ID);
+          page.responses.put("p25q1", p25q1);
+          page.responses.put("p25q2", p25q2);
+          page.responses.put("p25q3", p25q3);
+          page.responses.put("p25q4", p25q4);
+          page.responses.put("p25q2assurance", p25q2assurance);
+          page.responses.put("p25q3assurance", p25q3assurance);
+          page.responses.put("p25q4assurance", p25q4assurance);
+          page.insert();
+          listing.addResponsePage(page, PAGE_ID, supplierDetailsFromCookie.get("supplierEmail"));
+          redirect(listing.nextPageUrl(PAGE_ID, listing.id));
+        }
     }
 }

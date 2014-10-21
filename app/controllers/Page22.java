@@ -44,15 +44,19 @@ public class Page22 extends AuthenticatingController {
             redirect(String.format("/page/%d/%d", PAGE_ID, listing.id));
         }
 
-        // Save the form data as a Page into the correct page index
-        Page page = new Page(listingId, PAGE_ID);
-        page.responses.put("p22q1", p22q1);
-        page.responses.put("p22q2", p22q2);
-        page.responses.put("p22q3", p22q3);
-        page.responses.put("p22q4", p22q4);
-        page.responses.put("p22q5", p22q5);
-        page.insert();
-        listing.addResponsePage(page, PAGE_ID, supplierDetailsFromCookie.get("supplierEmail"));
-        redirect(listing.nextPageUrl(PAGE_ID, listing.id));
+        if (listing.serviceSubmitted) {
+          redirect(listing.summaryPageUrl());
+        } else {
+          // Save the form data as a Page into the correct page index
+          Page page = new Page(listingId, PAGE_ID);
+          page.responses.put("p22q1", p22q1);
+          page.responses.put("p22q2", p22q2);
+          page.responses.put("p22q3", p22q3);
+          page.responses.put("p22q4", p22q4);
+          page.responses.put("p22q5", p22q5);
+          page.insert();
+          listing.addResponsePage(page, PAGE_ID, supplierDetailsFromCookie.get("supplierEmail"));
+          redirect(listing.nextPageUrl(PAGE_ID, listing.id));
+        }
     }
 }

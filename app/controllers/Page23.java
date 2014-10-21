@@ -42,17 +42,21 @@ public class Page23 extends AuthenticatingController {
             redirect(String.format("/page/%d/%d", PAGE_ID, listing.id));
         }
 
-        // Save the form data as a Page into the correct page index
-        Page page = new Page(listingId, PAGE_ID);
-        page.responses.put("p23q1", p23q1);
-        page.responses.put("p23q2", p23q2);
-        page.responses.put("p23q3", p23q3);
-        page.responses.put("p23q1assurance", p23q1assurance);
-        page.responses.put("p23q2assurance", p23q2assurance);
-        page.responses.put("p23q3assurance", p23q3assurance);
-        page.insert();
-        listing.addResponsePage(page, PAGE_ID, supplierDetailsFromCookie.get("supplierEmail"));
-        redirect(listing.nextPageUrl(PAGE_ID, listing.id));
+        if (listing.serviceSubmitted) {
+          redirect(listing.summaryPageUrl());
+        } else {
+          // Save the form data as a Page into the correct page index
+          Page page = new Page(listingId, PAGE_ID);
+          page.responses.put("p23q1", p23q1);
+          page.responses.put("p23q2", p23q2);
+          page.responses.put("p23q3", p23q3);
+          page.responses.put("p23q1assurance", p23q1assurance);
+          page.responses.put("p23q2assurance", p23q2assurance);
+          page.responses.put("p23q3assurance", p23q3assurance);
+          page.insert();
+          listing.addResponsePage(page, PAGE_ID, supplierDetailsFromCookie.get("supplierEmail"));
+          redirect(listing.nextPageUrl(PAGE_ID, listing.id));
+        }
     }
 
 }
