@@ -29,6 +29,10 @@ public class QuestionPageDisplay extends AuthenticatingController {
             notFound();
         }
 
+        if (listing.isServiceSubmitted()) {
+            notFound();
+        }
+
         int index = listing.pageSequence.indexOf(pageId);
         renderArgs.put("lot", listing.lot);
         renderArgs.put("listingID", listing.id);
