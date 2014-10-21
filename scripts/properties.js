@@ -75,10 +75,17 @@ module.exports = {
       result.questionNumber = questionIndex + 1;
       result.text = questionName;
       result.dependsOnLots = getLots(questionObject.dependsOnLots);
+      result.validationMessages = [];
 
       for (prop in questionObject) {
         if (bannedProps.indexOf(prop) === -1) {
           result[prop] = questionObject[prop];
+        }
+        if (prop.indexOf("validation") == 0) {
+          result.validationMessages.push({
+            'validationName': prop,
+            'validationMessage': questionObject[prop],
+          });
         }
       }
 

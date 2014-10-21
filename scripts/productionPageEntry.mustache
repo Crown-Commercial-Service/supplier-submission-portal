@@ -8,9 +8,9 @@ p{{{pageNumber}}}q{{{questionNumber}}}assuranceApproach={{{assuranceApproach}}}
 {{#hint}}
 p{{{pageNumber}}}q{{{questionNumber}}}hint={{{hint}}}
 {{/hint}}
-{{#validationNotAnswered}}
-p{{{pageNumber}}}q{{{questionNumber}}}validationNotAnswered={{{validationNotAnswered}}}
-{{/validationNotAnswered}}
+{{#validationMessages}}
+p{{{pageNumber}}}q{{{questionNumber}}}{{{validationName}}}={{{validationMessage}}}
+{{/validationMessages}}
 {{#listItemName}}
 p{{{pageNumber}}}q{{{questionNumber}}}listItemName={{{listItemName}}}
 {{/listItemName}}
