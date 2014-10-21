@@ -1,21 +1,11 @@
-<!DOCTYPE html>
+#{extends 'layout.html' /}
+#{set title:'Internal server error | Digital Marketplace' /}
 
-<html>
-    <head>
-        <title>Application error</title>
-        <meta http-equiv="Content-Type" content="text/html; charset=${_response_encoding}"/>	
-    </head>
-    <body>
-        #{if play.mode.name() == 'DEV'}
-            #{500 exception /}
-        #{/if}
-        #{else}
-            <h1>Oops, an error occured</h1>
-            #{if exception instanceof play.exceptions.PlayException}
-                <p>
-                    This exception has been logged with id <strong>${exception.id}</strong>.
-                </p>
-            #{/if}
-        #{/else}
-    </body>
-</html>
+#{if play.mode.name() == 'DEV'}
+    #{500 exception /}
+#{/if}
+#{else}
+<p class='position'>Error</p>
+<h1 class='page-heading'>Internal server error</h1>
+<p>&{'505'}</p>
+#{/else}
