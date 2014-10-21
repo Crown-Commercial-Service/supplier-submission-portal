@@ -85,3 +85,5 @@ GET     /styleguide                             Styleguide.home
 
 #Logout
 GET     /logout                                 Logout.doLogout
+
+GET     /downloadblob/{path}                    BlobDownloader.downloadBlob

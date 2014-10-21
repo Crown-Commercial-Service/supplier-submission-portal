@@ -1,14 +1,25 @@
 package controllers;
 
+import com.google.appengine.api.blobstore.BlobKey;
+import com.google.appengine.api.blobstore.BlobstoreService;
+import com.google.appengine.api.blobstore.BlobstoreServiceFactory;
+import com.google.appengine.api.files.*;
 import models.Document;
 import models.Listing;
 import models.Page;
+import org.apache.commons.io.FileUtils;
 import play.Logger;
 import play.data.Upload;
 import play.data.validation.Error;
 import play.i18n.Messages;
 import uk.gov.gds.dm.DocumentUtils;
 
+import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.PrintWriter;
+import java.nio.ByteBuffer;
+import java.nio.channels.Channels;
 import java.util.List;
 import java.util.Map;
 
@@ -34,6 +45,34 @@ public class Page6 extends AuthenticatingController {
             }
         }
 
+try {
+    // Get a file service
+    FileService fileService = FileServiceFactory.getFileService();
+
+// Create a new Blob file with mime-type "text/plain"
+    AppEngineFile file = fileService.createNewBlobFile("application/pdf");
+    Logger.info("CREATED FILE: " + file);
+    String path = file.getFullPath();
+    Logger.info("FILE FULL PATH: " + path);
+// Write more to the file in a separate request
+    file = new AppEngineFile(path);
+
+// This time lock because we intend to finalize
+    boolean lock = true;
+    FileWriteChannel writeChannel = fileService.openWriteChannel(file, lock);
+    Logger.info("Opened write channel...");
+// This time we write to the channel directly
+    writeChannel.write(ByteBuffer.wrap(p6q1.asBytes()));
+
+// Now finalize
+    writeChannel.closeFinally();
+    Logger.info("File has been uploaded.");
+    BlobKey blobKey = fileService.getBlobKey(file);
+    Logger.info("BLOBKEY=" + blobKey);
+} catch (Exception ex) {
+    ex.printStackTrace();
+}
+        
 //        try {
 //            Document document = storeDocument(p6q1, getSupplierId(), listingId, QUESTION_ID);
 //            document.insert();
