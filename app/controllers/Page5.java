@@ -6,6 +6,7 @@ import models.Listing;
 import models.Page;
 import play.data.validation.Error;
 import uk.gov.gds.dm.ValidationUtils;
+import uk.gov.gds.dm.Fixtures;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -37,8 +38,8 @@ public class Page5 extends AuthenticatingQuestionPage {
             if(params.containsKey("p5q1val" + i)){
                 s = params.get("p5q1val" + i)[0];
                 if (!Strings.isNullOrEmpty(s)) {
-                    validation.maxSize(s, 100).key("p5q1val" + i).message("Too many characters");
-                    validation.isTrue(ValidationUtils.isWordCountLessThan(s, 10)).key("p5q1val" + i).message("Too many words");
+                    validation.maxSize(s, 100).key("p5q1").message("Too many characters");
+                    validation.isTrue(ValidationUtils.isWordCountLessThan(s, 10)).key("p5q1").message("Too many words");
                     q1.add(s);
                     paramString.append("p5q1=").append(URLEncoder.encode(s, "UTF-8")).append("&");
                 }
@@ -47,8 +48,8 @@ public class Page5 extends AuthenticatingQuestionPage {
             if(params.containsKey("p5q2val" + i)){
                 s = params.get("p5q2val" + i)[0];
                 if (!Strings.isNullOrEmpty(s)) {
-                    validation.maxSize(s, 100).key("p5q2val" + i).message("Too many characters");
-                    validation.isTrue(ValidationUtils.isWordCountLessThan(s, 10)).key("p5q2val" + i).message("Too many words");
+                    validation.maxSize(s, 100).key("p5q2").message("Too many characters");
+                    validation.isTrue(ValidationUtils.isWordCountLessThan(s, 10)).key("p5q2").message("Too many words");
                     q2.add(s);
                     paramString.append("p5q2=").append(URLEncoder.encode(s, "UTF-8")).append("&");
                 }
@@ -64,7 +65,7 @@ public class Page5 extends AuthenticatingQuestionPage {
                 String key = entry.getKey();
                 String value = entry.getValue().get(0).message();
 
-                flash.put(key, value);
+                flash.put(key, Fixtures.getErrorMessage(key, value));
             }
            
             if (request.params.get("return_to_summary").equals("yes")) {

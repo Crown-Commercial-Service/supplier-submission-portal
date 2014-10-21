@@ -6,6 +6,7 @@ import play.data.Upload;
 import play.data.validation.Error;
 import play.i18n.Messages;
 import uk.gov.gds.dm.DocumentUtils;
+import uk.gov.gds.dm.Fixtures;
 
 import java.util.HashMap;
 import java.util.List;
@@ -51,7 +52,7 @@ public class Page6 extends AuthenticatingQuestionPage {
                 String key = entry.getKey();
                 String value = entry.getValue().get(0).message();
 
-                flash.put(key, value);
+                flash.put(key, Fixtures.getErrorMessage(key, value));
             }
             if (request.params.get("return_to_summary").equals("yes")) {
               redirect(String.format("/page/%d/%d?return_to_summary=yes", PAGE_ID, listing.id));

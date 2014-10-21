@@ -30,7 +30,7 @@
       label: content.get(question + 'text'),
       hint: content.get(question + 'hint'),
       value: oldValues?.get(question)?.isEmpty() ? "" : oldValues?.get(question)?.get(0),
-      error: content.get(question + flash.get(question))
+      error: flash.get(question)
     /}
     %{
       }
@@ -45,7 +45,7 @@
       hint: content.get(question + 'hint'),
       value: oldValues?.get(question)?.isEmpty() ? "" : oldValues?.get(question)?.get(0),
       max_words: 50,
-      error: content.get(question + flash.get(question))
+      error: flash.get(question)
     /}
     %{
       }

@@ -2,6 +2,7 @@ package controllers;
 
 import models.Listing;
 import play.data.validation.Error;
+import uk.gov.gds.dm.Fixtures;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -25,8 +26,8 @@ public class Page17 extends AuthenticatingQuestionPage {
 
         if(p17q1 != null && p17q1.toLowerCase().equals("yes")){
             validation.required(p17q2).key("p17q2");
-            validation.maxSize(p17q2, 100);
         }
+        validation.maxSize(p17q2, 100);
 
         if(validation.hasErrors()) {
             flash.put("body", params.get("body"));
@@ -34,7 +35,7 @@ public class Page17 extends AuthenticatingQuestionPage {
                 String key = entry.getKey();
                 String value = entry.getValue().get(0).message();
 
-                flash.put(key, value);
+                flash.put(key, Fixtures.getErrorMessage(key, value));
             }
             System.out.println(flash);
             if (request.params.get("return_to_summary").equals("yes")) {

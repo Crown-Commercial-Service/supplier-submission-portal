@@ -2,10 +2,10 @@
 # For example, for French create a messages.fr file
 
 validation.required=validationNotAnswered
-validation.file.tooLarge=File was too large.
-validation.file.wrongFormat=File was the wrong format.
+validation.file.tooLarge=validationTooLarge
+validation.file.wrongFormat=validationWrongFormat
 validation.invalid=validationNotANumber
-validation.upload.failed=The file upload failed
+validation.upload.failed=validationUploadFail
 validation.maxLessThanMin=validationMaxLessThanMin
 
 404=Sorry, that page could not be found on our system. This error has been logged.
