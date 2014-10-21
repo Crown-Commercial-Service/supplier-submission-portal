@@ -5,6 +5,7 @@ $accessible-orange: darken($orange, 16.5%);
 .summary {
 
   &-item {
+    width: 100%;
     margin: 10px 0 15px 0;
   }
 
@@ -86,7 +87,8 @@ $accessible-orange: darken($orange, 16.5%);
   }
 
   &-answer-heading {
-    display: none;
+    position: absolute;
+    left: -9999em;
   }
 
   &-answer-title {
