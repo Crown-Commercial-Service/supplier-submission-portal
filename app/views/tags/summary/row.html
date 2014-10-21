@@ -17,6 +17,7 @@
       if (_answer) {
     }%
       %{if(_serviceTypeQuestion){}%
+        ${_answer}
       %{} else if(_answer.size() > 1){ }%
         <ul>
           %{
