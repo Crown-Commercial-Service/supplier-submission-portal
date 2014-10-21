@@ -21,7 +21,6 @@ public class Service extends AuthenticatingController {
         List<Long> flow = ServiceSubmissionJourneyFlows.getFlow(listing.lot);
         List<String> optionalQuestions = ServiceSubmissionJourneyFlows.getOptionalQuestions();
 
-        // Map<String, String> allAnswers = new HashMap<String, String>();
         Map<String, Collection<String>> allAnswers = new HashMap<String, Collection<String>>();
 
         for(Page p : listing.completedPages){
@@ -106,10 +105,11 @@ public class Service extends AuthenticatingController {
         List<Long> flow = ServiceSubmissionJourneyFlows.getFlow(listing.lot);
         List<String> optionalQuestions = ServiceSubmissionJourneyFlows.getOptionalQuestions();
 
-        Map<String, String> allAnswers = new HashMap<String, String>();
+        Map<String, Collection<String>> allAnswers = new HashMap<String, Collection<String>>();
+
         for(Page p : listing.completedPages){
             if(p.responses != null){
-                allAnswers.putAll(p.responses);
+                allAnswers.putAll(p.getUnflattenedResponses());
             }
         }
 
