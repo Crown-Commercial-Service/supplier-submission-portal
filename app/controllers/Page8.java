@@ -23,7 +23,7 @@ public class Page8 extends AuthenticatingController {
         Listing listing = Listing.getByListingId(listingId);
 
         Double min = null, max = null;
-                
+
         try {
             min = Double.valueOf(p8q1MinPrice);
             if (min < 0) {
@@ -98,8 +98,8 @@ public class Page8 extends AuthenticatingController {
         if(validation.hasErrors()) {
             flash.put("body", "p8q1MinPrice=" + params.get("p8q1MinPrice") + "&p8q1MaxPrice=" + params.get("p8q1MaxPrice") +
                     "&p8q1Unit=" + params.get("p8q1Unit") + "&p8q1Interval=" + params.get("p8q1Interval") +
-                    "&p8q2=" + params.get("p8q2") + "&p8q3=" + 
-                    params.get("p8q3") + "&p8q4=" + params.get("p8q4") + "&p8q5=" + params.get("p8q5") + 
+                    "&p8q2=" + params.get("p8q2") + "&p8q3=" +
+                    params.get("p8q3") + "&p8q4=" + params.get("p8q4") + "&p8q5=" + params.get("p8q5") +
                     "&p8q6=" + params.get("p8q6") + "&p8q7=" + params.get("p8q7"));
             for(Map.Entry<String, List<Error>> entry : validation.errorsMap().entrySet()) {
                 String key = entry.getKey();
@@ -111,7 +111,17 @@ public class Page8 extends AuthenticatingController {
             redirect(String.format("/page/%d/%d", PAGE_ID, listing.id));
         }
 
+        String nicePrice = "£" + p8q1MinPrice;
+        if (0 != p8q1MaxPrice.trim().length()) {
+           nicePrice = nicePrice + " to £" + p8q1MaxPrice;
+        }
+        nicePrice = nicePrice + " per " + p8q1Unit.toLowerCase();
+        if (0 != p8q1Interval.trim().length()) {
+           nicePrice = nicePrice + " per " + p8q1Interval.toLowerCase();
+        }
+
         Page page = new Page(listingId, PAGE_ID);
+        page.responses.put("p8q1", nicePrice);
         page.responses.put("p8q1MinPrice", p8q1MinPrice);
         page.responses.put("p8q1MaxPrice", p8q1MaxPrice);
         page.responses.put("p8q1Unit", p8q1Unit);
