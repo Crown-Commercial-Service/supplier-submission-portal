@@ -5,10 +5,16 @@
   padding: 20px 20px 25px 20px;
   margin-top: 15px;
 
-  &-warning {
+  &-destructive {
     @extend .banner;
     border-left: 5px solid $red;
     color: $red;
+  }
+
+  &-warning {
+    @extend .banner;
+    border-left: 5px solid $accessible-orange;
+    color: $accessible-orange;
   }
 
   &-action {
