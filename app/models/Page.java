@@ -1,4 +1,4 @@
-package models; 
+package models;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -16,18 +16,18 @@ import java.util.Map;
 public class Page extends Model {
 
     private static long autoIncrementId = 12345;
-    
+
     private static long nextId() {
         return autoIncrementId++;
     }
-    
+
     public static void initialiseAutoIncrementId() {
         Page pageWithHighestId =  Model.all(Page.class).order("-id").get();
         if (pageWithHighestId != null) {
             autoIncrementId = pageWithHighestId.id + 1;
         }
     }
-    
+
     // For GAE :
     // 1. @Id annotated field corresponding to the primary key must be Long type
     // 2. @Id annotated field corresponding to the primary key must be called "id"
@@ -55,7 +55,7 @@ public class Page extends Model {
     private Page() {
 
     }
-    
+
     public static Page emptyPage() {
         return new Page();
     }
@@ -66,17 +66,23 @@ public class Page extends Model {
         for(String key : this.responses.keySet()) {
             String val = this.responses.get(key);
             ArrayList<String> list = new ArrayList();
+
             if (val == null || val.isEmpty()){
                 toReturn.put(key, list);
             } else if (val.startsWith("[")) {
                 Type collectionType = new TypeToken<Collection<String>>(){}.getType();
                 Collection<String> vals = gson.fromJson(val, collectionType);
+                String emptyElement = "";
+                // Pad with empty element so that 'real' arrays always have
+                // a length > 1
+                vals.add(emptyElement);
                 toReturn.put(key, vals);
             } else {
                 list.add(val);
                 toReturn.put(key, list);
             }
         }
+        System.out.println(toReturn);
         return toReturn;
     }
 
