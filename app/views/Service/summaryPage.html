@@ -63,7 +63,8 @@
     title: content.get('p' + page + 'title'),
     page_list_number: ++pageIndex,
     page: page,
-    service_id: service_id
+    service_id: service_id,
+    completed: listing.isServiceSubmitted()
   /}
 
     %{
