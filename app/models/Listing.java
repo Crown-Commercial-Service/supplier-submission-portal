@@ -6,11 +6,10 @@ import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
 
+import play.Logger;
 import siena.*;
 import siena.embed.Embedded;
 import uk.gov.gds.dm.ServiceSubmissionJourneyFlows;
-
-import static siena.Json.*;
 
 @Table("listing")
 public class Listing extends Model {
@@ -57,15 +56,27 @@ public class Listing extends Model {
         this.supplierId = supplierId;
         this.lot = lot;
         pageSequence = ServiceSubmissionJourneyFlows.getFlow(lot);
-        int size = pageSequence.size();
-        completedPages = new ArrayList<Page>(size);
-        for (int i=0; i< size; i++) {
-            completedPages.add(Page.emptyPage());
-        }
+        completedPages = new ArrayList<Page>();
         this.serviceSubmitted = false;
         this.lastUpdated = new Date();
     }
 
+    public Page getResponsePageByPageId(Long page_id) throws Exception {
+        Page returnPage = null;
+        int counter = 0;
+        for(Page p : completedPages){
+            if(p.pageNumber.equals(page_id)){
+                returnPage = p;
+                counter++;
+            }
+        }
+
+        if(counter > 1){
+            throw new Exception("There are duplicate pages in listing id: " + id);
+        }
+
+        return returnPage;
+    }
     public String nextPageUrl(Long currentPage, Long listingId) {
         Long nextPage = nextPage(currentPage);
         if (nextPage < 0) {
@@ -122,20 +133,14 @@ public class Listing extends Model {
     }
 
     public void addResponsePage(Page page, Long pageId, String updateByEmail) {
-        int index = pageSequence.indexOf(pageId);
-        Page p = completedPages.get(index);
-        if (p.id != 0) {
-            p.delete();
-            completedPages.remove(index);
+        try {
+            completedPages.remove(getResponsePageByPageId(pageId));
+            completedPages.add(page);
+            updateListing(updateByEmail);
+        } catch (Exception e){
+            Logger.error(e.getMessage());
         }
-        completedPages.add(index, page);
-        updateListing(updateByEmail);
-    }
 
-    private void updateListing(String updatedByEmail){
-        this.lastUpdated = new Date();
-        this.lastUpdatedEmail = updatedByEmail;
-        update();
     }
 
     public void completeListing(String completedByEmail){
@@ -147,30 +152,6 @@ public class Listing extends Model {
 
     public boolean allPagesHaveBeenCompleted() {
         return pageSequence.size() == completedPageCount();
-    }
-
-    public Long firstPage() {
-        return pageSequence.get(0);
-    }
-
-    private Long nextPage(Long currentPage) {
-        int index = pageSequence.indexOf(currentPage);
-        if (index == pageSequence.size()-1) {
-            // End of questions
-            return -1l;
-        } else {
-            return pageSequence.get(index+1);
-        }
-    }
-
-    private Long prevPage(Long currentPage) {
-        int index = pageSequence.indexOf(currentPage);
-        if (index < 1) {
-            // Start of questions
-            return -1l;
-        } else {
-            return pageSequence.get(index-1);
-        }
     }
 
     public String getLastUpdated(){
@@ -195,22 +176,52 @@ public class Listing extends Model {
 
     public Long getFirstIncompletePage() {
 
-      int completed = 0;
+        int completed = 0;
 
-      for (Page p : completedPages) {
-        if (p.pageNumber != 0) {
-          completed++;
-        } else {
-          break;
+        for (Page p : completedPages) {
+            if (p.pageNumber != 0) {
+                completed++;
+            } else {
+                break;
+            }
         }
-      }
 
-      if (completed >= pageSequence.size()) {
-        return 0L;
-      } else {
-        return pageSequence.get(completed);
-      }
+        if (completed >= pageSequence.size()) {
+            return 0L;
+        } else {
+            return pageSequence.get(completed);
+        }
 
+    }
+
+    private void updateListing(String updatedByEmail){
+        this.lastUpdated = new Date();
+        this.lastUpdatedEmail = updatedByEmail;
+        update();
+    }
+
+    public Long firstPage() {
+        return pageSequence.get(0);
+    }
+
+    private Long nextPage(Long currentPage) {
+        int index = pageSequence.indexOf(currentPage);
+        if (index == pageSequence.size()-1) {
+            // End of questions
+            return -1l;
+        } else {
+            return pageSequence.get(index+1);
+        }
+    }
+
+    private Long prevPage(Long currentPage) {
+        int index = pageSequence.indexOf(currentPage);
+        if (index < 1) {
+            // Start of questions
+            return -1l;
+        } else {
+            return pageSequence.get(index-1);
+        }
     }
 
     @Override
