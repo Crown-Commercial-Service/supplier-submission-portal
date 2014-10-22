@@ -18,6 +18,10 @@ public class Page31 extends AuthenticatingController {
 
         Listing listing = Listing.getByListingId(listingId);
 
+        if (listing.serviceSubmitted) {
+          redirect(listing.summaryPageUrl());
+        }
+
         // Validate all fields on this page requiring validation
         validation.required(p31q1).key("p31q1");
         validation.isTrue(ValidationUtils.stringArrayValuesAreNotTooLong(p31q1, 100)).key("p31q1").message("Invalid values");
@@ -36,16 +40,13 @@ public class Page31 extends AuthenticatingController {
             redirect(String.format("/page/%d/%d", PAGE_ID, listing.id));
         }
 
-        if (listing.serviceSubmitted) {
-          redirect(listing.summaryPageUrl());
-        } else {
-          Gson gson = new Gson();
-          Page page = new Page(listingId, PAGE_ID);
-          page.responses.put("p31q1", gson.toJson(p31q1));
-          page.responses.put("p31q1assurance", p31q1assurance);
-          page.insert();
-          listing.addResponsePage(page, PAGE_ID, supplierDetailsFromCookie.get("supplierEmail"));
-          redirect(listing.nextPageUrl(PAGE_ID, listing.id));
-        }
+
+        Gson gson = new Gson();
+        Page page = new Page(listingId, PAGE_ID);
+        page.responses.put("p31q1", gson.toJson(p31q1));
+        page.responses.put("p31q1assurance", p31q1assurance);
+        page.insert();
+        listing.addResponsePage(page, PAGE_ID, supplierDetailsFromCookie.get("supplierEmail"));
+        redirect(listing.nextPageUrl(PAGE_ID, listing.id));
     }
 }

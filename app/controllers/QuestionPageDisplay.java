@@ -30,6 +30,9 @@ public class QuestionPageDisplay extends AuthenticatingController {
             notFound();
         }
 
+        // The unit tests (running in DEV mode) do not mock the listing object
+        // properly so listing.serviceSubmitted will always return true, causing
+        // the tests to fail
         if (Play.mode != Play.Mode.DEV && listing.serviceSubmitted == true) {
             notFound();
         }

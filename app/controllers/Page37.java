@@ -17,6 +17,10 @@ public class Page37 extends AuthenticatingController {
 
         Listing listing = Listing.getByListingId(listingId);
 
+        if (listing.serviceSubmitted) {
+          redirect(listing.summaryPageUrl());
+        }
+
         // Validate all fields on this page requiring validation
         if (!listing.lot.equals("SaaS")) {
             validation.required(p37q1).key("p37q1");
@@ -39,22 +43,19 @@ public class Page37 extends AuthenticatingController {
             redirect(String.format("/page/%d/%d", PAGE_ID, listing.id));
         }
 
-        if (listing.serviceSubmitted) {
-          redirect(listing.summaryPageUrl());
-        } else {
-          Gson gson = new Gson();
-          Page page = new Page(listingId, PAGE_ID);
-          page.responses.put("p37q1", p37q1);
-          if (p37q2 != null) {
-              page.responses.put("p37q2", gson.toJson(p37q2));
-          }
-          else {
-              page.responses.put("p37q2", null);
-          }
-          page.insert();
-          listing.addResponsePage(page, PAGE_ID, supplierDetailsFromCookie.get("supplierEmail"));
-          redirect(listing.nextPageUrl(PAGE_ID, listing.id));
+
+        Gson gson = new Gson();
+        Page page = new Page(listingId, PAGE_ID);
+        page.responses.put("p37q1", p37q1);
+        if (p37q2 != null) {
+            page.responses.put("p37q2", gson.toJson(p37q2));
         }
+        else {
+            page.responses.put("p37q2", null);
+        }
+        page.insert();
+        listing.addResponsePage(page, PAGE_ID, supplierDetailsFromCookie.get("supplierEmail"));
+        redirect(listing.nextPageUrl(PAGE_ID, listing.id));
     }
 
 }

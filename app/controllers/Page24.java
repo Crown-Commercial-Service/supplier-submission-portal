@@ -20,6 +20,10 @@ public class Page24 extends AuthenticatingController {
 
         Listing listing = Listing.getByListingId(listingId);
 
+        if (listing.serviceSubmitted) {
+          redirect(listing.summaryPageUrl());
+        }
+
         // Validate all fields on this page requiring validation
         if (!listing.lot.equals("SCS")) {
             // SaaS, PaaS, IaaS
@@ -67,47 +71,45 @@ public class Page24 extends AuthenticatingController {
             redirect(String.format("/page/%d/%d", PAGE_ID, listing.id));
         }
 
-        if (listing.serviceSubmitted) {
-          redirect(listing.summaryPageUrl());
-        } else {
-          // Save the form data as a Page into the correct page index
-          Gson gson = new Gson();
-          Page page = new Page(listingId, PAGE_ID);
-          if (p24q1 != null) {
-              page.responses.put("p24q1", gson.toJson(p24q1));
-              page.responses.put("p24q1assurance", p24q1assurance);
-          }
-          else {page.responses.put("p24q1", null);
-          }
-          if (p24q2 != null) {
-              page.responses.put("p24q2", gson.toJson(p24q2));
-              page.responses.put("p24q2assurance", p24q2assurance);
-          }
-          else {page.responses.put("p24q2", null);
-          }
-          page.responses.put("p24q3", p24q3);
-          page.responses.put("p24q4", p24q4);
-          page.responses.put("p24q5", p24q5);
-          page.responses.put("p24q6", p24q6);
-          page.responses.put("p24q7", p24q7);
-          page.responses.put("p24q8", p24q8);
-          page.responses.put("p24q9", p24q9);
-          page.responses.put("p24q10", p24q10);
-          page.responses.put("p24q11", p24q11);
 
-          page.responses.put("p24q3assurance", p24q3assurance);
-          page.responses.put("p24q4assurance", p24q4assurance);
-          page.responses.put("p24q5assurance", p24q5assurance);
-          page.responses.put("p24q6assurance", p24q6assurance);
-          page.responses.put("p24q7assurance", p24q7assurance);
-          page.responses.put("p24q8assurance", p24q8assurance);
-          page.responses.put("p24q9assurance", p24q9assurance);
-          page.responses.put("p24q10assurance", p24q10assurance);
-          page.responses.put("p24q11assurance", p24q11assurance);
-          page.insert();
-          listing.addResponsePage(page, PAGE_ID, supplierDetailsFromCookie.get("supplierEmail"));
-          redirect(listing.nextPageUrl(PAGE_ID, listing.id));
+        // Save the form data as a Page into the correct page index
+        Gson gson = new Gson();
+        Page page = new Page(listingId, PAGE_ID);
+        if (p24q1 != null) {
+            page.responses.put("p24q1", gson.toJson(p24q1));
+            page.responses.put("p24q1assurance", p24q1assurance);
         }
+        else {page.responses.put("p24q1", null);
+        }
+        if (p24q2 != null) {
+            page.responses.put("p24q2", gson.toJson(p24q2));
+            page.responses.put("p24q2assurance", p24q2assurance);
+        }
+        else {page.responses.put("p24q2", null);
+        }
+        page.responses.put("p24q3", p24q3);
+        page.responses.put("p24q4", p24q4);
+        page.responses.put("p24q5", p24q5);
+        page.responses.put("p24q6", p24q6);
+        page.responses.put("p24q7", p24q7);
+        page.responses.put("p24q8", p24q8);
+        page.responses.put("p24q9", p24q9);
+        page.responses.put("p24q10", p24q10);
+        page.responses.put("p24q11", p24q11);
+
+        page.responses.put("p24q3assurance", p24q3assurance);
+        page.responses.put("p24q4assurance", p24q4assurance);
+        page.responses.put("p24q5assurance", p24q5assurance);
+        page.responses.put("p24q6assurance", p24q6assurance);
+        page.responses.put("p24q7assurance", p24q7assurance);
+        page.responses.put("p24q8assurance", p24q8assurance);
+        page.responses.put("p24q9assurance", p24q9assurance);
+        page.responses.put("p24q10assurance", p24q10assurance);
+        page.responses.put("p24q11assurance", p24q11assurance);
+        page.insert();
+        listing.addResponsePage(page, PAGE_ID, supplierDetailsFromCookie.get("supplierEmail"));
+        redirect(listing.nextPageUrl(PAGE_ID, listing.id));
+
     }
 
 }

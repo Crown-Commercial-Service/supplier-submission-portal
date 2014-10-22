@@ -19,6 +19,10 @@ public class Page20 extends AuthenticatingController {
 
         Listing listing = Listing.getByListingId(listingId);
 
+        if (listing.serviceSubmitted) {
+          redirect(listing.summaryPageUrl());
+        }
+
         // Extract multiple values for list items
         Map<String, String[]> params = request.params.all();
         ArrayList<String> p20q1 = new ArrayList();
@@ -49,16 +53,13 @@ public class Page20 extends AuthenticatingController {
             redirect(String.format("/page/%d/%d", PAGE_ID, listing.id));
         }
 
-        if (listing.serviceSubmitted) {
-          redirect(listing.summaryPageUrl());
-        } else {
-          // Save the form data as a Page into the correct page index
-          Gson gson = new Gson();
-          Page page = new Page(listingId, PAGE_ID);
-          page.responses.put("p20q1", gson.toJson(p20q1));
-          page.insert();
-          listing.addResponsePage(page, PAGE_ID, supplierDetailsFromCookie.get("supplierEmail"));
-          redirect(listing.nextPageUrl(PAGE_ID, listing.id));
-        }
+        // Save the form data as a Page into the correct page index
+        Gson gson = new Gson();
+        Page page = new Page(listingId, PAGE_ID);
+        page.responses.put("p20q1", gson.toJson(p20q1));
+        page.insert();
+        listing.addResponsePage(page, PAGE_ID, supplierDetailsFromCookie.get("supplierEmail"));
+        redirect(listing.nextPageUrl(PAGE_ID, listing.id));
+
     }
 }

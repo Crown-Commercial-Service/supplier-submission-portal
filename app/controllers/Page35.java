@@ -15,6 +15,10 @@ public class Page35 extends AuthenticatingController {
 
         Listing listing = Listing.getByListingId(listingId);
 
+        if (listing.serviceSubmitted) {
+          redirect(listing.summaryPageUrl());
+        }
+
         // Validate all fields on this page requiring validation
         validation.required(p35q1).key("p35q1");
         validation.maxSize(p35q1, 10);
@@ -45,20 +49,17 @@ public class Page35 extends AuthenticatingController {
             redirect(String.format("/page/%d/%d", PAGE_ID, listing.id));
         }
 
-        if (listing.serviceSubmitted) {
-          redirect(listing.summaryPageUrl());
-        } else {
-          Page page = new Page(listingId, PAGE_ID);
-          page.responses.put("p35q1", p35q1);
-          page.responses.put("p35q2", p35q2);
-          page.responses.put("p35q3", p35q3);
-          page.responses.put("p35q1assurance", p35q1assurance);
-          page.responses.put("p35q2assurance", p35q2assurance);
-          page.responses.put("p35q3assurance", p35q3assurance);
-          page.insert();
-          listing.addResponsePage(page, PAGE_ID, supplierDetailsFromCookie.get("supplierEmail"));
-          redirect(listing.nextPageUrl(PAGE_ID, listing.id));
-        }
+        Page page = new Page(listingId, PAGE_ID);
+        page.responses.put("p35q1", p35q1);
+        page.responses.put("p35q2", p35q2);
+        page.responses.put("p35q3", p35q3);
+        page.responses.put("p35q1assurance", p35q1assurance);
+        page.responses.put("p35q2assurance", p35q2assurance);
+        page.responses.put("p35q3assurance", p35q3assurance);
+        page.insert();
+        listing.addResponsePage(page, PAGE_ID, supplierDetailsFromCookie.get("supplierEmail"));
+        redirect(listing.nextPageUrl(PAGE_ID, listing.id));
+
     }
 
 }

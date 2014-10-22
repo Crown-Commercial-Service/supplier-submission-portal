@@ -15,6 +15,10 @@ public class Page38 extends AuthenticatingController {
 
         Listing listing = Listing.getByListingId(listingId);
 
+        if (listing.serviceSubmitted) {
+          redirect(listing.summaryPageUrl());
+        }
+
         // Validate all fields on this page requiring validation
         validation.required(p38q1).key("p38q1");
         validation.maxSize(p38q1, 80);
@@ -33,15 +37,11 @@ public class Page38 extends AuthenticatingController {
             redirect(String.format("/page/%d/%d", PAGE_ID, listing.id));
         }
 
-        if (listing.serviceSubmitted) {
-          redirect(listing.summaryPageUrl());
-        } else {
-          Page page = new Page(listingId, PAGE_ID);
-          page.responses.put("p38q1", p38q1);
-          page.responses.put("p38q1assurance", p38q1assurance);
-          page.insert();
-          listing.addResponsePage(page, PAGE_ID, supplierDetailsFromCookie.get("supplierEmail"));
-          redirect(listing.nextPageUrl(PAGE_ID, listing.id));
-        }
+        Page page = new Page(listingId, PAGE_ID);
+        page.responses.put("p38q1", p38q1);
+        page.responses.put("p38q1assurance", p38q1assurance);
+        page.insert();
+        listing.addResponsePage(page, PAGE_ID, supplierDetailsFromCookie.get("supplierEmail"));
+        redirect(listing.nextPageUrl(PAGE_ID, listing.id));
     }
 }

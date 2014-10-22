@@ -16,6 +16,10 @@ public class Page9 extends AuthenticatingController {
 
         Listing listing = Listing.getByListingId(listingId);
 
+        if (listing.serviceSubmitted) {
+          redirect(listing.summaryPageUrl());
+        }
+
         // Validate all fields on this page requiring validation
         validation.required(p9q1).key("p9q1");
         validation.maxSize(p9q1, 10);
@@ -33,14 +37,11 @@ public class Page9 extends AuthenticatingController {
         }
 
         // Save the form data as a Page into the correct page index
-        if (listing.serviceSubmitted) {
-          redirect(listing.summaryPageUrl());
-        } else {
-          Page page = new Page(listingId, PAGE_ID);
-          page.responses.put("p9q1", p9q1);
-          page.insert();
-          listing.addResponsePage(page, PAGE_ID, supplierDetailsFromCookie.get("supplierEmail"));
-          redirect(listing.nextPageUrl(PAGE_ID, listing.id));
-        }
+        Page page = new Page(listingId, PAGE_ID);
+        page.responses.put("p9q1", p9q1);
+        page.insert();
+        listing.addResponsePage(page, PAGE_ID, supplierDetailsFromCookie.get("supplierEmail"));
+        redirect(listing.nextPageUrl(PAGE_ID, listing.id));
+
     }
 }

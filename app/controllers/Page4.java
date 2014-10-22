@@ -16,6 +16,10 @@ public class Page4 extends AuthenticatingController {
 
         Listing listing = Listing.getByListingId(listingId);
 
+        if (listing.serviceSubmitted) {
+          redirect(listing.summaryPageUrl());
+        }
+
         // Validate all fields on this page requiring validation
         validation.required(p4q1);
         validation.maxSize(p4q1, 100);
@@ -36,16 +40,12 @@ public class Page4 extends AuthenticatingController {
         }
 
         // Save the form data as a Page into the correct page index
-        if (listing.serviceSubmitted) {
-          redirect(listing.summaryPageUrl());
-        } else {
-          Page page = new Page(listingId, PAGE_ID);
-          page.responses.put("p4q1", p4q1);
-          page.responses.put("p4q2", p4q2);
-          page.insert();
-          listing.title = p4q1;
-          listing.addResponsePage(page, PAGE_ID, supplierDetailsFromCookie.get("supplierEmail"));
-          redirect(listing.nextPageUrl(PAGE_ID, listing.id));
-        }
+        Page page = new Page(listingId, PAGE_ID);
+        page.responses.put("p4q1", p4q1);
+        page.responses.put("p4q2", p4q2);
+        page.insert();
+        listing.title = p4q1;
+        listing.addResponsePage(page, PAGE_ID, supplierDetailsFromCookie.get("supplierEmail"));
+        redirect(listing.nextPageUrl(PAGE_ID, listing.id));
     }
 }

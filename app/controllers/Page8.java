@@ -22,6 +22,10 @@ public class Page8 extends AuthenticatingController {
 
         Listing listing = Listing.getByListingId(listingId);
 
+        if (listing.serviceSubmitted) {
+          redirect(listing.summaryPageUrl());
+        }
+
         Double min = null, max = null;
 
         try {
@@ -111,37 +115,32 @@ public class Page8 extends AuthenticatingController {
             redirect(String.format("/page/%d/%d", PAGE_ID, listing.id));
         }
 
-        if (listing.serviceSubmitted) {
-          redirect(listing.summaryPageUrl());
-        } else {
-
-          String nicePrice = "£" + p8q1MinPrice;
-          if (0 != p8q1MaxPrice.trim().length()) {
-            nicePrice = nicePrice + " to £" + p8q1MaxPrice;
-          }
-          nicePrice = nicePrice + " per " + p8q1Unit.toLowerCase();
-          if (0 != p8q1Interval.trim().length()) {
-            nicePrice = nicePrice + " per " + p8q1Interval.toLowerCase();
-          }
-
-          Page page = new Page(listingId, PAGE_ID);
-          page.responses.put("p8q1", nicePrice);
-          page.responses.put("p8q1MinPrice", p8q1MinPrice);
-          page.responses.put("p8q1MaxPrice", p8q1MaxPrice);
-          page.responses.put("p8q1Unit", p8q1Unit);
-          page.responses.put("p8q1Interval", p8q1Interval);
-          page.responses.put("p8q2", p8q2);
-          page.responses.put("p8q3", p8q3);
-          page.responses.put("p8q4", p8q4);
-          page.responses.put("p8q5", p8q5);
-          page.responses.put("p8q6", p8q6.getFileName());
-          if (p8q7 != null) page.responses.put("p8q7", p8q7.getFileName());
-          // TODO: Document storage for p8q6 and p8q7 - save something in the Page
-
-          page.insert();
-          listing.addResponsePage(page, PAGE_ID, supplierDetailsFromCookie.get("supplierEmail"));
-          redirect(listing.nextPageUrl(PAGE_ID, listing.id));
+        String nicePrice = "£" + p8q1MinPrice;
+        if (0 != p8q1MaxPrice.trim().length()) {
+          nicePrice = nicePrice + " to £" + p8q1MaxPrice;
         }
+        nicePrice = nicePrice + " per " + p8q1Unit.toLowerCase();
+        if (0 != p8q1Interval.trim().length()) {
+          nicePrice = nicePrice + " per " + p8q1Interval.toLowerCase();
+        }
+
+        Page page = new Page(listingId, PAGE_ID);
+        page.responses.put("p8q1", nicePrice);
+        page.responses.put("p8q1MinPrice", p8q1MinPrice);
+        page.responses.put("p8q1MaxPrice", p8q1MaxPrice);
+        page.responses.put("p8q1Unit", p8q1Unit);
+        page.responses.put("p8q1Interval", p8q1Interval);
+        page.responses.put("p8q2", p8q2);
+        page.responses.put("p8q3", p8q3);
+        page.responses.put("p8q4", p8q4);
+        page.responses.put("p8q5", p8q5);
+        page.responses.put("p8q6", p8q6.getFileName());
+        if (p8q7 != null) page.responses.put("p8q7", p8q7.getFileName());
+        // TODO: Document storage for p8q6 and p8q7 - save something in the Page
+
+        page.insert();
+        listing.addResponsePage(page, PAGE_ID, supplierDetailsFromCookie.get("supplierEmail"));
+        redirect(listing.nextPageUrl(PAGE_ID, listing.id));
     }
 
 }
