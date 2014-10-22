@@ -33,15 +33,15 @@ public class Page28 extends AuthenticatingQuestionPage {
         validation.maxSize(p28q5, 10);
 
         validation.required(p28q1assurance).key("p28q1");
-        validation.maxSize(p28q1assurance, 50);
+        validation.maxSize(p28q1assurance, 60);
         validation.required(p28q2assurance).key("p28q2");
-        validation.maxSize(p28q2assurance, 50);
+        validation.maxSize(p28q2assurance, 60);
         validation.required(p28q3assurance).key("p28q3");
-        validation.maxSize(p28q3assurance, 50);
+        validation.maxSize(p28q3assurance, 60);
         validation.required(p28q4assurance).key("p28q4");
-        validation.maxSize(p28q4assurance, 50);
+        validation.maxSize(p28q4assurance, 60);
         validation.required(p28q5assurance).key("p28q5");
-        validation.maxSize(p28q5assurance, 50);
+        validation.maxSize(p28q5assurance, 60);
 
 
         if(validation.hasErrors()) {

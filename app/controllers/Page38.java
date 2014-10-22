@@ -23,7 +23,7 @@ public class Page38 extends AuthenticatingQuestionPage {
         validation.required(p38q1).key("p38q1");
         validation.maxSize(p38q1, 80);
         validation.required(p38q1assurance).key("p38q1");
-        validation.maxSize(p38q1assurance, 50);
+        validation.maxSize(p38q1assurance, 60);
 
         if(validation.hasErrors()) {
             flash.put("body", params.get("body"));

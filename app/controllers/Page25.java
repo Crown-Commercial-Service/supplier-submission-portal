@@ -26,17 +26,17 @@ public class Page25 extends AuthenticatingQuestionPage {
         validation.required(p25q2).key("p25q2");
         validation.maxSize(p25q2, 30);
         validation.required(p25q2assurance).key("p25q2");
-        validation.maxSize(p25q2assurance, 50);
+        validation.maxSize(p25q2assurance, 60);
 
         validation.required(p25q3).key("p25q3");
         validation.maxSize(p25q3, 10);
         validation.required(p25q3assurance).key("p25q3");
-        validation.maxSize(p25q3assurance, 50);
+        validation.maxSize(p25q3assurance, 60);
 
         validation.required(p25q4).key("p25q4");
         validation.maxSize(p25q4, 10);
         validation.required(p25q4assurance).key("p25q4");
-        validation.maxSize(p25q4assurance, 50);
+        validation.maxSize(p25q4assurance, 60);
 
         if(validation.hasErrors()) {
             flash.put("body", params.get("body"));

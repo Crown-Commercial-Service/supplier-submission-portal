@@ -24,7 +24,7 @@ public class Page29 extends AuthenticatingQuestionPage {
         validation.required(p29q1).key("p29q1");
         validation.maxSize(p29q1, 10);
         validation.required(p29q1assurance).key("p29q1");
-        validation.maxSize(p29q1assurance, 50);
+        validation.maxSize(p29q1assurance, 60);
 
         if(validation.hasErrors()) {
             flash.put("body", params.get("body"));
