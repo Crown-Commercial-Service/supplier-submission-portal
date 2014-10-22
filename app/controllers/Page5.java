@@ -66,7 +66,19 @@ public class Page5 extends AuthenticatingController {
                 flash.put(key, value);
             }
             System.out.println(flash);
-            redirect(String.format("/page/%d/%d", PAGE_ID, listing.id));
+            System.out.println("  ------------");
+            System.out.println("  Value:.." + request.params.get("return_to_summary") + ".....");
+            System.out.println("  Type:..." + request.params.get("return_to_summary").getClass() + ".....");
+            System.out.println("  ==\"yes\":");
+            System.out.println(request.params.get("return_to_summary") == "yes");
+            System.out.println("  ------------");
+            if (request.params.get("return_to_summary").equals("yes")) {
+              System.out.println("YES");
+              redirect(String.format("/page/%d/%d?return_to_summary=yes", PAGE_ID, listing.id));
+            } else {
+              System.out.println("NO");
+              redirect(String.format("/page/%d/%d", PAGE_ID, listing.id));
+            }
         }
 
         Gson gson = new Gson();
@@ -75,6 +87,10 @@ public class Page5 extends AuthenticatingController {
         page.responses.put("p5q2", gson.toJson(q2));
         page.insert();
         listing.addResponsePage(page, PAGE_ID, supplierDetailsFromCookie.get("supplierEmail"));
-        redirect(listing.nextPageUrl(PAGE_ID, listing.id));
+        if (request.params.get("return_to_summary").equals("yes")) {
+          redirect(listing.summaryPageUrl(PAGE_ID));
+        } else {
+          redirect(listing.nextPageUrl(PAGE_ID, listing.id));
+        }
     }
 }

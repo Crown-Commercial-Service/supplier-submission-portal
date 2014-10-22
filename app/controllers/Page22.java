@@ -12,7 +12,7 @@ public class Page22 extends AuthenticatingController {
     private static final Long PAGE_ID = 22l;
 
     public static void savePage(Long listingId, String p22q1, String p22q2, String p22q3, String p22q4, String p22q5,
-                                String p22q1assurance, String p22q2assurance, String p22q3assurance, String p22q4assurance, String p22q5assurance) {
+                                String p22q1assurance, String p22q2assurance, String p22q3assurance, String p22q4assurance, String p22q5assurance, Boolean return_to_summary) {
 
         Listing listing = Listing.getByListingId(listingId);
 
@@ -45,7 +45,11 @@ public class Page22 extends AuthenticatingController {
                 flash.put(key, value);
             }
             System.out.println(flash);
-            redirect(String.format("/page/%d/%d", PAGE_ID, listing.id));
+            if (request.params.get("return_to_summary").equals("yes")) {
+              redirect(String.format("/page/%d/%d?return_to_summary=yes", PAGE_ID, listing.id));
+            } else {
+              redirect(String.format("/page/%d/%d", PAGE_ID, listing.id));
+            }
         }
 
         // Save the form data as a Page into the correct page index
@@ -57,6 +61,10 @@ public class Page22 extends AuthenticatingController {
         page.responses.put("p22q5", p22q5);
         page.insert();
         listing.addResponsePage(page, PAGE_ID, supplierDetailsFromCookie.get("supplierEmail"));
-        redirect(listing.nextPageUrl(PAGE_ID, listing.id));
+        if (request.params.get("return_to_summary").equals("yes")) {
+          redirect(listing.summaryPageUrl(PAGE_ID));
+        } else {
+          redirect(listing.nextPageUrl(PAGE_ID, listing.id));
+        }
     }
 }

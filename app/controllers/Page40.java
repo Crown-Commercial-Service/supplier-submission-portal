@@ -12,7 +12,7 @@ public class Page40 extends AuthenticatingController {
     private static final Long PAGE_ID = 40l;
 
     public static void savePage(Long listingId, String p40q1, String p40q2, String p40q3,
-                                String p40q1assurance, String p40q2assurance, String p40q3assurance) {
+                                String p40q1assurance, String p40q2assurance, String p40q3assurance, Boolean return_to_summary) {
 
         Listing listing = Listing.getByListingId(listingId);
 
@@ -45,7 +45,11 @@ public class Page40 extends AuthenticatingController {
                 flash.put(key, value);
             }
             System.out.println(flash);
-            redirect(String.format("/page/%d/%d", PAGE_ID, listing.id));
+            if (request.params.get("return_to_summary").equals("yes")) {
+              redirect(String.format("/page/%d/%d?return_to_summary=yes", PAGE_ID, listing.id));
+            } else {
+              redirect(String.format("/page/%d/%d", PAGE_ID, listing.id));
+            }
         }
 
 
@@ -58,7 +62,11 @@ public class Page40 extends AuthenticatingController {
         page.responses.put("p40q3assurance", p40q3assurance);
         page.insert();
         listing.addResponsePage(page, PAGE_ID, supplierDetailsFromCookie.get("supplierEmail"));
-        redirect(listing.nextPageUrl(PAGE_ID, listing.id));
+        if (request.params.get("return_to_summary").equals("yes")) {
+          redirect(listing.summaryPageUrl(PAGE_ID));
+        } else {
+          redirect(listing.nextPageUrl(PAGE_ID, listing.id));
+        }
     }
 
 }
