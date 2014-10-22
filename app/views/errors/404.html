@@ -1,14 +1,34 @@
 #{extends 'layout.html' /}
 #{set title:'Not found | Digital Marketplace' /}
 
+<div class='breadcrumb-navigation'>
+    <nav>
+        <ol>
+            <li class='breadcrumb-navigation-item'>
+               <a href="/">Your G-Cloud 6 submissions</a>
+            </li>
+        </ol>
+    </nav>
+</div>
+
 #{if play.mode.name() == 'DEV'}
     #{404 result /}
 #{/if}
 #{else}
-    <p class='position'>Error</p>
-    <h1 class='page-heading'>Page not found</h1>
-    <p>&{'404'}</p>
-    <p>If you entered a web address please check it was correct.</p>
+<div class="404 error">
+    <h1 class='page-heading'>This page cannot be found</h1>
+    <p>
+        Please check that you’ve entered the right web address, or make a fresh
+        start on the <a href="${uk.gov.gds.dm.URLTools.getDigitalMarketplaceURL()}">Digital
+        Marketplace home page</a>. If you still can’t find what you're
+        looking for then
+        <a href="mailto:enquiries@digitalmarketplace.service.gov.uk?subject=Digital Marketplace 404 error">get in touch</a>.
+    </p>
+    <p>
+        Help us improve the Digital Marketplace by giving us feedback to
+        <a href="mailto:enquiries@digitalmarketplace.service.gov.uk?subject=Digital Marketplace feedback">enquiries@digitalmarketplace.service.gov.uk</a>
+    </p>
+</div>
 #{/else}
 
 

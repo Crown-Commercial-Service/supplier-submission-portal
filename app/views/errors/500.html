@@ -1,11 +1,24 @@
 #{extends 'layout.html' /}
 #{set title:'Internal server error | Digital Marketplace' /}
 
+<div class='breadcrumb-navigation'>
+    <nav>
+        <ol>
+            <li class='breadcrumb-navigation-item'>
+                <a href="/">Your G-Cloud 6 submissions</a>
+            </li>
+        </ol>
+    </nav>
+</div>
+
 #{if play.mode.name() == 'DEV'}
     #{500 exception /}
 #{/if}
 #{else}
-<p class='position'>Error</p>
-<h1 class='page-heading'>Internal server error</h1>
-<p>&{'505'}</p>
+    <div class="500 error">
+        <h2 class='page-heading'>Sorry, we are experiencing technical difficulties</h2>
+        <p>
+            Please try again in a few moments.
+        </p>
+    </div>
 #{/else}
