@@ -11,9 +11,6 @@ import uk.gov.gds.dm.Fixtures;
 import java.lang.reflect.Type;
 import java.util.*;
 
-import java.util.List;
-import java.util.Map;
-
 public class Service extends AuthenticatingController {
 
     public static void summaryPage(Long listingId) {
