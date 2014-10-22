@@ -4,15 +4,15 @@ import models.Listing;
 import models.Page;
 import play.data.validation.Error;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Page30 extends AuthenticatingController {
+public class Page30 extends AuthenticatingQuestionPage {
 
     private static final Long PAGE_ID = 30l;
 
-    public static void savePage(Long listingId, String p30q1, String p30q2, String p30q3, String p30q4, String p30q5
-                                        , String p30q1assurance, String p30q2assurance, String p30q3assurance, String p30q4assurance, String p30q5assurance) {
+    public static void savePage(Long listingId, String p30q1, String p30q2, String p30q3, String p30q1assurance, String p30q2assurance, String p30q3assurance) {
 
         Listing listing = Listing.getByListingId(listingId);
 
@@ -56,16 +56,14 @@ public class Page30 extends AuthenticatingController {
             }
         }
 
-
-        Page page = new Page(listingId, PAGE_ID);
-        page.responses.put("p30q1", p30q1);
-        page.responses.put("p30q2", p30q2);
-        page.responses.put("p30q3", p30q3);
-        page.responses.put("p30q1assurance", p30q1assurance);
-        page.responses.put("p30q2assurance", p30q2assurance);
-        page.responses.put("p30q3assurance", p30q3assurance);
-        page.insert();
-        listing.addResponsePage(page, PAGE_ID, supplierDetailsFromCookie.get("supplierEmail"));
+        Map<String, String> pageResponses = new HashMap<String, String>();
+        pageResponses.put("p30q1", p30q1);
+        pageResponses.put("p30q2", p30q2);
+        pageResponses.put("p30q3", p30q3);
+        pageResponses.put("p30q1assurance", p30q1assurance);
+        pageResponses.put("p30q2assurance", p30q2assurance);
+        pageResponses.put("p30q3assurance", p30q3assurance);
+        saveResponseToPage(PAGE_ID, listing, pageResponses);
         if (request.params.get("return_to_summary").equals("yes")) {
           redirect(listing.summaryPageUrl(PAGE_ID));
         } else {

@@ -5,10 +5,11 @@ import models.Page;
 import play.data.validation.Error;
 import uk.gov.gds.dm.ValidationUtils;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Page4 extends AuthenticatingController {
+public class Page4 extends AuthenticatingQuestionPage {
 
     private static final Long PAGE_ID = 4l;
 
@@ -44,12 +45,12 @@ public class Page4 extends AuthenticatingController {
         }
 
         // Save the form data as a Page into the correct page index
-        Page page = new Page(listingId, PAGE_ID);
-        page.responses.put("p4q1", p4q1);
-        page.responses.put("p4q2", p4q2);
-        page.insert();
+        Map<String, String> pageResponses = new HashMap<String, String>();
+        pageResponses.put("p4q1", p4q1);
+        pageResponses.put("p4q2", p4q2);
         listing.title = p4q1;
-        listing.addResponsePage(page, PAGE_ID, supplierDetailsFromCookie.get("supplierEmail"));
+        saveResponseToPage(PAGE_ID, listing, pageResponses);
+        redirect(listing.nextPageUrl(PAGE_ID, listing.id));
         if (request.params.get("return_to_summary").equals("yes")) {
           redirect(listing.summaryPageUrl(PAGE_ID));
         } else {

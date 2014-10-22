@@ -4,10 +4,11 @@ import models.Listing;
 import models.Page;
 import play.data.validation.Error;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.List;
 
-public class Page33 extends AuthenticatingController {
+public class Page33 extends AuthenticatingQuestionPage {
 
     private static final Long PAGE_ID = 33l;
 
@@ -64,19 +65,18 @@ public class Page33 extends AuthenticatingController {
             }
         }
 
-        Page page = new Page(listingId, PAGE_ID);
-        page.responses.put("p33q1", p33q1);
-        page.responses.put("p33q2", p33q2);
-        page.responses.put("p33q3", p33q3);
-        page.responses.put("p33q4", p33q4);
-        page.responses.put("p33q5", p33q5);
-        page.responses.put("p33q1assurance", p33q1assurance);
-        page.responses.put("p33q2assurance", p33q2assurance);
-        page.responses.put("p33q3assurance", p33q3assurance);
-        page.responses.put("p33q4assurance", p33q4assurance);
-        page.responses.put("p33q5assurance", p33q5assurance);
-        page.insert();
-        listing.addResponsePage(page, PAGE_ID, supplierDetailsFromCookie.get("supplierEmail"));
+        Map<String, String> pageResponses = new HashMap<String, String>();
+        pageResponses.put("p33q1", p33q1);
+        pageResponses.put("p33q2", p33q2);
+        pageResponses.put("p33q3", p33q3);
+        pageResponses.put("p33q4", p33q4);
+        pageResponses.put("p33q5", p33q5);
+        pageResponses.put("p33q1assurance", p33q1assurance);
+        pageResponses.put("p33q2assurance", p33q2assurance);
+        pageResponses.put("p33q3assurance", p33q3assurance);
+        pageResponses.put("p33q4assurance", p33q4assurance);
+        pageResponses.put("p33q5assurance", p33q5assurance);
+        saveResponseToPage(PAGE_ID, listing, pageResponses);
         if (request.params.get("return_to_summary").equals("yes")) {
           redirect(listing.summaryPageUrl(PAGE_ID));
         } else {

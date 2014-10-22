@@ -8,12 +8,13 @@ import play.data.Upload;
 import play.i18n.Messages;
 import play.data.validation.Error;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.List;
 
 import static uk.gov.gds.dm.DocumentUtils.*;
 
-public class Page8 extends AuthenticatingController {
+public class Page8 extends AuthenticatingQuestionPage {
 
     private static final Long PAGE_ID = 8l;
 
@@ -128,27 +129,26 @@ public class Page8 extends AuthenticatingController {
           nicePrice = nicePrice + " per " + p8q1Interval.toLowerCase();
         }
 
-        Page page = new Page(listingId, PAGE_ID);
-        page.responses.put("p8q1", nicePrice);
-        page.responses.put("p8q1MinPrice", p8q1MinPrice);
-        page.responses.put("p8q1MaxPrice", p8q1MaxPrice);
-        page.responses.put("p8q1Unit", p8q1Unit);
-        page.responses.put("p8q1Interval", p8q1Interval);
-        page.responses.put("p8q2", p8q2);
-        page.responses.put("p8q3", p8q3);
-        page.responses.put("p8q4", p8q4);
-        page.responses.put("p8q5", p8q5);
-        page.responses.put("p8q6", p8q6.getFileName());
-        if (p8q7 != null) page.responses.put("p8q7", p8q7.getFileName());
+        Map<String, String> pageResponses = new HashMap<String, String>();
+        pageResponses.put("p8q1", nicePrice);
+        pageResponses.put("p8q1MinPrice", p8q1MinPrice);
+        pageResponses.put("p8q1MaxPrice", p8q1MaxPrice);
+        pageResponses.put("p8q1Unit", p8q1Unit);
+        pageResponses.put("p8q1Interval", p8q1Interval);
+        pageResponses.put("p8q2", p8q2);
+        pageResponses.put("p8q3", p8q3);
+        pageResponses.put("p8q4", p8q4);
+        pageResponses.put("p8q5", p8q5);
+        pageResponses.put("p8q6", p8q6.getFileName());
+        if (p8q7 != null) pageResponses.put("p8q7", p8q7.getFileName());
         // TODO: Document storage for p8q6 and p8q7 - save something in the Page
 
-        page.insert();
-        listing.addResponsePage(page, PAGE_ID, supplierDetailsFromCookie.get("supplierEmail"));
+        saveResponseToPage(PAGE_ID, listing, pageResponses);
         if (request.params.get("return_to_summary").equals("yes")) {
           redirect(listing.summaryPageUrl(PAGE_ID));
         } else {
           redirect(listing.nextPageUrl(PAGE_ID, listing.id));
         }
-    }
+   }
 
 }

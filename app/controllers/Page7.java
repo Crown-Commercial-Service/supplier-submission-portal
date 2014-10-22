@@ -8,12 +8,13 @@ import play.data.Upload;
 import play.i18n.Messages;
 import play.data.validation.Error;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.List;
 
 import static uk.gov.gds.dm.DocumentUtils.*;
 
-public class Page7 extends AuthenticatingController {
+public class Page7 extends AuthenticatingQuestionPage {
 
     private static final Long PAGE_ID = 7l;
 
@@ -72,18 +73,16 @@ public class Page7 extends AuthenticatingController {
         }
 
         //Save the form data as a Page into the correct page index
-        Page page = new Page(listingId, PAGE_ID);
-        page.responses.put("p7q1", p7q1);
-        page.responses.put("p7q2", p7q2);
-        page.responses.put("p7q3", p7q3.getFileName());
-        page.insert();
-        listing.addResponsePage(page, PAGE_ID, supplierDetailsFromCookie.get("supplierEmail"));
+        Map<String, String> pageResponses = new HashMap<String, String>();
+        pageResponses.put("p7q1", p7q1);
+        pageResponses.put("p7q2", p7q2);
+        pageResponses.put("p7q3", p7q3.getFileName());
+        saveResponseToPage(PAGE_ID, listing, pageResponses);
         if (request.params.get("return_to_summary").equals("yes")) {
           redirect(listing.summaryPageUrl(PAGE_ID));
         } else {
           redirect(listing.nextPageUrl(PAGE_ID, listing.id));
         }
-
     }
 
 }

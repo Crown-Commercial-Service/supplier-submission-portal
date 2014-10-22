@@ -61,7 +61,6 @@ public class URLTools {
             huc.connect();
 
             final int code = huc.getResponseCode();
-            System.out.println("Response code: " + code);
             return code != 404;
         } catch (Exception e){
             return false;
