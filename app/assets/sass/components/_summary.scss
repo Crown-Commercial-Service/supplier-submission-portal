@@ -1,7 +1,3 @@
-// GOV.UK orange doesn't pass colour contrast when used on a white background
-// This darkens it to the point where it passes WCAG 2 AAA at 18pt and above
-$accessible-orange: darken($orange, 16.5%);
-
 .summary {
 
   &-item {
