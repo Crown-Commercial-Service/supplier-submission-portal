@@ -1,42 +1,37 @@
 package uk.gov.gds.dm;
 
-import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
-import com.amazonaws.regions.Region;
-import com.amazonaws.regions.Regions;
-import com.amazonaws.services.s3.AmazonS3;
-import com.amazonaws.services.s3.AmazonS3Client;
-import com.amazonaws.services.s3.model.AmazonS3Exception;
-import com.amazonaws.services.s3.model.PutObjectRequest;
+import com.amazon.s3shell.S3Store;
+import org.jets3t.Constants;
 import play.Logger;
 
-import java.io.File;
+import java.io.IOException;
+import java.util.HashMap;
 
 public class S3Uploader {
 
-    private AmazonS3 client;
+    private S3Store client;
+    private static final String S3_ENDPOINT = "s3-eu-west-1.amazonaws.com";
 
     public S3Uploader() {
-        client = new AmazonS3Client(new DefaultAWSCredentialsProviderChain());
-        Region region = Region.getRegion(Regions.EU_WEST_1);
-        client.setRegion(region);
+        String key = "AKIAJZU7XZ5RGNP2NUCA";//System.getenv("AWS_ACCESS_KEY");
+        String secretKey = "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";//System.getenv("AWS_SECRET_ACCESS_KEY");
+
+        client = new S3Store(S3_ENDPOINT, key, secretKey);
     }
 
-    public String upload(File file, String bucket, String key) {
-        ensureBucketExists(bucket);
-        Logger.info("[S3Uploader] Uploading document to S3 with key: " + key);
-        client.putObject(new PutObjectRequest(bucket, key, file));
-        String bucketLocation = client.getBucketLocation(bucket);
-        String fileUrlOnS3 = String.format("https://s3-%s.amazonaws.com/%s/%s", bucketLocation, bucket, key);
-        Logger.info("[S3Uploader] Successful upload to S3: " + fileUrlOnS3);
-        return fileUrlOnS3;
+    public String upload(byte[] data, String bucket, String key) {
+        client.setBucket(bucket);
+        try {
+            client.storeItem(key, data, Constants.ACL_PRIVATE);
+        } catch (IOException e) {
+            Logger.error("Upload failed", e);
+            e.printStackTrace();
+        }
+        return "";
     }
 
     private void ensureBucketExists(String bucket) {
-        try {
-            client.createBucket(bucket);
-        } catch(AmazonS3Exception e) {
-            // nowt
-        }
+
     }
 
 

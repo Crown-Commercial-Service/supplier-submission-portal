@@ -39,13 +39,13 @@ public class Page6 extends AuthenticatingQuestionPage {
             }
         }
 
-//        try {
-//            Document document = storeDocument(p6q1, getSupplierId(), listingId, QUESTION_ID);
-//            document.insert();
-//        } catch(Exception e) {
-//            Logger.error(e, "Could not upload document to S3. Cause: %s", e.getMessage());
-//            validation.addError("p6q1", Messages.getMessage("en", "validation.upload.failed"));
-//        }
+        try {
+            Document document = storeDocument(p6q1, getSupplierId(), listingId, QUESTION_ID);
+            document.insert();
+        } catch(Exception e) {
+            Logger.error(e, "Could not upload document to S3. Cause: %s", e.getMessage());
+            validation.addError("p6q1", Messages.getMessage("en", "validation.upload.failed"));
+        }
 
         if(validation.hasErrors()) {
             flash.put("body", params.get("body"));

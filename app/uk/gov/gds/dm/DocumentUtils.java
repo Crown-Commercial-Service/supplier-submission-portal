@@ -1,5 +1,6 @@
 package uk.gov.gds.dm;
 
+import com.amazon.s3shell.S3Store;
 import models.Document;
 import org.apache.commons.io.FilenameUtils;
 import play.data.Upload;
@@ -28,12 +29,14 @@ public class DocumentUtils {
         } catch (UnsupportedEncodingException e) {
             // won't happen
         }
+        System.out.println(new String(upload.asBytes()));
         Document document = Document
                 .forListing(listingId)
                 .withName(documentName)
                 .forQuestion(questionId)
-                .forSupplier(supplierName)
-                .fromFile(upload.asFile()).build();
+                .withBytes(upload.asBytes())
+                .forSupplier(supplierName).build();
+//                .fromFile(upload.asFile()).build();
 
         document.pushDocumentToStorage();
 

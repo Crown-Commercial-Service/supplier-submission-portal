@@ -10,6 +10,7 @@ import java.io.*;
 @Table("documents")
 public class Document extends Model{
 
+    private transient byte[] bytes;
     private transient File file;
     private transient String supplierName;
     private static final S3Uploader uploader = new S3Uploader();
@@ -39,20 +40,20 @@ public class Document extends Model{
     @NotNull
     public String documentUrl;
 
-    public Document(String name, long listingId, String questionId, File file, String supplierName) {
+    public Document(String name, long listingId, String questionId, byte[] bytes, String supplierName) {
         this.name = name;
         this.listingId = listingId;
         this.questionId = questionId;
         this.type = getFileType(name);
-        this.file = file;
+        this.bytes = bytes;
         this.supplierName = supplierName;
     }
 
     public void pushDocumentToStorage() {
 
-        String bucket = String.valueOf(Play.configuration.get("application.s3.bucket.name"));
+        String bucket = "gds-g6-submission-bucket-local-85288f83-1842";//String.valueOf(Play.configuration.get("application.s3.bucket.name"));
         String documentKey = String.format("%s/%d/%s/%s", this.supplierName, this.listingId, this.questionId, this.name);
-        String documentUrl = uploader.upload(this.file, bucket, documentKey);
+        String documentUrl = uploader.upload(this.bytes, bucket, documentKey);
         this.documentUrl = documentUrl;
 
     }
@@ -88,6 +89,7 @@ public class Document extends Model{
         private File file;
         private String name;
         private String supplierName;
+        private byte[] bytes;
 
         public DocumentBuilder forQuestion(String question) {
             this.question = question;
@@ -110,7 +112,7 @@ public class Document extends Model{
         }
 
         public Document build() {
-            return new Document(name, listingId, question, file, supplierName);
+            return new Document(name, listingId, question, bytes, supplierName);
         }
 
         public DocumentBuilder forSupplier(String supplierName) {
@@ -118,5 +120,9 @@ public class Document extends Model{
             return this;
         }
 
+        public DocumentBuilder withBytes(byte[] bytes) {
+            this.bytes = bytes;
+            return this;
+        }
     }
 }
