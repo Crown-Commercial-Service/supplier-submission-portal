@@ -10,7 +10,6 @@ public class AuthenticatingQuestionPage extends AuthenticatingController {
     protected static void saveResponseToPage(Long page_id, Listing listing, Map<String,String> responses){
         Page page = null;
         try {
-            Logger.info("Try to find response page with page id: " + page_id);
             page = listing.getResponsePageByPageId(page_id);
         } catch (Exception e) {
             Logger.error(e.getMessage());
@@ -18,14 +17,12 @@ public class AuthenticatingQuestionPage extends AuthenticatingController {
         }
 
         if(page == null){
-            Logger.info("Page does not exist, creating new page");
             page = new Page(listing.id, page_id);
             saveResponseToNewPage(page, responses);
         } else {
-            Logger.info("Page does exist, updating current page");
             saveResponseToExistingPage(page, responses);
         }
-        listing.addResponsePage(page, page_id, supplierDetailsFromCookie.get("supplierEmail"));
+        listing.addResponsePage(page, page_id, getEmail());
     }
 
     private static void saveResponseToNewPage(Page page, Map<String,String> responses){
