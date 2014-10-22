@@ -29,7 +29,9 @@ public class S3Uploader {
             Logger.error("Upload failed", e);
             throw new RuntimeException("Upload failed", e);
         }
-        return "";
+        String downloadUrl = String.format("https://s3-eu-west-1.amazonaws.com/%s/%s", client.getBucket(), key);
+        Logger.info(String.format("[S3Uploader] Uploaded to %s", downloadUrl));
+        return downloadUrl;
     }
 
 }
