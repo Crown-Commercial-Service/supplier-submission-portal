@@ -15,9 +15,16 @@ import java.util.*;
 
 public class QuestionPageDisplay extends AuthenticatingController {
 
-    public static void showPage(Long pageId, Long listingId) {
+    public static void showPage(Long pageId, Long listingId, Boolean return_to_summary) {
 
         Listing listing = Listing.getByListingId(listingId);
+        Page page = null;
+
+        try {
+            page = listing.getResponsePageByPageId(pageId);
+        } catch (Exception e){
+            Logger.error(e.getMessage());
+        }
 
         notFoundIfNull(listing);
 
@@ -38,15 +45,16 @@ public class QuestionPageDisplay extends AuthenticatingController {
             notFound();
         }
 
-        int index = listing.pageSequence.indexOf(pageId);
+        int sequenceIndex = listing.pageSequence.indexOf(pageId);
         renderArgs.put("lot", listing.lot);
         renderArgs.put("listingID", listing.id);
         renderArgs.put("content", Fixtures.getContentProperties());
-        renderArgs.put("pageNum", Integer.toString(index+1));
+        renderArgs.put("pageNum", Integer.toString(sequenceIndex+1));
         renderArgs.put("pageTotal", Integer.toString(listing.pageSequence.size()));
         renderArgs.put("listingId", listingId);
         renderArgs.put("prevPageURL", listing.prevPageUrl(pageId, listingId));
         renderArgs.put("summaryPageURL", listing.summaryPageUrl());
+        renderArgs.put("return_to_summary", return_to_summary);
 
         if (flash.get("body") != null) {
             try {
@@ -54,8 +62,7 @@ public class QuestionPageDisplay extends AuthenticatingController {
             } catch (Exception ex) {
                 Logger.error("Error reading in previously entered responses", ex);
             }
-        } else {
-            Page page = listing.completedPages.get(index);
+        } else if (page != null) {
             if (page.responses != null) {
                 renderArgs.put("oldValues", page.getUnflattenedResponses());
             }

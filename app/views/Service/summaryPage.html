@@ -9,7 +9,7 @@
 %{
   if (confirmDeleteMessage) {
 }%
-  <div class='banner-warning'>
+  <div class='banner-destructive'>
     <p>
       ${confirmDeleteMessage}
     </p>
@@ -18,7 +18,7 @@
         %{
         if (listing.title) {
         }%
-        <input type='submit' value='Yes, delete &ldquo;${listing.title}&rdquo;' class='banner-action button-destructive' />
+        <input type='submit' value="Yes, delete &ldquo;${listing.title}&rdquo;" class='banner-action button-destructive' />
         %{
             } else {
          }%

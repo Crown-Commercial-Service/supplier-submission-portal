@@ -1,13 +1,13 @@
 package controllers;
 
 import models.Listing;
-import models.Page;
 import play.data.validation.Error;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.List;
 
-public class Page25 extends AuthenticatingController {
+public class Page25 extends AuthenticatingQuestionPage {
 
     private static final Long PAGE_ID = 25l;
 
@@ -51,21 +51,27 @@ public class Page25 extends AuthenticatingController {
                 flash.put(key, value);
             }
             System.out.println(flash);
-            redirect(String.format("/page/%d/%d", PAGE_ID, listing.id));
+            if (request.params.get("return_to_summary").equals("yes")) {
+              redirect(String.format("/page/%d/%d?return_to_summary=yes", PAGE_ID, listing.id));
+            } else {
+              redirect(String.format("/page/%d/%d", PAGE_ID, listing.id));
+            }
         }
 
         // Save the form data as a Page into the correct page index
-        Page page = new Page(listingId, PAGE_ID);
-        page.responses.put("p25q1", p25q1);
-        page.responses.put("p25q2", p25q2);
-        page.responses.put("p25q3", p25q3);
-        page.responses.put("p25q4", p25q4);
-        page.responses.put("p25q2assurance", p25q2assurance);
-        page.responses.put("p25q3assurance", p25q3assurance);
-        page.responses.put("p25q4assurance", p25q4assurance);
-        page.insert();
-        listing.addResponsePage(page, PAGE_ID, getEmail());
-        redirect(listing.nextPageUrl(PAGE_ID, listing.id));
-
+        Map<String, String> pageResponses = new HashMap<String, String>();
+        pageResponses.put("p25q1", p25q1);
+        pageResponses.put("p25q2", p25q2);
+        pageResponses.put("p25q3", p25q3);
+        pageResponses.put("p25q4", p25q4);
+        pageResponses.put("p25q2assurance", p25q2assurance);
+        pageResponses.put("p25q3assurance", p25q3assurance);
+        pageResponses.put("p25q4assurance", p25q4assurance);
+        saveResponseToPage(PAGE_ID, listing, pageResponses);
+        if (request.params.get("return_to_summary").equals("yes")) {
+          redirect(listing.summaryPageUrl(PAGE_ID));
+        } else {
+          redirect(listing.nextPageUrl(PAGE_ID, listing.id));
+        }
     }
 }

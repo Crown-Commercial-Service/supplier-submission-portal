@@ -1,5 +1,8 @@
 // Helpers
 @import 'colours';
+// GOV.UK orange doesn't pass colour contrast when used on a white background
+// This darkens it to the point where it passes WCAG 2 AAA at 18pt and above
+$accessible-orange: darken($orange, 16.5%);
 @import 'typography';
 @import 'design-patterns/buttons';
 @import 'design-patterns/alpha-beta';
@@ -37,3 +40,6 @@
 
 // Summary page
 @import 'components/_summary';
+
+// Error pages
+@import 'components/_error';

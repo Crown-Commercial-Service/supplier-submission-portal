@@ -7,3 +7,6 @@ validation.file.wrongFormat=File was the wrong format.
 validation.invalid=validationNotANumber
 validation.upload.failed=The file upload failed
 validation.maxLessThanMin=validationMaxLessThanMin
+
+404=Sorry, that page could not be found on our system. This error has been logged.
+505=Sorry, there was an error on our system. This error has been logged and will be attended to shortly.

@@ -1,14 +1,14 @@
 package controllers;
 
 import models.Listing;
-import models.Page;
 import play.data.validation.Error;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 
-public class Page34 extends AuthenticatingController {
+public class Page34 extends AuthenticatingQuestionPage {
 
     private static final Long PAGE_ID = 34l;
 
@@ -43,18 +43,24 @@ public class Page34 extends AuthenticatingController {
                 flash.put(key, value);
             }
             System.out.println(flash);
-            redirect(String.format("/page/%d/%d", PAGE_ID, listing.id));
+            if (request.params.get("return_to_summary").equals("yes")) {
+              redirect(String.format("/page/%d/%d?return_to_summary=yes", PAGE_ID, listing.id));
+            } else {
+              redirect(String.format("/page/%d/%d", PAGE_ID, listing.id));
+            }
         }
 
-
-        Page page = new Page(listingId, PAGE_ID);
-        page.responses.put("p34q1", p34q1);
-        page.responses.put("p34q2", p34q2);
-        page.responses.put("p34q1assurance", p34q1assurance);
-        page.responses.put("p34q2assurance", p34q2assurance);
-        page.insert();
-        listing.addResponsePage(page, PAGE_ID, getEmail());
-        redirect(listing.nextPageUrl(PAGE_ID, listing.id));
+        Map<String, String> pageResponses = new HashMap<String, String>();
+        pageResponses.put("p34q1", p34q1);
+        pageResponses.put("p34q2", p34q2);
+        pageResponses.put("p34q1assurance", p34q1assurance);
+        pageResponses.put("p34q2assurance", p34q2assurance);
+        saveResponseToPage(PAGE_ID, listing, pageResponses);
+        if (request.params.get("return_to_summary").equals("yes")) {
+          redirect(listing.summaryPageUrl(PAGE_ID));
+        } else {
+          redirect(listing.nextPageUrl(PAGE_ID, listing.id));
+        }
     }
 
 }

@@ -36,7 +36,7 @@
         #{forms/textbox-input-list-item
           name: question + 'val' + index,
           numbered: index,
-          value: oldValues?.get(question + 'val' + index)
+          values: oldValues?.get(question)
         /}
       %{
         }
@@ -45,5 +45,5 @@
       error: content.get(question + flash.get(question))
     /}
   </div>
-  #{footer prevPageURL: prevPageURL, summaryPageURL: summaryPageURL /}
+  #{footer prevPageURL: prevPageURL, summaryPageURL: summaryPageURL, return_to_summary: return_to_summary /}
 </form>

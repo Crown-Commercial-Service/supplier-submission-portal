@@ -1,5 +1,4 @@
 package controllers;
-
 import play.Logger;
 import play.mvc.Before;
 import play.mvc.Controller;
@@ -81,4 +80,5 @@ public abstract class AuthenticatingController extends Controller {
     protected static String getEsourcingId() {
         return supplierDetailsFromCookie.get(ESOURCING_ID);
     }
+
 }

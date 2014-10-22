@@ -8,9 +8,6 @@ import uk.gov.gds.dm.Fixtures;
 
 import java.util.*;
 
-import java.util.List;
-import java.util.Map;
-
 public class Service extends AuthenticatingController {
 
     public static void summaryPage(Long listingId) {
@@ -129,8 +126,6 @@ public class Service extends AuthenticatingController {
                 allAnswers.putAll(p.getUnflattenedResponses());
             }
         }
-
-        System.out.println(allAnswers);
 
         renderArgs.put("content", Fixtures.getContentProperties());
         renderArgs.put("service_id", listingId);

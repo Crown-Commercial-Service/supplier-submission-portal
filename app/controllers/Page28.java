@@ -1,13 +1,13 @@
 package controllers;
 
 import models.Listing;
-import models.Page;
 import play.data.validation.Error;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Page28 extends AuthenticatingController {
+public class Page28 extends AuthenticatingQuestionPage {
 
     private static final Long PAGE_ID = 28l;
 
@@ -57,25 +57,29 @@ public class Page28 extends AuthenticatingController {
                 flash.put(key, value);
             }
             System.out.println(flash);
-            redirect(String.format("/page/%d/%d", PAGE_ID, listing.id));
+            if (request.params.get("return_to_summary").equals("yes")) {
+              redirect(String.format("/page/%d/%d?return_to_summary=yes", PAGE_ID, listing.id));
+            } else {
+              redirect(String.format("/page/%d/%d", PAGE_ID, listing.id));
+            }
         }
 
-
-        Page page = new Page(listingId, PAGE_ID);
-        page.responses.put("p28q1", p28q1);
-        page.responses.put("p28q2", p28q2);
-        page.responses.put("p28q3", p28q3);
-        page.responses.put("p28q4", p28q4);
-        page.responses.put("p28q5", p28q5);
-        page.responses.put("p28q1assurance", p28q1assurance);
-        page.responses.put("p28q2assurance", p28q2assurance);
-        page.responses.put("p28q3assurance", p28q3assurance);
-        page.responses.put("p28q4assurance", p28q4assurance);
-        page.responses.put("p28q5assurance", p28q5assurance);
-
-        page.insert();
-        listing.addResponsePage(page, PAGE_ID, getEmail());
-        redirect(listing.nextPageUrl(PAGE_ID, listing.id));
+        Map<String, String> pageResponses = new HashMap<String, String>();
+        pageResponses.put("p28q1", p28q1);
+        pageResponses.put("p28q2", p28q2);
+        pageResponses.put("p28q3", p28q3);
+        pageResponses.put("p28q4", p28q4);
+        pageResponses.put("p28q5", p28q5);
+        pageResponses.put("p28q1assurance", p28q1assurance);
+        pageResponses.put("p28q2assurance", p28q2assurance);
+        pageResponses.put("p28q3assurance", p28q3assurance);
+        pageResponses.put("p28q4assurance", p28q4assurance);
+        pageResponses.put("p28q5assurance", p28q5assurance);
+        saveResponseToPage(PAGE_ID, listing, pageResponses);
+        if (request.params.get("return_to_summary").equals("yes")) {
+          redirect(listing.summaryPageUrl(PAGE_ID));
+        } else {
+          redirect(listing.nextPageUrl(PAGE_ID, listing.id));
+        }
     }
-
 }

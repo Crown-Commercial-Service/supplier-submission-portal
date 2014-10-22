@@ -1,6 +1,10 @@
   <div class='page-footer'>
     <button class='button-save'>
-      Save and continue
+      %{ if (_return_to_summary) { }%
+        Save and return to summary
+      %{ } else { }%
+        Save and continue
+      %{ } }%
     </button>
 
   %{ if (_prevPageURL) { }%

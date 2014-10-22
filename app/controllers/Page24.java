@@ -2,13 +2,13 @@ package controllers;
 
 import com.google.gson.Gson;
 import models.Listing;
-import models.Page;
 import play.data.validation.Error;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.List;
 
-public class Page24 extends AuthenticatingController {
+public class Page24 extends AuthenticatingQuestionPage {
 
     private static final Long PAGE_ID = 24l;
 
@@ -72,48 +72,57 @@ public class Page24 extends AuthenticatingController {
                 flash.put(key, value);
             }
             System.out.println(flash);
-            redirect(String.format("/page/%d/%d", PAGE_ID, listing.id));
+            if (request.params.get("return_to_summary").equals("yes")) {
+              redirect(String.format("/page/%d/%d?return_to_summary=yes", PAGE_ID, listing.id));
+            } else {
+              redirect(String.format("/page/%d/%d", PAGE_ID, listing.id));
+            }
         }
 
 
         // Save the form data as a Page into the correct page index
+        Map<String, String> pageResponses = new HashMap<String, String>();
+
         Gson gson = new Gson();
-        Page page = new Page(listingId, PAGE_ID);
+
         if (p24q1 != null) {
-            page.responses.put("p24q1", gson.toJson(p24q1));
-            page.responses.put("p24q1assurance", p24q1assurance);
+            pageResponses.put("p24q1", gson.toJson(p24q1));
+            pageResponses.put("p24q1assurance", p24q1assurance);
         }
-        else {page.responses.put("p24q1", null);
+        else {pageResponses.put("p24q1", null);
         }
         if (p24q2 != null) {
-            page.responses.put("p24q2", gson.toJson(p24q2));
-            page.responses.put("p24q2assurance", p24q2assurance);
+            pageResponses.put("p24q2", gson.toJson(p24q2));
+            pageResponses.put("p24q2assurance", p24q2assurance);
         }
-        else {page.responses.put("p24q2", null);
+        else {pageResponses.put("p24q2", null);
         }
-        page.responses.put("p24q3", p24q3);
-        page.responses.put("p24q4", p24q4);
-        page.responses.put("p24q5", p24q5);
-        page.responses.put("p24q6", p24q6);
-        page.responses.put("p24q7", p24q7);
-        page.responses.put("p24q8", p24q8);
-        page.responses.put("p24q9", p24q9);
-        page.responses.put("p24q10", p24q10);
-        page.responses.put("p24q11", p24q11);
+        pageResponses.put("p24q3", p24q3);
+        pageResponses.put("p24q4", p24q4);
+        pageResponses.put("p24q5", p24q5);
+        pageResponses.put("p24q6", p24q6);
+        pageResponses.put("p24q7", p24q7);
+        pageResponses.put("p24q8", p24q8);
+        pageResponses.put("p24q9", p24q9);
+        pageResponses.put("p24q10", p24q10);
+        pageResponses.put("p24q11", p24q11);
 
-        page.responses.put("p24q3assurance", p24q3assurance);
-        page.responses.put("p24q4assurance", p24q4assurance);
-        page.responses.put("p24q5assurance", p24q5assurance);
-        page.responses.put("p24q6assurance", p24q6assurance);
-        page.responses.put("p24q7assurance", p24q7assurance);
-        page.responses.put("p24q8assurance", p24q8assurance);
-        page.responses.put("p24q9assurance", p24q9assurance);
-        page.responses.put("p24q10assurance", p24q10assurance);
-        page.responses.put("p24q11assurance", p24q11assurance);
-        page.insert();
-        listing.addResponsePage(page, PAGE_ID, getEmail());
-        redirect(listing.nextPageUrl(PAGE_ID, listing.id));
+        pageResponses.put("p24q3assurance", p24q3assurance);
+        pageResponses.put("p24q4assurance", p24q4assurance);
+        pageResponses.put("p24q5assurance", p24q5assurance);
+        pageResponses.put("p24q6assurance", p24q6assurance);
+        pageResponses.put("p24q7assurance", p24q7assurance);
+        pageResponses.put("p24q8assurance", p24q8assurance);
+        pageResponses.put("p24q9assurance", p24q9assurance);
+        pageResponses.put("p24q10assurance", p24q10assurance);
+        pageResponses.put("p24q11assurance", p24q11assurance);
 
+        saveResponseToPage(PAGE_ID, listing, pageResponses);
+        if (request.params.get("return_to_summary").equals("yes")) {
+          redirect(listing.summaryPageUrl(PAGE_ID));
+        } else {
+          redirect(listing.nextPageUrl(PAGE_ID, listing.id));
+        }
     }
 
 }
