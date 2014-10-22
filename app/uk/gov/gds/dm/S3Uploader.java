@@ -6,7 +6,6 @@ import play.Logger;
 import play.Play;
 
 import java.io.IOException;
-import java.util.HashMap;
 
 public class S3Uploader {
 
@@ -14,27 +13,23 @@ public class S3Uploader {
     private static final String S3_ENDPOINT = "s3-eu-west-1.amazonaws.com";
 
     public S3Uploader() {
-        String key = "AKIAJZU7XZ5RGNP2NUCA";//System.getenv("AWS_ACCESS_KEY");
-        String secretKey = "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";//System.getenv("AWS_SECRET_ACCESS_KEY");
+        String key = System.getProperty("aws.access.key", System.getenv("AWS_ACCESS_KEY"));
+        String secretKey = System.getProperty("aws.secret.access.key", System.getenv("AWS_SECRET_ACCESS_KEY"));
         String bucket = String.valueOf(Play.configuration.get("application.s3.bucket.name"));
-
         client = new S3Store(S3_ENDPOINT, key, secretKey, bucket);
+
     }
 
     public String upload(byte[] data, String key) {
         try {
-            client.createBucket();
-            client.storeItem(key, data, Constants.ACL_PRIVATE);
+            if(!client.storeItem(key, data, Constants.ACL_PRIVATE)) {
+                throw new RuntimeException("Upload failed");
+            }
         } catch (IOException e) {
             Logger.error("Upload failed", e);
-            e.printStackTrace();
+            throw new RuntimeException("Upload failed", e);
         }
         return "";
     }
-
-    private void ensureBucketExists(String bucket) {
-
-    }
-
 
 }

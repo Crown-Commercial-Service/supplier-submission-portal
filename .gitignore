@@ -83,4 +83,3 @@ govuk_modules
 public
 conf/content.properties
 lib
-war/WEB-INF/appengine-web.xml
