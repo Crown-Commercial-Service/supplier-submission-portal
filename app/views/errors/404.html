@@ -1,19 +1,32 @@
-<!DOCTYPE html>
+#{extends 'layout.html' /}
+#{set title:'Not found | Digital Marketplace' /}
 
-<html>
-    <head>
-        <title>Not found</title>
-        <meta http-equiv="Content-Type" content="text/html; charset=${_response_encoding}"/>    
-    </head>
-    <body>
-        #{if play.mode.name() == 'DEV'}
-            #{404 result /}
-        #{/if}
-        #{else}
-            <h1>Not found</h1>
-            <p>
-                ${result.message}
-            </p>
-        #{/else}
-    </body>
-</html>
+<div class='breadcrumb-navigation'>
+    <nav>
+        <ol>
+            <li class='breadcrumb-navigation-item'>
+               <a href="/">Your G-Cloud 6 submissions</a>
+            </li>
+        </ol>
+    </nav>
+</div>
+
+#{if play.mode.name() == 'DEV'}
+    #{404 result /}
+#{/if}
+#{else}
+  <h1 class='page-heading-without-position'>
+    This page cannot be found
+  </h1>
+  <p class='error-paragraph'>
+    Please check that you’ve entered the right web address, or make a fresh
+    start on the <a href="${uk.gov.gds.dm.URLTools.getDigitalMarketplaceURL()}">Digital
+    Marketplace home page</a>. If you still can’t find what you're
+    looking for then
+    <a href="mailto:enquiries@digitalmarketplace.service.gov.uk?subject=Digital Marketplace 404 error">get in touch</a>.
+  </p>
+  <p class='error-paragraph'>
+    Help us improve the Digital Marketplace by giving us feedback to
+    <a href="mailto:enquiries@digitalmarketplace.service.gov.uk?subject=Digital Marketplace feedback">enquiries@digitalmarketplace.service.gov.uk</a>
+  </p>
+#{/else}

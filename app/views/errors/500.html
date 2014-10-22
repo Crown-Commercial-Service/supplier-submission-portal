@@ -1,21 +1,24 @@
-<!DOCTYPE html>
+#{extends 'layout.html' /}
+#{set title:'Internal server error | Digital Marketplace' /}
 
-<html>
-    <head>
-        <title>Application error</title>
-        <meta http-equiv="Content-Type" content="text/html; charset=${_response_encoding}"/>	
-    </head>
-    <body>
-        #{if play.mode.name() == 'DEV'}
-            #{500 exception /}
-        #{/if}
-        #{else}
-            <h1>Oops, an error occured</h1>
-            #{if exception instanceof play.exceptions.PlayException}
-                <p>
-                    This exception has been logged with id <strong>${exception.id}</strong>.
-                </p>
-            #{/if}
-        #{/else}
-    </body>
-</html>
+<div class='breadcrumb-navigation'>
+    <nav>
+        <ol>
+            <li class='breadcrumb-navigation-item'>
+                <a href="/">Your G-Cloud 6 submissions</a>
+            </li>
+        </ol>
+    </nav>
+</div>
+
+#{if play.mode.name() == 'DEV'}
+    #{500 exception /}
+#{/if}
+#{else}
+  <h1 class='page-heading-without-position'>
+    Sorry, we are experiencing technical difficulties
+  </h1>
+  <p class='error-paragraph'>
+    Please try again in a few moments.
+  </p>
+#{/else}
