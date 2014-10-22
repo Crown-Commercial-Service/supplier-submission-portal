@@ -15,7 +15,7 @@ import java.util.*;
 
 public class QuestionPageDisplay extends AuthenticatingController {
 
-    public static void showPage(Long pageId, Long listingId) {
+    public static void showPage(Long pageId, Long listingId, Boolean return_to_summary) {
 
         Listing listing = Listing.getByListingId(listingId);
 
@@ -46,6 +46,7 @@ public class QuestionPageDisplay extends AuthenticatingController {
         renderArgs.put("listingId", listingId);
         renderArgs.put("prevPageURL", listing.prevPageUrl(pageId, listingId));
         renderArgs.put("summaryPageURL", listing.summaryPageUrl());
+        renderArgs.put("return_to_summary", return_to_summary);
 
         if (flash.get("body") != null) {
             try {

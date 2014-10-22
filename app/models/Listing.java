@@ -90,6 +90,15 @@ public class Listing extends Model {
       return String.format("/service/%d/summary", this.id);
     }
 
+    public String summaryPageUrl(Long pageID) {
+
+      String pageIDAsString = pageID.toString();
+      String summaryPageUrl = this.summaryPageUrl();
+
+      return summaryPageUrl + "#page" + pageIDAsString;
+
+    }
+
     public static List<Listing> allBySupplierId(String supplierId) {
         return Model.all(Listing.class).filter("supplierId", supplierId).fetch();
     }
