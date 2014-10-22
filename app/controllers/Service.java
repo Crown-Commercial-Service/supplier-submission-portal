@@ -62,7 +62,7 @@ public class Service extends AuthenticatingController {
             redirect("/addservice");
         }
 
-        Listing listing = new Listing(supplierDetailsFromCookie.get("supplierId"), params.get("lot"));
+        Listing listing = new Listing(getSupplierId(), params.get("lot"));
         listing.insert();
 
         // TODO: Get next page using page sequence saved in Listing object
@@ -73,6 +73,10 @@ public class Service extends AuthenticatingController {
 
         Listing listing = Listing.getByListingId(listingId);
 
+        if(!listing.supplierId.equals(getSupplierId())) {
+            notFound();
+        }
+        
         validation.required(serviceCompleted);
         if(serviceCompleted != null){
             validation.isTrue(listing.allPagesHaveBeenCompleted()).key("service").message("This service is not complete.");
@@ -88,7 +92,7 @@ public class Service extends AuthenticatingController {
             redirect(String.format("/service/%d/summary", listingId));
         }
 
-        listing.completeListing(supplierDetailsFromCookie.get("supplierEmail"));
+        listing.completeListing(getEmail());
 
         flash.put("success", "Your service has been marked as completed.");
         redirect("/");
@@ -96,6 +100,11 @@ public class Service extends AuthenticatingController {
 
     public static void markListingAsDraft(Long listingId){
         Listing listing = Listing.getByListingId(listingId);
+        
+        if(!listing.supplierId.equals(getSupplierId())) {
+            notFound();
+        }
+        
         listing.serviceSubmitted = false;
         listing.save();
 
@@ -105,6 +114,11 @@ public class Service extends AuthenticatingController {
 
     public static void showDeletePage(Long listingId, String showDeleteMessage){
         Listing listing = Listing.getByListingId(listingId);
+        
+        if(!listing.supplierId.equals(getSupplierId())) {
+            notFound();
+        }
+        
         List<Long> flow = ServiceSubmissionJourneyFlows.getFlow(listing.lot);
         List<String> optionalQuestions = ServiceSubmissionJourneyFlows.getOptionalQuestions();
 
@@ -134,8 +148,12 @@ public class Service extends AuthenticatingController {
 
     public static void delete(Long listingId){
         Listing listing = Listing.getByListingId(listingId);
+        
+        if(!listing.supplierId.equals(getSupplierId())) {
+            notFound();
+        }
+        
         listing.delete();
-
         redirect("/");
     }
 }

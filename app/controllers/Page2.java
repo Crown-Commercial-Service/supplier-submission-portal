@@ -17,6 +17,10 @@ public class Page2 extends AuthenticatingController {
 
         Listing listing = Listing.getByListingId(listingId);
 
+        if(!listing.supplierId.equals(getSupplierId())) {
+            notFound();
+        }
+        
         if (listing.serviceSubmitted) {
           redirect(listing.summaryPageUrl());
         }
@@ -41,7 +45,7 @@ public class Page2 extends AuthenticatingController {
         Page page = new Page(listingId, PAGE_ID);
         page.responses.put("p2q1", gson.toJson(p2q1));
         page.insert();
-        listing.addResponsePage(page, PAGE_ID, supplierDetailsFromCookie.get("supplierEmail"));
+        listing.addResponsePage(page, PAGE_ID, getEmail());
         redirect(listing.nextPageUrl(PAGE_ID, listing.id));
     }
 }

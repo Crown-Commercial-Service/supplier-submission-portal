@@ -15,6 +15,10 @@ public class Page26 extends AuthenticatingController {
 
         Listing listing = Listing.getByListingId(listingId);
 
+        if(!listing.supplierId.equals(getSupplierId())) {
+            notFound();
+        }
+        
         if (listing.serviceSubmitted) {
           redirect(listing.summaryPageUrl());
         }
@@ -41,7 +45,7 @@ public class Page26 extends AuthenticatingController {
         page.responses.put("p26q1", p26q1);
         page.responses.put("p26q1assurance", p26q1assurance);
         page.insert();
-        listing.addResponsePage(page, PAGE_ID, supplierDetailsFromCookie.get("supplierEmail"));
+        listing.addResponsePage(page, PAGE_ID, getEmail());
         redirect(listing.nextPageUrl(PAGE_ID, listing.id));
     }
 }

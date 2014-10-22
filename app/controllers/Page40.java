@@ -16,6 +16,10 @@ public class Page40 extends AuthenticatingController {
 
         Listing listing = Listing.getByListingId(listingId);
 
+        if(!listing.supplierId.equals(getSupplierId())) {
+            notFound();
+        }
+        
         if (listing.serviceSubmitted) {
           redirect(listing.summaryPageUrl());
         }
@@ -57,7 +61,7 @@ public class Page40 extends AuthenticatingController {
         page.responses.put("p40q2assurance", p40q2assurance);
         page.responses.put("p40q3assurance", p40q3assurance);
         page.insert();
-        listing.addResponsePage(page, PAGE_ID, supplierDetailsFromCookie.get("supplierEmail"));
+        listing.addResponsePage(page, PAGE_ID, getEmail());
         redirect(listing.nextPageUrl(PAGE_ID, listing.id));
     }
 
