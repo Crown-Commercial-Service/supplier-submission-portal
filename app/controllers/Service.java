@@ -1,14 +1,11 @@
 package controllers;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import models.Listing;
 import models.Page;
 import play.data.validation.Error;
 import uk.gov.gds.dm.ServiceSubmissionJourneyFlows;
 import uk.gov.gds.dm.Fixtures;
 
-import java.lang.reflect.Type;
 import java.util.*;
 
 import java.util.List;
@@ -18,6 +15,12 @@ public class Service extends AuthenticatingController {
 
     public static void summaryPage(Long listingId) {
         Listing listing = Listing.getByListingId(listingId);
+
+        // Check listing belongs to authenticated user
+        if(!listing.supplierId.equals(getSupplierId())) {
+            notFound();
+        }
+
         List<Long> flow = ServiceSubmissionJourneyFlows.getFlow(listing.lot);
         List<String> optionalQuestions = ServiceSubmissionJourneyFlows.getOptionalQuestions();
 
