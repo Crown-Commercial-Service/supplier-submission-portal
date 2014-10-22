@@ -17,6 +17,10 @@ public class Page3 extends AuthenticatingController {
 
         Listing listing = Listing.getByListingId(listingId);
 
+        if (listing.serviceSubmitted) {
+          redirect(listing.summaryPageUrl());
+        }
+
         // Validate all fields on this page requiring validation
         validation.required(p3q1);
         validation.isTrue(ValidationUtils.stringArrayValuesAreNotTooLong(p3q1, 30)).key("p3q1").message("Invalid values");
@@ -31,6 +35,7 @@ public class Page3 extends AuthenticatingController {
             }
             redirect(String.format("/page/%d/%d", PAGE_ID, listing.id));
         }
+
 
         // Save the form data as a Page into the correct page index
         Gson gson = new Gson();

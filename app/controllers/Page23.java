@@ -14,6 +14,10 @@ public class Page23 extends AuthenticatingController {
 
         Listing listing = Listing.getByListingId(listingId);
 
+        if (listing.serviceSubmitted) {
+          redirect(listing.summaryPageUrl());
+        }
+
         // Validate all fields on this page requiring validation
         validation.required(p23q1).key("p23q1");
         validation.required(p23q1assurance).key("p23q1");
@@ -53,6 +57,7 @@ public class Page23 extends AuthenticatingController {
         page.insert();
         listing.addResponsePage(page, PAGE_ID, supplierDetailsFromCookie.get("supplierEmail"));
         redirect(listing.nextPageUrl(PAGE_ID, listing.id));
+
     }
 
 }

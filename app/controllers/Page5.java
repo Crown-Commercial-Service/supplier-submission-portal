@@ -21,6 +21,10 @@ public class Page5 extends AuthenticatingController {
 
         Listing listing = Listing.getByListingId(listingId);
 
+        if (listing.serviceSubmitted) {
+          redirect(listing.summaryPageUrl());
+        }
+
         // Extract multiple values for list items
         Map<String, String[]> params = request.params.all();
         ArrayList<String> q1 = new ArrayList();

@@ -7,12 +7,16 @@ import java.util.Map;
 import java.util.List;
 
 public class Page27 extends AuthenticatingController {
-    
+
     private static final Long PAGE_ID = 27l;
 
     public static void savePage(Long listingId, String p27q1, String p27q2, String p27q1assurance, String p27q2assurance) {
 
         Listing listing = Listing.getByListingId(listingId);
+
+        if (listing.serviceSubmitted) {
+          redirect(listing.summaryPageUrl());
+        }
 
         // Validate all fields on this page requiring validation
         if (!listing.lot.equals("SCS")) {
@@ -42,6 +46,7 @@ public class Page27 extends AuthenticatingController {
             System.out.println(flash);
             redirect(String.format("/page/%d/%d", PAGE_ID, listing.id));
         }
+
 
         Page page = new Page(listingId, PAGE_ID);
         page.responses.put("p27q1", p27q1);

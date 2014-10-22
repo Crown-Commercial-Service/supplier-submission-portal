@@ -19,6 +19,10 @@ public class Page10 extends AuthenticatingController {
 
         Listing listing = Listing.getByListingId(listingId);
 
+        if (listing.serviceSubmitted) {
+          redirect(listing.summaryPageUrl());
+        }
+
         validation.required(p10q1).key("p10q1");
         validation.isTrue(ValidationUtils.stringArrayValuesAreNotTooLong(p10q1, 20)).key("p10q1").message("Invalid values");
 

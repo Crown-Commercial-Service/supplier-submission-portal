@@ -22,6 +22,10 @@ public class Page8 extends AuthenticatingController {
 
         Listing listing = Listing.getByListingId(listingId);
 
+        if (listing.serviceSubmitted) {
+          redirect(listing.summaryPageUrl());
+        }
+
         Double min = null, max = null;
 
         try {
@@ -113,11 +117,11 @@ public class Page8 extends AuthenticatingController {
 
         String nicePrice = "£" + p8q1MinPrice;
         if (0 != p8q1MaxPrice.trim().length()) {
-           nicePrice = nicePrice + " to £" + p8q1MaxPrice;
+          nicePrice = nicePrice + " to £" + p8q1MaxPrice;
         }
         nicePrice = nicePrice + " per " + p8q1Unit.toLowerCase();
         if (0 != p8q1Interval.trim().length()) {
-           nicePrice = nicePrice + " per " + p8q1Interval.toLowerCase();
+          nicePrice = nicePrice + " per " + p8q1Interval.toLowerCase();
         }
 
         Page page = new Page(listingId, PAGE_ID);

@@ -16,6 +16,10 @@ public class Page9 extends AuthenticatingController {
 
         Listing listing = Listing.getByListingId(listingId);
 
+        if (listing.serviceSubmitted) {
+          redirect(listing.summaryPageUrl());
+        }
+
         // Validate all fields on this page requiring validation
         validation.required(p9q1).key("p9q1");
         validation.maxSize(p9q1, 10);
@@ -38,5 +42,6 @@ public class Page9 extends AuthenticatingController {
         page.insert();
         listing.addResponsePage(page, PAGE_ID, supplierDetailsFromCookie.get("supplierEmail"));
         redirect(listing.nextPageUrl(PAGE_ID, listing.id));
+
     }
 }

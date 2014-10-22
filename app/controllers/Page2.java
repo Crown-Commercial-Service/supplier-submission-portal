@@ -17,6 +17,10 @@ public class Page2 extends AuthenticatingController {
 
         Listing listing = Listing.getByListingId(listingId);
 
+        if (listing.serviceSubmitted) {
+          redirect(listing.summaryPageUrl());
+        }
+
         // Validate all fields on this page requiring validation
         validation.required(p2q1);
         validation.isTrue(ValidationUtils.stringArrayValuesAreNotTooLong(p2q1, 50)).key("p2q1").message("Invalid values");

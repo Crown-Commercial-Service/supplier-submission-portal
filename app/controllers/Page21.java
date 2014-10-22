@@ -19,6 +19,10 @@ public class Page21 extends AuthenticatingController {
 
         Listing listing = Listing.getByListingId(listingId);
 
+        if (listing.serviceSubmitted) {
+          redirect(listing.summaryPageUrl());
+        }
+
         // Extract multiple values for list items
         Map<String, String[]> params = request.params.all();
         ArrayList<String> p21q1 = new ArrayList();
@@ -50,6 +54,7 @@ public class Page21 extends AuthenticatingController {
             System.out.println(flash);
             redirect(String.format("/page/%d/%d", PAGE_ID, listing.id));
         }
+
 
         // Save the form data as a Page into the correct page index
         Gson gson = new Gson();

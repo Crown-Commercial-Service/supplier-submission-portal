@@ -22,6 +22,10 @@ public class Page7 extends AuthenticatingController {
 
         Listing listing = Listing.getByListingId(listingId);
 
+        if (listing.serviceSubmitted) {
+          redirect(listing.summaryPageUrl());
+        }
+
         //Validate all fields on this page requiring validation
         if(!listing.lot.equals("SaaS")){
             validation.required(p7q1).key("p7q1");
@@ -71,6 +75,7 @@ public class Page7 extends AuthenticatingController {
         page.insert();
         listing.addResponsePage(page, PAGE_ID, supplierDetailsFromCookie.get("supplierEmail"));
         redirect(listing.nextPageUrl(PAGE_ID, listing.id));
+
     }
 
 }

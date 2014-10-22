@@ -20,6 +20,10 @@ public class Page16 extends AuthenticatingController {
 
         Listing listing = Listing.getByListingId(listingId);
 
+        if (listing.serviceSubmitted) {
+          redirect(listing.summaryPageUrl());
+        }
+
         // Extract multiple values for list items
         Map<String, String[]> params = request.params.all();
         ArrayList<String> p16q1 = new ArrayList();

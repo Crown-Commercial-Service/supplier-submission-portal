@@ -23,6 +23,10 @@ public class Page6 extends AuthenticatingController {
 
         Listing listing = Listing.getByListingId(listingId);
 
+        if (listing.serviceSubmitted) {
+          redirect(listing.summaryPageUrl());
+        }
+
         validation.required(p6q1).key("p6q1");
 
         if(p6q1 != null){
@@ -58,6 +62,7 @@ public class Page6 extends AuthenticatingController {
         page.insert();
         listing.addResponsePage(page, PAGE_ID, supplierDetailsFromCookie.get("supplierEmail"));
         redirect(listing.nextPageUrl(PAGE_ID, listing.id));
+
     }
 
 }

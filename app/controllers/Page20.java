@@ -19,6 +19,10 @@ public class Page20 extends AuthenticatingController {
 
         Listing listing = Listing.getByListingId(listingId);
 
+        if (listing.serviceSubmitted) {
+          redirect(listing.summaryPageUrl());
+        }
+
         // Extract multiple values for list items
         Map<String, String[]> params = request.params.all();
         ArrayList<String> p20q1 = new ArrayList();
@@ -56,5 +60,6 @@ public class Page20 extends AuthenticatingController {
         page.insert();
         listing.addResponsePage(page, PAGE_ID, supplierDetailsFromCookie.get("supplierEmail"));
         redirect(listing.nextPageUrl(PAGE_ID, listing.id));
+
     }
 }

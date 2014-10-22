@@ -16,6 +16,10 @@ public class Page40 extends AuthenticatingController {
 
         Listing listing = Listing.getByListingId(listingId);
 
+        if (listing.serviceSubmitted) {
+          redirect(listing.summaryPageUrl());
+        }
+
         // Validate all fields on this page requiring validation
         validation.required(p40q1).key("p40q1");
         validation.maxSize(p40q1, 40);
@@ -43,6 +47,7 @@ public class Page40 extends AuthenticatingController {
             System.out.println(flash);
             redirect(String.format("/page/%d/%d", PAGE_ID, listing.id));
         }
+
 
         Page page = new Page(listingId, PAGE_ID);
         page.responses.put("p40q1", p40q1);

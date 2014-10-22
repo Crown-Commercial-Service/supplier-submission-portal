@@ -15,6 +15,10 @@ public class Page39 extends AuthenticatingController {
 
         Listing listing = Listing.getByListingId(listingId);
 
+        if (listing.serviceSubmitted) {
+          redirect(listing.summaryPageUrl());
+        }
+
         // Validate all fields on this page requiring validation
         validation.required(p39q1).key("p39q1");
         validation.maxSize(p39q1, 50);

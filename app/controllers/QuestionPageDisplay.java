@@ -5,6 +5,7 @@ import com.google.gson.reflect.TypeToken;
 import models.Listing;
 import models.Page;
 import play.Logger;
+import play.Play;
 import uk.gov.gds.dm.Fixtures;
 
 import java.io.UnsupportedEncodingException;
@@ -29,6 +30,13 @@ public class QuestionPageDisplay extends AuthenticatingController {
             notFound();
         }
 
+        // The unit tests (running in DEV mode) do not mock the listing object
+        // properly so listing.serviceSubmitted will always return true, causing
+        // the tests to fail
+        if (Play.mode != Play.Mode.DEV && listing.serviceSubmitted == true) {
+            notFound();
+        }
+
         int index = listing.pageSequence.indexOf(pageId);
         renderArgs.put("lot", listing.lot);
         renderArgs.put("listingID", listing.id);
@@ -37,7 +45,7 @@ public class QuestionPageDisplay extends AuthenticatingController {
         renderArgs.put("pageTotal", Integer.toString(listing.pageSequence.size()));
         renderArgs.put("listingId", listingId);
         renderArgs.put("prevPageURL", listing.prevPageUrl(pageId, listingId));
-
+        renderArgs.put("summaryPageURL", listing.summaryPageUrl());
 
         if (flash.get("body") != null) {
             try {

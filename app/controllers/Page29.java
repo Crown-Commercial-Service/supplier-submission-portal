@@ -8,12 +8,16 @@ import java.util.List;
 import java.util.Map;
 
 public class Page29 extends AuthenticatingController {
-    
+
     private static final Long PAGE_ID = 29l;
 
     public static void savePage(Long listingId, String p29q1, String p29q1assurance) {
 
         Listing listing = Listing.getByListingId(listingId);
+
+        if (listing.serviceSubmitted) {
+          redirect(listing.summaryPageUrl());
+        }
 
         // Validate all fields on this page requiring validation
         validation.required(p29q1).key("p29q1");
@@ -32,6 +36,7 @@ public class Page29 extends AuthenticatingController {
             System.out.println(flash);
             redirect(String.format("/page/%d/%d", PAGE_ID, listing.id));
         }
+
 
         Page page = new Page(listingId, PAGE_ID);
         page.responses.put("p29q1", p29q1);

@@ -17,6 +17,10 @@ public class Page37 extends AuthenticatingController {
 
         Listing listing = Listing.getByListingId(listingId);
 
+        if (listing.serviceSubmitted) {
+          redirect(listing.summaryPageUrl());
+        }
+
         // Validate all fields on this page requiring validation
         if (!listing.lot.equals("SaaS")) {
             validation.required(p37q1).key("p37q1");
@@ -38,6 +42,7 @@ public class Page37 extends AuthenticatingController {
             System.out.println(flash);
             redirect(String.format("/page/%d/%d", PAGE_ID, listing.id));
         }
+
 
         Gson gson = new Gson();
         Page page = new Page(listingId, PAGE_ID);

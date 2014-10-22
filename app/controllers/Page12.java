@@ -17,6 +17,10 @@ public class Page12 extends AuthenticatingController {
 
         Listing listing = Listing.getByListingId(listingId);
 
+        if (listing.serviceSubmitted) {
+          redirect(listing.summaryPageUrl());
+        }
+
         // Validate all fields on this page requiring validation
         validation.required(p12q1).key("p12q1");
         validation.maxSize(p12q1, 10);

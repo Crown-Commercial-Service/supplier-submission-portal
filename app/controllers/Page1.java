@@ -20,6 +20,10 @@ public class Page1 extends AuthenticatingController {
 
         Listing listing = Listing.getByListingId(listingId);
 
+        if (listing.serviceSubmitted) {
+          redirect(listing.summaryPageUrl());
+        }
+
         // Validate all fields on this page requiring validation
         validation.required(p1q1).key("p1q1");
         validation.isTrue(ValidationUtils.stringArrayValuesAreNotTooLong(p1q1, 30)).key("p1q1").message("Invalid values");
@@ -44,5 +48,6 @@ public class Page1 extends AuthenticatingController {
         page.insert();
         listing.addResponsePage(page, PAGE_ID, supplierDetailsFromCookie.get("supplierEmail"));
         redirect(listing.nextPageUrl(PAGE_ID, listing.id));
+
     }
 }
