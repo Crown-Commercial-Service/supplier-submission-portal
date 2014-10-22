@@ -84,7 +84,6 @@ public class Page5 extends AuthenticatingQuestionPage {
         pageResponses.put("p5q1", gson.toJson(q1));
         pageResponses.put("p5q2", gson.toJson(q2));
         saveResponseToPage(PAGE_ID, listing, pageResponses);
-        redirect(listing.nextPageUrl(PAGE_ID, listing.id));
         if (request.params.get("return_to_summary").equals("yes")) {
           redirect(listing.summaryPageUrl(PAGE_ID));
         } else {

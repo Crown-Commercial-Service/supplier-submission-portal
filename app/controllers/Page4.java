@@ -53,7 +53,6 @@ public class Page4 extends AuthenticatingQuestionPage {
         pageResponses.put("p4q2", p4q2);
         listing.title = p4q1;
         saveResponseToPage(PAGE_ID, listing, pageResponses);
-        redirect(listing.nextPageUrl(PAGE_ID, listing.id));
         if (request.params.get("return_to_summary").equals("yes")) {
           redirect(listing.summaryPageUrl(PAGE_ID));
         } else {
