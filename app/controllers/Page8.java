@@ -18,7 +18,7 @@ public class Page8 extends AuthenticatingController {
     private static final Long PAGE_ID = 8l;
 
     public static void savePage(Long listingId, String p8q1MinPrice, String p8q1MaxPrice, String p8q1Unit, String p8q1Interval,
-                                String p8q2, String p8q3, String p8q4, String p8q5, Upload p8q6, Upload p8q7, Boolean return_to_summary) {
+                                String p8q2, String p8q3, String p8q4, String p8q5, Upload p8q6, Upload p8q7) {
 
         Listing listing = Listing.getByListingId(listingId);
 

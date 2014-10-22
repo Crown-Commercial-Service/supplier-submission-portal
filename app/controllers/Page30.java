@@ -12,7 +12,7 @@ public class Page30 extends AuthenticatingController {
     private static final Long PAGE_ID = 30l;
 
     public static void savePage(Long listingId, String p30q1, String p30q2, String p30q3, String p30q4, String p30q5
-                                        , String p30q1assurance, String p30q2assurance, String p30q3assurance, String p30q4assurance, String p30q5assurance, Boolean return_to_summary) {
+                                        , String p30q1assurance, String p30q2assurance, String p30q3assurance, String p30q4assurance, String p30q5assurance) {
 
         Listing listing = Listing.getByListingId(listingId);
 

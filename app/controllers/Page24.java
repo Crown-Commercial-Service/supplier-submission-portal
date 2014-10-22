@@ -16,7 +16,7 @@ public class Page24 extends AuthenticatingController {
                                 String p24q7, String p24q8, String p24q9, String p24q10, String p24q11, String p24q1assurance,
                                 String p24q2assurance, String p24q3assurance, String p24q4assurance, String p24q5assurance,
                                 String p24q6assurance, String p24q7assurance, String p24q8assurance, String p24q9assurance,
-                                String p24q10assurance, String p24q11assurance, Boolean return_to_summary) {
+                                String p24q10assurance, String p24q11assurance) {
 
         Listing listing = Listing.getByListingId(listingId);
 
