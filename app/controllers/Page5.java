@@ -65,13 +65,7 @@ public class Page5 extends AuthenticatingController {
 
                 flash.put(key, value);
             }
-            System.out.println(flash);
-            System.out.println("  ------------");
-            System.out.println("  Value:.." + request.params.get("return_to_summary") + ".....");
-            System.out.println("  Type:..." + request.params.get("return_to_summary").getClass() + ".....");
-            System.out.println("  ==\"yes\":");
-            System.out.println(request.params.get("return_to_summary") == "yes");
-            System.out.println("  ------------");
+           
             if (request.params.get("return_to_summary").equals("yes")) {
               System.out.println("YES");
               redirect(String.format("/page/%d/%d?return_to_summary=yes", PAGE_ID, listing.id));
