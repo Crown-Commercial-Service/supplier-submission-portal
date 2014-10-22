@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import models.Listing;
 import models.Page;
 import play.data.validation.Error;
+import uk.gov.gds.dm.Fixtures;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -66,7 +67,7 @@ public class Page24 extends AuthenticatingQuestionPage {
                 String key = entry.getKey();
                 String value = entry.getValue().get(0).message();
 
-                flash.put(key, value);
+                flash.put(key, Fixtures.getErrorMessage(key, value));
             }
             System.out.println(flash);
             if (request.params.get("return_to_summary").equals("yes")) {
