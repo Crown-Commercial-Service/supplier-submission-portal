@@ -1,14 +1,14 @@
 package controllers;
 
 import models.Listing;
-import models.Page;
 import play.data.validation.Error;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.List;
 
 
-public class Page9 extends AuthenticatingController {
+public class Page9 extends AuthenticatingQuestionPage {
 
     private static final Long PAGE_ID = 9l;
 
@@ -41,15 +41,13 @@ public class Page9 extends AuthenticatingController {
         }
 
         // Save the form data as a Page into the correct page index
-        Page page = new Page(listingId, PAGE_ID);
-        page.responses.put("p9q1", p9q1);
-        page.insert();
-        listing.addResponsePage(page, PAGE_ID, supplierDetailsFromCookie.get("supplierEmail"));
+        Map<String, String> pageResponses = new HashMap<String, String>();
+        pageResponses.put("p9q1", p9q1);
+        saveResponseToPage(PAGE_ID, listing, pageResponses);
         if (request.params.get("return_to_summary").equals("yes")) {
           redirect(listing.summaryPageUrl(PAGE_ID));
         } else {
           redirect(listing.nextPageUrl(PAGE_ID, listing.id));
         }
-
     }
 }

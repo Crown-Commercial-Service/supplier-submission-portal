@@ -1,12 +1,13 @@
 package controllers;
 
 import models.Listing;
-import models.Page;
 import play.data.validation.Error;
+
+import java.util.HashMap;
 import java.util.Map;
 import java.util.List;
 
-public class Page27 extends AuthenticatingController {
+public class Page27 extends AuthenticatingQuestionPage {
 
     private static final Long PAGE_ID = 27l;
 
@@ -51,14 +52,12 @@ public class Page27 extends AuthenticatingController {
             }
         }
 
-
-        Page page = new Page(listingId, PAGE_ID);
-        page.responses.put("p27q1", p27q1);
-        page.responses.put("p27q2", p27q2);
-        page.responses.put("p27q1assurance", p27q1assurance);
-        page.responses.put("p27q2assurance", p27q2assurance);
-        page.insert();
-        listing.addResponsePage(page, PAGE_ID, supplierDetailsFromCookie.get("supplierEmail"));
+        Map<String, String> pageResponses = new HashMap<String, String>();
+        pageResponses.put("p27q1", p27q1);
+        pageResponses.put("p27q2", p27q2);
+        pageResponses.put("p27q1assurance", p27q1assurance);
+        pageResponses.put("p27q2assurance", p27q2assurance);
+        saveResponseToPage(PAGE_ID, listing, pageResponses);
         if (request.params.get("return_to_summary").equals("yes")) {
           redirect(listing.summaryPageUrl(PAGE_ID));
         } else {

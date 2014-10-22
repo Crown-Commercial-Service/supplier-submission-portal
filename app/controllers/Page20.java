@@ -3,16 +3,16 @@ package controllers;
 import com.google.appengine.repackaged.com.google.common.base.Strings;
 import com.google.gson.Gson;
 import models.Listing;
-import models.Page;
 import play.data.validation.Error;
 import uk.gov.gds.dm.ValidationUtils;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.List;
 
 
-public class Page20 extends AuthenticatingController {
+public class Page20 extends AuthenticatingQuestionPage {
     private static final Long PAGE_ID = 20l;
 
     public static void savePage(Long listingId) {
@@ -58,16 +58,14 @@ public class Page20 extends AuthenticatingController {
         }
 
         // Save the form data as a Page into the correct page index
+        Map<String, String> pageResponses = new HashMap<String, String>();
         Gson gson = new Gson();
-        Page page = new Page(listingId, PAGE_ID);
-        page.responses.put("p20q1", gson.toJson(p20q1));
-        page.insert();
-        listing.addResponsePage(page, PAGE_ID, supplierDetailsFromCookie.get("supplierEmail"));
+        pageResponses.put("p20q1", gson.toJson(p20q1));
+        saveResponseToPage(PAGE_ID, listing, pageResponses);
         if (request.params.get("return_to_summary").equals("yes")) {
           redirect(listing.summaryPageUrl(PAGE_ID));
         } else {
           redirect(listing.nextPageUrl(PAGE_ID, listing.id));
         }
-
     }
 }

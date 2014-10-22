@@ -2,19 +2,18 @@ package controllers;
 
 import models.Document;
 import models.Listing;
-import models.Page;
-import play.Logger;
 import play.data.Upload;
 import play.data.validation.Error;
 import play.i18n.Messages;
 import uk.gov.gds.dm.DocumentUtils;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import static uk.gov.gds.dm.DocumentUtils.storeDocument;
 
-public class Page6 extends AuthenticatingController {
+public class Page6 extends AuthenticatingQuestionPage {
 
     private static final Long PAGE_ID = 6l;
     private static final String QUESTION_ID = "p6q1";
@@ -61,10 +60,9 @@ public class Page6 extends AuthenticatingController {
             }
         }
 
-        Page page = new Page(listingId, PAGE_ID);
-        page.responses.put("p6q1", p6q1.getFileName());
-        page.insert();
-        listing.addResponsePage(page, PAGE_ID, supplierDetailsFromCookie.get("supplierEmail"));
+        Map<String, String> pageResponses = new HashMap<String, String>();
+        pageResponses.put("p6q1", p6q1.getFileName());
+        saveResponseToPage(PAGE_ID, listing, pageResponses);
         if (request.params.get("return_to_summary").equals("yes")) {
           redirect(listing.summaryPageUrl(PAGE_ID));
         } else {
@@ -72,5 +70,4 @@ public class Page6 extends AuthenticatingController {
         }
 
     }
-
 }

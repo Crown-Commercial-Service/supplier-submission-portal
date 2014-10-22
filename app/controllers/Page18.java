@@ -2,15 +2,15 @@ package controllers;
 
 import com.google.gson.Gson;
 import models.Listing;
-import models.Page;
 import play.data.validation.Error;
 import uk.gov.gds.dm.ValidationUtils;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.List;
 
 
-public class Page18 extends AuthenticatingController {
+public class Page18 extends AuthenticatingQuestionPage {
 
     private static final Long PAGE_ID = 18l;
 
@@ -43,11 +43,10 @@ public class Page18 extends AuthenticatingController {
         }
 
         // Save the form data as a Page into the correct page index
+        Map<String, String> pageResponses = new HashMap<String, String>();
         Gson gson = new Gson();
-        Page page = new Page(listingId, PAGE_ID);
-        page.responses.put("p18q1", gson.toJson(p18q1));
-        page.insert();
-        listing.addResponsePage(page, PAGE_ID, supplierDetailsFromCookie.get("supplierEmail"));
+        pageResponses.put("p18q1", gson.toJson(p18q1));
+        saveResponseToPage(PAGE_ID, listing, pageResponses);
         if (request.params.get("return_to_summary").equals("yes")) {
           redirect(listing.summaryPageUrl(PAGE_ID));
         } else {

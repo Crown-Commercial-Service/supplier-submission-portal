@@ -2,15 +2,15 @@ package controllers;
 
 import com.google.gson.Gson;
 import models.Listing;
-import models.Page;
 
 import play.data.validation.Error;
 import uk.gov.gds.dm.ValidationUtils;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.List;
 
-public class Page10 extends AuthenticatingController {
+public class Page10 extends AuthenticatingQuestionPage {
 
 
     private static final Long PAGE_ID = 10l;
@@ -48,6 +48,7 @@ public class Page10 extends AuthenticatingController {
 
                 flash.put(key, value);
             }
+
             System.out.println(flash);
             if (request.params.get("return_to_summary").equals("yes")) {
               redirect(String.format("/page/%d/%d?return_to_summary=yes", PAGE_ID, listing.id));
@@ -57,19 +58,18 @@ public class Page10 extends AuthenticatingController {
         }
 
         //Save the form data as a Page into the correct page index
+        Map<String, String> pageResponses = new HashMap<String, String>();
         Gson gson = new Gson();
-        Page page = new Page(listingId, PAGE_ID);
-        page.responses.put("p10q1", gson.toJson(p10q1));
-        page.responses.put("p10q2", p10q2);
-        page.responses.put("p10q3", p10q3);
-        page.responses.put("p10q4", p10q4);
-        page.responses.put("p10q5", p10q5);
-        page.insert();
-        listing.addResponsePage(page, PAGE_ID, supplierDetailsFromCookie.get("supplierEmail"));
+        pageResponses.put("p10q1", gson.toJson(p10q1));
+        pageResponses.put("p10q2", p10q2);
+        pageResponses.put("p10q3", p10q3);
+        pageResponses.put("p10q4", p10q4);
+        pageResponses.put("p10q5", p10q5);
+        saveResponseToPage(PAGE_ID, listing, pageResponses);
         if (request.params.get("return_to_summary").equals("yes")) {
           redirect(listing.summaryPageUrl(PAGE_ID));
         } else {
           redirect(listing.nextPageUrl(PAGE_ID, listing.id));
         }
-    }
+   }
 }

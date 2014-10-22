@@ -4,10 +4,11 @@ import models.Listing;
 import models.Page;
 import play.data.validation.Error;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.List;
 
-public class Page39 extends AuthenticatingController {
+public class Page39 extends AuthenticatingQuestionPage {
 
     private static final Long PAGE_ID = 39l;
 
@@ -39,10 +40,9 @@ public class Page39 extends AuthenticatingController {
             }
         }
 
-        Page page = new Page(listingId, PAGE_ID);
-        page.responses.put("p39q1", p39q1);
-        page.insert();
-        listing.addResponsePage(page, PAGE_ID, supplierDetailsFromCookie.get("supplierEmail"));
+        Map<String, String> pageResponses = new HashMap<String, String>();
+        pageResponses.put("p39q1", p39q1);
+        saveResponseToPage(PAGE_ID, listing, pageResponses);
         if (request.params.get("return_to_summary").equals("yes")) {
           redirect(listing.summaryPageUrl(PAGE_ID));
         } else {
