@@ -51,9 +51,8 @@ public class Document extends Model{
 
     public void pushDocumentToStorage() {
 
-        String bucket = "gds-g6-submission-bucket-local-85288f83-1842";//String.valueOf(Play.configuration.get("application.s3.bucket.name"));
         String documentKey = String.format("%s/%d/%s/%s", this.supplierName, this.listingId, this.questionId, this.name);
-        String documentUrl = uploader.upload(this.bytes, bucket, documentKey);
+        String documentUrl = uploader.upload(this.bytes, documentKey);
         this.documentUrl = documentUrl;
 
     }
