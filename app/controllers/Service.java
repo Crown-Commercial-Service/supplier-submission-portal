@@ -113,8 +113,6 @@ public class Service extends AuthenticatingController {
             }
         }
 
-        System.out.println(allAnswers);
-
         renderArgs.put("content", Fixtures.getContentProperties());
         renderArgs.put("service_id", listingId);
         renderArgs.put("listing", listing);
