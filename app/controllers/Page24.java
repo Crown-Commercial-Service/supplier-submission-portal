@@ -17,7 +17,8 @@ public class Page24 extends AuthenticatingQuestionPage {
                                 String p24q7, String p24q8, String p24q9, String p24q10, String p24q11, String p24q1assurance,
                                 String p24q2assurance, String p24q3assurance, String p24q4assurance, String p24q5assurance,
                                 String p24q6assurance, String p24q7assurance, String p24q8assurance, String p24q9assurance,
-                                String p24q10assurance, String p24q11assurance) {
+                                String p24q10assurance, String p24q11assurance,
+                                String return_to_summary) {
 
         Listing listing = Listing.getByListingId(listingId);
 
@@ -69,7 +70,7 @@ public class Page24 extends AuthenticatingQuestionPage {
                 flash.put(key, value);
             }
             System.out.println(flash);
-            if (request.params.get("return_to_summary").equals("yes")) {
+            if (return_to_summary.contains("yes")) {
               redirect(String.format("/page/%d/%d?return_to_summary=yes", PAGE_ID, listing.id));
             } else {
               redirect(String.format("/page/%d/%d", PAGE_ID, listing.id));
@@ -115,7 +116,7 @@ public class Page24 extends AuthenticatingQuestionPage {
         pageResponses.put("p24q11assurance", p24q11assurance);
 
         saveResponseToPage(PAGE_ID, listing, pageResponses);
-        if (request.params.get("return_to_summary").equals("yes")) {
+        if (return_to_summary.contains("yes")) {
           redirect(listing.summaryPageUrl(PAGE_ID));
         } else {
           redirect(listing.nextPageUrl(PAGE_ID, listing.id));

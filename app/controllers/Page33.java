@@ -13,7 +13,8 @@ public class Page33 extends AuthenticatingQuestionPage {
     private static final Long PAGE_ID = 33l;
 
     public static void savePage(Long listingId, String p33q1, String p33q2, String p33q3, String p33q4, String p33q5,
-                                String p33q1assurance, String p33q2assurance, String p33q3assurance, String p33q4assurance, String p33q5assurance) {
+                                String p33q1assurance, String p33q2assurance, String p33q3assurance, String p33q4assurance, String p33q5assurance,
+                                String return_to_summary) {
 
         Listing listing = Listing.getByListingId(listingId);
 
@@ -58,7 +59,7 @@ public class Page33 extends AuthenticatingQuestionPage {
                 flash.put(key, value);
             }
             System.out.println(flash);
-            if (request.params.get("return_to_summary").equals("yes")) {
+            if (return_to_summary.contains("yes")) {
               redirect(String.format("/page/%d/%d?return_to_summary=yes", PAGE_ID, listing.id));
             } else {
               redirect(String.format("/page/%d/%d", PAGE_ID, listing.id));
@@ -77,7 +78,7 @@ public class Page33 extends AuthenticatingQuestionPage {
         pageResponses.put("p33q4assurance", p33q4assurance);
         pageResponses.put("p33q5assurance", p33q5assurance);
         saveResponseToPage(PAGE_ID, listing, pageResponses);
-        if (request.params.get("return_to_summary").equals("yes")) {
+        if (return_to_summary.contains("yes")) {
           redirect(listing.summaryPageUrl(PAGE_ID));
         } else {
           redirect(listing.nextPageUrl(PAGE_ID, listing.id));

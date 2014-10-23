@@ -11,7 +11,7 @@ public class Page26 extends AuthenticatingQuestionPage {
 
     private static final Long PAGE_ID = 26l;
 
-    public static void savePage(Long listingId, String p26q1, String p26q1assurance) {
+    public static void savePage(Long listingId, String p26q1, String p26q1assurance, String return_to_summary) {
 
         Listing listing = Listing.getByListingId(listingId);
 
@@ -34,7 +34,7 @@ public class Page26 extends AuthenticatingQuestionPage {
                 flash.put(key, value);
             }
             System.out.println(flash);
-            if (request.params.get("return_to_summary").equals("yes")) {
+            if (return_to_summary.contains("yes")) {
               redirect(String.format("/page/%d/%d?return_to_summary=yes", PAGE_ID, listing.id));
             } else {
               redirect(String.format("/page/%d/%d", PAGE_ID, listing.id));
@@ -45,7 +45,7 @@ public class Page26 extends AuthenticatingQuestionPage {
         pageResponses.put("p26q1", p26q1);
         pageResponses.put("p26q1assurance", p26q1assurance);
         saveResponseToPage(PAGE_ID, listing, pageResponses);
-        if (request.params.get("return_to_summary").equals("yes")) {
+        if (return_to_summary.contains("yes")) {
           redirect(listing.summaryPageUrl(PAGE_ID));
         } else {
           redirect(listing.nextPageUrl(PAGE_ID, listing.id));

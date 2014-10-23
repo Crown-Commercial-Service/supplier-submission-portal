@@ -13,7 +13,7 @@ public class Page3 extends AuthenticatingQuestionPage {
 
     private static final Long PAGE_ID = 3l;
 
-    public static void savePage(Long listingId, String[] p3q1) {
+    public static void savePage(Long listingId, String[] p3q1, String return_to_summary) {
 
         Listing listing = Listing.getByListingId(listingId);
 
@@ -33,7 +33,7 @@ public class Page3 extends AuthenticatingQuestionPage {
 
                 flash.put(key, value);
             }
-            if (request.params.get("return_to_summary").equals("yes")) {
+            if (return_to_summary.contains("yes")) {
               redirect(String.format("/page/%d/%d?return_to_summary=yes", PAGE_ID, listing.id));
             } else {
               redirect(String.format("/page/%d/%d", PAGE_ID, listing.id));
@@ -46,7 +46,7 @@ public class Page3 extends AuthenticatingQuestionPage {
         Gson gson = new Gson();
         pageResponses.put("p3q1", gson.toJson(p3q1));
         saveResponseToPage(PAGE_ID, listing, pageResponses);
-        if (request.params.get("return_to_summary").equals("yes")) {
+        if (return_to_summary.contains("yes")) {
           redirect(listing.summaryPageUrl(PAGE_ID));
         } else {
           redirect(listing.nextPageUrl(PAGE_ID, listing.id));

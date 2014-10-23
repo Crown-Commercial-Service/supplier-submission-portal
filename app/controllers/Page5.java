@@ -18,7 +18,7 @@ public class Page5 extends AuthenticatingQuestionPage {
 
     private static final Long PAGE_ID = 5l;
 
-    public static void savePage(Long listingId) throws UnsupportedEncodingException {
+    public static void savePage(Long listingId, String return_to_summary) throws UnsupportedEncodingException {
 
         Listing listing = Listing.getByListingId(listingId);
 
@@ -66,8 +66,8 @@ public class Page5 extends AuthenticatingQuestionPage {
 
                 flash.put(key, value);
             }
-           
-            if (request.params.get("return_to_summary").equals("yes")) {
+
+            if (return_to_summary.contains("yes")) {
               System.out.println("YES");
               redirect(String.format("/page/%d/%d?return_to_summary=yes", PAGE_ID, listing.id));
             } else {
@@ -81,8 +81,7 @@ public class Page5 extends AuthenticatingQuestionPage {
         pageResponses.put("p5q1", gson.toJson(q1));
         pageResponses.put("p5q2", gson.toJson(q2));
         saveResponseToPage(PAGE_ID, listing, pageResponses);
-        redirect(listing.nextPageUrl(PAGE_ID, listing.id));
-        if (request.params.get("return_to_summary").equals("yes")) {
+        if (return_to_summary.contains("yes")) {
           redirect(listing.summaryPageUrl(PAGE_ID));
         } else {
           redirect(listing.nextPageUrl(PAGE_ID, listing.id));
