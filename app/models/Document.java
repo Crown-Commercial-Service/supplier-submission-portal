@@ -2,16 +2,14 @@ package models;
 
 import org.apache.commons.io.FilenameUtils;
 import siena.*;
+import siena.embed.EmbeddedMap;
 import uk.gov.gds.dm.DocumentUtils;
 import uk.gov.gds.dm.S3Uploader;
 
-import java.io.*;
-
-@Table("documents")
-public class Document extends Model{
+@EmbeddedMap
+public class Document extends Model {
 
     private transient byte[] bytes;
-    private transient File file;
     private transient String supplierName;
     private static final S3Uploader uploader = new S3Uploader();
     // For GAE :
@@ -69,10 +67,6 @@ public class Document extends Model{
         return new DocumentBuilder().forListing(listingId);
     }
 
-    public static DocumentBuilder fromFile(File file) {
-        return new DocumentBuilder().fromFile(file);
-    }
-
     public static DocumentBuilder withName(String name) {
         return new DocumentBuilder().withName(name);
     }
@@ -85,7 +79,6 @@ public class Document extends Model{
 
         private String question;
         private long listingId;
-        private File file;
         private String filename;
         private String supplierName;
         private byte[] bytes;
@@ -97,11 +90,6 @@ public class Document extends Model{
 
         public DocumentBuilder forListing(long listingId) {
             this.listingId = listingId;
-            return this;
-        }
-
-        public DocumentBuilder fromFile(File file) {
-            this.file = file;
             return this;
         }
 
@@ -123,5 +111,17 @@ public class Document extends Model{
             this.bytes = bytes;
             return this;
         }
+    }
+
+    @Override
+    public String toString() {
+        return "Document{" +
+                "id=" + id +
+                ", filename='" + filename + "'" +
+                ", listingId='" + listingId + "'" +
+                ", questionId='" + questionId + "'" +
+                ", type='" + type + "'" +
+                ", supplierName='" + supplierName + "'" +
+                '}';
     }
 }

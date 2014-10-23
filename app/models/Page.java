@@ -45,11 +45,15 @@ public class Page extends Model {
     @Embedded
     public Map<String,String> responses;
 
+    @Embedded
+    public Map<String, Document> submittedDocuments;
+    
     public Page(Long listingId, Long pageNumber) {
         this.id = nextId();
         this.listingId = listingId;
         this.pageNumber = pageNumber;
-        responses = new HashMap<String,String>();
+        responses = new HashMap<>();
+        submittedDocuments = new HashMap<>();
     }
 
     private Page() {

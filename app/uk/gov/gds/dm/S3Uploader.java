@@ -33,5 +33,4 @@ public class S3Uploader {
         Logger.info(String.format("[S3Uploader] Uploaded to %s", downloadUrl));
         return downloadUrl;
     }
-
 }

@@ -24,7 +24,8 @@ public class Page8 extends AuthenticatingQuestionPage {
                                 String return_to_summary) {
 
         Listing listing = Listing.getByListingId(listingId);
-
+        Map<String,Document> docs = new HashMap<>();
+        
         if(!listing.supplierId.equals(getSupplierId())) {
             notFound();
         }
@@ -86,7 +87,7 @@ public class Page8 extends AuthenticatingQuestionPage {
             if (!validation.hasErrors()) {
                 try {
                     Document p8q6Document = storeDocument(p8q6, getSupplierId(), listing.id, "p8q6");
-                    p8q6Document.insert();
+                    docs.put("p8q6", p8q6Document);
                 } catch (Exception e) {
                     Logger.error(e, "Could not upload document to S3. Cause: %s", e.getMessage());
                     validation.addError("p8q6", Messages.getMessage("en", "validation.upload.failed"));
@@ -104,7 +105,7 @@ public class Page8 extends AuthenticatingQuestionPage {
             if (!validation.hasErrors()) {
                 try {
                     Document p8q7Document = storeDocument(p8q7, getSupplierId(), listing.id, "p8q7");
-                    p8q7Document.insert();
+                    docs.put("p8q7", p8q7Document);
                 } catch (Exception e) {
                     Logger.error(e, "Could not upload document to S3. Cause: %s", e.getMessage());
                     validation.addError("p8q7", Messages.getMessage("en", "validation.upload.failed"));
@@ -154,7 +155,7 @@ public class Page8 extends AuthenticatingQuestionPage {
         if (p8q6 != null) pageResponses.put("p8q6", p8q6.getFileName());
         if (p8q7 != null) pageResponses.put("p8q7", p8q7.getFileName());
 
-        saveResponseToPage(PAGE_ID, listing, pageResponses);
+        saveResponseToPage(PAGE_ID, listing, pageResponses, docs);
         if (return_to_summary.contains("yes")) {
           redirect(listing.summaryPageUrl(PAGE_ID));
         } else {

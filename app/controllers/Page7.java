@@ -20,7 +20,8 @@ public class Page7 extends AuthenticatingQuestionPage {
 
     public static void savePage(Long listingId, String p7q1, String p7q2, Upload p7q3, String p7q3_uploaded, String return_to_summary) {
         Listing listing = Listing.getByListingId(listingId);
-
+        Map<String,Document> docs = new HashMap<>();
+        
         if(!listing.supplierId.equals(getSupplierId())) {
             notFound();
         }
@@ -52,7 +53,7 @@ public class Page7 extends AuthenticatingQuestionPage {
             if(!validation.hasErrors()) {
                 try {
                     Document document = storeDocument(p7q3, getSupplierId(), listing.id, "p7q3");
-                    document.insert();
+                    docs.put("p7q3", document);
                 } catch (Exception e) {
                     Logger.error(e, "Could not upload document to S3. Cause: %s", e.getMessage());
                     validation.addError("p7q3", Messages.getMessage("en", "validation.upload.failed"));
@@ -80,7 +81,7 @@ public class Page7 extends AuthenticatingQuestionPage {
         pageResponses.put("p7q1", p7q1);
         pageResponses.put("p7q2", p7q2);
         if(p7q3 != null) pageResponses.put("p7q3", p7q3.getFileName());
-        saveResponseToPage(PAGE_ID, listing, pageResponses);
+        saveResponseToPage(PAGE_ID, listing, pageResponses, docs);
         if (return_to_summary.contains("yes")) {
           redirect(listing.summaryPageUrl(PAGE_ID));
         } else {
