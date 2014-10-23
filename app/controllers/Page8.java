@@ -20,7 +20,8 @@ public class Page8 extends AuthenticatingQuestionPage {
     private static final Long PAGE_ID = 8l;
 
     public static void savePage(Long listingId, String p8q1MinPrice, String p8q1MaxPrice, String p8q1Unit, String p8q1Interval,
-                                String p8q2, String p8q3, String p8q4, String p8q5, Upload p8q6, Upload p8q7) {
+                                String p8q2, String p8q3, String p8q4, String p8q5, Upload p8q6, Upload p8q7,
+                                String return_to_summary) {
 
         Listing listing = Listing.getByListingId(listingId);
 
@@ -118,7 +119,7 @@ public class Page8 extends AuthenticatingQuestionPage {
                 flash.put(key, Fixtures.getErrorMessage(key, value));
             }
             System.out.println(flash);
-            if (request.params.get("return_to_summary").equals("yes")) {
+            if (return_to_summary.contains("yes")) {
               redirect(String.format("/page/%d/%d?return_to_summary=yes", PAGE_ID, listing.id));
             } else {
               redirect(String.format("/page/%d/%d", PAGE_ID, listing.id));
@@ -149,7 +150,7 @@ public class Page8 extends AuthenticatingQuestionPage {
         // TODO: Document storage for p8q6 and p8q7 - save something in the Page
 
         saveResponseToPage(PAGE_ID, listing, pageResponses);
-        if (request.params.get("return_to_summary").equals("yes")) {
+        if (return_to_summary.contains("yes")) {
           redirect(listing.summaryPageUrl(PAGE_ID));
         } else {
           redirect(listing.nextPageUrl(PAGE_ID, listing.id));

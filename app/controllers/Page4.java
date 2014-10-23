@@ -13,7 +13,7 @@ public class Page4 extends AuthenticatingQuestionPage {
 
     private static final Long PAGE_ID = 4l;
 
-    public static void savePage(Long listingId, String p4q1, String p4q2) {
+    public static void savePage(Long listingId, String p4q1, String p4q2, String return_to_summary) {
 
         Listing listing = Listing.getByListingId(listingId);
 
@@ -41,7 +41,9 @@ public class Page4 extends AuthenticatingQuestionPage {
 
                 flash.put(key, Fixtures.getErrorMessage(key, value));
             }
-            if (request.params.get("return_to_summary").equals("yes")) {
+
+            if (return_to_summary.contains("yes")) {
+              System.out.println("REDIR TO " + String.format("/page/%d/%d?return_to_summary=yes", PAGE_ID, listing.id));
               redirect(String.format("/page/%d/%d?return_to_summary=yes", PAGE_ID, listing.id));
             } else {
               redirect(String.format("/page/%d/%d", PAGE_ID, listing.id));
@@ -54,7 +56,8 @@ public class Page4 extends AuthenticatingQuestionPage {
         pageResponses.put("p4q2", p4q2);
         listing.title = p4q1;
         saveResponseToPage(PAGE_ID, listing, pageResponses);
-        if (request.params.get("return_to_summary").equals("yes")) {
+
+        if (return_to_summary.contains("yes")) {
           redirect(listing.summaryPageUrl(PAGE_ID));
         } else {
           redirect(listing.nextPageUrl(PAGE_ID, listing.id));

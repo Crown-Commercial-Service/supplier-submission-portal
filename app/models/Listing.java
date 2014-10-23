@@ -77,6 +77,7 @@ public class Listing extends Model {
 
         return returnPage;
     }
+
     public String nextPageUrl(Long currentPage, Long listingId) {
         Long nextPage = nextPage(currentPage);
         if (nextPage < 0) {
@@ -102,12 +103,9 @@ public class Listing extends Model {
     }
 
     public String summaryPageUrl(Long pageID) {
-
       String pageIDAsString = pageID.toString();
       String summaryPageUrl = this.summaryPageUrl();
-
       return summaryPageUrl + "#page" + pageIDAsString;
-
     }
 
     public static List<Listing> allBySupplierId(String supplierId) {
