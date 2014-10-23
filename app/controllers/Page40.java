@@ -1,7 +1,6 @@
 package controllers;
 
 import models.Listing;
-import models.Page;
 import play.data.validation.Error;
 
 import java.util.HashMap;
@@ -18,6 +17,10 @@ public class Page40 extends AuthenticatingQuestionPage {
 
         Listing listing = Listing.getByListingId(listingId);
 
+        if(!listing.supplierId.equals(getSupplierId())) {
+            notFound();
+        }
+        
         if (listing.serviceSubmitted) {
           redirect(listing.summaryPageUrl());
         }
@@ -26,17 +29,17 @@ public class Page40 extends AuthenticatingQuestionPage {
         validation.required(p40q1).key("p40q1");
         validation.maxSize(p40q1, 40);
         validation.required(p40q1assurance).key("p40q1");
-        validation.maxSize(p40q1assurance, 50);
+        validation.maxSize(p40q1assurance, 60);
         if (!listing.lot.equals("SaaS")) {
             validation.required(p40q2).key("p40q2");
             validation.maxSize(p40q2, 10);
             validation.required(p40q2assurance).key("p40q2");
-            validation.maxSize(p40q2assurance, 50);
+            validation.maxSize(p40q2assurance, 60);
         }
         validation.required(p40q3).key("p40q3");
         validation.maxSize(p40q3, 10);
         validation.required(p40q3assurance).key("p40q3");
-        validation.maxSize(p40q3assurance, 50);
+        validation.maxSize(p40q3assurance, 60);
 
         if(validation.hasErrors()) {
             flash.put("body", params.get("body"));

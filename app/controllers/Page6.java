@@ -1,17 +1,15 @@
 package controllers;
 
-import models.Document;
 import models.Listing;
 import play.data.Upload;
 import play.data.validation.Error;
 import play.i18n.Messages;
 import uk.gov.gds.dm.DocumentUtils;
+import uk.gov.gds.dm.Fixtures;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import static uk.gov.gds.dm.DocumentUtils.storeDocument;
 
 public class Page6 extends AuthenticatingQuestionPage {
 
@@ -22,6 +20,10 @@ public class Page6 extends AuthenticatingQuestionPage {
 
         Listing listing = Listing.getByListingId(listingId);
 
+        if(!listing.supplierId.equals(getSupplierId())) {
+            notFound();
+        }
+        
         if (listing.serviceSubmitted) {
           redirect(listing.summaryPageUrl());
         }
@@ -51,7 +53,7 @@ public class Page6 extends AuthenticatingQuestionPage {
                 String key = entry.getKey();
                 String value = entry.getValue().get(0).message();
 
-                flash.put(key, value);
+                flash.put(key, Fixtures.getErrorMessage(key, value));
             }
             if (return_to_summary.contains("yes")) {
               redirect(String.format("/page/%d/%d?return_to_summary=yes", PAGE_ID, listing.id));
@@ -68,6 +70,5 @@ public class Page6 extends AuthenticatingQuestionPage {
         } else {
           redirect(listing.nextPageUrl(PAGE_ID, listing.id));
         }
-
     }
 }

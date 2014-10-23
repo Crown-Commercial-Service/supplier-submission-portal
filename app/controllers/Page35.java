@@ -16,6 +16,10 @@ public class Page35 extends AuthenticatingQuestionPage {
 
         Listing listing = Listing.getByListingId(listingId);
 
+        if(!listing.supplierId.equals(getSupplierId())) {
+            notFound();
+        }
+        
         if (listing.serviceSubmitted) {
           redirect(listing.summaryPageUrl());
         }
@@ -27,15 +31,15 @@ public class Page35 extends AuthenticatingQuestionPage {
         validation.maxSize(p35q2, 10);
 
         validation.required(p35q1assurance).key("p35q1");
-        validation.maxSize(p35q1assurance, 50);
+        validation.maxSize(p35q1assurance, 60);
         validation.required(p35q2assurance).key("p35q2");
-        validation.maxSize(p35q2assurance, 50);
+        validation.maxSize(p35q2assurance, 60);
 
         if (!listing.lot.equals("SaaS")) {
             validation.required(p35q3).key("p35q3");
             validation.maxSize(p35q3, 10);
             validation.required(p35q3assurance).key("p35q3");
-            validation.maxSize(p35q3assurance, 50);
+            validation.maxSize(p35q3assurance, 60);
         }
 
         if(validation.hasErrors()) {
@@ -68,5 +72,4 @@ public class Page35 extends AuthenticatingQuestionPage {
           redirect(listing.nextPageUrl(PAGE_ID, listing.id));
         }
     }
-
 }

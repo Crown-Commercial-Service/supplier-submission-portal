@@ -1,7 +1,6 @@
 package controllers;
 
 import models.Listing;
-import models.Page;
 import play.data.validation.Error;
 
 import java.util.HashMap;
@@ -16,6 +15,10 @@ public class Page32 extends AuthenticatingQuestionPage {
 
         Listing listing = Listing.getByListingId(listingId);
 
+        if(!listing.supplierId.equals(getSupplierId())) {
+            notFound();
+        }
+        
         if (listing.serviceSubmitted) {
           redirect(listing.summaryPageUrl());
         }
@@ -28,11 +31,11 @@ public class Page32 extends AuthenticatingQuestionPage {
         validation.required(p32q3).key("p32q3");
         validation.maxSize(p32q3, 10);
         validation.required(p32q1assurance).key("p32q1");
-        validation.maxSize(p32q1assurance, 50);
+        validation.maxSize(p32q1assurance, 60);
         validation.required(p32q2assurance).key("p32q2");
-        validation.maxSize(p32q2assurance, 50);
+        validation.maxSize(p32q2assurance, 60);
         validation.required(p32q3assurance).key("p32q3");
-        validation.maxSize(p32q3assurance, 50);
+        validation.maxSize(p32q3assurance, 60);
 
         if(validation.hasErrors()) {
             flash.put("body", params.get("body"));

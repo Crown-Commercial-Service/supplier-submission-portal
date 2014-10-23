@@ -1,9 +1,9 @@
 package controllers;
 
 import models.Listing;
-import models.Page;
 import play.data.validation.Error;
 import uk.gov.gds.dm.ValidationUtils;
+import uk.gov.gds.dm.Fixtures;
 
 import java.util.HashMap;
 import java.util.List;
@@ -17,6 +17,10 @@ public class Page4 extends AuthenticatingQuestionPage {
 
         Listing listing = Listing.getByListingId(listingId);
 
+        if(!listing.supplierId.equals(getSupplierId())) {
+            notFound();
+        }
+        
         if (listing.serviceSubmitted) {
           redirect(listing.summaryPageUrl());
         }
@@ -35,7 +39,7 @@ public class Page4 extends AuthenticatingQuestionPage {
                 String key = entry.getKey();
                 String value = entry.getValue().get(0).message();
 
-                flash.put(key, value);
+                flash.put(key, Fixtures.getErrorMessage(key, value));
             }
 
             if (return_to_summary.contains("yes")) {

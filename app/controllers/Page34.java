@@ -16,6 +16,10 @@ public class Page34 extends AuthenticatingQuestionPage {
 
         Listing listing = Listing.getByListingId(listingId);
 
+        if(!listing.supplierId.equals(getSupplierId())) {
+            notFound();
+        }
+        
         if (listing.serviceSubmitted) {
           redirect(listing.summaryPageUrl());
         }
@@ -26,9 +30,9 @@ public class Page34 extends AuthenticatingQuestionPage {
         validation.required(p34q2).key("p34q2");
         validation.maxSize(p34q2, 10);
         validation.required(p34q1assurance).key("p34q1");
-        validation.maxSize(p34q1assurance, 50);
+        validation.maxSize(p34q1assurance, 60);
         validation.required(p34q2assurance).key("p34q2");
-        validation.maxSize(p34q2assurance, 50);
+        validation.maxSize(p34q2assurance, 60);
 
         if(validation.hasErrors()) {
             flash.put("body", params.get("body"));

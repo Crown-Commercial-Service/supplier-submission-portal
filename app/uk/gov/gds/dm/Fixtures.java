@@ -28,4 +28,12 @@ public class Fixtures {
         }
         return contentProperties;
     }
+
+    /**
+     * Attempt to load error message from content.properties, otherwise fall back
+     * to just returning the provided value.
+     */
+    public static String getErrorMessage(String key, String value) {
+        return Fixtures.getContentProperties().get(key + value, value);
+    }
 }

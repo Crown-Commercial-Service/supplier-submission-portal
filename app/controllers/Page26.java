@@ -15,6 +15,10 @@ public class Page26 extends AuthenticatingQuestionPage {
 
         Listing listing = Listing.getByListingId(listingId);
 
+        if(!listing.supplierId.equals(getSupplierId())) {
+            notFound();
+        }
+        
         if (listing.serviceSubmitted) {
           redirect(listing.summaryPageUrl());
         }
@@ -23,7 +27,7 @@ public class Page26 extends AuthenticatingQuestionPage {
         validation.required(p26q1).key("p26q1");
         validation.maxSize(p26q1, 10);
         validation.required(p26q1assurance).key("p26q1");
-        validation.maxSize(p26q1assurance, 50);
+        validation.maxSize(p26q1assurance, 60);
 
         if(validation.hasErrors()) {
             flash.put("body", params.get("body"));

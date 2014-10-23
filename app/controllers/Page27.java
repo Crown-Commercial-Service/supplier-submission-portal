@@ -15,6 +15,10 @@ public class Page27 extends AuthenticatingQuestionPage {
 
         Listing listing = Listing.getByListingId(listingId);
 
+        if(!listing.supplierId.equals(getSupplierId())) {
+            notFound();
+        }
+        
         if (listing.serviceSubmitted) {
           redirect(listing.summaryPageUrl());
         }
@@ -25,14 +29,14 @@ public class Page27 extends AuthenticatingQuestionPage {
             validation.required(p27q2).key("p27q2");
             validation.maxSize(p27q2, 10);
             validation.required(p27q2assurance).key("p27q2");
-            validation.maxSize(p27q2assurance, 50);
+            validation.maxSize(p27q2assurance, 60);
 
             if (!listing.lot.equals("SaaS")) {
                 // Q1 for IaaS, PaaS only
                 validation.required(p27q1).key("p27q1");
                 validation.maxSize(p27q1, 10);
                 validation.required(p27q1assurance).key("p27q1");
-                validation.maxSize(p27q1assurance, 50);
+                validation.maxSize(p27q1assurance, 60);
             }
         }
 

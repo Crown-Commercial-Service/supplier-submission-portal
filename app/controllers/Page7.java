@@ -1,9 +1,7 @@
 package controllers;
 
-import models.Document;
 import models.Listing;
 import models.Page;
-import play.Logger;
 import play.data.Upload;
 import play.i18n.Messages;
 import play.data.validation.Error;
@@ -23,6 +21,10 @@ public class Page7 extends AuthenticatingQuestionPage {
 
         Listing listing = Listing.getByListingId(listingId);
 
+        if(!listing.supplierId.equals(getSupplierId())) {
+            notFound();
+        }
+        
         if (listing.serviceSubmitted) {
           redirect(listing.summaryPageUrl());
         }
@@ -84,5 +86,4 @@ public class Page7 extends AuthenticatingQuestionPage {
           redirect(listing.nextPageUrl(PAGE_ID, listing.id));
         }
     }
-
 }

@@ -5,6 +5,7 @@ import com.google.gson.Gson;
 import models.Listing;
 import play.data.validation.Error;
 import uk.gov.gds.dm.ValidationUtils;
+import uk.gov.gds.dm.Fixtures;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -19,6 +20,10 @@ public class Page20 extends AuthenticatingQuestionPage {
 
         Listing listing = Listing.getByListingId(listingId);
 
+        if(!listing.supplierId.equals(getSupplierId())) {
+            notFound();
+        }
+        
         if (listing.serviceSubmitted) {
           redirect(listing.summaryPageUrl());
         }
@@ -33,8 +38,8 @@ public class Page20 extends AuthenticatingQuestionPage {
             if(params.containsKey("p20q1val" + i)){
                 s = params.get("p20q1val" + i)[0];
                 if (!Strings.isNullOrEmpty(s)) {
-                    validation.maxSize(s, 100).key("p20q1val" + i).message("Too many characters");
-                    validation.isTrue(ValidationUtils.isWordCountLessThan(s, 10)).key("p20q1val" + i).message("Too many words");
+                    validation.maxSize(s, 100).key("p20q1").message("Too many characters");
+                    validation.isTrue(ValidationUtils.isWordCountLessThan(s, 10)).key("p20q1").message("Too many words");
                     p20q1.add(s);
                 }
             }
@@ -47,7 +52,7 @@ public class Page20 extends AuthenticatingQuestionPage {
                 String key = entry.getKey();
                 String value = entry.getValue().get(0).message();
 
-                flash.put(key, value);
+                flash.put(key, Fixtures.getErrorMessage(key, value));
             }
             System.out.println(flash);
             if (return_to_summary.contains("yes")) {

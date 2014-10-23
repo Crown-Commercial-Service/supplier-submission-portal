@@ -2,7 +2,6 @@ package controllers;
 
 import com.google.gson.Gson;
 import models.Listing;
-import models.Page;
 import play.data.validation.Error;
 import uk.gov.gds.dm.ValidationUtils;
 
@@ -19,6 +18,10 @@ public class Page31 extends AuthenticatingQuestionPage {
 
         Listing listing = Listing.getByListingId(listingId);
 
+        if(!listing.supplierId.equals(getSupplierId())) {
+            notFound();
+        }
+        
         if (listing.serviceSubmitted) {
           redirect(listing.summaryPageUrl());
         }
@@ -27,7 +30,7 @@ public class Page31 extends AuthenticatingQuestionPage {
         validation.required(p31q1).key("p31q1");
         validation.isTrue(ValidationUtils.stringArrayValuesAreNotTooLong(p31q1, 100)).key("p31q1").message("Invalid values");
         validation.required(p31q1assurance).key("p31q1");
-        validation.maxSize(p31q1assurance, 50);
+        validation.maxSize(p31q1assurance, 60);
 
         if(validation.hasErrors()) {
             flash.put("body", params.get("body"));

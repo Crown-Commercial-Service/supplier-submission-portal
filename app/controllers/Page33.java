@@ -1,7 +1,6 @@
 package controllers;
 
 import models.Listing;
-import models.Page;
 import play.data.validation.Error;
 
 import java.util.HashMap;
@@ -18,6 +17,10 @@ public class Page33 extends AuthenticatingQuestionPage {
 
         Listing listing = Listing.getByListingId(listingId);
 
+        if(!listing.supplierId.equals(getSupplierId())) {
+            notFound();
+        }
+        
         if (listing.serviceSubmitted) {
           redirect(listing.summaryPageUrl());
         }
@@ -26,7 +29,7 @@ public class Page33 extends AuthenticatingQuestionPage {
         validation.required(p33q1).key("p33q1");
         validation.maxSize(p33q1, 10);
         validation.required(p33q1assurance).key("p33q1");
-        validation.maxSize(p33q1assurance, 50);
+        validation.maxSize(p33q1assurance, 60);
         if (!listing.lot.equals("SCS")) {
             // SaaS, PaaS, IaaS
             validation.required(p33q2).key("p33q2");
@@ -36,17 +39,17 @@ public class Page33 extends AuthenticatingQuestionPage {
             validation.required(p33q4).key("p33q4");
             validation.maxSize(p33q4, 10);
             validation.required(p33q2assurance).key("p33q2");
-            validation.maxSize(p33q2assurance, 50);
+            validation.maxSize(p33q2assurance, 60);
             validation.required(p33q3assurance).key("p33q3");
-            validation.maxSize(p33q3assurance, 50);
+            validation.maxSize(p33q3assurance, 60);
             validation.required(p33q4assurance).key("p33q4");
-            validation.maxSize(p33q4assurance, 50);
+            validation.maxSize(p33q4assurance, 60);
             if (!listing.lot.equals("SaaS")) {
                 // PaaS, IaaS
                 validation.required(p33q5).key("p33q5");
                 validation.maxSize(p33q5, 10);
                 validation.required(p33q5assurance).key("p33q5");
-                validation.maxSize(p33q5assurance, 50);
+                validation.maxSize(p33q5assurance, 60);
             }
         }
 
@@ -84,5 +87,4 @@ public class Page33 extends AuthenticatingQuestionPage {
           redirect(listing.nextPageUrl(PAGE_ID, listing.id));
         }
     }
-
 }
