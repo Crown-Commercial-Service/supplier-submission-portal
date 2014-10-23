@@ -1,6 +1,6 @@
 "Page title","Question","Hint","Answer 1","Answer 2","Answer 3","Answer 4","Answer 5"
 "Service details","Service type","Select one option relevant to your service. For more detail on each category, please take a look at the National Institute of Standards and Technology (NIST) definitions of cloud computing services.","Infrastructure as a Service (IaaS)","Software as a Service (SaaS)","Platform as a Service (PaaS)","Specialist Cloud Services (SCS)",""
-"Service type","Choose the categories that apply to your service","You can choose multiple categories","Planning","Implementation","Testing","Training","Ongoing support"
+"Service type","Choose the categories that apply to your service","You can choose multiple categories","Implementation","Ongoing support","Planning","Testing","Training"
 "Service description","Service name","Include your product name only. Using additional keywords may impact your acceptance on to the Digital Marketplace.","","","","",""
 "Service description","Service summary","Please provide a short description of your service. (Maximum 50 words.) You'll be asked to go into more detail about the features and benefits of your service on the next page. Company information should not be included here. You can provide a company description for your supplier page elsewhere.","","","","",""
 "Features and benefits","Service features","Include the technical features of your product, eg graphical workflow, remote access. (Maximum 10 words per feature. Maximum 10 features.)","","","","",""
