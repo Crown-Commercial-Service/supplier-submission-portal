@@ -75,23 +75,19 @@ public class Service extends AuthenticatingController {
         }
         
         validation.required(serviceCompleted);
-        if(serviceCompleted != null){
+        if (serviceCompleted != null){
             validation.isTrue(listing.allPagesHaveBeenCompleted()).key("service").message("This service is not complete.");
         }
 
-        if(validation.hasErrors()){
-            for(Map.Entry<String, List<Error>> entry : validation.errorsMap().entrySet()) {
-                String key = entry.getKey();
-                String value = entry.getValue().get(0).message();
-
-                flash.put(key, value);
-            }
-            redirect(String.format("/service/%d/summary", listingId));
+        if (validation.hasErrors()){
+          listing.serviceSubmitted = false;
+          listing.save();
+          flash.put("success", "Your service has been returned to drafts.");
+        } else if (!listing.serviceSubmitted) { // Only complete the listing if not already completed
+          listing.completeListing(supplierDetailsFromCookie.get(getEmail()));
+          flash.put("success", "Your service has been marked as completed.");
         }
 
-        listing.completeListing(getEmail());
-
-        flash.put("success", "Your service has been marked as completed.");
         redirect("/");
     }
 
