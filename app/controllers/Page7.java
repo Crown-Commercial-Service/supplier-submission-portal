@@ -1,7 +1,8 @@
 package controllers;
 
+import models.Document;
 import models.Listing;
-import models.Page;
+import play.Logger;
 import play.data.Upload;
 import play.i18n.Messages;
 import play.data.validation.Error;
@@ -17,8 +18,7 @@ public class Page7 extends AuthenticatingQuestionPage {
     private static final Long PAGE_ID = 7l;
 
 
-    public static void savePage(Long listingId, String p7q1, String p7q2, Upload p7q3, String return_to_summary) {
-
+    public static void savePage(Long listingId, String p7q1, String p7q2, Upload p7q3, String p7q3_uploaded, String return_to_summary) {
         Listing listing = Listing.getByListingId(listingId);
 
         if(!listing.supplierId.equals(getSupplierId())) {
@@ -38,35 +38,36 @@ public class Page7 extends AuthenticatingQuestionPage {
         validation.maxSize(p7q2, 10);
 
         // Validate document
-        validation.required(p7q3).key("p7q3");
-        if(p7q3 != null){
+        if (p7q3_uploaded == null || p7q3_uploaded.isEmpty()) {
+            validation.required(p7q3).key("p7q3");
+        }
+        
+        if(p7q3 != null) {
             if(!validateDocumentFormat(p7q3)){
                 validation.addError("p7q3", Messages.getMessage("en", "validation.file.wrongFormat"));
             }
             if(!validateDocumentFileSize(p7q3)){
                 validation.addError("p7q3", Messages.getMessage("en", "validation.file.tooLarge"));
             }
+            if(!validation.hasErrors()) {
+                try {
+                    Document document = storeDocument(p7q3, getSupplierId(), listing.id, "p7q3");
+                    document.insert();
+                } catch (Exception e) {
+                    Logger.error(e, "Could not upload document to S3. Cause: %s", e.getMessage());
+                    validation.addError("p7q3", Messages.getMessage("en", "validation.upload.failed"));
+                }
+            }
         }
 
-//        try {
-//            Document document = storeDocument(p7q3, getSupplierId(), listing.id, "p7q3");
-//            document.insert();
-//        } catch(Exception e) {
-//            Logger.error(e, "Could not upload document to S3. Cause: %s", e.getMessage());
-//            validation.addError("p7q3", Messages.getMessage("en", "validation.upload.failed"));
-//        }
-
-        System.out.println(validation.errorsMap());
-
         if(validation.hasErrors()) {
-            flash.put("body", "p7q1=" + params.get("p7q1") + "&p7q2=" + params.get("p7q2") + "&p7q3=" + params.get("p7q3"));
+            flash.put("body", "p7q1=" + params.get("p7q1") + "&p7q2=" + params.get("p7q2") + "&p7q3_upload=" + params.get("p7q3_upload"));
             for(Map.Entry<String, List<Error>> entry : validation.errorsMap().entrySet()) {
                 String key = entry.getKey();
                 String value = entry.getValue().get(0).message();
 
                 flash.put(key, value);
             }
-            System.out.println(flash);
             if (return_to_summary.contains("yes")) {
               redirect(String.format("/page/%d/%d?return_to_summary=yes", PAGE_ID, listing.id));
             } else {
@@ -78,7 +79,7 @@ public class Page7 extends AuthenticatingQuestionPage {
         Map<String, String> pageResponses = new HashMap<String, String>();
         pageResponses.put("p7q1", p7q1);
         pageResponses.put("p7q2", p7q2);
-        pageResponses.put("p7q3", p7q3.getFileName());
+        if(p7q3 != null) pageResponses.put("p7q3", p7q3.getFileName());
         saveResponseToPage(PAGE_ID, listing, pageResponses);
         if (return_to_summary.contains("yes")) {
           redirect(listing.summaryPageUrl(PAGE_ID));

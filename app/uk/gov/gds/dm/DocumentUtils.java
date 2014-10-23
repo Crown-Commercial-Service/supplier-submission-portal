@@ -1,6 +1,5 @@
 package uk.gov.gds.dm;
 
-import com.amazon.s3shell.S3Store;
 import models.Document;
 import org.apache.commons.io.FilenameUtils;
 import play.data.Upload;
@@ -39,5 +38,10 @@ public class DocumentUtils {
         document.pushDocumentToStorage();
 
         return document;
+    }
+
+    public static String s3Filename(String questionId, String filename) {
+        String fileType = FilenameUtils.getExtension(filename.toLowerCase());
+        return questionId + "." + fileType;
     }
 }

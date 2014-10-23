@@ -82,7 +82,6 @@ public class Page extends Model {
                 toReturn.put(key, list);
             }
         }
-        System.out.println(toReturn);
         return toReturn;
     }
 

@@ -1,8 +1,8 @@
 package models;
 
 import org.apache.commons.io.FilenameUtils;
-import play.Play;
 import siena.*;
+import uk.gov.gds.dm.DocumentUtils;
 import uk.gov.gds.dm.S3Uploader;
 
 import java.io.*;
@@ -22,7 +22,7 @@ public class Document extends Model{
 
     @Column("name")
     @NotNull
-    public String name;
+    public String filename;
 
     @Column("type")
     @NotNull
@@ -41,7 +41,7 @@ public class Document extends Model{
     public String documentUrl;
 
     public Document(String name, long listingId, String questionId, byte[] bytes, String supplierName) {
-        this.name = name;
+        this.filename = name;
         this.listingId = listingId;
         this.questionId = questionId;
         this.type = getFileType(name);
@@ -51,7 +51,7 @@ public class Document extends Model{
 
     public void pushDocumentToStorage() {
 
-        String documentKey = String.format("%s/%d/%s/%s", this.supplierName, this.listingId, this.questionId, this.name);
+        String documentKey = String.format("%s/%d/%s/%s", this.supplierName, this.listingId, this.questionId, DocumentUtils.s3Filename(this.questionId, this.filename));
         String documentUrl = uploader.upload(this.bytes, documentKey);
         this.documentUrl = documentUrl;
 
@@ -86,7 +86,7 @@ public class Document extends Model{
         private String question;
         private long listingId;
         private File file;
-        private String name;
+        private String filename;
         private String supplierName;
         private byte[] bytes;
 
@@ -106,12 +106,12 @@ public class Document extends Model{
         }
 
         public DocumentBuilder withName(String name) {
-            this.name = name;
+            this.filename = name;
             return this;
         }
 
         public Document build() {
-            return new Document(name, listingId, question, bytes, supplierName);
+            return new Document(filename, listingId, question, bytes, supplierName);
         }
 
         public DocumentBuilder forSupplier(String supplierName) {
