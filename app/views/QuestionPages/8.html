@@ -33,7 +33,7 @@
     #{question-heading
       heading: content.get(question + 'text'),
       hint: content.get(question + 'hint'),
-      error: content.get(question + flash.get(question))
+      error: flash.get(question)
     /}
     <div class='pricing'>
       <div class='pricing-column'>
@@ -123,7 +123,7 @@
       value: oldValues?.get(question),
       label: content.get(question + 'text'),
       hint: content.get(question + 'hint'),
-      error: content.get(question + flash.get(question))
+      error: flash.get(question)
     /}
   %{
       }
@@ -140,7 +140,7 @@
       name: question,
       label: content.get(question + 'text'),
       hint: content.get(question + 'hint'),
-      error: content.get(question + flash.get(question))
+      error: flash.get(question)
     /}
   %{
       }

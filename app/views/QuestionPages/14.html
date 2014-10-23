@@ -34,7 +34,7 @@
       value: oldValues?.get('p14q1'),
       label: content.get('p14q1text'),
       hint: content.get('p14q1hint'),
-      error: content.get(question + flash.get(question))
+      error: flash.get(question)
     /}
 
   %{
@@ -54,7 +54,7 @@
         value: oldValues?.get(question)?.isEmpty() ? "" : oldValues?.get(question)?.get(0),
         label: content.get('p14q' + index + 'text'),
         hint: content.get('p14q' + index + 'hint'),
-        error: content.get(question + flash.get(question))
+        error: flash.get(question)
       /}
     %{
       }

@@ -28,7 +28,7 @@
   #{question-heading
     heading: content.get(question + 'text'),
     hint: content.get(question + 'hint'),
-    error: content.get(question + flash.get(question))
+    error: flash.get(question)
   /}
     <div class="input-list" data-list-item-name="${content.get(question + 'listItemName')}">
       %{
@@ -56,7 +56,7 @@
     #{question-heading
       heading: content.get(question + 'text'),
       hint: content.get(question + 'hint'),
-      error: content.get(question + flash.get(question))
+      error: flash.get(question)
     /}
     <div class="input-list" data-list-item-name="${content.get(question + 'listItemName')}">
       %{

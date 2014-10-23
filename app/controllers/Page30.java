@@ -28,7 +28,7 @@ public class Page30 extends AuthenticatingQuestionPage {
         validation.required(p30q1).key("p30q1");
         validation.maxSize(p30q1, 10);
         validation.required(p30q1assurance).key("p30q1");
-        validation.maxSize(p30q1assurance, 50);
+        validation.maxSize(p30q1assurance, 60);
 
         if (!listing.lot.equals("SCS")) {
             // SaaS, PaaS, IaaS
@@ -38,9 +38,9 @@ public class Page30 extends AuthenticatingQuestionPage {
             validation.maxSize(p30q3, 10);
 
             validation.required(p30q2assurance).key("p30q2");
-            validation.maxSize(p30q2assurance, 50);
+            validation.maxSize(p30q2assurance, 60);
             validation.required(p30q3assurance).key("p30q3");
-            validation.maxSize(p30q3assurance, 50);
+            validation.maxSize(p30q3assurance, 60);
         }
 
         if(validation.hasErrors()) {

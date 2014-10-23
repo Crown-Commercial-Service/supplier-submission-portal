@@ -3,6 +3,7 @@ package controllers;
 import com.google.gson.Gson;
 import models.Listing;
 import play.data.validation.Error;
+import uk.gov.gds.dm.Fixtures;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -45,7 +46,7 @@ public class Page24 extends AuthenticatingQuestionPage {
 
             // Validate percentage: .max() catches anything not a number
             validation.required(p24q10).key("p24q10");
-            validation.max(p24q10, 99.99999999999999).key("p24q10").message("validationNotANumber");
+	    validation.range(p24q10, 0, 99.99999999999999).key("p24q10").message("validationNotANumber");
             validation.required(p24q10assurance).key("p24q10");
 
             if (!listing.lot.equals("SaaS")) {
@@ -69,7 +70,7 @@ public class Page24 extends AuthenticatingQuestionPage {
                 String key = entry.getKey();
                 String value = entry.getValue().get(0).message();
 
-                flash.put(key, value);
+                flash.put(key, Fixtures.getErrorMessage(key, value));
             }
             System.out.println(flash);
             if (request.params.get("return_to_summary").equals("yes")) {
