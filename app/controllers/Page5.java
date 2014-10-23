@@ -3,7 +3,6 @@ package controllers;
 import com.google.appengine.repackaged.com.google.common.base.Strings;
 import com.google.gson.Gson;
 import models.Listing;
-import models.Page;
 import play.data.validation.Error;
 import uk.gov.gds.dm.ValidationUtils;
 
@@ -22,6 +21,10 @@ public class Page5 extends AuthenticatingQuestionPage {
 
         Listing listing = Listing.getByListingId(listingId);
 
+        if(!listing.supplierId.equals(getSupplierId())) {
+            notFound();
+        }
+        
         if (listing.serviceSubmitted) {
           redirect(listing.summaryPageUrl());
         }
@@ -81,7 +84,6 @@ public class Page5 extends AuthenticatingQuestionPage {
         pageResponses.put("p5q1", gson.toJson(q1));
         pageResponses.put("p5q2", gson.toJson(q2));
         saveResponseToPage(PAGE_ID, listing, pageResponses);
-        redirect(listing.nextPageUrl(PAGE_ID, listing.id));
         if (request.params.get("return_to_summary").equals("yes")) {
           redirect(listing.summaryPageUrl(PAGE_ID));
         } else {

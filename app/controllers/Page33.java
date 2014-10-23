@@ -1,7 +1,6 @@
 package controllers;
 
 import models.Listing;
-import models.Page;
 import play.data.validation.Error;
 
 import java.util.HashMap;
@@ -17,6 +16,10 @@ public class Page33 extends AuthenticatingQuestionPage {
 
         Listing listing = Listing.getByListingId(listingId);
 
+        if(!listing.supplierId.equals(getSupplierId())) {
+            notFound();
+        }
+        
         if (listing.serviceSubmitted) {
           redirect(listing.summaryPageUrl());
         }
@@ -83,5 +86,4 @@ public class Page33 extends AuthenticatingQuestionPage {
           redirect(listing.nextPageUrl(PAGE_ID, listing.id));
         }
     }
-
 }

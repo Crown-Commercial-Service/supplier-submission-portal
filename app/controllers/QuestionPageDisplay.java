@@ -28,12 +28,13 @@ public class QuestionPageDisplay extends AuthenticatingController {
 
         notFoundIfNull(listing);
 
-        if(!listing.pageSequence.contains(pageId)){
+        // Check listing belongs to authenticated user
+        if(!listing.supplierId.equals(getSupplierId()) ){
             notFound();
         }
-
-        // Check listing belongs to authenticated user
-        if(!listing.supplierId.equals(supplierDetailsFromCookie.get("supplierId")) ){
+        
+        // Check page belongs to lot for listing
+        if(!listing.pageSequence.contains(pageId)){
             notFound();
         }
 

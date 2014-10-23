@@ -1,6 +1,5 @@
 package controllers;
 
-import models.Document;
 import models.Listing;
 import play.data.Upload;
 import play.data.validation.Error;
@@ -11,8 +10,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static uk.gov.gds.dm.DocumentUtils.storeDocument;
-
 public class Page6 extends AuthenticatingQuestionPage {
 
     private static final Long PAGE_ID = 6l;
@@ -22,6 +19,10 @@ public class Page6 extends AuthenticatingQuestionPage {
 
         Listing listing = Listing.getByListingId(listingId);
 
+        if(!listing.supplierId.equals(getSupplierId())) {
+            notFound();
+        }
+        
         if (listing.serviceSubmitted) {
           redirect(listing.summaryPageUrl());
         }
@@ -68,6 +69,5 @@ public class Page6 extends AuthenticatingQuestionPage {
         } else {
           redirect(listing.nextPageUrl(PAGE_ID, listing.id));
         }
-
     }
 }

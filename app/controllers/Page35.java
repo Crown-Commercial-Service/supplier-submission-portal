@@ -16,6 +16,10 @@ public class Page35 extends AuthenticatingQuestionPage {
 
         Listing listing = Listing.getByListingId(listingId);
 
+        if(!listing.supplierId.equals(getSupplierId())) {
+            notFound();
+        }
+        
         if (listing.serviceSubmitted) {
           redirect(listing.summaryPageUrl());
         }
@@ -68,5 +72,4 @@ public class Page35 extends AuthenticatingQuestionPage {
           redirect(listing.nextPageUrl(PAGE_ID, listing.id));
         }
     }
-
 }
