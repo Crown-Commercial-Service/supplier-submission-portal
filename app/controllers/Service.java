@@ -62,7 +62,6 @@ public class Service extends AuthenticatingController {
         Listing listing = new Listing(getSupplierId(), params.get("lot"));
         listing.insert();
 
-        // TODO: Get next page using page sequence saved in Listing object
         redirect(String.format("/page/%d/%d", listing.firstPage(), listing.id));
     }
 
@@ -115,7 +114,7 @@ public class Service extends AuthenticatingController {
         List<Long> flow = ServiceSubmissionJourneyFlows.getFlow(listing.lot);
         List<String> optionalQuestions = ServiceSubmissionJourneyFlows.getOptionalQuestions();
 
-        Map<String, Collection<String>> allAnswers = new HashMap<String, Collection<String>>();
+        Map<String, Collection<String>> allAnswers = new HashMap<>();
 
         for(Page p : listing.completedPages){
             if(p.responses != null){
@@ -139,11 +138,16 @@ public class Service extends AuthenticatingController {
 
     public static void delete(Long listingId){
         Listing listing = Listing.getByListingId(listingId);
-        
         if(!listing.supplierId.equals(getSupplierId())) {
             notFound();
         }
-        
+
+        for (Page page: listing.completedPages) {
+            page.delete();
+        }
+
+        // TODO: Delete all Document objects (and documents from S3?) related to this listing
+
         listing.delete();
         redirect("/");
     }
