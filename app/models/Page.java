@@ -52,8 +52,8 @@ public class Page extends Model {
         this.id = nextId();
         this.listingId = listingId;
         this.pageNumber = pageNumber;
-        responses = new HashMap<>();
-        submittedDocuments = new HashMap<>();
+        responses = new HashMap<String,String>();
+        submittedDocuments = new HashMap<String, Document>();
     }
 
     private Page() {

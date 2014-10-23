@@ -4,8 +4,8 @@
   <threadsafe>true</threadsafe>
   <ssl-enabled>false</ssl-enabled>
   <system-properties>
-    <property name='ssp.cookie.enc' value='Bar12345Bar12345' />
-    <property name='aws.access.key' value='AKIAJZU7XZ5RGNP2NUCA' />
-    <property name='aws.secret.access.key' value='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' />
+    <property name='ssp.cookie.enc' value='@{encKey}' />
+    <property name='aws.access.key' value='' />
+    <property name='aws.secret.access.key' value='' />
   </system-properties>
 </appengine-web-app>

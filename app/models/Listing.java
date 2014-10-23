@@ -56,7 +56,7 @@ public class Listing extends Model {
         this.supplierId = supplierId;
         this.lot = lot;
         pageSequence = ServiceSubmissionJourneyFlows.getFlow(lot);
-        completedPages = new ArrayList<>();
+        completedPages = new ArrayList<Page>();
         this.serviceSubmitted = false;
         this.lastUpdated = new Date();
     }

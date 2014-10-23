@@ -121,7 +121,7 @@ public class Service extends AuthenticatingController {
         List<Long> flow = ServiceSubmissionJourneyFlows.getFlow(listing.lot);
         List<String> optionalQuestions = ServiceSubmissionJourneyFlows.getOptionalQuestions();
 
-        Map<String, Collection<String>> allAnswers = new HashMap<>();
+        Map<String, Collection<String>> allAnswers = new HashMap<String, Collection<String>>();
 
         for(Page p : listing.completedPages){
             if(p.responses != null){
