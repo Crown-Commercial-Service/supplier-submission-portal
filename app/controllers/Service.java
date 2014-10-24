@@ -72,7 +72,7 @@ public class Service extends AuthenticatingController {
         if(!listing.supplierId.equals(getSupplierId())) {
             notFound();
         }
-        
+
         validation.required(serviceCompleted);
         if (serviceCompleted != null){
             validation.isTrue(listing.allPagesHaveBeenCompleted()).key("service").message("This service is not complete.");
@@ -81,36 +81,42 @@ public class Service extends AuthenticatingController {
         if (validation.hasErrors()){
           listing.serviceSubmitted = false;
           listing.save();
-          flash.put("success", "Your service has been returned to drafts.");
+          flash.put("feedback_message", "has been returned to drafts");
         } else if (!listing.serviceSubmitted) { // Only complete the listing if not already completed
           listing.completeListing(supplierDetailsFromCookie.get(getEmail()));
-          flash.put("success", "Your service has been marked as completed.");
+          flash.put("feedback_message", "has been marked as completed");
         }
+        flash.put("feedback_relates_to_service_id", listingId);
+        flash.put("feedback_relates_to_service_name", listing.title);
+        System.out.println(listing.title);
 
         redirect("/");
     }
 
     public static void markListingAsDraft(Long listingId){
         Listing listing = Listing.getByListingId(listingId);
-        
+
         if(!listing.supplierId.equals(getSupplierId())) {
             notFound();
         }
-        
+
         listing.serviceSubmitted = false;
         listing.save();
 
-        flash.put("success", "Your service has been moved back to draft.");
+        flash.put("feedback_message", "has been returned to drafts");
+        flash.put("feedback_relates_to_service_id", listingId);
+        flash.put("feedback_relates_to_service_name", listing.title);
+        System.out.println(listing.title);
         redirect("/");
     }
 
     public static void showDeletePage(Long listingId, String showDeleteMessage){
         Listing listing = Listing.getByListingId(listingId);
-        
+
         if(!listing.supplierId.equals(getSupplierId())) {
             notFound();
         }
-        
+
         List<Long> flow = ServiceSubmissionJourneyFlows.getFlow(listing.lot);
         List<String> optionalQuestions = ServiceSubmissionJourneyFlows.getOptionalQuestions();
 
@@ -138,6 +144,7 @@ public class Service extends AuthenticatingController {
 
     public static void delete(Long listingId){
         Listing listing = Listing.getByListingId(listingId);
+
         if(!listing.supplierId.equals(getSupplierId())) {
             notFound();
         }
