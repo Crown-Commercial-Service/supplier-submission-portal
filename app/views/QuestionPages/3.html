@@ -26,6 +26,7 @@
   }%
     #{question-heading
       heading: content.get(question + 'text'),
+      questionID: question,
       hint: content.get(question + 'hint'),
       error: content.get(question + flash.get(question))
     /}
