@@ -19,9 +19,22 @@
       Please remember, you still need to provide your eSourcing Account ID.
     </p>
     <p>
-      <a class='banner-link' href="${uk.gov.gds.dm.URLTools.getDigitalMarketplaceURL()}g-cloud-6/edit-supplier-account">View and edit supplier information</a>
+      <a class='banner-action' href="${uk.gov.gds.dm.URLTools.getDigitalMarketplaceURL()}g-cloud-6/edit-supplier-account">View and edit supplier information</a>
     </p>
   </div>
+%{
+  }
+}%
+
+%{
+  if (flash.get('feedback_message')) {
+}%
+<div class='banner-success'>
+  <p>
+    <a href='/service/${flash.get('feedback_relates_to_service_id')}/summary'>${flash.get('feedback_relates_to_service_name')}</a>
+    ${flash.get('feedback_message')}
+  </p>
+</div>
 %{
   }
 }%

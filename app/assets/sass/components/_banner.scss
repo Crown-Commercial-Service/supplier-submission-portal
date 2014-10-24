@@ -17,6 +17,12 @@
     color: $accessible-orange;
   }
 
+  &-success {
+    @extend .banner;
+    border-left: 5px solid $green;
+    color: $green;
+  }
+
   &-action {
     margin-top: 15px;
   }
