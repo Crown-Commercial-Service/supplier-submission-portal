@@ -16,7 +16,7 @@ public class EmailSupport {
 
         try {
             Message msg = new MimeMessage(session);
-            msg.setFrom(new InternetAddress("suppliers@digitalmarketplace.service.gov.uk"));
+            msg.setFrom(new InternetAddress("martyn.inglis@digital.cabinet-office.gov.uk"));
             msg.addRecipient(
                     Message.RecipientType.TO,
                     new InternetAddress("suppliers@digitalmarketplace.service.gov.uk", "Support")
