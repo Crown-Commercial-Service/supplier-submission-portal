@@ -4,8 +4,11 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import models.Listing;
 import models.Page;
+import org.joda.time.DateTime;
 import play.Logger;
 import play.Play;
+import play.mvc.Catch;
+import play.mvc.Finally;
 import uk.gov.gds.dm.Fixtures;
 
 import java.io.UnsupportedEncodingException;
@@ -15,26 +18,40 @@ import java.util.*;
 
 public class QuestionPageDisplay extends AuthenticatingController {
 
-    public static void showPage(Long pageId, Long listingId, Boolean return_to_summary) {
+    @Finally
+    static void log() {
+        Logger.info(String.format("Request: %s method %s, status %s supplier %s", request.path, request.method, response.status, getSupplierName()));
+    }
+
+    @Catch(value = Throwable.class, priority = 1)
+    public static void logThrowable(Throwable throwable) {
+        if (Play.mode.isProd())
+            GAEActions.sendMail(String.format("Exception thrown time %s path %s method %s message %s", request.path, request.method, new DateTime(), throwable.getMessage()));
+    }
+
+    public static void showPage(Long pageId, Long listingId, Boolean return_to_summary) throws Exception{
+
+        if (request.querystring.contains("exception"))
+            throw new Exception("arrgh");
 
         Listing listing = Listing.getByListingId(listingId);
         Page page = null;
 
         try {
             page = listing.getResponsePageByPageId(pageId);
-        } catch (Exception e){
+        } catch (Exception e) {
             Logger.error(e.getMessage());
         }
 
         notFoundIfNull(listing);
 
         // Check listing belongs to authenticated user
-        if(!listing.supplierId.equals(getSupplierId()) ){
+        if (!listing.supplierId.equals(getSupplierId())) {
             notFound();
         }
-        
+
         // Check page belongs to lot for listing
-        if(!listing.pageSequence.contains(pageId)){
+        if (!listing.pageSequence.contains(pageId)) {
             notFound();
         }
 
@@ -49,7 +66,7 @@ public class QuestionPageDisplay extends AuthenticatingController {
         renderArgs.put("lot", listing.lot);
         renderArgs.put("listingID", listing.id);
         renderArgs.put("content", Fixtures.getContentProperties());
-        renderArgs.put("pageNum", Integer.toString(sequenceIndex+1));
+        renderArgs.put("pageNum", Integer.toString(sequenceIndex + 1));
         renderArgs.put("pageTotal", Integer.toString(listing.pageSequence.size()));
         renderArgs.put("listingId", listingId);
         renderArgs.put("prevPageURL", listing.prevPageUrl(pageId, listingId));
@@ -96,29 +113,29 @@ public class QuestionPageDisplay extends AuthenticatingController {
     public static Map<String, String> flatten(Map<String, List<String>> map) {
         Map<String, String> toReturn = new HashMap();
         Gson gson = new Gson();
-        for(String key : map.keySet()) {
-            if (map.get(key).isEmpty()){
+        for (String key : map.keySet()) {
+            if (map.get(key).isEmpty()) {
                 toReturn.put(key, null);
             } else if (map.get(key).size() == 1) {
                 toReturn.put(key, map.get(key).get(0));
-            }
-            else {
+            } else {
                 toReturn.put(key, gson.toJson(map.get(key)));
             }
         }
         return toReturn;
     }
 
-    private static Map<String, Collection<String>> unflatten(Map<String,String> flatmap) {
+    private static Map<String, Collection<String>> unflatten(Map<String, String> flatmap) {
         Map<String, Collection<String>> toReturn = new HashMap();
         Gson gson = new Gson();
-        for(String key : flatmap.keySet()) {
+        for (String key : flatmap.keySet()) {
             String val = flatmap.get(key);
             ArrayList<String> list = new ArrayList();
-            if (val == null || val.isEmpty()){
+            if (val == null || val.isEmpty()) {
                 toReturn.put(key, list);
             } else if (val.startsWith("[")) {
-                Type collectionType = new TypeToken<Collection<String>>(){}.getType();
+                Type collectionType = new TypeToken<Collection<String>>() {
+                }.getType();
                 Collection<String> vals = gson.fromJson(val, collectionType);
                 toReturn.put(key, vals);
             } else {

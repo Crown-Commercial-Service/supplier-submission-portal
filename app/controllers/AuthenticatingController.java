@@ -1,9 +1,10 @@
 package controllers;
-import play.Logger;
-import play.mvc.Before;
-import play.mvc.Controller;
 
-import play.mvc.Http;
+import org.joda.time.DateTime;
+import play.Logger;
+import play.Play;
+import play.mvc.*;
+
 import uk.gov.gds.dm.CookieUtils;
 import uk.gov.gds.dm.Security;
 import uk.gov.gds.dm.URLTools;
@@ -22,9 +23,20 @@ public abstract class AuthenticatingController extends Controller {
     private static final String SUPPLIER_EMAIL = "supplierEmail";
     private static final String SUPPLIER_COMPANY_NAME = "supplierCompanyName";
 
+    @Catch(value = Throwable.class, priority = 1)
+    public static void logThrowable(Throwable throwable) {
+        if (Play.mode.isProd())
+            GAEActions.sendMail(String.format("Exception thrown time %s path %s method %s message %s", request.path, request.method, new DateTime(), throwable.getMessage()));
+    }
+
+    @Finally
+    static void log() {
+        Logger.info(String.format("Request: %s method %s, status %s supplier %s", request.path, request.method, response.status, getSupplierName()));
+    }
+
     @Before
     public static void checkAuthenticationCookie() {
-        if(Security.isAuthenticationRequired()){
+        if (Security.isAuthenticationRequired()) {
             doAuthenticationChecks();
         } else {
             populateMapWithFakeCookieData();
@@ -34,10 +46,10 @@ public abstract class AuthenticatingController extends Controller {
     private static void doAuthenticationChecks() {
         Http.Cookie gdmSsoCookie = request.current().cookies.get("gdmssosession");
 
-        if(gdmSsoCookie == null){
+        if (gdmSsoCookie == null) {
             Logger.info("SSO Cookie does not exist.");
             redirect(DM_URL + "login");
-        } else if (Security.cookieHasExpired(gdmSsoCookie)){
+        } else if (Security.cookieHasExpired(gdmSsoCookie)) {
             Logger.info("SSO Cookie has expired.");
             redirect(DM_URL + "login");
         } else if (!Security.supplierIdIsAllowed(Security.getCookieSupplierId(gdmSsoCookie))) {
@@ -49,21 +61,21 @@ public abstract class AuthenticatingController extends Controller {
         }
     }
 
-    private static void populateMapWithSSOCookieData(Http.Cookie cookie){
+    private static void populateMapWithSSOCookieData(Http.Cookie cookie) {
         supplierDetailsFromCookie.put(SUPPLIER_ID, Security.getCookieSupplierId(cookie));
         supplierDetailsFromCookie.put(SUPPLIER_EMAIL, Security.getCookieEmail(cookie));
         supplierDetailsFromCookie.put(SUPPLIER_COMPANY_NAME, Security.getCookieSupplierCompanyName(cookie));
         supplierDetailsFromCookie.put(COOKIE_DATE, Security.getCookieDate(cookie));
         supplierDetailsFromCookie.put(ESOURCING_ID, Security.getESourcingId(cookie));
-     }
+    }
 
-    private static void populateMapWithFakeCookieData(){
+    private static void populateMapWithFakeCookieData() {
         supplierDetailsFromCookie.put(SUPPLIER_ID, "1");
         supplierDetailsFromCookie.put(SUPPLIER_EMAIL, "supplier@digital.cabinet-office.gov.uk");
         supplierDetailsFromCookie.put(SUPPLIER_COMPANY_NAME, "SueDo LTD.");
         supplierDetailsFromCookie.put(COOKIE_DATE, new Date().toGMTString());
         supplierDetailsFromCookie.put(ESOURCING_ID, "999999");
-     }
+    }
 
     protected static String getSupplierId() {
         return supplierDetailsFromCookie.get(SUPPLIER_ID);
