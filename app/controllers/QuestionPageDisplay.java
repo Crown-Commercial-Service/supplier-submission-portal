@@ -9,8 +9,8 @@ import play.Logger;
 import play.Play;
 import play.mvc.Catch;
 import play.mvc.Finally;
+import uk.gov.gds.dm.EmailSupport;
 import uk.gov.gds.dm.Fixtures;
-import uk.gov.gds.dm.GAEActions;
 
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
@@ -27,10 +27,10 @@ public class QuestionPageDisplay extends AuthenticatingController {
     @Catch(value = Throwable.class, priority = 1)
     public static void logThrowable(Throwable throwable) {
         if (Play.mode.isProd())
-            GAEActions.sendMail(String.format("Exception thrown time %s path %s method %s message %s", request.path, request.method, new DateTime(), throwable.getMessage()));
+            EmailSupport.sendMail(String.format("Exception thrown time %s path %s method %s message %s", request.path, request.method, new DateTime(), throwable.getMessage()));
     }
 
-    public static void showPage(Long pageId, Long listingId, Boolean return_to_summary) throws Exception{
+    public static void showPage(Long pageId, Long listingId, Boolean return_to_summary) throws Exception {
 
         if (request.querystring.contains("exception"))
             throw new Exception("arrgh");

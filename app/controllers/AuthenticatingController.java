@@ -6,7 +6,7 @@ import play.Play;
 import play.mvc.*;
 
 import uk.gov.gds.dm.CookieUtils;
-import uk.gov.gds.dm.GAEActions;
+import uk.gov.gds.dm.EmailSupport;
 import uk.gov.gds.dm.Security;
 import uk.gov.gds.dm.URLTools;
 
@@ -27,7 +27,7 @@ public abstract class AuthenticatingController extends Controller {
     @Catch(value = Throwable.class, priority = 1)
     public static void logThrowable(Throwable throwable) {
         if (Play.mode.isProd())
-            GAEActions.sendMail(String.format("Exception thrown time %s path %s method %s message %s", request.path, request.method, new DateTime(), throwable.getMessage()));
+            EmailSupport.sendMail(String.format("Exception thrown time %s path %s method %s message %s", request.path, request.method, new DateTime(), throwable.getMessage()));
     }
 
     @Finally
