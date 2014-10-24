@@ -99,15 +99,21 @@
   if (listing.allPagesHaveBeenCompleted()) {
 }%
   #{form @Service.completeListing()}
-  <div class='page-footer-item'>
-    <input type="hidden" id="listingId" name="listingId" value="${listingId}" />
-    #{forms/selection-button-checkbox
-      name: 'serviceCompleted',
-      value: 'service-completed',
-      label: 'This service is completed',
-      checked: listing.serviceSubmitted
-    /}
-  </div>
+  <fieldset class='page-footer-item'>
+
+    <legend class='question-heading'>
+      Service status
+    </legend>
+    <label class='selection-button selection-button-boolean'>
+      <input type='radio' name='serviceCompleted' id='serviceCompleted-option-1' value="" ${!listing.serviceSubmitted ? "checked='checked'" : ''} />
+      <span class='hidden'>This service is a</span> Draft
+    </label>
+    <label class='selection-button selection-button-boolean'>
+      <input type='radio' name='serviceCompleted' id='serviceCompleted-option-2' value="true" ${listing.serviceSubmitted ? "checked='checked'" : ''} />
+      <span class='hidden'>This service is</span> Completed
+    </label>
+  </fieldset>
+  <input type="hidden" id="listingId" name="listingId" value="${listingId}" />
   <input type='submit' value='Save and return to submissions' class='page-footer-item button-save' />
   #{/form}
 %{
