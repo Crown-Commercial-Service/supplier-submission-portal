@@ -1,5 +1,6 @@
 package controllers;
 
+import models.Document;
 import models.Listing;
 import models.Page;
 import play.data.validation.Error;
@@ -120,7 +121,7 @@ public class Service extends AuthenticatingController {
         List<Long> flow = ServiceSubmissionJourneyFlows.getFlow(listing.lot);
         List<String> optionalQuestions = ServiceSubmissionJourneyFlows.getOptionalQuestions();
 
-        Map<String, Collection<String>> allAnswers = new HashMap<>();
+        Map<String, Collection<String>> allAnswers = new HashMap<String, Collection<String>>();
 
         for(Page p : listing.completedPages){
             if(p.responses != null){
@@ -150,10 +151,11 @@ public class Service extends AuthenticatingController {
         }
 
         for (Page page: listing.completedPages) {
+            for (Document doc: page.submittedDocuments.values()) {
+                doc.delete();
+            }
             page.delete();
         }
-
-        // TODO: Delete all Document objects (and documents from S3?) related to this listing
 
         listing.delete();
         redirect("/");

@@ -16,14 +16,25 @@
 
   }
 
-  &-hint {
+  &-hint,
+  &-description {
     @include copy-19;
+    max-width: 66%;
+  }
+
+  &-hint {
+
     margin: 0 0 5px 0;
     color: $secondary-text-colour;
+
+    &-full-width {
+      @extend .question-hint;
+      max-width: none;
+    }
+
   }
 
   &-description {
-    @include copy-19;
     margin: 0 0 10px 0;
     clear: left;
   }

@@ -32,11 +32,16 @@ public class DocumentUtils {
                 .forListing(listingId)
                 .withName(documentName)
                 .forQuestion(questionId)
-                .forSupplier(supplierName)
-                .fromFile(upload.asFile()).build();
+                .withBytes(upload.asBytes())
+                .forSupplier(supplierName).build();
 
         document.pushDocumentToStorage();
 
         return document;
+    }
+
+    public static String s3Filename(String questionId, String filename) {
+        String fileType = FilenameUtils.getExtension(filename.toLowerCase());
+        return questionId + "." + fileType;
     }
 }

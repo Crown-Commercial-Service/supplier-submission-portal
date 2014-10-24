@@ -18,19 +18,19 @@ node run_grunt.js test
 node run_grunt.js production
 
 # Run unit and Selenium tests within play
-./scripts/updateEnvironment.sh ssp-preview ${ENCRYPTION_KEY} false
+./scripts/updateEnvironment.sh ssp-preview ${ENCRYPTION_KEY} false gds-g6-submission-bucket-preview
 play clean
 play deps
 play auto-test
 
 # Build artefact for staging
-./scripts/updateEnvironment.sh ssp-staging ${ENCRYPTION_KEY} false
+./scripts/updateEnvironment.sh ssp-staging ${ENCRYPTION_KEY} false gds-g6-submission-bucket-staging
 play clean
 play deps
 play war -o /data/supplier-submission/last-successful/submissions-staging-${BUILD_NUMBER}.war --%staging
 
 # Build artefact for live
-./scripts/updateEnvironment.sh ssp-live ${ENCRYPTION_KEY} true
+./scripts/updateEnvironment.sh ssp-live ${ENCRYPTION_KEY} true gds-g6-submission-bucket-live
 ## use production web.xml
 mv ./war/WEB-INF/web.xml ./war/WEB-INF/web-not-production.xml
 mv ./war/WEB-INF/web-production.xml ./war/WEB-INF/web.xml

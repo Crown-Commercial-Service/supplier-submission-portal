@@ -72,6 +72,8 @@
     #{forms/file-upload
       name: question,
       label: content.get(question + 'text'),
+      value: oldValues?.get(question)?.getAt(0),
+      hint: content.get(question + 'hint'),
       error: content.get(question + flash.get(question))
     /}
   %{

@@ -11,7 +11,11 @@
   #{forms/error-message
     error: _error
   /}
-  <input type='file' name='${_name}' id='${_name}' class='file-upload' />
+    %{if (_value != null && !(_value.isEmpty())) {}%
+    <p>Previously uploaded file: ${_value}</p>
+    %{}}%
+    <input type='hidden' name='${_name}_uploaded' id='${_name}_uploaded' value='${_value}' />
+    <input type='file' name='${_name}' id='${_name}' class='file-upload' />
   #{question-footer
     error: _error
   /}

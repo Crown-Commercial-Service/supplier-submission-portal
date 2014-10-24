@@ -140,6 +140,7 @@
       name: question,
       label: content.get(question + 'text'),
       hint: content.get(question + 'hint'),
+      value: oldValues?.get(question)?.getAt(0),
       error: flash.get(question)
     /}
   %{
