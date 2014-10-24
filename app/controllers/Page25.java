@@ -11,7 +11,7 @@ public class Page25 extends AuthenticatingQuestionPage {
 
     private static final Long PAGE_ID = 25l;
 
-    public static void savePage(Long listingId, String p25q1, String p25q2, String p25q2assurance, String p25q3, String p25q3assurance, String p25q4, String p25q4assurance, String return_to_summary) {
+    public static void savePage(Long listingId, String p25q1, String p25q2, String p25q1assurance, String p25q2assurance, String p25q3, String p25q3assurance, String p25q4, String p25q4assurance, String return_to_summary) {
 
         Listing listing = Listing.getByListingId(listingId);
 
@@ -26,7 +26,9 @@ public class Page25 extends AuthenticatingQuestionPage {
         // Validate all fields on this page requiring validation
         validation.required(p25q1).key("p25q1");
         validation.maxSize(p25q1, 30);
-
+        validation.required(p25q1assurance).key("p25q1");
+        validation.maxSize(p25q1assurance, 60);
+        
         validation.required(p25q2).key("p25q2");
         validation.maxSize(p25q2, 30);
         validation.required(p25q2assurance).key("p25q2");
@@ -64,6 +66,7 @@ public class Page25 extends AuthenticatingQuestionPage {
         pageResponses.put("p25q2", p25q2);
         pageResponses.put("p25q3", p25q3);
         pageResponses.put("p25q4", p25q4);
+        pageResponses.put("p25q1assurance", p25q1assurance);
         pageResponses.put("p25q2assurance", p25q2assurance);
         pageResponses.put("p25q3assurance", p25q3assurance);
         pageResponses.put("p25q4assurance", p25q4assurance);
