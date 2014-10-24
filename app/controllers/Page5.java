@@ -72,10 +72,8 @@ public class Page5 extends AuthenticatingQuestionPage {
             }
 
             if (return_to_summary.contains("yes")) {
-              System.out.println("YES");
               redirect(String.format("/page/%d/%d?return_to_summary=yes", PAGE_ID, listing.id));
             } else {
-              System.out.println("NO");
               redirect(String.format("/page/%d/%d", PAGE_ID, listing.id));
             }
         }

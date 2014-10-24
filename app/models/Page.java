@@ -45,11 +45,15 @@ public class Page extends Model {
     @Embedded
     public Map<String,String> responses;
 
+    @Embedded
+    public Map<String, Document> submittedDocuments;
+    
     public Page(Long listingId, Long pageNumber) {
         this.id = nextId();
         this.listingId = listingId;
         this.pageNumber = pageNumber;
         responses = new HashMap<String,String>();
+        submittedDocuments = new HashMap<String, Document>();
     }
 
     private Page() {
@@ -82,7 +86,6 @@ public class Page extends Model {
                 toReturn.put(key, list);
             }
         }
-        System.out.println(toReturn);
         return toReturn;
     }
 

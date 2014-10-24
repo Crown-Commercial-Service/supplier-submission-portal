@@ -43,7 +43,6 @@ public class Page4 extends AuthenticatingQuestionPage {
             }
 
             if (return_to_summary.contains("yes")) {
-              System.out.println("REDIR TO " + String.format("/page/%d/%d?return_to_summary=yes", PAGE_ID, listing.id));
               redirect(String.format("/page/%d/%d?return_to_summary=yes", PAGE_ID, listing.id));
             } else {
               redirect(String.format("/page/%d/%d", PAGE_ID, listing.id));

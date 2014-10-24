@@ -20,11 +20,12 @@ public class Page8 extends AuthenticatingQuestionPage {
     private static final Long PAGE_ID = 8l;
 
     public static void savePage(Long listingId, String p8q1MinPrice, String p8q1MaxPrice, String p8q1Unit, String p8q1Interval,
-                                String p8q2, String p8q3, String p8q4, String p8q5, Upload p8q6, Upload p8q7,
+                                String p8q2, String p8q3, String p8q4, String p8q5, Upload p8q6, Upload p8q7, String p8q6_uploaded,
                                 String return_to_summary) {
 
         Listing listing = Listing.getByListingId(listingId);
-
+        Map<String,Document> docs = new HashMap<String,Document>();
+        
         if(!listing.supplierId.equals(getSupplierId())) {
             notFound();
         }
@@ -73,21 +74,25 @@ public class Page8 extends AuthenticatingQuestionPage {
         }
 
         // Validate documents
-        validation.required(p8q6).key("p8q6");
-        if(p8q6 != null){
-            if(!validateDocumentFormat(p8q6)){
+        if (p8q6_uploaded == null || p8q6_uploaded.isEmpty()) {
+            validation.required(p8q6).key("p8q6");
+        }
+        if(p8q6 != null) {
+            if (!validateDocumentFormat(p8q6)) {
                 validation.addError("p8q6", Messages.getMessage("en", "validation.file.wrongFormat"));
             }
-            if(!validateDocumentFileSize(p8q6)){
+            if (!validateDocumentFileSize(p8q6)) {
                 validation.addError("p8q6", Messages.getMessage("en", "validation.file.tooLarge"));
             }
-//            try {
-//                Document p8q6Document = storeDocument(p8q6, getSupplierId(), listing.id, "p8q6");
-//                p8q6Document.insert();
-//            } catch(Exception e) {
-//                Logger.error(e, "Could not upload document to S3. Cause: %s", e.getMessage());
-//                validation.addError("p8q6", Messages.getMessage("en", "validation.upload.failed"));
-//            }
+            if (!validation.hasErrors()) {
+                try {
+                    Document p8q6Document = storeDocument(p8q6, getSupplierId(), listing.id, "p8q6");
+                    docs.put("p8q6", p8q6Document);
+                } catch (Exception e) {
+                    Logger.error(e, "Could not upload document to S3. Cause: %s", e.getMessage());
+                    validation.addError("p8q6", Messages.getMessage("en", "validation.upload.failed"));
+                }
+            }
         }
 
         if(p8q7 != null){
@@ -97,13 +102,15 @@ public class Page8 extends AuthenticatingQuestionPage {
             if(!validateDocumentFileSize(p8q7)){
                 validation.addError("p8q7", Messages.getMessage("en", "validation.file.tooLarge"));
             }
-//            try {
-//                Document p8q7Document = storeDocument(p8q7, getSupplierId(), listing.id, "p8q7");
-//                p8q7Document.insert();
-//            } catch(Exception e) {
-//                Logger.error(e, "Could not upload document to S3. Cause: %s", e.getMessage());
-//                validation.addError("p8q7", Messages.getMessage("en", "validation.upload.failed"));
-//            }
+            if (!validation.hasErrors()) {
+                try {
+                    Document p8q7Document = storeDocument(p8q7, getSupplierId(), listing.id, "p8q7");
+                    docs.put("p8q7", p8q7Document);
+                } catch (Exception e) {
+                    Logger.error(e, "Could not upload document to S3. Cause: %s", e.getMessage());
+                    validation.addError("p8q7", Messages.getMessage("en", "validation.upload.failed"));
+                }
+            }
         }
 
         if(validation.hasErrors()) {
@@ -111,14 +118,14 @@ public class Page8 extends AuthenticatingQuestionPage {
                     "&p8q1Unit=" + params.get("p8q1Unit") + "&p8q1Interval=" + params.get("p8q1Interval") +
                     "&p8q2=" + params.get("p8q2") + "&p8q3=" +
                     params.get("p8q3") + "&p8q4=" + params.get("p8q4") + "&p8q5=" + params.get("p8q5") +
-                    "&p8q6=" + params.get("p8q6") + "&p8q7=" + params.get("p8q7"));
+                    "&p8q6_upload=" + params.get("p8q6_upload") + "&p8q7_upload=" + params.get("p8q7_upload"));
             for(Map.Entry<String, List<Error>> entry : validation.errorsMap().entrySet()) {
                 String key = entry.getKey();
                 String value = entry.getValue().get(0).message();
 
                 flash.put(key, Fixtures.getErrorMessage(key, value));
             }
-            System.out.println(flash);
+            
             if (return_to_summary.contains("yes")) {
               redirect(String.format("/page/%d/%d?return_to_summary=yes", PAGE_ID, listing.id));
             } else {
@@ -145,11 +152,10 @@ public class Page8 extends AuthenticatingQuestionPage {
         pageResponses.put("p8q3", p8q3);
         pageResponses.put("p8q4", p8q4);
         pageResponses.put("p8q5", p8q5);
-        pageResponses.put("p8q6", p8q6.getFileName());
+        if (p8q6 != null) pageResponses.put("p8q6", p8q6.getFileName());
         if (p8q7 != null) pageResponses.put("p8q7", p8q7.getFileName());
-        // TODO: Document storage for p8q6 and p8q7 - save something in the Page
 
-        saveResponseToPage(PAGE_ID, listing, pageResponses);
+        saveResponseToPage(PAGE_ID, listing, pageResponses, docs);
         if (return_to_summary.contains("yes")) {
           redirect(listing.summaryPageUrl(PAGE_ID));
         } else {

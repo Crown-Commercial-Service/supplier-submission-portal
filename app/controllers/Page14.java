@@ -42,7 +42,7 @@ public class Page14 extends AuthenticatingQuestionPage {
 
                 flash.put(key, Fixtures.getErrorMessage(key, value));
             }
-            System.out.println(flash);
+            
             if (return_to_summary.contains("yes")) {
               redirect(String.format("/page/%d/%d?return_to_summary=yes", PAGE_ID, listing.id));
             } else {
