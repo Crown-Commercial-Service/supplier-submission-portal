@@ -61,7 +61,13 @@
       }
 
       .summary-answer {
+
         color: $accessible-orange;
+
+        a {
+          color: $accessible-orange;
+        }
+
       }
 
     }

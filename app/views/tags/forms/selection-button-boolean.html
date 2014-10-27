@@ -1,7 +1,7 @@
 %{ if (_label) { }%
-<fieldset class='question'>
+<fieldset class='question' id='${_name}'>
 %{ } else { }%
-<fieldset>
+<fieldset id='${_name}'>
 %{ } }%
   #{question-heading
     heading: _label,
