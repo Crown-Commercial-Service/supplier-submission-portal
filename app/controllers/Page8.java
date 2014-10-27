@@ -36,6 +36,22 @@ public class Page8 extends AuthenticatingQuestionPage {
 
         Double min = null, max = null;
 
+        validation.required(p8q1MinPrice).key("p8q1").message("validationNoMinPriceSpecified");
+        validation.match(p8q1MinPrice, "[0-9]+").key("p8q1").message("validationNotANumber");
+        validation.match(p8q1MaxPrice, "[0-9]+").key("p8q1").message("validationNotANumber");
+        validation.required(p8q1Unit).key("p8q1").message("validationNoUnitSpecified");
+        validation.maxSize(p8q1Unit, 25);
+        validation.maxSize(p8q1Interval, 25);
+        validation.required(p8q2).key("p8q2");
+        validation.maxSize(p8q2, 10);
+        validation.required(p8q3).key("p8q3");
+        validation.maxSize(p8q3, 10);
+
+        if (!listing.lot.equals("SCS")) {
+            validation.required(p8q4).key("p8q4");
+            validation.required(p8q5).key("p8q5");
+        }
+
         try {
             min = Double.valueOf(p8q1MinPrice);
             if (min < 0) {
@@ -59,19 +75,7 @@ public class Page8 extends AuthenticatingQuestionPage {
                 validation.addError("p8q1", Messages.getMessage("en", "validation.maxLessThanMin"));
             }
         }
-        validation.required(p8q1MinPrice).key("p8q1").message("validationNoMinPriceSpecified");
-        validation.required(p8q1Unit).key("p8q1").message("validationNoUnitSpecified");
-        validation.maxSize(p8q1Unit, 25);
-        validation.maxSize(p8q1Interval, 25);
-        validation.required(p8q2).key("p8q2");
-        validation.maxSize(p8q2, 10);
-        validation.required(p8q3).key("p8q3");
-        validation.maxSize(p8q3, 10);
 
-        if (!listing.lot.equals("SCS")) {
-            validation.required(p8q4).key("p8q4");
-            validation.required(p8q5).key("p8q5");
-        }
 
         // Validate documents
         if (p8q6_uploaded == null || p8q6_uploaded.isEmpty()) {
