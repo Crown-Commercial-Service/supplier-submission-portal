@@ -24,7 +24,9 @@ xml.'appengine-web-app'( xmlns: 'http://appengine.google.com/ns/1.0') {
         property(name: 'aws.access.key', value: System.getProperty('aws.access.key', System.getenv('AWS_ACCESS_KEY')))
         property(name: 'aws.secret.access.key', value: System.getProperty('aws.secret.access.key', System.getenv('AWS_SECRET_ACCESS_KEY')))
     }
-
+    'static-error-handlers' {
+        handler(file: '/errors/default_error.html')
+        handler(file: '/errors/over_quota.html', 'error-code': 'over_quota')
+    }
 }
-
 writer.flush()

@@ -8,4 +8,9 @@
     <property name='aws.access.key' value='' />
     <property name='aws.secret.access.key' value='' />
   </system-properties>
+
+  <static-error-handlers>
+    <handler file="/errors/default_error.html" />
+    <handler file="/errors/over_quota.html" error-code="over_quota" />
+  </static-error-handlers>
 </appengine-web-app>
