@@ -7,6 +7,10 @@ import java.net.URL;
 
 public class URLTools {
 
+    private static final String DM_PROD = "https://www.digitalmarketplace.service.gov.uk/";
+    private static final String DM_STAGE = "https://stage.digitalmarketplace.service.gov.uk/";
+    private static final String DM_QA = "http://qa.digitalmarketplace.service.gov.uk:8080/";
+
     public static String getDigitalMarketplaceURL(){
         if(Play.mode == Play.Mode.DEV){
             return getLocalDigitalMarketplaceURL();
@@ -35,21 +39,15 @@ public class URLTools {
     }
 
     private static String getProductionDigitalMarketplaceURL(){
-        String[] localDigitalMarketplaceURLs = new String[] {"https://www.digitalmarketplace.service.gov.uk/", "https://www.digitalmarketplace.service.gov.uk/digitalmarketplace/"};
-
-        if(isWorkingURL(localDigitalMarketplaceURLs[0])){
-            return localDigitalMarketplaceURLs[0];
-        } else {
-            return localDigitalMarketplaceURLs[1];
-        }
+        return DM_PROD;
     }
 
     private static String getStagingDigitalMarketplaceURL(){
-        return  "https://stage.digitalmarketplace.service.gov.uk/";
+        return  DM_STAGE;
     }
 
     private static String getQADigitalMarketplaceURL(){
-        return "http://qa.digitalmarketplace.service.gov.uk:8080/";
+        return DM_QA;
     }
 
     private static boolean isWorkingURL(String url){
