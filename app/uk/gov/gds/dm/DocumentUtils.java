@@ -42,6 +42,36 @@ public class DocumentUtils {
 
     public static String s3Filename(String questionId, String filename) {
         String fileType = FilenameUtils.getExtension(filename.toLowerCase());
-        return questionId + "." + fileType;
+
+        for(questionPageS3Filename x : questionPageS3Filename.values()){
+            if(x.getQuestionId().equals(questionId)){
+                return x + "." + fileType;
+            }
+        }
+        throw new IllegalArgumentException("That questionId (" + questionId + ") does not map to an S3 filename");
+    }
+
+    private enum questionPageS3Filename {
+        P6Q1 ("p6q1", "service-definition-document"),
+        P7Q3 ("p7q3", "terms-and-condtions"),
+        P8Q6 ("p8q6", "pricing-document"),
+        P8Q7 ("p8q7", "SFIA-rate-card");
+
+        private final String questionId;
+        private final String fileNameRepresentation;
+
+        questionPageS3Filename (String id, String string){
+            this.questionId = id;
+            this.fileNameRepresentation = string;
+        }
+
+        public String getQuestionId(){
+            return questionId;
+        }
+
+        @Override
+        public String toString() {
+            return fileNameRepresentation;
+        }
     }
 }

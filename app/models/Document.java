@@ -49,7 +49,7 @@ public class Document extends Model {
 
     public void pushDocumentToStorage() {
 
-        String documentKey = String.format("%s/%d/%s/%s", this.supplierName, this.listingId, this.questionId, DocumentUtils.s3Filename(this.questionId, this.filename));
+        String documentKey = String.format("%s/%d/%s", this.supplierName, this.listingId, DocumentUtils.s3Filename(this.questionId, this.filename));
         String documentUrl = uploader.upload(this.bytes, documentKey);
         this.documentUrl = documentUrl;
 
