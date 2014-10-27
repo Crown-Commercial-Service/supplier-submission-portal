@@ -1,9 +1,9 @@
-<fieldset class='question'>
+<fieldset class='question' id='${_name}'>
 #{question-validation-wrapper-open
   error: _error
 /}
 <div class="word-count">
-  <label for='${_name}' class='question-heading %{ if (_hint) { }% question-heading-with-hint %{ } }%'>
+  <label for='${_name}-text-box' class='question-heading %{ if (_hint) { }% question-heading-with-hint %{ } }%'>
     ${_label}
   </label>
   #{forms/hint
@@ -16,7 +16,7 @@
     def textBoxSize = _max_words < 30 ? 'medium' : 'large'
   }%
   <textarea
-    class='text-box text-box-${textBoxSize}' name="${_name}" id="${_name}"
+    class='text-box text-box-${textBoxSize}' name="${_name}" id="${_name}-text-box"
     data-max-length-in-words="${_max_words}"
     aria-controls='${_name}-word-count'
   >${_value}</textarea>

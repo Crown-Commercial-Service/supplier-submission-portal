@@ -2,6 +2,7 @@ package models;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
@@ -174,22 +175,17 @@ public class Listing extends Model {
 
     public Long getFirstIncompletePage() {
 
-        int completed = 0;
-
-        for (Page p : completedPages) {
-            if (p.pageNumber != 0) {
-                completed++;
-            } else {
-                break;
-            }
+        ArrayList<Long> completedPageNumbers = new ArrayList<Long>();
+        for (Page page : completedPages) {
+            completedPageNumbers.add(page.pageNumber);
         }
-
-        if (completed >= pageSequence.size()) {
-            return 0L;
-        } else {
-            return pageSequence.get(completed);
+        Collections.sort(completedPageNumbers);
+        int i = 0;
+        while (i < completedPageNumbers.size() && completedPageNumbers.get(i).equals(pageSequence.get(i))) {
+            i++;
         }
-
+        if (i < pageSequence.size()) return pageSequence.get(i);
+        else return 0L;
     }
 
     private void updateListing(String updatedByEmail){

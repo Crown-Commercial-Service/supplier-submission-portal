@@ -92,9 +92,10 @@
       </td>
       <td class='summary-answer-action'>
         %{
-          if (0 != listing.getFirstIncompletePage()) {
+          long firstIncompletePage = listing.getFirstIncompletePage()
+          if (0 != firstIncompletePage) {
         }%
-        <a href='/page/${listing.getFirstIncompletePage()}/${listing.id}'>Continue</a>
+        <a href='/page/${firstIncompletePage}/${listing.id}'>Continue</a>
         %{
           }
         }%

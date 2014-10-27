@@ -12,7 +12,6 @@
   service_id: listingID,
   lot: lot
 /}
-
 <form action='${request.getBase()}${request.url}' method='POST'>
   #{heading
     current: pageNum,
@@ -29,6 +28,7 @@
   }%
       #{question-heading
         heading: content.get(question + 'text'),
+        questionID: question,
         hint: content.get(question + 'hint'),
         error: content.get(question + flash.get(question))
       /}
@@ -61,6 +61,7 @@
   }%
       #{question-heading
         heading: content.get(question + 'text'),
+        questionID: question,
         hint: content.get(question + 'hint'),
         error: content.get(question + flash.get(question))
       /}
