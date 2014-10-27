@@ -40,12 +40,12 @@ public class DocumentUtils {
         return document;
     }
 
-    public static String s3Filename(String questionId, String filename) {
+    public static String s3Filename(Long serviceId, String questionId, String filename) {
         String fileType = FilenameUtils.getExtension(filename.toLowerCase());
 
         for(questionPageS3Filename x : questionPageS3Filename.values()){
             if(x.getQuestionId().equals(questionId)){
-                return x + "." + fileType;
+                return serviceId.toString() + "-" + x + "." + fileType;
             }
         }
         throw new IllegalArgumentException("That questionId (" + questionId + ") does not map to an S3 filename");
@@ -55,7 +55,7 @@ public class DocumentUtils {
         P6Q1 ("p6q1", "service-definition-document"),
         P7Q3 ("p7q3", "terms-and-condtions"),
         P8Q6 ("p8q6", "pricing-document"),
-        P8Q7 ("p8q7", "SFIA-rate-card");
+        P8Q7 ("p8q7", "sfia-rate-card");
 
         private final String questionId;
         private final String fileNameRepresentation;
