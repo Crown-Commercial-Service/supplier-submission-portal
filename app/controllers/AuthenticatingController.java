@@ -59,6 +59,8 @@ public abstract class AuthenticatingController extends Controller {
         } else {
             populateMapWithSSOCookieData(gdmSsoCookie);
             CookieUtils.updateSSOCookieWithCurrentTimestamp(supplierDetailsFromCookie);
+
+            Logger.info("Logged in, cookie is secure? (" + gdmSsoCookie.secure + ")");
         }
     }
 
