@@ -19,8 +19,8 @@
             '/>'
           )
           .attr('aria-controls', 'word-count-' + $textarea.prop('name'))
-          .on('change keyup paste', showCount);
-        showCount.call($textarea[0]);
+          .on('change keyup paste', showCount)
+          .each(showCount);
       },
       showCount = function() {
         var $textarea = $(this),
