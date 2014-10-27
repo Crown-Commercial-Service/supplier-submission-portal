@@ -44,9 +44,6 @@ public class Page21 extends AuthenticatingQuestionPage {
             }
         }
 
-        // Validate all fields on this page requiring validation
-        // TODO: Verify if... validation.required(p21q1).key("p21q1");
-
         if(validation.hasErrors()) {
             flash.put("body", params.get("body"));
             for(Map.Entry<String, List<Error>> entry : validation.errorsMap().entrySet()) {
