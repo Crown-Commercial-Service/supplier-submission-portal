@@ -9,6 +9,7 @@ import play.Logger;
 import play.Play;
 import play.mvc.Catch;
 import play.mvc.Finally;
+import play.utils.Properties;
 import uk.gov.gds.dm.EmailSupport;
 import uk.gov.gds.dm.Fixtures;
 
@@ -37,6 +38,7 @@ public class QuestionPageDisplay extends AuthenticatingController {
 
         Listing listing = Listing.getByListingId(listingId);
         Page page = null;
+        Properties content = Fixtures.getContentProperties();
 
         try {
             page = listing.getResponsePageByPageId(pageId);
@@ -66,13 +68,14 @@ public class QuestionPageDisplay extends AuthenticatingController {
         int sequenceIndex = listing.pageSequence.indexOf(pageId);
         renderArgs.put("lot", listing.lot);
         renderArgs.put("listingID", listing.id);
-        renderArgs.put("content", Fixtures.getContentProperties());
+        renderArgs.put("content", content);
         renderArgs.put("pageNum", Integer.toString(sequenceIndex + 1));
         renderArgs.put("pageTotal", Integer.toString(listing.pageSequence.size()));
         renderArgs.put("listingId", listingId);
         renderArgs.put("prevPageURL", listing.prevPageUrl(pageId, listingId));
         renderArgs.put("summaryPageURL", listing.summaryPageUrl());
         renderArgs.put("return_to_summary", return_to_summary);
+        renderArgs.put("pageTitle", content.get("p" + pageId + "title") + " – " + listing.title + " submission – Digtal Marketplace");
 
         if (flash.get("body") != null) {
             try {
