@@ -18,7 +18,7 @@ public class Page25 extends AuthenticatingQuestionPage {
         if(!listing.supplierId.equals(getSupplierId())) {
             notFound();
         }
-        
+
         if (listing.serviceSubmitted) {
           redirect(listing.summaryPageUrl());
         }
@@ -28,9 +28,9 @@ public class Page25 extends AuthenticatingQuestionPage {
         validation.maxSize(p25q1, 30);
         validation.required(p25q1assurance).key("p25q1");
         validation.maxSize(p25q1assurance, 60);
-        
+
         validation.required(p25q2).key("p25q2");
-        validation.maxSize(p25q2, 30);
+        validation.maxSize(p25q2, 55);
         validation.required(p25q2assurance).key("p25q2");
         validation.maxSize(p25q2assurance, 60);
 
@@ -52,7 +52,7 @@ public class Page25 extends AuthenticatingQuestionPage {
 
                 flash.put(key, value);
             }
-            
+
             if (return_to_summary.contains("yes")) {
               redirect(String.format("/page/%d/%d?return_to_summary=yes", PAGE_ID, listing.id));
             } else {
