@@ -84,15 +84,6 @@ public class Page8 extends AuthenticatingQuestionPage {
             if (!validateDocumentFileSize(p8q6)) {
                 validation.addError("p8q6", Messages.getMessage("en", "validation.file.tooLarge"));
             }
-            if (!validation.hasErrors()) {
-                try {
-                    Document p8q6Document = storeDocument(p8q6, getSupplierId(), listing.id, "p8q6");
-                    docs.put("p8q6", p8q6Document);
-                } catch (Exception e) {
-                    Logger.error(e, "Could not upload document to S3. Cause: %s", e.getMessage());
-                    validation.addError("p8q6", Messages.getMessage("en", "validation.upload.failed"));
-                }
-            }
         }
 
         if(p8q7 != null){
@@ -102,14 +93,25 @@ public class Page8 extends AuthenticatingQuestionPage {
             if(!validateDocumentFileSize(p8q7)){
                 validation.addError("p8q7", Messages.getMessage("en", "validation.file.tooLarge"));
             }
-            if (!validation.hasErrors()) {
-                try {
-                    Document p8q7Document = storeDocument(p8q7, getSupplierId(), listing.id, "p8q7");
-                    docs.put("p8q7", p8q7Document);
-                } catch (Exception e) {
-                    Logger.error(e, "Could not upload document to S3. Cause: %s", e.getMessage());
-                    validation.addError("p8q7", Messages.getMessage("en", "validation.upload.failed"));
-                }
+        }
+
+        if (p8q6 != null && !validation.hasErrors()) {
+            try {
+                Document p8q6Document = storeDocument(p8q6, getSupplierId(), listing.id, "p8q6");
+                docs.put("p8q6", p8q6Document);
+            } catch (Exception e) {
+                Logger.error(e, "Could not upload document to S3. Cause: %s", e.getMessage());
+                validation.addError("p8q6", Messages.getMessage("en", "validation.upload.failed"));
+            }
+        }
+        
+        if (p8q7 != null && !validation.hasErrors()) {
+            try {
+                Document p8q7Document = storeDocument(p8q7, getSupplierId(), listing.id, "p8q7");
+                docs.put("p8q7", p8q7Document);
+            } catch (Exception e) {
+                Logger.error(e, "Could not upload document to S3. Cause: %s", e.getMessage());
+                validation.addError("p8q7", Messages.getMessage("en", "validation.upload.failed"));
             }
         }
 
