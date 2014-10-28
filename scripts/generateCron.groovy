@@ -12,6 +12,11 @@ xml.'cronentries' {
         'schedule'('every day 00:00')
         'target'('ah-builtin-python-bundle')
     }
+    'cron' {
+        'description'('Export of all completed listings to S3')
+        'url'('/cron/export')
+        'schedule'('every day 00:01')
+    }
 }
 
 writer.flush()

@@ -1,6 +1,8 @@
 package models;
 
+import com.google.gson.Gson;
 import org.apache.commons.io.FilenameUtils;
+import play.Play;
 import siena.*;
 import siena.embed.EmbeddedMap;
 import uk.gov.gds.dm.DocumentUtils;
@@ -11,7 +13,7 @@ public class Document extends Model {
 
     private transient byte[] bytes;
     private transient String supplierName;
-    private static final S3Uploader uploader = new S3Uploader();
+    private static final S3Uploader uploader = new S3Uploader(String.valueOf(Play.configuration.get("application.s3.bucket.name")));
     // For GAE :
     // 1. @Id annotated field corresponding to the primary key must be Long type
     // 2. @Id annotated field corresponding to the primary key must be called "id"
@@ -49,7 +51,7 @@ public class Document extends Model {
 
     public void pushDocumentToStorage() {
 
-        String documentKey = String.format("%s/%d/%s", this.supplierName, this.listingId, DocumentUtils.s3Filename(this.listingId, this.questionId, this.filename));
+        String documentKey = String.format("%s/%d/%s", this.supplierName, this.listingId, DocumentUtils.s3DocumentFilename(this.listingId, this.questionId, this.filename));
         String documentUrl = uploader.upload(this.bytes, documentKey);
         this.documentUrl = documentUrl;
 
@@ -115,13 +117,7 @@ public class Document extends Model {
 
     @Override
     public String toString() {
-        return "Document{" +
-                "id=" + id +
-                ", filename='" + filename + "'" +
-                ", listingId='" + listingId + "'" +
-                ", questionId='" + questionId + "'" +
-                ", type='" + type + "'" +
-                ", supplierName='" + supplierName + "'" +
-                '}';
+        Gson gson = new Gson();
+        return gson.toJson(this);
     }
 }

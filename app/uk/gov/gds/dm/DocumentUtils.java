@@ -6,6 +6,8 @@ import play.data.Upload;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class DocumentUtils {
 
@@ -40,7 +42,7 @@ public class DocumentUtils {
         return document;
     }
 
-    public static String s3Filename(Long serviceId, String questionId, String filename) {
+    public static String s3DocumentFilename(Long serviceId, String questionId, String filename) {
         String fileType = FilenameUtils.getExtension(filename.toLowerCase());
 
         for(questionPageS3Filename x : questionPageS3Filename.values()){
@@ -49,6 +51,14 @@ public class DocumentUtils {
             }
         }
         throw new IllegalArgumentException("That questionId (" + questionId + ") does not map to an S3 filename");
+    }
+
+    public static String s3ExportFilename(Long serviceId) {
+        return "service-" + serviceId.toString() + ".json";
+    }
+
+    public static String dateString() {
+        return new SimpleDateFormat("yyyy-MM-dd").format(new Date());
     }
 
     private enum questionPageS3Filename {

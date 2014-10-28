@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
 
+import com.google.gson.Gson;
 import play.Logger;
 import siena.*;
 import siena.embed.Embedded;
@@ -220,14 +221,8 @@ public class Listing extends Model {
 
     @Override
     public String toString() {
-        return "Listing{" +
-                "id=" + id +
-                ", supplierId='" + supplierId + "'" +
-                ", lot='" + lot + "'" +
-                ", title='" + title + "'" +
-                ", pageSequence='" + pageSequence + "'" +
-                ", serviceSubmitted='" + serviceSubmitted + "'" +
-                '}';
+        Gson gson = new Gson();
+        return gson.toJson(this);
     }
 
 }
