@@ -73,3 +73,12 @@ Play Documentation
 
 Documentation for Play 1.2.4 is here: https://www.playframework.com/documentation/1.2.4/home
 
+
+Front end coding styleguide
+---------------------------
+
+If you are writing CSS, please follow the rules defined in `app/assets/sass/.scss-lint.yml`. The meaning of the rules can be found [in the scsslint documentation](https://github.com/causes/scss-lint/blob/master/lib/scss_lint/linter/README.md).
+
+It is recommended that you:
+- [Configure your editor to use scsslint](https://github.com/causes/scss-lint#editor-integration) as you work
+- or at least lint before pushing by running `node run_grunt.js scsslint`
