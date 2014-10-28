@@ -15,6 +15,17 @@ module.exports = function(grunt){
 
   grunt.initConfig({
 
+    // Lints SASS
+    scsslint: {
+      allFiles: [
+        'app/assets/sass/**/*.scss',
+      ],
+      options: {
+        config: 'app/assets/sass/.scss-lint.yml',
+        colorizeOutput: true
+      },
+    },
+
     // Builds SASS
     sass: {
       dev: {

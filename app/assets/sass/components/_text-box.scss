@@ -8,7 +8,7 @@
   padding: 5px;
   border: 1px solid $border-colour;
 
-  @include media(desktop){
+  @include media(desktop) {
     width: 66%;
   }
 
