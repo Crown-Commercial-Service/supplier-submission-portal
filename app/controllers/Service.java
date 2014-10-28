@@ -85,7 +85,7 @@ public class Service extends AuthenticatingController {
           listing.save();
           flash.put("feedback_message", "has been returned to drafts");
         } else if (!listing.serviceSubmitted) { // Only complete the listing if not already completed
-          listing.completeListing(supplierDetailsFromCookie.get(getEmail()));
+          listing.completeListing(getEmail());
           flash.put("feedback_message", "has been marked as completed");
         }
         flash.put("feedback_relates_to_service_id", listingId);
