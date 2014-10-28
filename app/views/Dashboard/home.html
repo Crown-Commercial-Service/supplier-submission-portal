@@ -12,7 +12,7 @@
 </div>
 
 %{
-  if (supplierDetails.get("esourcingId").size() == 0) {
+  if (supplierDetails.get("esourcingId") == "null" || supplierDetails.get("esourcingId").size() == 0) {
 }%
   <div class='banner-warning'>
     <p>
