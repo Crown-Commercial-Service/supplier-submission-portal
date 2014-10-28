@@ -26,6 +26,10 @@ public class URLTools {
         }
     }
 
+    public static String getDigitalMarketplaceLogoutURL(){
+        return getDigitalMarketplaceURL() + "logout";
+    }
+
     private static String getLocalDigitalMarketplaceURL(){
         String[] localDigitalMarketplaceURLs = new String[] {"http://localhost.digitalmarketplace.service.gov.uk:8080/", "http://localhost:8080/", "http://localhost:8080/digitalmarketplace/"};
 
