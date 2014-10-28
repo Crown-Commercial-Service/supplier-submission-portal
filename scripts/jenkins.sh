@@ -31,7 +31,7 @@ play war -o /data/supplier-submission/last-successful/submissions-staging-${BUIL
 
 # Build artefact for live
 ./scripts/updateEnvironment.sh ssp-live ${ENCRYPTION_KEY} true gds-g6-submission-bucket-live
-./scripts/generateWebDescriptor.groovy
+./scripts/generateCron.groovy
 
 ## use production web.xml
 mv ./war/WEB-INF/web.xml ./war/WEB-INF/web-not-production.xml
