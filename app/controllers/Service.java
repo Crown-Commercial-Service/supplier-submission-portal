@@ -38,6 +38,7 @@ public class Service extends AuthenticatingController {
         renderArgs.put("optionalQuestions", optionalQuestions);
         renderArgs.put("pageIndex", 0);
         renderArgs.put("storedValues", allAnswers);
+        renderArgs.put("pageTitle", "Service summary – " + listing.title + " – Digital Marketplace");
         render(listingId);
     }
 
