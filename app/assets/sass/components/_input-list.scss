@@ -6,7 +6,7 @@
     display: block;
     margin-bottom: 15px;
 
-    @include media(desktop){
+    @include media(desktop) {
       @include inline-block;
       margin: 0 0 0 0.6em;
     }
@@ -17,11 +17,12 @@
 
     padding-left: 1.84em;
     width: 100%;
+
     @include ie-lte(8) {
       width: 95%;
     }
 
-    @include media(desktop){
+    @include media(desktop) {
       @include inline-block;
       width: 66%;
     }

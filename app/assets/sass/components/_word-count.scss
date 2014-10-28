@@ -11,7 +11,7 @@
     padding: 0;
     color: $secondary-text-colour;
 
-    @include media(desktop){
+    @include media(desktop) {
       width: 66%;
     }
 
