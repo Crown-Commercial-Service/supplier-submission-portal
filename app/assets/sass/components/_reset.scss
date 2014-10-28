@@ -2,7 +2,6 @@ html,
 body,
 div,
 span,
-applet,
 object,
 iframe,
 h1,
@@ -40,7 +39,6 @@ var,
 b,
 u,
 i,
-center,
 dl,
 dt,
 dd,
@@ -83,6 +81,10 @@ video {
   padding: 0;
   border: 0;
   font-size: 100%;
+}
+
+main {
+  display: block;
 }
 
 ol,
