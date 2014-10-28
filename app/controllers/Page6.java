@@ -36,19 +36,21 @@ public class Page6 extends AuthenticatingQuestionPage {
         if(p6q1_uploaded == null || p6q1_uploaded.isEmpty()) {
             validation.required(p6q1).key("p6q1");
         }
-        if(p6q1 != null){
+        if(p6q1 != null) {
             if(!DocumentUtils.validateDocumentFormat(p6q1)){
                 validation.addError("p6q1", Messages.getMessage("en", "validation.file.wrongFormat"));
             }
             if(!DocumentUtils.validateDocumentFileSize(p6q1)){
                 validation.addError("p6q1", Messages.getMessage("en", "validation.file.tooLarge"));
             }
-            try {
-                Document document = storeDocument(p6q1, getSupplierId(), listingId, QUESTION_ID);
-                docs.put("p6q1", document);
-            } catch(Exception e) {
-                Logger.error(e, "Could not upload document to S3. Cause: %s", e.getMessage());
-                validation.addError("p6q1", Messages.getMessage("en", "validation.upload.failed"));
+            if(!validation.hasErrors()) {
+                try {
+                    Document document = storeDocument(p6q1, getSupplierId(), listingId, QUESTION_ID);
+                    docs.put("p6q1", document);
+                } catch(Exception e) {
+                    Logger.error(e, "Could not upload document to S3. Cause: %s", e.getMessage());
+                    validation.addError("p6q1", Messages.getMessage("en", "validation.upload.failed"));
+                }
             }
         }
 
