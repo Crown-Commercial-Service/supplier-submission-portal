@@ -47,6 +47,8 @@ public class Page24 extends AuthenticatingQuestionPage {
 
             // Validate percentage: .max() catches anything not a number
             validation.required(p24q10).key("p24q10");
+            validation.maxSize(p24q10, 100);
+            validation.match(p24q10, "[0-9]+(\\.[0-9]+)?").key("p24q10").message("validationNotANumber");
 	        validation.range(p24q10, 0, 99.99999999999999).key("p24q10").message("validationNotANumber");
             validation.required(p24q10assurance).key("p24q10");
 
