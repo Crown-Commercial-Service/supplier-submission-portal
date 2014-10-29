@@ -3,6 +3,7 @@ package controllers;
 import org.joda.time.DateTime;
 import play.Logger;
 import play.Play;
+import play.exceptions.JavaExecutionException;
 import play.mvc.*;
 
 import uk.gov.gds.dm.CookieUtils;
@@ -45,29 +46,35 @@ public abstract class AuthenticatingController extends Controller {
     }
 
     private static void doAuthenticationChecks() {
-        Http.Cookie gdmSsoCookie = request.current().cookies.get("gdmssosession");
+        try {
+            Http.Cookie gdmSsoCookie = request.current().cookies.get("gdmssosession");
 
-        if (gdmSsoCookie == null) {
-            Logger.info("SSO Cookie does not exist.");
-            redirect(DM_URL + "login");
-        } else if (Security.cookieHasExpired(gdmSsoCookie)) {
-            Logger.info("SSO Cookie has expired.");
-            redirect(DM_URL + "login");
-        } else if (!Security.supplierIdIsAllowed(Security.getCookieSupplierId(gdmSsoCookie))) {
-            Logger.info("Supplier id was not allowed.");
-            redirect(DM_URL + "login");
-        } else {
-            populateMapWithSSOCookieData(gdmSsoCookie);
-            CookieUtils.updateSSOCookieWithCurrentTimestamp(supplierDetailsFromCookie);
-        }
+            if (gdmSsoCookie == null) {
+                Logger.info("SSO Cookie does not exist.");
+                redirect(DM_URL + "login");
+            } else if (Security.cookieHasExpired(gdmSsoCookie)) {
+                Logger.info("SSO Cookie has expired.");
+                redirect(DM_URL + "login");
+            } else if (!Security.supplierIdIsAllowed(Security.getCookieSupplierId(gdmSsoCookie))) {
+                Logger.info("Supplier id was not allowed.");
+                redirect(DM_URL + "login");
+            } else {
+                populateMapWithSSOCookieData(gdmSsoCookie);
+                CookieUtils.updateSSOCookieWithCurrentTimestamp(supplierDetailsFromCookie);
+            }
+         } catch (Exception e){
+            Logger.error("Cookie was encrypted using an invalid encryption key.");
+            CookieUtils.clearSSOCookie();
+            redirect(URLTools.getDigitalMarketplaceLogoutURL());
+         }
     }
 
     private static void populateMapWithSSOCookieData(Http.Cookie cookie) {
-        supplierDetailsFromCookie.put(SUPPLIER_ID, Security.getCookieSupplierId(cookie));
-        supplierDetailsFromCookie.put(SUPPLIER_EMAIL, Security.getCookieEmail(cookie));
-        supplierDetailsFromCookie.put(SUPPLIER_COMPANY_NAME, Security.getCookieSupplierCompanyName(cookie));
-        supplierDetailsFromCookie.put(COOKIE_DATE, Security.getCookieDate(cookie));
-        supplierDetailsFromCookie.put(ESOURCING_ID, Security.getESourcingId(cookie));
+            supplierDetailsFromCookie.put(SUPPLIER_ID, Security.getCookieSupplierId(cookie));
+            supplierDetailsFromCookie.put(SUPPLIER_EMAIL, Security.getCookieEmail(cookie));
+            supplierDetailsFromCookie.put(SUPPLIER_COMPANY_NAME, Security.getCookieSupplierCompanyName(cookie));
+            supplierDetailsFromCookie.put(COOKIE_DATE, Security.getCookieDate(cookie));
+            supplierDetailsFromCookie.put(ESOURCING_ID, Security.getESourcingId(cookie));
     }
 
     private static void populateMapWithFakeCookieData() {

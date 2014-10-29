@@ -5,7 +5,7 @@ import uk.gov.gds.dm.URLTools;
 
 public class Logout extends AuthenticatingController {
     public static void doLogout() {
-        CookieUtils.clearSSOCookie(supplierDetailsFromCookie);
+        CookieUtils.clearSSOCookie();
         redirect(URLTools.getDigitalMarketplaceLogoutURL());
     }
 }
