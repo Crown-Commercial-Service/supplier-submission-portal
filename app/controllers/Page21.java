@@ -6,6 +6,8 @@ import models.Listing;
 import play.data.validation.Error;
 import uk.gov.gds.dm.ValidationUtils;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -15,7 +17,7 @@ public class Page21 extends AuthenticatingQuestionPage {
 
     private static final Long PAGE_ID = 21l;
 
-    public static void savePage(Long listingId, String return_to_summary) {
+    public static void savePage(Long listingId, String return_to_summary) throws UnsupportedEncodingException {
 
         Listing listing = Listing.getByListingId(listingId);
 
@@ -32,20 +34,21 @@ public class Page21 extends AuthenticatingQuestionPage {
         ArrayList<String> p21q1 = new ArrayList();
 
         String s;
-
+        StringBuilder paramString = new StringBuilder();
         for (int i=1; i<11; i++) {
             if(params.containsKey("p21q1val" + i)){
                 s = params.get("p21q1val" + i)[0];
                 if (!Strings.isNullOrEmpty(s)) {
-                    validation.maxSize(s, 100).key("p21q1val" + i).message("Too many characters");
-                    validation.isTrue(ValidationUtils.isWordCountLessThan(s, 10)).key("p21q1val" + i).message("Too many words");
+                    validation.maxSize(s, 100).key("p21q1").message("Too many characters");
+                    validation.isTrue(ValidationUtils.isWordCountLessThan(s, 10)).key("p21q1").message("Too many words");
                     p21q1.add(s);
+                    paramString.append("p21q1=").append(URLEncoder.encode(s, "UTF-8")).append("&");
                 }
             }
         }
 
         if(validation.hasErrors()) {
-            flash.put("body", params.get("body"));
+            flash.put("body", paramString.toString());
             for(Map.Entry<String, List<Error>> entry : validation.errorsMap().entrySet()) {
                 String key = entry.getKey();
                 String value = entry.getValue().get(0).message();
