@@ -3,7 +3,6 @@ package controllers;
 import org.joda.time.DateTime;
 import play.Logger;
 import play.Play;
-import play.exceptions.JavaExecutionException;
 import play.mvc.*;
 
 import uk.gov.gds.dm.CookieUtils;
@@ -15,15 +14,16 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import static uk.gov.gds.dm.CookieUtils.ssoCookieProperties.COOKIE_DATE;
+import static uk.gov.gds.dm.CookieUtils.ssoCookieProperties.ESOURCING_ID;
+import static uk.gov.gds.dm.CookieUtils.ssoCookieProperties.SUPPLIER_COMPANY_NAME;
+import static uk.gov.gds.dm.CookieUtils.ssoCookieProperties.SUPPLIER_EMAIL;
+import static uk.gov.gds.dm.CookieUtils.ssoCookieProperties.SUPPLIER_ID;
+
 public abstract class AuthenticatingController extends Controller {
 
     static Map<String, String> supplierDetailsFromCookie = new HashMap<String, String>();
     static final String DM_URL = URLTools.getDigitalMarketplaceURL();
-    public static final String COOKIE_DATE = "cookieDate";
-    private static final String ESOURCING_ID = "esourcingId";
-    private static final String SUPPLIER_ID = "supplierId";
-    private static final String SUPPLIER_EMAIL = "supplierEmail";
-    private static final String SUPPLIER_COMPANY_NAME = "supplierCompanyName";
 
     @Catch(value = Throwable.class, priority = 1)
     public static void logThrowable(Throwable throwable) {
@@ -70,19 +70,19 @@ public abstract class AuthenticatingController extends Controller {
     }
 
     private static void populateMapWithSSOCookieData(Http.Cookie cookie) {
-            supplierDetailsFromCookie.put(SUPPLIER_ID, Security.getCookieSupplierId(cookie));
-            supplierDetailsFromCookie.put(SUPPLIER_EMAIL, Security.getCookieEmail(cookie));
-            supplierDetailsFromCookie.put(SUPPLIER_COMPANY_NAME, Security.getCookieSupplierCompanyName(cookie));
-            supplierDetailsFromCookie.put(COOKIE_DATE, Security.getCookieDate(cookie));
-            supplierDetailsFromCookie.put(ESOURCING_ID, Security.getESourcingId(cookie));
+            supplierDetailsFromCookie.put(SUPPLIER_ID.toString(), Security.getCookieSupplierId(cookie));
+            supplierDetailsFromCookie.put(SUPPLIER_EMAIL.toString(), Security.getCookieEmail(cookie));
+            supplierDetailsFromCookie.put(SUPPLIER_COMPANY_NAME.toString(), Security.getCookieSupplierCompanyName(cookie));
+            supplierDetailsFromCookie.put(COOKIE_DATE.toString(), Security.getCookieDate(cookie));
+            supplierDetailsFromCookie.put(ESOURCING_ID.toString(), Security.getESourcingId(cookie));
     }
 
     private static void populateMapWithFakeCookieData() {
-        supplierDetailsFromCookie.put(SUPPLIER_ID, "1");
-        supplierDetailsFromCookie.put(SUPPLIER_EMAIL, "supplier@digital.cabinet-office.gov.uk");
-        supplierDetailsFromCookie.put(SUPPLIER_COMPANY_NAME, "SueDo LTD.");
-        supplierDetailsFromCookie.put(COOKIE_DATE, new Date().toGMTString());
-        supplierDetailsFromCookie.put(ESOURCING_ID, "999999");
+        supplierDetailsFromCookie.put(SUPPLIER_ID.toString(), "1");
+        supplierDetailsFromCookie.put(SUPPLIER_EMAIL.toString(), "supplier@digital.cabinet-office.gov.uk");
+        supplierDetailsFromCookie.put(SUPPLIER_COMPANY_NAME.toString(), "SueDo LTD.");
+        supplierDetailsFromCookie.put(COOKIE_DATE.toString(), new Date().toGMTString());
+        supplierDetailsFromCookie.put(ESOURCING_ID.toString(), "999999");
     }
 
     protected static String getSupplierId() {

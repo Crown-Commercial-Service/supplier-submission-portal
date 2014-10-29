@@ -3,6 +3,7 @@ package uk.gov.gds.dm;
 import org.apache.commons.lang.StringEscapeUtils;
 import play.Play;
 import play.mvc.Http;
+import play.Logger;
 
 import java.util.Date;
 import java.util.Map;
@@ -37,8 +38,13 @@ public class CookieUtils {
     }
 
     public static void updateSSOCookieWithCurrentTimestamp(Map<String, String> currentCookieArray){
-        setSSOCookie(currentCookieArray.get("supplierEmail"), currentCookieArray.get("supplierId"), currentCookieArray.get("supplierCompanyName"),
-                new Date(), currentCookieArray.get("eSourcingId"));
+        setSSOCookie(
+                currentCookieArray.get(ssoCookieProperties.SUPPLIER_EMAIL.toString()),
+                currentCookieArray.get(ssoCookieProperties.SUPPLIER_ID.toString()),
+                currentCookieArray.get(ssoCookieProperties.SUPPLIER_COMPANY_NAME.toString()),
+                new Date(),
+                currentCookieArray.get(ssoCookieProperties.ESOURCING_ID.toString())
+        );
     }
 
     public static void clearSSOCookie(){
@@ -50,6 +56,22 @@ public class CookieUtils {
     public static String generateEncryptedSSOCookieString(String email, String supplierId, String companyName, String timestamp, String eSourcingId){
         String[] unencrypted = { email, supplierId, companyName, timestamp, eSourcingId };
         return StringEscapeUtils.escapeJava(Security.encrypt(unencrypted));
+    }
+
+    public static enum ssoCookieProperties {
+        COOKIE_DATE ("cookieDate"), ESOURCING_ID("esourcingId"), SUPPLIER_ID("supplierId"),
+        SUPPLIER_EMAIL("supplierEmail"), SUPPLIER_COMPANY_NAME("supplierCompanyName");
+
+        private String key;
+
+        ssoCookieProperties (String key){
+            this.key = key;
+        }
+
+        @Override
+        public String toString() {
+            return key;
+        }
     }
 
 }
