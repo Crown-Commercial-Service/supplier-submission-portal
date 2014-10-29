@@ -41,8 +41,8 @@ public class Page20 extends AuthenticatingQuestionPage {
             if(params.containsKey("p20q1val" + i)){
                 s = params.get("p20q1val" + i)[0];
                 if (!Strings.isNullOrEmpty(s)) {
-                    validation.maxSize(s, 100).key("p20q1").message("Too many characters");
                     validation.isTrue(ValidationUtils.isWordCountLessThan(s, 10)).key("p20q1").message("Too many words");
+                    validation.maxSize(s, 100).key("p20q1");
                     p20q1.add(s);
                     paramString.append("p20q1=").append(URLEncoder.encode(s, "UTF-8")).append("&");
                 }
