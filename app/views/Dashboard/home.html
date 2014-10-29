@@ -29,7 +29,7 @@
 %{
   if (flash.get('feedback_message')) {
 }%
-<div class='banner-success'>
+<div class='banner-success banner-without-action'>
   <p>
     <a href='/service/${flash.get('feedback_relates_to_service_id')}/summary'>${flash.get('feedback_relates_to_service_name')}</a>
     ${flash.get('feedback_message')}
@@ -55,7 +55,7 @@
 
 #{ifnot listings}
 <p class='question-hint summary-answer-list summary-without-answers'>
-  You haven't added any services yet
+  You haven't added any services yet.
 </p>
 #{/ifnot}
 #{else}
@@ -107,15 +107,17 @@
 #{/else}
 
 <h2 class='summary-heading'>
-  Completed services
+  Submitted services
 </h2>
 <p class='question-hint-full-width'>
-  These services will be published on the Digital Marketplace when G-Cloud 6 goes live
+  If accepted, these services will be published on the Digital Marketplace when
+  G-Cloud 6 goes live. The information you have provided will be included on
+  the Digital Marketplace.
 </p>
 #{ifnot completedListings}
-    <p class='question-hint summary-without-answers'>
-      You haven't marked any services as completed yet
-    </p>
+  <p class='question-hint summary-without-answers'>
+    You haven’t submitted any services yet.
+  </p>
 #{/ifnot}
 #{else}
     <table>
