@@ -59,10 +59,9 @@ public class Security {
         SimpleAesEncryptor simpleAesEncryptor;
 
         if(!(System.getProperty("ssp.cookie.enc") == null)){
-            Logger.error("USING PROPERTY");
             simpleAesEncryptor = new SimpleAesEncryptor(System.getProperty("ssp.cookie.enc"));
         } else {
-            Logger.error("DEFAULT KEY");
+            Logger.error("System is using the default encryption key, please change.");
             simpleAesEncryptor = new SimpleAesEncryptor("Bar12345Bar12345");
         }
 
