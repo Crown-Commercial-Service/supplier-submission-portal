@@ -36,7 +36,7 @@
         %{ } }%
       %{} else {}%
         <p>
-          ${_answer.getAt(0)}%{ if (_assurance) { }%, assured by ${_assurance}%{ } }%
+          ${_answer.getAt(0)}%{ if (_question.equals("Service availability")){ }%%%{ }}%%{ if (_assurance) { }%, assured by ${_assurance}%{ } }%
         </p>
       %{}}%
 
