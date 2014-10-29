@@ -91,11 +91,7 @@ public class Page extends Model {
 
     @Override
     public String toString() {
-        return "Page{" +
-                "id=" + id +
-                ", listingId='" + listingId + "'" +
-                ", pageNumber='" + pageNumber + "'" +
-                ", responses='" + responses + "'" +
-                '}';
+        Gson gson = new Gson();
+        return gson.toJson(this);
     }
 }

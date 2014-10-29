@@ -72,3 +72,8 @@ POST    /page/40/{listingId}                    Page40.savePage
 
 #Logout
 GET     /logout                                 Logout.doLogout
+
+# Export data
+GET     /cron/export                            CompletedListingExporter.exportCompletedListingsAsJson
+POST    /cron/exportone                         CompletedListingExporter.exportOneListing
+POST    /cron/exportone/{date}/{id}             CompletedListingExporter.exportOneListing
