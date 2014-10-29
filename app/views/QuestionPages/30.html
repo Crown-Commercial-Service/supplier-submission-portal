@@ -34,7 +34,7 @@
       error: content.get(question + flash.get(question)),
       value: oldValues?.get(question),
       assurance_type: content.get(question + 'assuranceApproach'),
-      assurance_value: oldValues?.get(question + 'assurance')
+      assurance_value: oldValues?.get(question + 'assurance')?.isEmpty() ? "" : oldValues?.get(question + 'assurance')?.get(0)
     /}
 
   %{
@@ -51,7 +51,7 @@
       error: content.get(question + flash.get(question)),
       assurance_type: content.get(question + 'assuranceApproach'),
       value: oldValues?.get(question),
-      assurance_value: oldValues?.get(question + 'assurance')
+      assurance_value: oldValues?.get(question + 'assurance')?.isEmpty() ? "" : oldValues?.get(question + 'assurance')?.get(0)
     /}
 
   %{
