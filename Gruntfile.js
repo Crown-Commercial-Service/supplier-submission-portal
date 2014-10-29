@@ -7,6 +7,7 @@ module.exports = function(grunt){
   var JSFiles = [
     "public/javascripts/jquery.js",
     "public/javascripts/hogan.js",
+    "public/javascripts/govuk-template.js",
     "public/javascripts/selection-buttons.js",
     "public/javascripts/wordCounter.js",
     "public/javascripts/listEntry.js",
