@@ -41,9 +41,9 @@ public class CookieUtils {
                 new Date(), currentCookieArray.get("eSourcingId"));
     }
 
-    public static void clearSSOCookie(Map<String, String> currentCookieArray){
-        clearSSOCookie(currentCookieArray.get("supplierEmail"), currentCookieArray.get("supplierId"), currentCookieArray.get("supplierCompanyName"),
-                new Date(), currentCookieArray.get("eSourcingId"));
+    public static void clearSSOCookie(){
+        clearSSOCookie("deleted@deleted.com", "-1", "deletedSupplier",
+                new Date(), "-1");
     }
 
 
@@ -51,4 +51,5 @@ public class CookieUtils {
         String[] unencrypted = { email, supplierId, companyName, timestamp, eSourcingId };
         return StringEscapeUtils.escapeJava(Security.encrypt(unencrypted));
     }
+
 }
