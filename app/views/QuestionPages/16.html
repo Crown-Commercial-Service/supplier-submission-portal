@@ -21,7 +21,6 @@
     content: content,
     page: 16
   /}
-  <div class="input-list" data-list-item-name="${content.get(question + 'listItemName')}">
     %{
       question = page + 'q1'
     }%
@@ -29,8 +28,9 @@
       heading: content.get(question + 'text'),
       questionID: question,
       hint: content.get(question + 'hint'),
-      error: content.get(question + flash.get(question))
+      error: flash.get(question)
     /}
+    <div class="input-list" data-list-item-name="${content.get(question + 'listItemName')}">
       %{
         for (index in 1..10) {
       }%
@@ -42,9 +42,9 @@
       %{
         }
       }%
+    </div>
     #{question-footer
-      error: content.get(question + flash.get(question))
+    error: flash.get(question)
     /}
-  </div>
-  #{footer prevPageURL: prevPageURL, summaryPageURL: summaryPageURL, return_to_summary: return_to_summary /}
+    #{footer prevPageURL: prevPageURL, summaryPageURL: summaryPageURL, return_to_summary: return_to_summary /}
 </form>
