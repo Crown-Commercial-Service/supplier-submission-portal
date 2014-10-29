@@ -30,6 +30,10 @@
     padding-left: 75%;
     position: relative;
     z-index: 10;
+
+    @include ie(6) {
+      zoom: 1;
+    }
   }
 
   &-answer-list {
@@ -89,7 +93,7 @@
     max-width: 100%;
   }
 
-  &-answer-heading {
+  &-answer-heading tr {
     position: absolute;
     left: -9999em;
   }
