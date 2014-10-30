@@ -114,10 +114,10 @@ public class Security {
         }
     }
 
-    public static Boolean supplierIdIsAllowed(String supplierId){
+    public static Boolean supplierIsAllowed(String supplierId, String supplierEmail){
         String appName = Play.configuration.getProperty("application.name");
         if(appName.equals("ssp-live")){
-            return liveSupplierIds().contains(supplierId);
+            return (liveSupplierIds().contains(supplierId) || liveSupplierEmails().contains(supplierEmail));
         } else {
             return true;
         }
@@ -125,7 +125,13 @@ public class Security {
 
     private static List<String> liveSupplierIds() {
         return Arrays.asList(new String[] {
-            "577184", "92641"
+            "577184"
+        });
+    }
+
+    private static List<String> liveSupplierEmails() {
+        return Arrays.asList(new String[] {
+                "brendan.short@6point6.co.uk"
         });
     }
 
