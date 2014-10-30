@@ -131,7 +131,7 @@ public class Security {
 
     private static List<String> liveSupplierEmails() {
         return Arrays.asList(new String[] {
-                "brendan.short@6point6.co.uk"
+                "brendan.short+test@digital.cabinet-office.gov.uk"
         });
     }
 
