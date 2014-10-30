@@ -25,7 +25,7 @@ public class Page5 extends AuthenticatingQuestionPage {
         if(!listing.supplierId.equals(getSupplierId())) {
             notFound();
         }
-        
+
         if (listing.serviceSubmitted) {
           redirect(listing.summaryPageUrl());
         }
@@ -41,8 +41,8 @@ public class Page5 extends AuthenticatingQuestionPage {
             if(params.containsKey("p5q1val" + i)){
                 s = params.get("p5q1val" + i)[0];
                 if (!Strings.isNullOrEmpty(s)) {
-                    validation.isTrue(ValidationUtils.isWordCountLessThan(s, 10)).key("p5q1").message("Too many words");
-                    validation.maxSize(s, 100).key("p5q1");
+                    validation.isTrue(ValidationUtils.isWordCountLessThan(s, 10)).key("p5q1").message("Each feature must be less than 10 words.");
+                    validation.maxSize(s, 100).key("p5q1").message("Each feature must be less than 100 characters in length.");
                     q1.add(s);
                     paramString.append("p5q1=").append(URLEncoder.encode(s, "UTF-8")).append("&");
                 }
@@ -51,8 +51,8 @@ public class Page5 extends AuthenticatingQuestionPage {
             if(params.containsKey("p5q2val" + i)){
                 s = params.get("p5q2val" + i)[0];
                 if (!Strings.isNullOrEmpty(s)) {
-                    validation.isTrue(ValidationUtils.isWordCountLessThan(s, 10)).key("p5q2").message("Too many words");
-                    validation.maxSize(s, 100).key("p5q2");
+                    validation.isTrue(ValidationUtils.isWordCountLessThan(s, 10)).key("p5q2").message("Each benefit must be less than 10 words.");
+                    validation.maxSize(s, 100).key("p5q2").message("Each benefit must be less than 100 characters in length.");
                     q2.add(s);
                     paramString.append("p5q2=").append(URLEncoder.encode(s, "UTF-8")).append("&");
                 }

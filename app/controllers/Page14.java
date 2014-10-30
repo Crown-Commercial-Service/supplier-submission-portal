@@ -19,7 +19,7 @@ public class Page14 extends AuthenticatingQuestionPage {
         if(!listing.supplierId.equals(getSupplierId())) {
             notFound();
         }
-        
+
         if (listing.serviceSubmitted) {
           redirect(listing.summaryPageUrl());
         }
@@ -29,10 +29,10 @@ public class Page14 extends AuthenticatingQuestionPage {
         validation.maxSize(p14q1, 10);
 
         validation.required(p14q2);
-        validation.maxSize(p14q2, 100);
+        validation.maxSize(p14q2, 100).message("Your answer must be less than 100 characters in length.");
 
         validation.required(p14q3);
-        validation.maxSize(p14q3, 100);
+        validation.maxSize(p14q3, 100).message("Your answer must be less than 100 characters in length.");
 
         if(validation.hasErrors()) {
             flash.put("body", params.get("body"));
@@ -42,7 +42,7 @@ public class Page14 extends AuthenticatingQuestionPage {
 
                 flash.put(key, Fixtures.getErrorMessage(key, value));
             }
-            
+
             if (return_to_summary.contains("yes")) {
               redirect(String.format("/page/%d/%d?return_to_summary=yes", PAGE_ID, listing.id));
             } else {

@@ -20,17 +20,17 @@ public class Page4 extends AuthenticatingQuestionPage {
         if(!listing.supplierId.equals(getSupplierId())) {
             notFound();
         }
-        
+
         if (listing.serviceSubmitted) {
           redirect(listing.summaryPageUrl());
         }
 
         // Validate all fields on this page requiring validation
         validation.required(p4q1);
-        validation.maxSize(p4q1, 100);
+        validation.maxSize(p4q1, 100).message("Your answer must be less than 100 characters in length.");
 
         validation.required(p4q2);
-        validation.isTrue(ValidationUtils.isWordCountLessThan(p4q2, 50)).key("p4q2").message("Too many words");
+        validation.isTrue(ValidationUtils.isWordCountLessThan(p4q2, 50)).key("p4q2").message("Your answer must be less than 50 words.");
         validation.maxSize(p4q2, 500);
 
         if(validation.hasErrors()) {

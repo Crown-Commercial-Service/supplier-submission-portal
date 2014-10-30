@@ -24,7 +24,7 @@ public class Page21 extends AuthenticatingQuestionPage {
         if(!listing.supplierId.equals(getSupplierId())) {
             notFound();
         }
-        
+
         if (listing.serviceSubmitted) {
           redirect(listing.summaryPageUrl());
         }
@@ -39,8 +39,7 @@ public class Page21 extends AuthenticatingQuestionPage {
             if(params.containsKey("p21q1val" + i)){
                 s = params.get("p21q1val" + i)[0];
                 if (!Strings.isNullOrEmpty(s)) {
-                    validation.isTrue(ValidationUtils.isWordCountLessThan(s, 10)).key("p21q1").message("Too many words");
-                    validation.maxSize(s, 100).key("p21q1");
+                    validation.maxSize(s, 100).key("p21q1").message("Each identity standard must be less than 100 characters in length.");
                     p21q1.add(s);
                     paramString.append("p21q1=").append(URLEncoder.encode(s, "UTF-8")).append("&");
                 }
@@ -55,7 +54,7 @@ public class Page21 extends AuthenticatingQuestionPage {
 
                 flash.put(key, value);
             }
-            
+
             if (return_to_summary.contains("yes")) {
               redirect(String.format("/page/%d/%d?return_to_summary=yes", PAGE_ID, listing.id));
             } else {
