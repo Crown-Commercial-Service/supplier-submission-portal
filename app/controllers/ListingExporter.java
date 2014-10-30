@@ -48,6 +48,10 @@ public class ListingExporter extends Controller {
 
     private static void exportListing(String date, Long id, S3Uploader uploader) {
         Listing listing = Listing.getByListingId(id);
+        if(listing == null) {
+            Logger.warn(String.format("Export listing: Invalid listing id [%d] provided", id));
+            badRequest();
+        }
         String documentKey = String.format("%s/%s/%s", date, listing.supplierId, DocumentUtils.s3ExportFilename(listing.id));
         uploader.upload(listing.toString().getBytes(), documentKey);
     }
