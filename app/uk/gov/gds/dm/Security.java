@@ -118,8 +118,6 @@ public class Security {
         String appName = Play.configuration.getProperty("application.name");
         if(appName.equals("ssp-live")){
             return liveSupplierIds().contains(supplierId);
-        } else if(appName.equals("ssp-staging")){
-            return stagingSupplierIds().contains(supplierId);
         } else {
             return true;
         }
@@ -127,12 +125,7 @@ public class Security {
 
     private static List<String> liveSupplierIds() {
         return Arrays.asList(new String[] {
-            "577184"
-        });
-    }
-
-    private static List<String> stagingSupplierIds() {
-        return Arrays.asList(new String[] {
+            "577184", "92641"
         });
     }
 
