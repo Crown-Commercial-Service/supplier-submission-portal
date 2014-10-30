@@ -12,6 +12,8 @@ import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
+import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 
 public class Security {
@@ -115,14 +117,23 @@ public class Security {
     public static Boolean supplierIdIsAllowed(String supplierId){
         String appName = Play.configuration.getProperty("application.name");
         if(appName.equals("ssp-live")){
-            if(supplierId.equals("577184")){
-                return true;
-            } else {
-                return false;
-            }
+            return liveSupplierIds().contains(supplierId);
+        } else if(appName.equals("ssp-staging")){
+            return stagingSupplierIds().contains(supplierId);
         } else {
             return true;
         }
+    }
+
+    private static List<String> liveSupplierIds() {
+        return Arrays.asList(new String[] {
+            "577184"
+        });
+    }
+
+    private static List<String> stagingSupplierIds() {
+        return Arrays.asList(new String[] {
+        });
     }
 
     public static boolean applicationIsRunningAsSecure() {
