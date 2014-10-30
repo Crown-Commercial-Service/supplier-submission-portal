@@ -3,7 +3,6 @@ package controllers;
 import org.joda.time.DateTime;
 import play.Logger;
 import play.Play;
-import play.exceptions.JavaExecutionException;
 import play.mvc.*;
 
 import uk.gov.gds.dm.CookieUtils;

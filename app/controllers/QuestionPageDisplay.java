@@ -4,13 +4,9 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import models.Listing;
 import models.Page;
-import org.joda.time.DateTime;
 import play.Logger;
 import play.Play;
-import play.mvc.Catch;
-import play.mvc.Finally;
 import play.utils.Properties;
-import uk.gov.gds.dm.EmailSupport;
 import uk.gov.gds.dm.Fixtures;
 
 import java.io.UnsupportedEncodingException;
@@ -20,21 +16,7 @@ import java.util.*;
 
 public class QuestionPageDisplay extends AuthenticatingController {
 
-    @Finally
-    static void log() {
-        Logger.info(String.format("Request: %s method %s, status %s supplier %s", request.path, request.method, response.status, getSupplierName()));
-    }
-
-    @Catch(value = Throwable.class, priority = 1)
-    public static void logThrowable(Throwable throwable) {
-        if (Play.mode.isProd())
-            EmailSupport.sendMail(String.format("Exception thrown time %s path %s method %s message %s", request.path, request.method, new DateTime(), throwable.getMessage()));
-    }
-
     public static void showPage(Long pageId, Long listingId, Boolean return_to_summary) throws Exception {
-
-        if (request.querystring.contains("exception"))
-            throw new Exception("arrgh");
 
         Listing listing = Listing.getByListingId(listingId);
         Page page = null;
