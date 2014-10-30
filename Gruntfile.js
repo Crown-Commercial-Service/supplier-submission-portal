@@ -7,6 +7,7 @@ module.exports = function(grunt){
   var JSFiles = [
     "public/javascripts/jquery.js",
     "public/javascripts/hogan.js",
+    "public/javascripts/govuk-template.js",
     "public/javascripts/selection-buttons.js",
     "public/javascripts/wordCounter.js",
     "public/javascripts/listEntry.js",
@@ -145,6 +146,13 @@ module.exports = function(grunt){
         cwd: 'app/assets/images/',
         src: '**',
         dest: 'public/images/',
+        expand: true
+      },
+
+      ie_stylesheets: {
+        cwd: 'public/stylesheets/.temp/',
+        src: 'application-ie*.css',
+        dest: 'public/stylesheets/',
         expand: true
       }
 
@@ -316,6 +324,7 @@ module.exports = function(grunt){
     'replace',
     'sass:dev',
     'dataUri',
+    'copy:ie_stylesheets',
     'clean:tempCSS'
   ]);
 
@@ -325,6 +334,7 @@ module.exports = function(grunt){
     'replace',
     'sass:production',
     'dataUri',
+    'copy:ie_stylesheets',
     'uglify:production',
     'clean'
   ]);
