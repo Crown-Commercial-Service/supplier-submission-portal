@@ -90,7 +90,6 @@ public class Service extends AuthenticatingController {
         }
         flash.put("feedback_relates_to_service_id", listingId);
         flash.put("feedback_relates_to_service_name", listing.title);
-        System.out.println(listing.title);
 
         redirect("/");
     }
@@ -108,7 +107,6 @@ public class Service extends AuthenticatingController {
         flash.put("feedback_message", "has been returned to drafts");
         flash.put("feedback_relates_to_service_id", listingId);
         flash.put("feedback_relates_to_service_name", listing.title);
-        System.out.println(listing.title);
         redirect("/");
     }
 
