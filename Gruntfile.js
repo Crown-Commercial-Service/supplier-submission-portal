@@ -147,6 +147,13 @@ module.exports = function(grunt){
         src: '**',
         dest: 'public/images/',
         expand: true
+      },
+
+      ie_stylesheets: {
+        cwd: 'public/stylesheets/.temp/',
+        src: 'application-ie*.css',
+        dest: 'public/stylesheets/',
+        expand: true
       }
 
     },
@@ -317,6 +324,7 @@ module.exports = function(grunt){
     'replace',
     'sass:dev',
     'dataUri',
+    'copy:ie_stylesheets',
     'clean:tempCSS'
   ]);
 
@@ -326,6 +334,7 @@ module.exports = function(grunt){
     'replace',
     'sass:production',
     'dataUri',
+    'copy:ie_stylesheets',
     'uglify:production',
     'clean'
   ]);
