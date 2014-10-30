@@ -56,7 +56,7 @@ public abstract class AuthenticatingController extends Controller {
                 Logger.info("SSO Cookie has expired.");
                 redirect(DM_URL + "login");
             } else if (!Security.supplierIdIsAllowed(Security.getCookieSupplierId(gdmSsoCookie))) {
-                Logger.info("Supplier id was not allowed.");
+                Logger.info("Supplier id (" + Security.getCookieSupplierId(gdmSsoCookie) + ") was not allowed.");
                 redirect(DM_URL + "login");
             } else {
                 populateMapWithSSOCookieData(gdmSsoCookie);
