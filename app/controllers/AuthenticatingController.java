@@ -86,19 +86,19 @@ public abstract class AuthenticatingController extends Controller {
     }
 
     protected static String getSupplierId() {
-        return supplierDetailsFromCookie.get(SUPPLIER_ID);
+        return supplierDetailsFromCookie.get(SUPPLIER_ID.toString());
     }
 
     protected static String getSupplierName() {
-        return supplierDetailsFromCookie.get(SUPPLIER_COMPANY_NAME);
+        return supplierDetailsFromCookie.get(SUPPLIER_COMPANY_NAME.toString());
     }
 
     protected static String getEmail() {
-        return supplierDetailsFromCookie.get(SUPPLIER_EMAIL);
+        return supplierDetailsFromCookie.get(SUPPLIER_EMAIL.toString());
     }
 
     protected static String getEsourcingId() {
-        return supplierDetailsFromCookie.get(ESOURCING_ID);
+        return supplierDetailsFromCookie.get(ESOURCING_ID.toString());
     }
 
 }
