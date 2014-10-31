@@ -3,6 +3,7 @@ package controllers;
 import models.Document;
 import models.Listing;
 import models.Page;
+import play.Logger;
 import play.data.validation.Error;
 import uk.gov.gds.dm.ServiceSubmissionJourneyFlows;
 import uk.gov.gds.dm.Fixtures;
@@ -16,6 +17,7 @@ public class Service extends AuthenticatingController {
 
         // Check listing belongs to authenticated user
         if(!listing.supplierId.equals(getSupplierId())) {
+            Logger.error("Supplier id of listing did not match the logged in supplier.");
             notFound();
         }
 
