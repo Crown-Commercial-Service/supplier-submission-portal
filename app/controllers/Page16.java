@@ -24,6 +24,7 @@ public class Page16 extends AuthenticatingQuestionPage {
         Listing listing = Listing.getByListingId(listingId);
 
         if(!listing.supplierId.equals(getSupplierId())) {
+            Logger.error("Supplier id of listing did not match the logged in supplier.");
             notFound();
         }
         
