@@ -27,6 +27,7 @@ public class Page8 extends AuthenticatingQuestionPage {
         Map<String,Document> docs = new HashMap<String,Document>();
         
         if(!listing.supplierId.equals(getSupplierId())) {
+            Logger.error("Supplier id of listing did not match the logged in supplier.");
             notFound();
         }
         
