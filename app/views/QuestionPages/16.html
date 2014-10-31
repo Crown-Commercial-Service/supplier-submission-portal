@@ -37,7 +37,8 @@
         #{forms/textbox-input-list-item
           name: question + 'val' + index,
           numbered: index,
-          values: oldValues?.get(question)
+          values: oldValues?.get(question),
+          listItemName: content.get(question + 'listItemName')
         /}
       %{
         }

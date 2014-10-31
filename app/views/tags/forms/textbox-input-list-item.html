@@ -1,6 +1,6 @@
 <div class='list-entry'>
   <label for='${_name}' class='text-box-number-label'>
-    <span class='hidden'>${_listItemName} number </span>${_numbered}.
+    <span class='visuallyhidden'>${_listItemName} number </span>${_numbered}.
   </label>
 
   <input type='text' name='${_name}' id='${_name}' class='text-box' value="${_values?.size() >= _numbered ? _values.get(_numbered-1) : ''}" />
