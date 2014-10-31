@@ -53,6 +53,7 @@ public class ListingExporter extends Controller {
             return;
         }
         String documentKey = String.format("%s/%s/%s", date, listing.supplierId, DocumentUtils.s3ExportFilename(listing.id));
-        uploader.upload(listing.toString().getBytes(), documentKey);
+        String documentUrl = uploader.upload(listing.toString().getBytes(), documentKey);
+        Logger.info(String.format("Uploaded listing to: %s", documentUrl));
     }
 }
