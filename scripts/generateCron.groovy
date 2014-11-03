@@ -13,9 +13,9 @@ xml.'cronentries' {
         'target'('ah-builtin-python-bundle')
     }
     'cron' {
-        'description'('Export of all completed listings to S3')
+        'description'('Export all listings to S3')
         'url'('/cron/export')
-        'schedule'('every day 00:01')
+        'schedule'('every day 23:58')
     }
 }
 
