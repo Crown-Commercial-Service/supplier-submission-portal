@@ -15,7 +15,7 @@ xml.'cronentries' {
     'cron' {
         'description'('Export all listings to S3')
         'url'('/cron/export')
-        'schedule'('every day 23:58')
+        'schedule'('every 2 minutes')
     }
 }
 
