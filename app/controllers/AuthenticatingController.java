@@ -56,12 +56,11 @@ public abstract class AuthenticatingController extends Controller {
     }
 
     protected static String getSupplierId() {
-        Http.Cookie cookie = request.current().cookies.get("gdmssosession");
-        if(cookie == null){
-            return "no cookie!";
-        }
-
         if (Security.isAuthenticationRequired()) {
+            Http.Cookie cookie = request.current().cookies.get("gdmssosession");
+            if(cookie == null){
+                return "no cookie!";
+            }
             return Security.getCookieSupplierId(cookie);
         } else {
             return "1";
@@ -69,12 +68,11 @@ public abstract class AuthenticatingController extends Controller {
     }
 
     protected static String getSupplierName() {
-        Http.Cookie cookie = request.current().cookies.get("gdmssosession");
-        if(cookie == null){
-            return "no cookie!";
-        }
-
         if (Security.isAuthenticationRequired()) {
+            Http.Cookie cookie = request.current().cookies.get("gdmssosession");
+            if(cookie == null){
+                return "no cookie!";
+            }
             return Security.getCookieSupplierCompanyName(cookie);
         } else {
             return "SueDo LTD.";
@@ -82,12 +80,11 @@ public abstract class AuthenticatingController extends Controller {
     }
 
     protected static String getSupplierEmail() {
-        Http.Cookie cookie = request.current().cookies.get("gdmssosession");
-        if(cookie == null){
-            return "no cookie!";
-        }
-
         if (Security.isAuthenticationRequired()) {
+            Http.Cookie cookie = request.current().cookies.get("gdmssosession");
+            if(cookie == null){
+                return "no cookie!";
+            }
             return Security.getCookieEmail(cookie);
         } else {
             return "supplier@digital.cabinet-office.gov.uk";
@@ -95,12 +92,12 @@ public abstract class AuthenticatingController extends Controller {
     }
 
     protected static String getSupplierEsourcingId() {
-        Http.Cookie cookie = request.current().cookies.get("gdmssosession");
-        if(cookie == null){
-            return "no cookie!";
-        }
-
         if (Security.isAuthenticationRequired()) {
+            Http.Cookie cookie = request.current().cookies.get("gdmssosession");
+            if(cookie == null){
+                return "no cookie!";
+            }
+
             return Security.getESourcingId(cookie);
         } else {
             return "999999";
