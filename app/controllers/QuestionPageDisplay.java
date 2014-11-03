@@ -46,15 +46,21 @@ public class QuestionPageDisplay extends AuthenticatingController {
             Logger.error(e.getMessage());
         }
 
-        notFoundIfNull(listing);
+        if(listing == null){
+            Logger.error("Listing is null.");
+            notFound();
+        }
+
 
         // Check listing belongs to authenticated user
         if (!listing.supplierId.equals(getSupplierId())) {
+            Logger.error("Supplier id of listing did not match the logged in supplier.");
             notFound();
         }
 
         // Check page belongs to lot for listing
         if (!listing.pageSequence.contains(pageId)) {
+            Logger.error("Page-id does not appear in the current listing's page sequence.");
             notFound();
         }
 
@@ -62,6 +68,7 @@ public class QuestionPageDisplay extends AuthenticatingController {
         // properly so listing.serviceSubmitted will always return true, causing
         // the tests to fail
         if (Play.mode != Play.Mode.DEV && listing.serviceSubmitted == true) {
+            Logger.error("App is in prodution and this service has been submitted.");
             notFound();
         }
 

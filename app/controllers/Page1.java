@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import models.Listing;
 
 
+import play.Logger;
 import play.data.validation.Error;
 import uk.gov.gds.dm.ValidationUtils;
 

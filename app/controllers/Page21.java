@@ -3,6 +3,7 @@ package controllers;
 import com.google.appengine.repackaged.com.google.common.base.Strings;
 import com.google.gson.Gson;
 import models.Listing;
+import play.Logger;
 import play.data.validation.Error;
 import uk.gov.gds.dm.ValidationUtils;
 
