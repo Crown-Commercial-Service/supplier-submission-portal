@@ -56,32 +56,52 @@ public abstract class AuthenticatingController extends Controller {
     }
 
     protected static String getSupplierId() {
+        Http.Cookie cookie = request.current().cookies.get("gdmssosession");
+        if(cookie == null){
+            return "no cookie!";
+        }
+
         if (Security.isAuthenticationRequired()) {
-            return Security.getCookieSupplierId(request.current().cookies.get("gdmssosession"));
+            return Security.getCookieSupplierId(cookie);
         } else {
             return "1";
         }
     }
 
     protected static String getSupplierName() {
+        Http.Cookie cookie = request.current().cookies.get("gdmssosession");
+        if(cookie == null){
+            return "no cookie!";
+        }
+
         if (Security.isAuthenticationRequired()) {
-            return Security.getCookieSupplierCompanyName(request.current().cookies.get("gdmssosession"));
+            return Security.getCookieSupplierCompanyName(cookie);
         } else {
             return "SueDo LTD.";
         }
     }
 
     protected static String getSupplierEmail() {
+        Http.Cookie cookie = request.current().cookies.get("gdmssosession");
+        if(cookie == null){
+            return "no cookie!";
+        }
+
         if (Security.isAuthenticationRequired()) {
-            return Security.getCookieEmail(request.current().cookies.get("gdmssosession"));
+            return Security.getCookieEmail(cookie);
         } else {
             return "supplier@digital.cabinet-office.gov.uk";
         }
     }
 
     protected static String getSupplierEsourcingId() {
+        Http.Cookie cookie = request.current().cookies.get("gdmssosession");
+        if(cookie == null){
+            return "no cookie!";
+        }
+
         if (Security.isAuthenticationRequired()) {
-            return Security.getESourcingId(request.current().cookies.get("gdmssosession"));
+            return Security.getESourcingId(cookie);
         } else {
             return "999999";
         }
