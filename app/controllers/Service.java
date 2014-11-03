@@ -13,6 +13,9 @@ import java.util.*;
 public class Service extends AuthenticatingController {
 
     public static void summaryPage(Long listingId) {
+        
+        Logger.info(String.format("Summary page for listing %d.", listingId));
+        
         Listing listing = Listing.getByListingId(listingId);
 
         // Check listing belongs to authenticated user
@@ -45,11 +48,13 @@ public class Service extends AuthenticatingController {
     }
 
     public static void newService() {
+        Logger.info(String.format("Add new service page"));
         renderArgs.put("content", Fixtures.getContentProperties());
         render();
     }
 
     public static void createListing(String lot) {
+        Logger.info(String.format("Creating new listing in lot: %s", lot));
         validation.required(lot).key("p0q1");
         validation.match(lot, "SaaS|IaaS|PaaS|SCS").key("p0q1");
 
@@ -60,6 +65,7 @@ public class Service extends AuthenticatingController {
 
                 flash.put(key, value);
             }
+            Logger.info(String.format("Validation errors: %s; reloading page.", validation.errorsMap().toString()));
             redirect("/addservice");
         }
 
@@ -70,7 +76,7 @@ public class Service extends AuthenticatingController {
     }
 
     public static void completeListing(Long listingId, String serviceCompleted){
-
+        Logger.info(String.format("Completing listing: %d (%s)", listingId, serviceCompleted));
         Listing listing = Listing.getByListingId(listingId);
 
         if(!listing.supplierId.equals(getSupplierId())) {
@@ -97,6 +103,7 @@ public class Service extends AuthenticatingController {
     }
 
     public static void markListingAsDraft(Long listingId){
+        Logger.info(String.format("Marking listing as draft: %d", listingId));
         Listing listing = Listing.getByListingId(listingId);
 
         if(!listing.supplierId.equals(getSupplierId())) {

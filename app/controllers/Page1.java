@@ -26,6 +26,7 @@ public class Page1 extends AuthenticatingQuestionPage {
         }
         
         if (listing.serviceSubmitted) {
+          Logger.info("Trying to edit a submitted service; redirect to summary page.");
           redirect(listing.summaryPageUrl());
         }
 
@@ -42,7 +43,7 @@ public class Page1 extends AuthenticatingQuestionPage {
 
                 flash.put(key, value);
             }
-
+            Logger.info(String.format("Validation errors: %s; reloading page.", validation.errorsMap().toString()));
             if (return_to_summary.contains("yes")) {
               redirect(String.format("/page/%d/%d?return_to_summary=yes", PAGE_ID, listing.id));
             } else {

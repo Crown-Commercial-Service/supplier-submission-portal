@@ -23,7 +23,8 @@ public class Page9 extends AuthenticatingQuestionPage {
         }
         
         if (listing.serviceSubmitted) {
-          redirect(listing.summaryPageUrl());
+            Logger.info("Trying to edit a submitted service; redirect to summary page.");
+            redirect(listing.summaryPageUrl());
         }
 
         // Validate all fields on this page requiring validation
@@ -38,7 +39,7 @@ public class Page9 extends AuthenticatingQuestionPage {
 
                 flash.put(key, value);
             }
-            
+            Logger.info(String.format("Validation errors: %s; reloading page.", validation.errorsMap().toString()));
             if (return_to_summary.contains("yes")) {
               redirect(String.format("/page/%d/%d?return_to_summary=yes", PAGE_ID, listing.id));
             } else {
