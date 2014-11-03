@@ -12,7 +12,7 @@ public class Dashboard extends AuthenticatingController {
         Map<String, String> supplierDetails = supplierDetailsFromCookie;
 
         List<Listing> listings = Listing.all(Listing.class).filter("supplierId",
-                getSupplierId()).order("-lastUpdated").fetch();
+                getSupplierId()).order("-lastUpdated").fetch(250);
         List<Listing> completedListings = ListingUtils.getCompletedListings(listings);
         listings.removeAll(completedListings);  //Listings object now only contains draft services
 
