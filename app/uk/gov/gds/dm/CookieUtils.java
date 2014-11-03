@@ -20,8 +20,10 @@ public class CookieUtils {
 
         if(Play.mode == Play.Mode.DEV) {
             Http.Response.current().setCookie(SSO_COOKIE_NAME, token , LOCAL_DOMAIN, PATH, COOKIE_TTL, Security.applicationIsRunningAsSecure(), HTTP_ONLY);
+            Http.Response.current().cookies.get("gdmssosession").httpOnly = HTTP_ONLY;
         } else {
             Http.Response.current().setCookie(SSO_COOKIE_NAME, token , DOMAIN, PATH, COOKIE_TTL, Security.applicationIsRunningAsSecure(), HTTP_ONLY);
+            Http.Response.current().cookies.get("gdmssosession").httpOnly = HTTP_ONLY;
         }
     }
 
