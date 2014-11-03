@@ -25,7 +25,7 @@ public class Page10 extends AuthenticatingQuestionPage {
             Logger.error("Supplier id of listing did not match the logged in supplier.");
             notFound();
         }
-        
+
         if (listing.serviceSubmitted) {
           redirect(listing.summaryPageUrl());
         }
@@ -37,12 +37,12 @@ public class Page10 extends AuthenticatingQuestionPage {
         validation.maxSize(p10q2, 10);
 
         validation.required(p10q3).key("p10q3");
-        validation.isTrue(ValidationUtils.isWordCountLessThan(p10q3, 20)).key("p10q3").message("Too many words");
-        validation.maxSize(p10q3, 200);
+        validation.isTrue(ValidationUtils.isWordCountLessThan(p10q3, 20)).key("p10q3").message("Your answer must be less than 20 words.");
+        validation.maxSize(p10q3, 200).message("Your answer must be less than 200 characters in length.");
 
         validation.required(p10q4).key("p10q4");
-        validation.isTrue(ValidationUtils.isWordCountLessThan(p10q4, 20)).key("p10q4").message("Too many words");
-        validation.maxSize(p10q4, 200);
+        validation.isTrue(ValidationUtils.isWordCountLessThan(p10q4, 20)).key("p10q4").message("Your answer must be less than 20 words.");
+        validation.maxSize(p10q4, 200).message("Your answer must be less than 200 characters in length.");
 
         validation.required(p10q5).key("p10q5");
         validation.maxSize(p10q5, 10);
@@ -56,7 +56,7 @@ public class Page10 extends AuthenticatingQuestionPage {
                 flash.put(key, Fixtures.getErrorMessage(key, value));
             }
 
-            
+
             if (return_to_summary.contains("yes")) {
               redirect(String.format("/page/%d/%d?return_to_summary=yes", PAGE_ID, listing.id));
             } else {
