@@ -22,7 +22,11 @@ public abstract class AuthenticatingController extends Controller {
 
     @Finally
     static void log() {
-        Logger.info(String.format("Request: %s method %s, status %s supplier %s", request.path, request.method, response.status, getSupplierName()));
+        try {
+            Logger.info(String.format("Request: %s method %s, status %s supplier %s", request.path, request.method, response.status, getSupplierName()));
+        } catch (Exception e){
+            Logger.info(String.format("Request: %s method %s, status %s supplier %s", request.path, request.method, response.status, "not logged in."));
+        }
     }
 
     @Before
