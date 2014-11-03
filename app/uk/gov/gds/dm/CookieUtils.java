@@ -3,10 +3,8 @@ package uk.gov.gds.dm;
 import org.apache.commons.lang.StringEscapeUtils;
 import play.Play;
 import play.mvc.Http;
-import play.Logger;
 
 import java.util.Date;
-import java.util.Map;
 
 public class CookieUtils {
     private static final String SSO_COOKIE_NAME = "gdmssosession";
@@ -37,13 +35,13 @@ public class CookieUtils {
         }
     }
 
-    public static void updateSSOCookieWithCurrentTimestamp(Map<String, String> currentCookieArray){
+    public static void updateSSOCookieWithCurrentTimestamp(Http.Cookie currentCookie){
         setSSOCookie(
-                currentCookieArray.get(ssoCookieProperties.SUPPLIER_EMAIL.toString()),
-                currentCookieArray.get(ssoCookieProperties.SUPPLIER_ID.toString()),
-                currentCookieArray.get(ssoCookieProperties.SUPPLIER_COMPANY_NAME.toString()),
+                Security.getCookieEmail(currentCookie),
+                Security.getCookieSupplierId(currentCookie),
+                Security.getCookieSupplierCompanyName(currentCookie),
                 new Date(),
-                currentCookieArray.get(ssoCookieProperties.ESOURCING_ID.toString())
+                Security.getESourcingId(currentCookie)
         );
     }
 
@@ -73,5 +71,4 @@ public class CookieUtils {
             return key;
         }
     }
-
 }
