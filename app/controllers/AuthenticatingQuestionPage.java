@@ -23,7 +23,7 @@ public class AuthenticatingQuestionPage extends AuthenticatingController {
         } else {
             saveResponseToExistingPage(page, responses);
         }
-        listing.addResponsePage(page, page_id, getEmail());
+        listing.addResponsePage(page, page_id, getSupplierEmail());
     }
 
     protected static void saveResponseToPage(Long page_id, Listing listing, Map<String,String> responses, Map<String, Document> docs){
@@ -41,7 +41,7 @@ public class AuthenticatingQuestionPage extends AuthenticatingController {
         } else {
             saveResponseToExistingPage(page, responses, docs);
         }
-        listing.addResponsePage(page, page_id, getEmail());
+        listing.addResponsePage(page, page_id, getSupplierEmail());
     }
     
     private static void saveResponseToNewPage(Page page, Map<String,String> responses){
