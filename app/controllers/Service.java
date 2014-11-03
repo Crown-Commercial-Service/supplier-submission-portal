@@ -74,6 +74,7 @@ public class Service extends AuthenticatingController {
         Listing listing = Listing.getByListingId(listingId);
 
         if(!listing.supplierId.equals(getSupplierId())) {
+            Logger.error("Supplier id of listing did not match the logged in supplier.");
             notFound();
         }
 
@@ -99,6 +100,7 @@ public class Service extends AuthenticatingController {
         Listing listing = Listing.getByListingId(listingId);
 
         if(!listing.supplierId.equals(getSupplierId())) {
+            Logger.error("Supplier id of listing did not match the logged in supplier.");
             notFound();
         }
 
@@ -115,6 +117,7 @@ public class Service extends AuthenticatingController {
         Listing listing = Listing.getByListingId(listingId);
 
         if(!listing.supplierId.equals(getSupplierId())) {
+            Logger.error("Supplier id of listing did not match the logged in supplier.");
             notFound();
         }
 
@@ -147,6 +150,7 @@ public class Service extends AuthenticatingController {
         Listing listing = Listing.getByListingId(listingId);
 
         if(!listing.supplierId.equals(getSupplierId())) {
+            Logger.error("Supplier id of listing did not match the logged in supplier.");
             notFound();
         }
 

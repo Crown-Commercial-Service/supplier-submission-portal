@@ -2,6 +2,7 @@ package controllers;
 
 import models.Listing;
 
+import play.Logger;
 import play.data.validation.Error;
 
 import java.util.HashMap;
