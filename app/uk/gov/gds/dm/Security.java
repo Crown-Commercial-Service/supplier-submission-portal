@@ -140,7 +140,7 @@ public class Security {
 
     private static Boolean qaSupplierEmailOk(String supplierEmail) {
         return Pattern.compile(
-            "digital-marketplace-development+test-supplier-\\d+@digital.cabinet-office.gov.uk"
+            "digital-marketplace-development\\+test-supplier-\\d+@digital.cabinet-office.gov.uk"
         ).matcher(supplierEmail).matches();
     }
 
