@@ -17,7 +17,7 @@ public class Service extends AuthenticatingController {
 
         // Check listing belongs to authenticated user
         if(!listing.supplierId.equals(getSupplierId())) {
-            Logger.error("Supplier id of listing did not match the logged in supplier.");
+            Logger.error("Supplier id of listing did not match the logged in supplier. Expected: " + listing.supplierId + ", Found: " + getSupplierId());
             notFound();
         }
 
@@ -74,7 +74,7 @@ public class Service extends AuthenticatingController {
         Listing listing = Listing.getByListingId(listingId);
 
         if(!listing.supplierId.equals(getSupplierId())) {
-            Logger.error("Supplier id of listing did not match the logged in supplier.");
+            Logger.error("Supplier id of listing did not match the logged in supplier. Expected: " + listing.supplierId + ", Found: " + getSupplierId());
             notFound();
         }
 
@@ -102,7 +102,7 @@ public class Service extends AuthenticatingController {
         Listing listing = Listing.getByListingId(listingId);
 
         if(!listing.supplierId.equals(getSupplierId())) {
-            Logger.error("Supplier id of listing did not match the logged in supplier.");
+            Logger.error("Supplier id of listing did not match the logged in supplier. Expected: " + listing.supplierId + ", Found: " + getSupplierId());
             notFound();
         }
 
@@ -120,7 +120,7 @@ public class Service extends AuthenticatingController {
         Listing listing = Listing.getByListingId(listingId);
 
         if(!listing.supplierId.equals(getSupplierId())) {
-            Logger.error("Supplier id of listing did not match the logged in supplier.");
+            Logger.error("Supplier id of listing did not match the logged in supplier. Expected: " + listing.supplierId + ", Found: " + getSupplierId());
             notFound();
         }
 
@@ -153,7 +153,7 @@ public class Service extends AuthenticatingController {
         Listing listing = Listing.getByListingId(listingId);
 
         if(!listing.supplierId.equals(getSupplierId())) {
-            Logger.error("Supplier id of listing did not match the logged in supplier.");
+            Logger.error("Supplier id of listing did not match the logged in supplier. Expected: " + listing.supplierId + ", Found: " + getSupplierId());
             notFound();
         }
 
