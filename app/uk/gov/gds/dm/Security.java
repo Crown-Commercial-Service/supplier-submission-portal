@@ -15,6 +15,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
+import java.util.regex.Pattern;
 
 public class Security {
 
@@ -117,22 +118,30 @@ public class Security {
     public static Boolean supplierIsAllowed(String supplierId, String supplierEmail){
         String appName = Play.configuration.getProperty("application.name");
         if(appName.equals("ssp-live")){
-            return (liveSupplierIds().contains(supplierId) || liveSupplierEmails().contains(supplierEmail));
+            return (liveSupplierIdOk(supplierId) || liveSupplierEmailOk(supplierEmail));
+        } else if (appName.equals("ssp-qa")) {
+            return qaSupplierEmailOk(supplierEmail);
         } else {
             return true;
         }
     }
 
-    private static List<String> liveSupplierIds() {
+    private static Boolean liveSupplierIdOk(String supplierId) {
         return Arrays.asList(new String[] {
             "577184"
-        });
+        }).contains(supplierId);
     }
 
-    private static List<String> liveSupplierEmails() {
+    private static Boolean liveSupplierEmailOk(String supplierEmail) {
         return Arrays.asList(new String[] {
-                "brendan.short+test@digital.cabinet-office.gov.uk"
-        });
+            "brendan.short+test@digital.cabinet-office.gov.uk"
+        }).contains(supplierEmail);
+    }
+
+    private static Boolean qaSupplierEmailOk(String supplierEmail) {
+        return Pattern.compile(
+            "digital-marketplace-development+test-supplier-\\d+@digital.cabinet-office.gov.uk"
+        ).matcher(supplierEmail).matches();
     }
 
     public static boolean applicationIsRunningAsSecure() {
