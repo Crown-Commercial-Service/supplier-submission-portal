@@ -33,9 +33,6 @@ public class QuestionPageDisplay extends AuthenticatingController {
 
     public static void showPage(Long pageId, Long listingId, Boolean return_to_summary) throws Exception {
 
-        if (request.querystring.contains("exception"))
-            throw new Exception("arrgh");
-
         Listing listing = Listing.getByListingId(listingId);
         Page page = null;
         Properties content = Fixtures.getContentProperties();
