@@ -10,19 +10,8 @@ import uk.gov.gds.dm.EmailSupport;
 import uk.gov.gds.dm.Security;
 import uk.gov.gds.dm.URLTools;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-
-import static uk.gov.gds.dm.CookieUtils.ssoCookieProperties.COOKIE_DATE;
-import static uk.gov.gds.dm.CookieUtils.ssoCookieProperties.ESOURCING_ID;
-import static uk.gov.gds.dm.CookieUtils.ssoCookieProperties.SUPPLIER_COMPANY_NAME;
-import static uk.gov.gds.dm.CookieUtils.ssoCookieProperties.SUPPLIER_EMAIL;
-import static uk.gov.gds.dm.CookieUtils.ssoCookieProperties.SUPPLIER_ID;
-
 public abstract class AuthenticatingController extends Controller {
 
-    static Map<String, String> supplierDetailsFromCookie = new HashMap<String, String>();
     static final String DM_URL = URLTools.getDigitalMarketplaceURL();
 
     @Catch(value = Throwable.class, priority = 1)
@@ -40,8 +29,6 @@ public abstract class AuthenticatingController extends Controller {
     public static void checkAuthenticationCookie() {
         if (Security.isAuthenticationRequired()) {
             doAuthenticationChecks();
-        } else {
-            populateMapWithFakeCookieData();
         }
     }
 
@@ -59,8 +46,7 @@ public abstract class AuthenticatingController extends Controller {
                 Logger.info("Supplier id (" + Security.getCookieSupplierId(gdmSsoCookie) + ") was not allowed.");
                 redirect(DM_URL + "login");
             } else {
-                populateMapWithSSOCookieData(gdmSsoCookie);
-                CookieUtils.updateSSOCookieWithCurrentTimestamp(supplierDetailsFromCookie);
+                CookieUtils.updateSSOCookieWithCurrentTimestamp(gdmSsoCookie);
             }
          } catch (Exception e){
             Logger.error("Cookie was encrypted using an invalid encryption key.");
@@ -69,36 +55,35 @@ public abstract class AuthenticatingController extends Controller {
          }
     }
 
-    private static void populateMapWithSSOCookieData(Http.Cookie cookie) {
-            supplierDetailsFromCookie.put(SUPPLIER_ID.toString(), Security.getCookieSupplierId(cookie));
-            supplierDetailsFromCookie.put(SUPPLIER_EMAIL.toString(), Security.getCookieEmail(cookie));
-            supplierDetailsFromCookie.put(SUPPLIER_COMPANY_NAME.toString(), Security.getCookieSupplierCompanyName(cookie));
-            supplierDetailsFromCookie.put(COOKIE_DATE.toString(), Security.getCookieDate(cookie));
-            supplierDetailsFromCookie.put(ESOURCING_ID.toString(), Security.getESourcingId(cookie));
-    }
-
-    private static void populateMapWithFakeCookieData() {
-        supplierDetailsFromCookie.put(SUPPLIER_ID.toString(), "1");
-        supplierDetailsFromCookie.put(SUPPLIER_EMAIL.toString(), "supplier@digital.cabinet-office.gov.uk");
-        supplierDetailsFromCookie.put(SUPPLIER_COMPANY_NAME.toString(), "SueDo LTD.");
-        supplierDetailsFromCookie.put(COOKIE_DATE.toString(), new Date().toGMTString());
-        supplierDetailsFromCookie.put(ESOURCING_ID.toString(), "999999");
-    }
-
     protected static String getSupplierId() {
-        return supplierDetailsFromCookie.get(SUPPLIER_ID.toString());
+        if (Security.isAuthenticationRequired()) {
+            return Security.getCookieSupplierId(request.current().cookies.get("gdmssosession"));
+        } else {
+            return "1";
+        }
     }
 
     protected static String getSupplierName() {
-        return supplierDetailsFromCookie.get(SUPPLIER_COMPANY_NAME.toString());
+        if (Security.isAuthenticationRequired()) {
+            return Security.getCookieSupplierCompanyName(request.current().cookies.get("gdmssosession"));
+        } else {
+            return "SueDo LTD.";
+        }
     }
 
-    protected static String getEmail() {
-        return supplierDetailsFromCookie.get(SUPPLIER_EMAIL.toString());
+    protected static String getSupplierEmail() {
+        if (Security.isAuthenticationRequired()) {
+            return Security.getCookieEmail(request.current().cookies.get("gdmssosession"));
+        } else {
+            return "supplier@digital.cabinet-office.gov.uk";
+        }
     }
 
-    protected static String getEsourcingId() {
-        return supplierDetailsFromCookie.get(ESOURCING_ID.toString());
+    protected static String getSupplierEsourcingId() {
+        if (Security.isAuthenticationRequired()) {
+            return Security.getESourcingId(request.current().cookies.get("gdmssosession"));
+        } else {
+            return "999999";
+        }
     }
-
 }
