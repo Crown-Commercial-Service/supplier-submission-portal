@@ -195,7 +195,7 @@ module.exports = function(grunt){
     watch: {
       css: {
         files: ['app/assets/sass/**/*.scss'],
-        tasks: ['sass:dev', 'dataUri'],
+        tasks: ['sass:dev', 'copy:ie_stylesheets', 'dataUri'],
         options: { nospawn: true }
       },
       images: {
