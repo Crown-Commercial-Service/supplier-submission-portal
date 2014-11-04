@@ -7,15 +7,18 @@ import play.data.Upload;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
 
 public class DocumentUtils {
 
     public static final int MAX_FILE_SIZE = 5400000;
+    private static final String[] ALLOWED_FILE_EXTENSIONS = { "pdf", "odf", "pda", "odt", "ods", "odp"};
 
     public static boolean validateDocumentFormat(Upload file){
+
         String fileType = FilenameUtils.getExtension(file.getFileName().toLowerCase());
-        return (fileType.equals("pdf") || fileType.equals("odf") || fileType.equals("pda"));
+        return (Arrays.asList(ALLOWED_FILE_EXTENSIONS).contains(fileType));
     }
 
     public static boolean validateDocumentFileSize(Upload file){
