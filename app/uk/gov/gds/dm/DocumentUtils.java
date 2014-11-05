@@ -13,7 +13,7 @@ import java.util.Date;
 public class DocumentUtils {
 
     public static final int MAX_FILE_SIZE = 5400000;
-    private static final String[] ALLOWED_FILE_EXTENSIONS = { "pdf", "odf", "pda", "odt", "ods", "odp"};
+    private static final String[] ALLOWED_FILE_EXTENSIONS = { "pdf", "pda", "odt", "ods", "odp"};
 
     public static boolean validateDocumentFormat(Upload file){
 
