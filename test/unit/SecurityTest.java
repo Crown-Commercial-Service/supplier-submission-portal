@@ -14,10 +14,10 @@ public class SecurityTest extends UnitTest {
         Play.configuration.setProperty("application.name", "ssp-qa");
 
         String testEmail = "gds-email@digital.cabinet-office.gov.uk";
-        assertTrue(Security.supplierIsAllowed("supplier-id", testEmail));
+        assertTrue(Security.supplierIsAllowed(testEmail));
 
         String nonTestEmail = "invalid-email@example.com";
-        assertFalse(Security.supplierIsAllowed("supplier-id", nonTestEmail));
+        assertFalse(Security.supplierIsAllowed(nonTestEmail));
 
         Play.configuration.setProperty("application.name", appName);
     }

@@ -115,27 +115,13 @@ public class Security {
         }
     }
 
-    public static Boolean supplierIsAllowed(String supplierId, String supplierEmail){
+    public static Boolean supplierIsAllowed(String supplierEmail){
         String appName = Play.configuration.getProperty("application.name");
-        if(appName.equals("ssp-live")){
-            return (liveSupplierIdOk(supplierId) || liveSupplierEmailOk(supplierEmail));
-        } else if (appName.equals("ssp-qa")) {
+        if (appName.equals("ssp-qa")) {
             return qaSupplierEmailOk(supplierEmail);
         } else {
             return true;
         }
-    }
-
-    private static Boolean liveSupplierIdOk(String supplierId) {
-        return Arrays.asList(new String[] {
-            "577184"
-        }).contains(supplierId);
-    }
-
-    private static Boolean liveSupplierEmailOk(String supplierEmail) {
-        return Arrays.asList(new String[] {
-            "brendan.short+test@digital.cabinet-office.gov.uk"
-        }).contains(supplierEmail);
     }
 
     private static Boolean qaSupplierEmailOk(String supplierEmail) {
