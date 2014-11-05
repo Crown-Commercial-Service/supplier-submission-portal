@@ -1,13 +1,9 @@
-%{ if (_label) { }%
-<fieldset class='question' id='${_name}'>
-%{ } else { }%
-<fieldset id='${_name}'>
-%{ } }%
-  #{question-heading
-    heading: _label,
-    hint: _hint,
-    error: _error
-  /}
+#{question-heading
+  questionID: _name,
+  heading: _label,
+  hint: _hint,
+  error: _error
+/}
   <label class='selection-button selection-button-boolean'>
     <input type='radio' name='${_name}' id='${_name}-option-1' value="Yes" ${_value?.get(0)?.equals("Yes") ? "checked='checked'" : ''} />
     Yes<span class='hidden'> I agree to the statement</span>

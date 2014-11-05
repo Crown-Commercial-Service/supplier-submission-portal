@@ -9,6 +9,8 @@
     @include heading-24;
     font-weight: bold;
     margin: 0 0 10px 0;
+    float: left; // This nixes the default positioning of a fieldset, which is
+    width: 100%; // half outside the fieldset
 
     &-with-hint {
       margin-bottom: 0;

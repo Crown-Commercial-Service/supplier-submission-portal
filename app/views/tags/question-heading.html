@@ -1,7 +1,4 @@
-<fieldset class='question' id='${_questionID}'>
-#{question-validation-wrapper-open
-  error: _error
-/}
+<fieldset class='question%{ if (_error) { }% validation-wrapper%{ } }%' id='${_questionID}'>
 %{ if (_heading) { }%
   <legend class='question-heading %{ if (_hint) { }% question-heading-with-hint %{ } }%'>
     ${_heading}
