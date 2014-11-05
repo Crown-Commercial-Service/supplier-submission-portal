@@ -17,7 +17,6 @@ public class DocumentUtils {
     private static final List<String> ALLOWED_FILE_EXTENSIONS = Arrays.asList(new String[]{ "pdf", "odf", "pda", "odt", "ods", "odp"});
 
     public static boolean validateDocumentFormat(Upload file){
-
         String fileType = FilenameUtils.getExtension(file.getFileName().toLowerCase());
         return (ALLOWED_FILE_EXTENSIONS.contains(fileType));
     }
