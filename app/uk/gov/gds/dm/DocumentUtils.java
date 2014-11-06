@@ -14,7 +14,7 @@ import java.util.List;
 public class DocumentUtils {
 
     public static final int MAX_FILE_SIZE = 5400000;
-    private static final List<String> ALLOWED_FILE_EXTENSIONS = Arrays.asList(new String[]{ "pdf", "odf", "pda", "odt", "ods", "odp"});
+    private static final List<String> ALLOWED_FILE_EXTENSIONS = Arrays.asList(new String[]{ "pdf", "pda", "odt", "ods", "odp"});
 
     public static boolean validateDocumentFormat(Upload file){
         String fileType = FilenameUtils.getExtension(file.getFileName().toLowerCase());
