@@ -42,13 +42,13 @@ public abstract class AuthenticatingController extends Controller {
 
             if (gdmSsoCookie == null) {
                 Logger.info("SSO Cookie does not exist.");
-                redirect(DM_URL + "login");
+                redirect(DM_URL + "g-cloud-6");
             } else if (Security.cookieHasExpired(gdmSsoCookie)) {
                 Logger.info("SSO Cookie has expired.");
-                redirect(DM_URL + "login");
+                redirect(DM_URL + "g-cloud-6");
             } else if (!Security.supplierIsAllowed(Security.getCookieEmail(gdmSsoCookie))) {
                 Logger.info("Supplier id (" + Security.getCookieSupplierId(gdmSsoCookie) + ") was not allowed.");
-                redirect(DM_URL + "login");
+                redirect(DM_URL + "g-cloud-6");
             } else {
                 CookieUtils.updateSSOCookieWithCurrentTimestamp(gdmSsoCookie);
             }
