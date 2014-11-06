@@ -9,7 +9,7 @@ xml.'cronentries' {
     'cron' {
         'description'('G6 Submissions Backups')
         'url'('/_ah/datastore_admin/backup.create?name=live&amp;amp;kind=Document&amp;kind=Page&amp;kind=listing&amp;filesystem=gs&amp;gs_bucket_name=ssp-live-backups')
-        'schedule'('every day 00:00')
+        'schedule'('every day 23:59')
         'target'('ah-builtin-python-bundle')
     }
     'cron' {
