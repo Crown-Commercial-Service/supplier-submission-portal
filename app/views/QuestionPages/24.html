@@ -290,17 +290,22 @@
     questionIsRelevantToSelectedLot = content.get(question + 'lots').contains(lot)
     if (questionIsRelevantToSelectedLot) {
   }%
-
-    #{forms/textbox-percentage
-      name: question,
-      label: content.get(question + 'text'),
+    #{question-heading
+      heading: content.get(question + 'text'),
+      questionID: question,
       hint: content.get(question + 'hint'),
-      error: flash.get(question),
-      value: oldValues?.get(question)?.isEmpty() ? "" : oldValues?.get(question)?.get(0),
-      assurance_type: content.get(question + 'assuranceApproach'),
-      assurance_value: oldValues?.get(question + 'assurance')?.isEmpty() ? "" : oldValues?.get(question + 'assurance')?.get(0)
+      error: flash.get(question)
     /}
-
+      #{forms/textbox-percentage
+        name: question,
+        label: content.get(question + 'text'),
+        hint: content.get(question + 'hint'),
+        error: flash.get(question),
+        value: oldValues?.get(question)?.isEmpty() ? "" : oldValues?.get(question)?.get(0),
+        assurance_type: content.get(question + 'assuranceApproach'),
+        assurance_value: oldValues?.get(question + 'assurance')?.isEmpty() ? "" : oldValues?.get(question + 'assurance')?.get(0)
+      /}
+    #{question-footer/}
   %{
     }
   }%

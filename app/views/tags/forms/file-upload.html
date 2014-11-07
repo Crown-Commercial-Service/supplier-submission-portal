@@ -1,7 +1,4 @@
-<fieldset class='question' id='${_name}'>
-  #{question-validation-wrapper-open
-    error: _error
-  /}
+<fieldset class='question%{ if (_error) { }% validation-wrapper%{ } }%' id='${_name}'>
   <label class='question-heading %{ if (_hint) { }%question-heading-with-hint%{ } }%' for='${_name}'>
     ${_label}
   </label>
@@ -11,14 +8,11 @@
   #{forms/error-message
     error: _error
   /}
-    %{if (_value != null && !(_value.isEmpty())) {}%
-    <p class='file-upload file-upload-current'><span>Current document:</span> ${_value}</p>
-    <p class='file-upload'><span>Upload a different document:</span> <input type='file' name='${_name}' id='${_name}' /></p>
-    %{}else {}%
-    <p class='file-upload'><input type='file' name='${_name}' id='${_name}' class='file-upload' /></p>
-    %{}}%
-    <input type='hidden' name='${_name}_uploaded' id='${_name}_uploaded' value='${_value}' />
-  #{question-footer
-    error: _error
-  /}
+  %{if (_value != null && !(_value.isEmpty())) {}%
+  <p class='file-upload file-upload-current'><span>Current document:</span> ${_value}</p>
+  <p class='file-upload'><span>Upload a different document:</span> <input type='file' name='${_name}' /></p>
+  %{}else {}%
+  <p class='file-upload'><input type='file' name='${_name}' class='file-upload' /></p>
+  %{}}%
+  <input type='hidden' name='${_name}_uploaded' id='${_name}_uploaded' value='${_value}' />
 </fieldset>

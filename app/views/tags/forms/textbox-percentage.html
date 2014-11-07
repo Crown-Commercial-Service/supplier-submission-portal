@@ -1,16 +1,4 @@
-#{question-validation-wrapper-open
-  error: _error
-/}
-<label class='question-heading' for='${_name}'>
-  ${_label}
-</label>
-#{forms/hint
-  hint: _hint
-/}
-#{forms/error-message
-  error: _error
-/}
-<input type='text' name='${_name}' id='${_name}' class='text-box text-box-percentage' value='${_value}' />
+<input type='text' name='${_name}' class='text-box text-box-percentage' value='${_value}' />
 <label class='text-box-percentage-label' for='${_name}'>
   % <span class='hidden'> ${_hidden_label}</span>
 </label>
@@ -22,6 +10,3 @@
     oldval: _assurance_value
   /}
 %{ } }%
-#{question-validation-wrapper-close
-  error: _error
-/}
