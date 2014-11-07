@@ -19,6 +19,9 @@ public class QuestionPageDisplay extends AuthenticatingController {
     public static void showPage(Long pageId, Long listingId, Boolean return_to_summary) throws Exception {
 
         Listing listing = Listing.getByListingId(listingId);
+
+        notFoundIfNull(listing);
+
         Page page = null;
         Properties content = Fixtures.getContentProperties();
 
@@ -27,12 +30,6 @@ public class QuestionPageDisplay extends AuthenticatingController {
         } catch (Exception e) {
             Logger.error(e.getMessage());
         }
-
-        if(listing == null){
-            Logger.error("Listing is null.");
-            notFound();
-        }
-
 
         // Check listing belongs to authenticated user
         if (!listing.supplierId.equals(getSupplierId())) {
