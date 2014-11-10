@@ -24,6 +24,9 @@ public class Page8 extends AuthenticatingQuestionPage {
                                 String return_to_summary) {
 
         Listing listing = Listing.getByListingId(listingId);
+
+        notFoundIfNull(listing);
+
         Map<String,Document> docs = new HashMap<String,Document>();
         
         if(!listing.supplierId.equals(getSupplierId())) {

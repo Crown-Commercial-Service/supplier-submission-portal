@@ -20,6 +20,9 @@ public class Page7 extends AuthenticatingQuestionPage {
 
     public static void savePage(Long listingId, String p7q1, String p7q2, Upload p7q3, String p7q3_uploaded, String return_to_summary) {
         Listing listing = Listing.getByListingId(listingId);
+
+        notFoundIfNull(listing);
+
         Map<String,Document> docs = new HashMap<String,Document>();
         
         if(!listing.supplierId.equals(getSupplierId())) {

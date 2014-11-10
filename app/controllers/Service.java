@@ -18,6 +18,8 @@ public class Service extends AuthenticatingController {
         
         Listing listing = Listing.getByListingId(listingId);
 
+        notFoundIfNull(listing);
+
         // Check listing belongs to authenticated user
         if(!listing.supplierId.equals(getSupplierId())) {
             Logger.error("Supplier id of listing did not match the logged in supplier. Expected: " + listing.supplierId + ", Found: " + getSupplierId());
@@ -79,6 +81,8 @@ public class Service extends AuthenticatingController {
         Logger.info(String.format("Completing listing: %d (%s)", listingId, serviceCompleted));
         Listing listing = Listing.getByListingId(listingId);
 
+        notFoundIfNull(listing);
+
         if(!listing.supplierId.equals(getSupplierId())) {
             Logger.error("Supplier id of listing did not match the logged in supplier. Expected: " + listing.supplierId + ", Found: " + getSupplierId());
             notFound();
@@ -106,6 +110,8 @@ public class Service extends AuthenticatingController {
         Logger.info(String.format("Marking listing as draft: %d", listingId));
         Listing listing = Listing.getByListingId(listingId);
 
+        notFoundIfNull(listing);
+
         if(!listing.supplierId.equals(getSupplierId())) {
             Logger.error("Supplier id of listing did not match the logged in supplier. Expected: " + listing.supplierId + ", Found: " + getSupplierId());
             notFound();
@@ -122,6 +128,8 @@ public class Service extends AuthenticatingController {
 
     public static void showDeletePage(Long listingId, String showDeleteMessage){
         Listing listing = Listing.getByListingId(listingId);
+
+        notFoundIfNull(listing);
 
         if(!listing.supplierId.equals(getSupplierId())) {
             Logger.error("Supplier id of listing did not match the logged in supplier. Expected: " + listing.supplierId + ", Found: " + getSupplierId());
@@ -155,6 +163,8 @@ public class Service extends AuthenticatingController {
 
     public static void delete(Long listingId){
         Listing listing = Listing.getByListingId(listingId);
+
+        notFoundIfNull(listing);
 
         if(!listing.supplierId.equals(getSupplierId())) {
             Logger.error("Supplier id of listing did not match the logged in supplier. Expected: " + listing.supplierId + ", Found: " + getSupplierId());
