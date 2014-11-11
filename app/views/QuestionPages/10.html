@@ -66,13 +66,11 @@
     }
   }%
 
-  <fieldset>
   %{
     question = page + 'q3'
     questionIsRelevantToSelectedLot = content.get(question + 'lots').contains(lot)
     if (questionIsRelevantToSelectedLot) {
   }%
-    <div class='question'>
       #{forms/textbox-with-word-count
         name: question,
         value: oldValues?.get(question)?.isEmpty() ? "" : oldValues?.get(question)?.get(0),
@@ -81,7 +79,6 @@
         max_words: 20,
         error: flash.get(question)
       /}
-    </div>
   %{
     }
   }%
@@ -90,7 +87,6 @@
     questionIsRelevantToSelectedLot = content.get(question + 'lots').contains(lot)
     if (questionIsRelevantToSelectedLot) {
   }%
-    <div class='question'>
       #{forms/textbox-with-word-count
         name: question,
         value: oldValues?.get(question)?.isEmpty() ? "" : oldValues?.get(question)?.get(0),
@@ -99,11 +95,9 @@
         max_words: 20,
         error: flash.get(question)
       /}
-    </div>
   %{
     }
   }%
-  </fieldset>
 
   %{
     question = page + 'q5'
