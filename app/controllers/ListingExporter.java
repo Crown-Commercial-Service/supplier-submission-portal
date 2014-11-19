@@ -27,13 +27,21 @@ public class ListingExporter extends Controller {
         String dateString = DocumentUtils.dateString();
         Logger.info(String.format("Adding %s completed listings to export queue", completedListings.size()));
         for (Listing l: completedListings) {
-            queue.add(withUrl("/cron/exportcompleted").param("date", dateString).param("id", l.id.toString()));
+            try {
+                queue.add(withUrl("/cron/exportcompleted").param("date", dateString).param("id", l.id.toString()));
+            } catch (Exception ex) {
+                Logger.error(ex, "Error adding a completed listing to the export queue");
+            }
         }
         listings.removeAll(completedListings);
         // Listings now only contains drafts
         Logger.info(String.format("Adding %s draft listings to export queue", listings.size()));
         for (Listing l: listings) {
-            queue.add(withUrl("/cron/exportdraft").param("date", dateString).param("id", l.id.toString()));
+            try {
+                queue.add(withUrl("/cron/exportdraft").param("date", dateString).param("id", l.id.toString()));
+            } catch (Exception ex) {
+                Logger.error(ex, "Error adding a draft listing to the export queue");
+            }
         }
         ok();
     }

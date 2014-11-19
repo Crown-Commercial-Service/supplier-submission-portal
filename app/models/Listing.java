@@ -221,8 +221,12 @@ public class Listing extends Model {
 
     @Override
     public String toString() {
-        Gson gson = new Gson();
-        return gson.toJson(this);
+        try {
+            Gson gson = new Gson();
+            return gson.toJson(this);
+        } catch (Exception ex) {
+            Logger.error(ex, "Error converting listing to JSON");
+            return "{\"ERROR\":\"" + ex.getMessage() + "\"}";
+        }
     }
-
 }
