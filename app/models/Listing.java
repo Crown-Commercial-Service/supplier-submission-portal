@@ -74,7 +74,10 @@ public class Listing extends Model {
         }
 
         if(counter > 1){
-            throw new Exception("There are duplicate pages in listing id: " + id);
+            Logger.error("There are duplicate pages in listing id: %s; removing page: %s", id, returnPage.toString());
+            completedPages.remove(returnPage);
+            update();
+            return getResponsePageByPageId(page_id);
         }
 
         return returnPage;
@@ -151,7 +154,7 @@ public class Listing extends Model {
     }
 
     public boolean allPagesHaveBeenCompleted() {
-        return pageSequence.size() == completedPageCount();
+        return pageSequence.size() <= completedPageCount();
     }
 
     public String getLastUpdated(){
