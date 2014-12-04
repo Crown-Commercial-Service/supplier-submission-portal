@@ -151,7 +151,7 @@ public class Listing extends Model {
     }
 
     public boolean allPagesHaveBeenCompleted() {
-        return pageSequence.size() == completedPageCount();
+        return pageSequence.size() <= completedPageCount();
     }
 
     public String getLastUpdated(){
