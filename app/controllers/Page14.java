@@ -35,9 +35,11 @@ public class Page14 extends AuthenticatingQuestionPage {
 
         validation.required(p14q2);
         validation.maxSize(p14q2, 100).message("Your answer must be less than 100 characters in length.");
+        validation.isTrue(!p14q2.startsWith("[")).key("p14q2").message("The character '[' is not allowed here.");
 
         validation.required(p14q3);
         validation.maxSize(p14q3, 100).message("Your answer must be less than 100 characters in length.");
+        validation.isTrue(!p14q3.startsWith("[")).key("p14q3").message("The character '[' is not allowed here.");
 
         if(validation.hasErrors()) {
             flash.put("body", params.get("body"));
