@@ -33,9 +33,11 @@ public class Page4 extends AuthenticatingQuestionPage {
         // Validate all fields on this page requiring validation
         validation.required(p4q1);
         validation.maxSize(p4q1, 100).message("Your answer must be less than 100 characters in length.");
+        validation.isTrue(!p4q1.startsWith("[")).key("p4q1").message("The character '[' is not allowed here.");
 
         validation.required(p4q2);
         validation.isTrue(ValidationUtils.isWordCountLessThan(p4q2, 50)).key("p4q2").message("Your answer must be less than 50 words.");
+        validation.isTrue(!p4q2.startsWith("[")).key("p4q2").message("The character '[' is not allowed here.");
         validation.maxSize(p4q2, 500);
 
         if(validation.hasErrors()) {

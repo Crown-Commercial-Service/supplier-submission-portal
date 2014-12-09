@@ -42,10 +42,12 @@ public class Page10 extends AuthenticatingQuestionPage {
         validation.required(p10q3).key("p10q3");
         validation.isTrue(ValidationUtils.isWordCountLessThan(p10q3, 20)).key("p10q3").message("Your answer must be less than 20 words.");
         validation.maxSize(p10q3, 200).message("Your answer must be less than 200 characters in length.");
+        validation.isTrue(!p10q3.startsWith("[")).key("p10q3").message("The character '[' is not allowed here.");
 
         validation.required(p10q4).key("p10q4");
         validation.isTrue(ValidationUtils.isWordCountLessThan(p10q4, 20)).key("p10q4").message("Your answer must be less than 20 words.");
         validation.maxSize(p10q4, 200).message("Your answer must be less than 200 characters in length.");
+        validation.isTrue(!p10q4.startsWith("[")).key("p10q4").message("The character '[' is not allowed here.");
 
         validation.required(p10q5).key("p10q5");
         validation.maxSize(p10q5, 10);

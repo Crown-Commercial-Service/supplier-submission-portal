@@ -123,7 +123,7 @@ public class QuestionPageDisplay extends AuthenticatingController {
             ArrayList<String> list = new ArrayList();
             if (val == null || val.isEmpty()) {
                 toReturn.put(key, list);
-            } else if (val.startsWith("[")) {
+            } else if (val.startsWith("[\"")) {
                 Type collectionType = new TypeToken<Collection<String>>() {
                 }.getType();
                 Collection<String> vals = gson.fromJson(val, collectionType);
