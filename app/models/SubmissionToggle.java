@@ -14,6 +14,6 @@ public class SubmissionToggle extends Model {
     public long enabled;
 
     public SubmissionToggle() {
-        this.enabled = 0;
+        this.enabled = 1;
     }
 }
