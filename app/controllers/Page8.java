@@ -42,8 +42,8 @@ public class Page8 extends AuthenticatingQuestionPage {
         Double min = null, max = null;
 
         validation.required(p8q1MinPrice).key("p8q1").message("validationNoMinPriceSpecified");
-        validation.match(p8q1MinPrice, "[0-9]+(\\.[0-9][0-9])?").key("p8q1").message("validationNotANumber");
-        validation.match(p8q1MaxPrice, "[0-9]+(\\.[0-9][0-9])?").key("p8q1").message("validationNotANumber");
+        validation.match(p8q1MinPrice, "[0-9]+(\\.\\d{1,5})?").key("p8q1").message("validationNotANumber");
+        validation.match(p8q1MaxPrice, "[0-9]+(\\.\\d{1,5})?").key("p8q1").message("validationNotANumber");
         validation.maxSize(p8q1MinPrice, 100);
         validation.maxSize(p8q1MaxPrice, 100);
         validation.required(p8q1Unit).key("p8q1").message("validationNoUnitSpecified");
