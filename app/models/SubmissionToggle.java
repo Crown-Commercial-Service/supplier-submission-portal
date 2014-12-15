@@ -11,9 +11,9 @@ public class SubmissionToggle extends Model {
 
     @Column("enabled")
     @NotNull
-    public long enabled;
+    public boolean enabled;
 
     public SubmissionToggle() {
-        this.enabled = 1;
+        this.enabled = true;
     }
 }

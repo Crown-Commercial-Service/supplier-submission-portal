@@ -47,7 +47,7 @@ public abstract class AuthenticatingController extends Controller {
         if(toggle == null){
             new SubmissionToggle().insert();
         } else {
-            if(toggle.enabled == 0){
+            if(!toggle.enabled){
                 redirect(URLTools.getDigitalMarketplaceURL() + "g-cloud-6/submissions-closed");
             }
         }
