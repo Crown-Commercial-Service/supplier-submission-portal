@@ -74,7 +74,7 @@ public class Listing extends Model {
         }
 
         if(counter > 1){
-            Logger.error("There are duplicate pages in listing id: %s; removing page: %s", id, returnPage.toString());
+            Logger.error("There are duplicate pages in listing id [1]: %s; removing page: %s", id, returnPage.toString());
             completedPages.remove(returnPage);
             update();
             return getResponsePageByPageId(page_id);
@@ -180,8 +180,20 @@ public class Listing extends Model {
     public Long getFirstIncompletePage() {
 
         ArrayList<Long> completedPageNumbers = new ArrayList<Long>();
+        ArrayList<Page> toRemove = new ArrayList<Page>();
         for (Page page : completedPages) {
-            completedPageNumbers.add(page.pageNumber);
+            if (completedPageNumbers.contains(page.pageNumber)) {
+                Logger.error("There are duplicate pages in listing id [2]: %s; removing page: %s", id, page.toString());
+                toRemove.add(page);
+            } else {
+                completedPageNumbers.add(page.pageNumber);
+            }
+        }
+        if(!toRemove.isEmpty()) {
+            for (Page pageToRemove : toRemove) {
+                completedPages.remove(pageToRemove);
+            }
+            update();
         }
         Collections.sort(completedPageNumbers);
         int i = 0;
