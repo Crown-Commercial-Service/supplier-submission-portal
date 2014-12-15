@@ -1,5 +1,7 @@
 package controllers;
 
+import models.Listing;
+import models.SubmissionToggle;
 import org.joda.time.DateTime;
 import play.Logger;
 import play.Play;
@@ -9,6 +11,8 @@ import uk.gov.gds.dm.CookieUtils;
 import uk.gov.gds.dm.EmailSupport;
 import uk.gov.gds.dm.Security;
 import uk.gov.gds.dm.URLTools;
+
+import java.util.List;
 
 public abstract class AuthenticatingController extends Controller {
 
@@ -31,8 +35,21 @@ public abstract class AuthenticatingController extends Controller {
 
     @Before
     public static void checkAuthenticationCookie() {
+        checkSubmissionsEnabled();
         if (Security.isAuthenticationRequired()) {
             doAuthenticationChecks();
+        }
+    }
+
+    private static void checkSubmissionsEnabled(){
+        SubmissionToggle toggle = SubmissionToggle.all(SubmissionToggle.class).get();
+
+        if(toggle == null){
+            new SubmissionToggle().insert();
+        } else {
+            if(!toggle.enabled){
+                redirect(URLTools.getDigitalMarketplaceURL() + "g-cloud-6/submissions-closed");
+            }
         }
     }
 
