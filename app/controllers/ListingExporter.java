@@ -8,6 +8,7 @@ import play.Logger;
 import play.Play;
 import play.mvc.Controller;
 import uk.gov.gds.dm.DocumentUtils;
+import uk.gov.gds.dm.ListingToJSONConverter;
 import uk.gov.gds.dm.S3Uploader;
 
 import static com.google.appengine.api.taskqueue.TaskOptions.Builder.withUrl;
@@ -91,8 +92,9 @@ public class ListingExporter extends Controller {
             Logger.warn(String.format("Export listing: Invalid listing id [%d] provided", id));
             return;
         }
+        String listingJSON = ListingToJSONConverter.convertToJson(listing);
         String documentKey = String.format("%s/%s/%s", date, listing.supplierId, DocumentUtils.s3ExportFilename(listing.id));
-        String documentUrl = uploader.upload(listing.toString().getBytes(), documentKey);
+        String documentUrl = uploader.upload(listingJSON.getBytes(), documentKey);
         Logger.info(String.format("Uploaded listing to: %s", documentUrl));
     }
 }
