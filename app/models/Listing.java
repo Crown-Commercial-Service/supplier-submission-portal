@@ -45,7 +45,7 @@ public class Listing extends Model {
     @NotNull
     public String lastUpdatedEmail;
 
-    public String lastCompletedByEmail;
+    public String lastCompletedByEmail = "";
     public Date lastCompleted;
 
     @Embedded
@@ -168,6 +168,9 @@ public class Listing extends Model {
     }
 
     public String getLastCompleted(){
+        if (this.lastCompleted == null) 
+            return "";
+        
         Date d = this.lastCompleted;
 
         // 10:20am, 8 July 2014
