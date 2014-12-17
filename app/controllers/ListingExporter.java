@@ -21,10 +21,20 @@ public class ListingExporter extends Controller {
 
     public static void exportCompletedListingsAsJson() {
 
+        Queue queue = QueueFactory.getDefaultQueue();
+        try {
+            queue.add(withUrl("/cron/exportlistingstask"));
+        } catch (Exception ex) {
+            Logger.error(ex, "Error adding export task to the queue");
+        }
+        ok();
+    }
+    
+    public static void exportListingsTask() {
         List<Listing> listings = Listing.all(Listing.class).order("supplierId").fetch();
         List<Listing> completedListings = ListingUtils.getCompletedListings(listings);
         Queue queue = QueueFactory.getDefaultQueue();
-        String dateString = DocumentUtils.dateString();
+        String dateString = "2014-12-16";
         Logger.info(String.format("Adding %s completed listings to export queue", completedListings.size()));
         for (Listing l: completedListings) {
             try {
