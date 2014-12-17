@@ -34,7 +34,7 @@ public class ListingExporter extends Controller {
         List<Listing> listings = Listing.all(Listing.class).order("supplierId").fetch();
         List<Listing> completedListings = ListingUtils.getCompletedListings(listings);
         Queue queue = QueueFactory.getDefaultQueue();
-        String dateString = "2014-12-16";
+        String dateString = DocumentUtils.dateString();
         Logger.info(String.format("Adding %s completed listings to export queue", completedListings.size()));
         for (Listing l: completedListings) {
             try {
