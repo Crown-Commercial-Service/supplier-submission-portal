@@ -75,6 +75,6 @@ GET     /logout                                 Logout.doLogout
 
 # Export data
 GET     /cron/export                            ListingExporter.exportCompletedListingsAsJson
-POST    /cron/exportlistingstask                ListingExporter.exportListingsTask
 POST    /cron/exportcompleted                   ListingExporter.exportCompletedListing
 POST    /cron/exportdraft                       ListingExporter.exportDraftListing
+POST    /cron/paginatedexport                   ListingExporter.paginatedExport

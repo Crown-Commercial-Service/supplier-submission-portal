@@ -1,5 +1,6 @@
 package controllers;
 
+import com.google.appengine.api.datastore.*;
 import com.google.appengine.api.taskqueue.Queue;
 import com.google.appengine.api.taskqueue.QueueFactory;
 import models.Listing;
@@ -7,10 +8,7 @@ import play.Logger;
 import play.Play;
 import play.mvc.Controller;
 import uk.gov.gds.dm.DocumentUtils;
-import uk.gov.gds.dm.ListingUtils;
 import uk.gov.gds.dm.S3Uploader;
-
-import java.util.List;
 
 import static com.google.appengine.api.taskqueue.TaskOptions.Builder.withUrl;
 
@@ -19,38 +17,61 @@ public class ListingExporter extends Controller {
     private static final S3Uploader completedUploader = new S3Uploader(String.valueOf(Play.configuration.get("s3.completed.export.bucket.name")));
     private static final S3Uploader draftUploader = new S3Uploader(String.valueOf(Play.configuration.get("s3.draft.export.bucket.name")));
 
+    private final static int EXPORT_PAGE_SIZE = 500;
+    
     public static void exportCompletedListingsAsJson() {
 
         Queue queue = QueueFactory.getDefaultQueue();
         try {
-            queue.add(withUrl("/cron/exportlistingstask"));
+            queue.add(withUrl("/cron/paginatedexport"));
         } catch (Exception ex) {
             Logger.error(ex, "Error adding export task to the queue");
         }
         ok();
     }
     
-    public static void exportListingsTask() {
-        List<Listing> listings = Listing.all(Listing.class).order("supplierId").fetch();
-        List<Listing> completedListings = ListingUtils.getCompletedListings(listings);
+    public static void paginatedExport(String cursor) {
         Queue queue = QueueFactory.getDefaultQueue();
         String dateString = DocumentUtils.dateString();
-        Logger.info(String.format("Adding %s completed listings to export queue", completedListings.size()));
-        for (Listing l: completedListings) {
-            try {
-                queue.add(withUrl("/cron/exportcompleted").param("date", dateString).param("id", l.id.toString()));
-            } catch (Exception ex) {
-                Logger.error(ex, "Error adding a completed listing to the export queue");
-            }
+        DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+        FetchOptions fetchOptions = FetchOptions.Builder.withLimit(EXPORT_PAGE_SIZE);
+
+        if (cursor != null) {
+            fetchOptions.startCursor(Cursor.fromWebSafeString(cursor));
         }
-        listings.removeAll(completedListings);
-        // Listings now only contains drafts
-        Logger.info(String.format("Adding %s draft listings to export queue", listings.size()));
-        for (Listing l: listings) {
+
+        Query q = new Query("listing");
+        PreparedQuery pq = datastore.prepare(q);
+        QueryResultList<Entity> results = pq.asQueryResultList(fetchOptions);
+
+        boolean thereWereResultsThisTime = false;
+        for (Entity listing : results) {
+            if ((boolean)listing.getProperty("serviceSubmitted")) {
+                // It's a completed listing
+                try {
+                    queue.add(withUrl("/cron/exportcompleted").param("date", dateString).param("id", Long.toString(listing.getKey().getId())));
+                } catch (Exception ex) {
+                    Logger.error(ex, "Error adding a completed listing to the export queue");
+                }
+            } else {
+                // It's a draft listing
+                try {
+                    queue.add(withUrl("/cron/exportdraft").param("date", dateString).param("id", Long.toString(listing.getKey().getId())));
+                } catch (Exception ex) {
+                    Logger.error(ex, "Error adding a draft listing to the export queue");
+                }
+            }
+            thereWereResultsThisTime = true;
+        }
+
+        String cursorString = results.getCursor().toWebSafeString();
+
+        if (thereWereResultsThisTime) {
             try {
-                queue.add(withUrl("/cron/exportdraft").param("date", dateString).param("id", l.id.toString()));
+                // We haven't got to the end yet - add a task to fetch the next page of listings
+                queue.add(withUrl("/cron/paginatedexport").param("cursor", cursorString));
             } catch (Exception ex) {
-                Logger.error(ex, "Error adding a draft listing to the export queue");
+                Logger.error(ex, "Error adding export task to the queue");
             }
         }
         ok();
