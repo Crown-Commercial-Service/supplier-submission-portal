@@ -6,3 +6,5 @@ require:
     - play -> siena 2.0.7
     - com.elevenware -> tokenlib 1.1
     - com.elevenware -> s3-simple-appengine 1.0
+    - com.google.guava -> guava 18.0
+
