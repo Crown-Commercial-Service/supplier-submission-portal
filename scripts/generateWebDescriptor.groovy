@@ -16,7 +16,7 @@ def xml = new MarkupBuilder(writer)
 
 xml.'appengine-web-app'( xmlns: 'http://appengine.google.com/ns/1.0') {
     application(appName)
-    version('1-0-5')
+    version('1-0-6')
     'threadsafe' ('true')
     'ssl-enabled'(sslEnabled)
     'system-properties' {
