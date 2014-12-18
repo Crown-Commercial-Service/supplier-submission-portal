@@ -24,10 +24,10 @@ public class KeyMapper {
                 "p36q1", "p37q2");
 
         static final List<String> CONVERT_TO_ARRAY_OF_STRING_WITH_ASSURANCE = Arrays.asList("p23q1", "p23q2", "p23q3", 
-                "p24q5", "p24q7");
+                "p24q5", "p38q1", "p40q1");
 
         static final List<String> STRINGS_WITH_ASSURANCE = Arrays.asList("p24q3", "p24q6", "p24q7", "p25q1", "p25q2", 
-                "p38q1", "p39q1", "p40q1");
+                "p39q1");
 
         static final List<String> BOOLEANS_WITH_ASSURANCE = Arrays.asList("p24q4", "p24q8", "p24q9", "p25q3", "p25q4", 
                 "p26q1", "p27q1", "p27q2", "p28q1", "p28q2", "p28q3", "p28q4", "p28q5", "p29q1", "p30q1", "p30q2", 
@@ -111,9 +111,9 @@ public class KeyMapper {
         .put("p22q4", "dataBackupRecovery")         // Boolean
         .put("p22q5", "dataExtractionRemoval")      // Boolean
 
-        .put("p23q1", "dataProtectionBetweenUserAndService")     // Object {answer:String[], assurance:String} ** Currently radio button but should be checkboxes?
-        .put("p23q2", "dataProtectionWithinService")             // Object {answer:String[], assurance:String} ** Currently radio button but should be checkboxes?
-        .put("p23q3", "dataProtectionBetweenServices")           // Object {answer:String[], assurance:String} ** Currently radio button but should be checkboxes?
+        .put("p23q1", "dataProtectionBetweenUserAndService")     // Object {answer:String[], assurance:String} ** Currently radio button but should be checkboxes
+        .put("p23q2", "dataProtectionWithinService")             // Object {answer:String[], assurance:String} ** Currently radio button but should be checkboxes
+        .put("p23q3", "dataProtectionBetweenServices")           // Object {answer:String[], assurance:String} ** Currently radio button but should be checkboxes
 
         .put("p24q1", "datacentreLocations")                     // Object {answer:String[], assurance:String} 
         .put("p24q2", "dataManagementLocations")                 // Object {answer:String[], assurance:String}
@@ -121,7 +121,7 @@ public class KeyMapper {
         .put("p24q4", "datacentreProtectionDisclosure")          // Object {answer:Boolean, assurance:String}
         .put("p24q5", "dataAtRestProtections")                   // Object {answer:String[], assurance:String} ** Currently radio button but should be checkboxes
         .put("p24q6", "dataSecureDeletion")                      // Object {answer:String, assurance:String}
-        .put("p24q7", "dataMediaDisposal")                       // Object {answer:String[], assurance:String} ** Currently radio button but should be checkboxes? 
+        .put("p24q7", "dataStorageMediaDisposal")                // Object {answer:String[], assurance:String}
         .put("p24q8", "dataSecureEquipmentDisposal")             // Object {answer:Boolean, assurance:String}
         .put("p24q9", "dataRedundantEquipmentAccountsRevoked")   // Object {answer:Boolean, assurance:String}
         .put("p24q10", "serviceAvailabilityPercentage")          // Object {answer:Number, assurance:String}
@@ -172,11 +172,11 @@ public class KeyMapper {
         .put("p37q1", "onboardingGuidance")                      // Object {answer:Boolean, assurance:String}
         .put("p37q2", "interconnectionMethods")                  // Object {answer:String[], assurance:String} 
 
-        .put("p38q1", "serviceManagementModel")                  // Object {answer:String, assurance:String} 
+        .put("p38q1", "serviceManagementModel")                  // Object {answer:String[], assurance:String} ** Currently radio button but should be checkboxes
 
         .put("p39q1", "auditInformationProvided")                // Object {answer:String, assurance:String} 
 
-        .put("p40q1", "deviceAccessMethod")                      // Object {answer:String, assurance:String} 
+        .put("p40q1", "deviceAccessMethod")                      // Object {answer:String[], assurance:String} ** Currently radio button but should be checkboxes
         .put("p40q2", "serviceConfigurationGuidance")            // Object {answer:Boolean, assurance:String}
         .put("p40q3", "trainingProvided")                        // Object {answer:Boolean, assurance:String}
 
