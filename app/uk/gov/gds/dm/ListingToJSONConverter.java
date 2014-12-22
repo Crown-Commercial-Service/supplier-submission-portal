@@ -11,16 +11,18 @@ public class ListingToJSONConverter {
     public final static String JSON_TRUE = "true";
     public final static String JSON_FALSE = "false";
     
+    private final static Gson gson = new Gson();
+    
     public static String convertToJson(Listing listing) {
         StringBuilder sb = new StringBuilder("{");
         sb.append("\"id\" : ").append(listing.id).append(",");
         sb.append("\"supplierId\" : ").append(listing.supplierId).append(",");
-        sb.append("\"lot\" : \"").append(listing.lot).append("\",");
-        sb.append("\"title\" : \"").append(listing.title).append("\",");
-        sb.append("\"lastUpdated\" : \"").append(listing.getLastUpdated()).append("\",");
-        sb.append("\"lastUpdatedByEmail\" : \"").append(listing.lastUpdatedEmail).append("\",");
-        sb.append("\"lastCompleted\" : \"").append(listing.getLastCompleted()).append("\",");
-        sb.append("\"lastCompletedByEmail\" : \"").append(listing.lastCompletedByEmail).append("\",");
+        sb.append("\"lot\" : ").append(gson.toJson(listing.lot)).append(",");
+        sb.append("\"title\" : ").append(gson.toJson(listing.title)).append(",");
+        sb.append("\"lastUpdated\" : ").append(gson.toJson(listing.getLastUpdated())).append(",");
+        sb.append("\"lastUpdatedByEmail\" : ").append(gson.toJson(listing.lastUpdatedEmail)).append(",");
+        sb.append("\"lastCompleted\" : ").append(gson.toJson(listing.getLastCompleted())).append(",");
+        sb.append("\"lastCompletedByEmail\" : ").append(gson.toJson(listing.lastCompletedByEmail)).append(",");
         
         for (Page page : listing.completedPages) {
             sb.append(getPageJSON(page));
@@ -36,7 +38,6 @@ public class ListingToJSONConverter {
 
     private static String getPageJSON(Page page) {
         StringBuilder sb = new StringBuilder();
-        Gson gson = new Gson();
         try {
             for (String oldkey : page.responses.keySet()) {
 
