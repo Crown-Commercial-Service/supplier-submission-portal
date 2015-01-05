@@ -21,7 +21,7 @@ public class Dashboard extends AuthenticatingController {
         supplierDetails.put("supplierId", getSupplierId());
         supplierDetails.put("esourcingId", getSupplierEsourcingId());
         supplierDetails.put("supplierEmail", getSupplierEmail());
-        
+
         render(listings, completedListings, supplierDetails);
     }
 }

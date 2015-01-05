@@ -45,7 +45,7 @@ public class Listing extends Model {
     @NotNull
     public String lastUpdatedEmail;
 
-    public String lastCompletedByEmail;
+    public String lastCompletedByEmail = "";
     public Date lastCompleted;
 
     @Embedded
@@ -160,21 +160,24 @@ public class Listing extends Model {
     public String getLastUpdated(){
         Date d = this.lastUpdated;
 
-        // 10:20am, 8 July 2014
-        SimpleDateFormat sdf = new SimpleDateFormat("KK:mmaa, dd MMM yyyy");
+        // RFC 3339 Date-Time format
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssXXX");
         sdf.setTimeZone(TimeZone.getTimeZone("Europe/London"));
         String formattedDateString = sdf.format(d);
-        return formattedDateString.replace("AM", "am").replace("PM","pm");
+        return formattedDateString;
     }
 
     public String getLastCompleted(){
+        if (this.lastCompleted == null) 
+            return "";
+        
         Date d = this.lastCompleted;
 
-        // 10:20am, 8 July 2014
-        SimpleDateFormat sdf = new SimpleDateFormat("KK:mmaa, dd MMM yyyy");
+        // RFC 3339 Date-Time format
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssXXX");
         sdf.setTimeZone(TimeZone.getTimeZone("Europe/London"));
         String formattedDateString = sdf.format(d);
-        return formattedDateString.replace("AM", "am").replace("PM","pm");
+        return formattedDateString;
     }
 
     public Long getFirstIncompletePage() {
