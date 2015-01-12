@@ -58,8 +58,10 @@ public class ListingToJSONConverter {
                     Logger.error("NO NEW KEY FOUND FOR OLD KEY: %s", oldkey);
                 }
 
-                if (KeyMapper.ARRAYS_OF_STRING.contains(oldkey) || KeyMapper.NUMBERS.contains(oldkey)) {
-                    // String arrays and numbers are already formatted correctly
+                if (KeyMapper.ARRAYS_OF_STRING.contains(oldkey)) {
+                    // String arrays are already JSON-formatted correctly
+                } else if (KeyMapper.NUMBERS.contains(oldkey)) {
+                    value = fixNumberFormat(val);
                 } else if (KeyMapper.STRINGS.contains(oldkey)) {
                     value = gson.toJson(val);
                 } else if (KeyMapper.BOOLEANS.contains(oldkey)) {
@@ -78,7 +80,7 @@ public class ListingToJSONConverter {
                     value = "{\"value\":" + convertToBoolean(val, page) + ", \"assurance\":" + gson.toJson(assurance) + "}";
                 } else if (KeyMapper.NUMBERS_WITH_ASSURANCE.contains(oldkey)) {
                     String assurance = page.responses.get(oldkey + "assurance");
-                    value = "{\"value\":" + val + ", \"assurance\":" + gson.toJson(assurance) + "}";
+                    value = "{\"value\":" + fixNumberFormat(val) + ", \"assurance\":" + gson.toJson(assurance) + "}";
                 } else {
                     Logger.error("KEY TYPE NOT FOUND IN MAPPER: %s", oldkey);
                 }
@@ -96,6 +98,14 @@ public class ListingToJSONConverter {
             Logger.error(ex, "ERROR EXPORTING PAGE TO JSON; ListingId=%d; PageNumber=%d", page.listingId, page.pageNumber);
         }
         return sb.toString();
+    }
+
+    private static String fixNumberFormat(String val) {
+        if (val.startsWith("0")) {
+            Double d = Double.parseDouble(val);
+            return d.toString();
+        }
+        else return val;
     }
 
     private static String convertToBoolean(String val, Page page) {
