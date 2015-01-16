@@ -19,7 +19,7 @@ public class ListingExporter extends Controller {
     private static final S3Uploader draftUploader = new S3Uploader(String.valueOf(Play.configuration.get("s3.draft.export.bucket.name")));
 
     private final static int EXPORT_PAGE_SIZE = 500;
-    
+
     public static void exportCompletedListingsAsJson() {
 
         Queue queue = QueueFactory.getDefaultQueue();
@@ -30,7 +30,7 @@ public class ListingExporter extends Controller {
         }
         ok();
     }
-    
+
     public static void paginatedExport(String cursor) {
         Queue queue = QueueFactory.getDefaultQueue();
         String dateString = DocumentUtils.dateString();
@@ -93,8 +93,14 @@ public class ListingExporter extends Controller {
             return;
         }
         String listingJSON = ListingToJSONConverter.convertToJson(listing);
+        byte[] listingBytes;
+        try {
+            listingBytes = listingJSON.getBytes("UTF-8");
+        } catch (java.io.UnsupportedEncodingException ex) {
+            listingBytes = listingJSON.getBytes();
+        }
         String documentKey = String.format("%s/%s/%s", date, listing.supplierId, DocumentUtils.s3ExportFilename(listing.id));
-        String documentUrl = uploader.upload(listingJSON.getBytes(), documentKey);
+        String documentUrl = uploader.upload(listingBytes, documentKey);
         Logger.info(String.format("Uploaded listing to: %s", documentUrl));
     }
 }
