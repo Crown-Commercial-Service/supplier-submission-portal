@@ -92,7 +92,8 @@ public class ListingToJSONConverter {
             }
             for (Document doc : page.submittedDocuments.values()) {
                 String newkey = KeyMapper.KEYS_MAP.get(doc.questionId) + "URL";
-                sb.append("\"").append(newkey).append("\" : ").append(gson.toJson(doc.documentUrl)).append(",");
+                String url = doc.documentUrl.replace("terms-and-condtions", "terms-and-conditions");
+                sb.append("\"").append(newkey).append("\" : ").append(gson.toJson(url)).append(",");
             }
         } catch (Exception ex) {
             Logger.error(ex, "ERROR EXPORTING PAGE TO JSON; ListingId=%d; PageNumber=%d", page.listingId, page.pageNumber);
