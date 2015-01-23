@@ -92,7 +92,7 @@ public class ListingToJSONConverter {
             }
             for (Document doc : page.submittedDocuments.values()) {
                 String newkey = KeyMapper.KEYS_MAP.get(doc.questionId) + "URL";
-                String url = doc.documentUrl.replace("terms-and-condtions", "terms-and-conditions");
+                String url = doc.documentUrl.replace("terms-and-condtions", "terms-and-conditions").replace("gds-g6-submission-bucket-live", "dm-g6-services-documents");
                 sb.append("\"").append(newkey).append("\" : ").append(gson.toJson(url)).append(",");
             }
         } catch (Exception ex) {
