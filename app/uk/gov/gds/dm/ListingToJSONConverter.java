@@ -5,6 +5,7 @@ import models.Document;
 import models.Listing;
 import models.Page;
 import play.Logger;
+import play.Play;
 
 public class ListingToJSONConverter {
     
@@ -92,13 +93,20 @@ public class ListingToJSONConverter {
             }
             for (Document doc : page.submittedDocuments.values()) {
                 String newkey = KeyMapper.KEYS_MAP.get(doc.questionId) + "URL";
-                String url = doc.documentUrl.replace("terms-and-condtions", "terms-and-conditions").replace("gds-g6-submission-bucket-live", "dm-g6-services-documents");
+                String url = convertDocumentUrl(doc.documentUrl);
                 sb.append("\"").append(newkey).append("\" : ").append(gson.toJson(url)).append(",");
             }
         } catch (Exception ex) {
             Logger.error(ex, "ERROR EXPORTING PAGE TO JSON; ListingId=%d; PageNumber=%d", page.listingId, page.pageNumber);
         }
         return sb.toString();
+    }
+
+    private static String convertDocumentUrl(String url) {
+        return url.replace("terms-and-condtions", "terms-and-conditions")                                   // Fix typo in filename
+                .replace("s3-eu-west-1.amazonaws.com", "assets.digitalmarketplace.service.gov.uk")          // Update to new domain
+                .replace(String.valueOf(Play.configuration.get("application.s3.bucket.name")), "documents") // Update to new path
+                .replaceAll("[0-9]{16}/", "");                                                              // Remove service id folder from path
     }
 
     private static String fixNumberFormat(String val) {
